@@ -9,9 +9,15 @@ import streamlit as st
 from financial_dashboard import db
 from financial_dashboard.analytics import (
     annualized_logarithmic_regression_change,
+    drawdown_from_peak,
+    derived_series,
+    inflation_adjusted_series,
     logarithmic_regression_channel,
+    logarithmic_regression_r_squared,
+    monthly_log_return_correlation,
     period_change,
     rebased_price_level,
+    rolling_volatility,
 )
 from financial_dashboard.status import freshness_status
 from financial_dashboard.sync import synchronize
@@ -162,7 +168,7 @@ def format_price(value: float, symbol: str, decimals: int) -> str:
         return f"{sign}{amount:,.0f} pts"
     if symbol == "SP500":
         return f"{sign}{amount:,.{decimals}f} pts"
-    if symbol == "US_INFLATION":
+    if symbol in {"US_INFLATION", "IRAN_INFLATION"}:
         return f"{sign}{amount:,.{decimals}f}%"
     return f"{sign}${amount:,.{decimals}f}"
 
@@ -187,7 +193,9 @@ def build_chart(
     full_view_start = int((first_date - date_padding).timestamp() * 1000)
     full_view_end = int((last_date + date_padding).timestamp() * 1000)
     fig = go.Figure()
-    source_groups = list(frame.groupby("source", sort=False))
+    source_groups = (
+        list(frame.groupby("source", sort=False)) if "source" in frame.columns else [("derived", frame)]
+    )
     for source, source_frame in source_groups:
         is_long_term = source == "shiller_monthly"
         fig.add_trace(
@@ -271,6 +279,7 @@ query = st.query_params
 for key, allowed in {
     "dashboard_section": {"Iran", "U.S."},
     "selected_range": set(RANGES),
+    "dashboard_view": {"Detail", "Overview"},
 }.items():
     value = query.get(key)
     if value in allowed and key not in st.session_state:
@@ -294,6 +303,13 @@ with header_right:
             st.session_state["sync_results"] = synchronize("daily")
             read_prices.clear()
 
+if "dashboard_view" not in st.session_state:
+    st.session_state["dashboard_view"] = "Detail"
+dashboard_view = st.selectbox(
+    "Workspace", ("Detail", "Overview"), key="dashboard_view", label_visibility="collapsed"
+)
+st.query_params["dashboard_view"] = dashboard_view
+
 if "sync_results" in st.session_state:
     results = st.session_state["sync_results"]
     failures = [r for r in results if r["status"] == "failed"]
@@ -307,6 +323,43 @@ if "sync_results" in st.session_state:
             use_container_width=True,
             hide_index=True,
         )
+
+if dashboard_view == "Overview":
+    st.markdown("### Market overview")
+    st.caption("Latest locally stored observations. Select an instrument to open its detailed chart.")
+    for country, names in (("Iran", IRAN_INSTRUMENTS), ("U.S.", US_INSTRUMENTS)):
+        st.markdown(f"#### {country}")
+        columns = st.columns(min(3, len(names)))
+        for column, name in zip(columns * ((len(names) + len(columns) - 1) // len(columns)), names):
+            instrument = INSTRUMENTS[name]
+            overview_frame = read_prices(instrument["symbol"])
+            with column:
+                if overview_frame.empty:
+                    st.metric(name, "No data")
+                else:
+                    latest_overview = overview_frame.iloc[-1]
+                    _, one_day = period_change(overview_frame, 1)
+                    _, one_month = period_change(overview_frame, 30)
+                    _, one_year = period_change(overview_frame, 365)
+                    st.metric(
+                        name,
+                        format_price(float(latest_overview["close"]), instrument["symbol"], instrument["decimals"]),
+                        delta=f"1D {one_day:+.1f}% · 1M {one_month:+.1f}% · 1Y {one_year:+.1f}%",
+                    )
+                    sparkline = go.Figure(go.Scatter(
+                        x=overview_frame.tail(90)["market_date"], y=overview_frame.tail(90)["close"],
+                        mode="lines", line={"color": instrument["accent"], "width": 1.5}, hoverinfo="skip"
+                    ))
+                    sparkline.update_layout(height=80, margin={"l": 0, "r": 0, "t": 0, "b": 0},
+                                            paper_bgcolor=theme["background"], plot_bgcolor=theme["background"],
+                                            xaxis={"visible": False}, yaxis={"visible": False})
+                    st.plotly_chart(sparkline, use_container_width=True, theme=None, config={"displayModeBar": False})
+                    if st.button(f"Open {name}", key=f"open_overview_{name}"):
+                        st.session_state["dashboard_section"] = country
+                        st.session_state["iran_chart" if country == "Iran" else "us_chart"] = name
+                        st.session_state["dashboard_view"] = "Detail"
+                        st.rerun()
+    st.stop()
 
 if st.session_state.get("dashboard_section") not in {"Iran", "U.S."}:
     st.session_state["dashboard_section"] = "Iran"
@@ -483,13 +536,18 @@ else:
             delta=f"{absolute_sign}{format_price(absolute, symbol, instrument['decimals'])}",
         )
 
-chart_selector_column, comparison_selector_column, range_column, controls_right = st.columns(
-    [1.65, 1.65, 3.25, 1.1], vertical_alignment="center"
+chart_selector_column, comparison_selector_column, analysis_column, range_column, controls_right = st.columns(
+    [1.45, 1.45, 1.45, 3.0, 1.1], vertical_alignment="center"
 )
 with chart_selector_column:
     st.selectbox("Chart", chart_options, key=chart_selector_key, label_visibility="collapsed")
 with comparison_selector_column:
     st.selectbox("Compare with", comparison_options, key="comparison_chart", label_visibility="collapsed")
+with analysis_column:
+    analysis_mode = st.selectbox(
+        "View", ("Price", "Drawdown", "30D volatility", "Inflation-adjusted"),
+        label_visibility="collapsed", key="analysis_mode"
+    )
 with range_column:
     selected_range = st.radio(
         "Range", list(RANGES), horizontal=True, label_visibility="collapsed", key="selected_range"
@@ -541,14 +599,50 @@ with details_column:
             help="Both chart lines are rebased to 1.00× at this shared start date.",
         )
 
+display_frame = chart_primary_frame.copy()
+display_comparison = comparison_frame
+display_title = selected_name
+display_accent = instrument["accent"]
+display_decimals = 2 if comparison_frame is not None else instrument["decimals"]
+display_logarithmic = logarithmic
+if analysis_mode == "Drawdown":
+    display_frame = drawdown_from_peak(comparison_primary_frame)[["market_date", "drawdown"]].rename(
+        columns={"drawdown": "close"}
+    )
+    display_title = f"{selected_name} drawdown"
+    display_accent = "#e76f51"
+    display_decimals = 2
+    display_logarithmic = False
+    display_comparison = None
+elif analysis_mode == "30D volatility":
+    display_frame = rolling_volatility(comparison_primary_frame)[["market_date", "volatility"]].rename(
+        columns={"volatility": "close"}
+    )
+    display_title = f"{selected_name} volatility"
+    display_accent = "#7b61ff"
+    display_decimals = 2
+    display_logarithmic = False
+    display_comparison = None
+elif analysis_mode == "Inflation-adjusted":
+    cpi_symbol = "IRAN_INFLATION" if dashboard_section == "Iran" else "US_INFLATION"
+    cpi_frame = read_prices(cpi_symbol)
+    display_frame = inflation_adjusted_series(comparison_primary_frame, cpi_frame)
+    display_title = f"{selected_name} in constant purchasing power"
+    display_comparison = None
+    display_logarithmic = logarithmic
+    if display_frame.empty:
+        st.info("No matching CPI observations are available for this inflation-adjusted view.")
+        display_frame = chart_primary_frame.copy()
+        display_title = selected_name
+
 days = RANGES[selected_range]
-visible = chart_primary_frame
-visible_comparison = comparison_frame
+visible = display_frame
+visible_comparison = display_comparison
 if days is not None:
     cutoff = pd.Timestamp(datetime.now(timezone.utc).date() - timedelta(days=days))
     visible = chart_primary_frame[chart_primary_frame["market_date"] >= cutoff]
-    if comparison_frame is not None:
-        visible_comparison = comparison_frame[comparison_frame["market_date"] >= cutoff]
+    if display_comparison is not None:
+        visible_comparison = display_comparison[display_comparison["market_date"] >= cutoff]
 if visible.empty:
     # Monthly sources can have no observation inside a short calendar range;
     # keep their latest point visible instead of rendering an empty chart.
@@ -556,14 +650,14 @@ if visible.empty:
 
 corridor = None
 annualized_regression_change = None
-regression_frame = chart_primary_frame
+regression_frame = display_frame
 # A century of monthly history plus a recent daily segment must not give the
 # recent decade thousands of times more weight in the long-term trend fit.
-if symbol == "SP500" and selected_range == "All":
+if symbol == "SP500" and selected_range == "All" and analysis_mode == "Price":
     regression_frame = (
         frame.set_index("market_date").resample("ME").last().dropna(subset=["close"]).reset_index()
     )
-if corridor_enabled:
+if corridor_enabled and analysis_mode == "Price":
     try:
         corridor = logarithmic_regression_channel(
             regression_frame, corridor_start, coverage=0.95 if corridor_95 else 1.0
@@ -579,14 +673,14 @@ if comparison_error:
 
 chart = build_chart(
     visible,
-    selected_name,
-    instrument["accent"],
-    2 if comparison_frame is not None else instrument["decimals"],
-    logarithmic,
+    display_title,
+    display_accent,
+    display_decimals,
+    display_logarithmic,
     theme,
     corridor,
     visible_comparison,
-    comparison_name if comparison_frame is not None else None,
+    comparison_name if visible_comparison is not None else None,
 )
 
 if annualized_regression_change is not None:
@@ -596,6 +690,10 @@ if annualized_regression_change is not None:
             "Trend / year",
             f"{trend_sign}{annualized_regression_change:.2f}% / year",
             help="Annualized percentage change implied by the logarithmic regression trend.",
+        )
+        st.caption(
+            f"R² {logarithmic_regression_r_squared(regression_frame, corridor_start):.3f} · "
+            "descriptive trend, not a prediction"
         )
 with details_column:
     st.toggle(
@@ -612,7 +710,7 @@ with details_column:
         "95% corridor",
         key="corridor_95",
         help="Ignore the 5% most extreme logarithmic residuals for a tighter channel.",
-        disabled=not corridor_enabled,
+        disabled=not corridor_enabled or analysis_mode != "Price",
     )
 with chart_column:
     st.plotly_chart(
@@ -620,6 +718,13 @@ with chart_column:
         use_container_width=True,
         theme=None,
         config={"displayModeBar": False, "scrollZoom": False, "responsive": True},
+    )
+    download_frame = visible[["market_date", "close"]].copy()
+    st.download_button(
+        "Download visible CSV",
+        data=download_frame.to_csv(index=False),
+        file_name=f"{symbol.lower().replace('/', '-')}-{analysis_mode.lower().replace(' ', '-')}.csv",
+        mime="text/csv",
     )
 
 freshness_state, freshness = freshness_status(latest["market_date"], latest["source"])
@@ -650,3 +755,25 @@ with st.expander("Data status"):
             columns={"source": "source", "finished_at": "last successful fetch", "row_count": "rows"}
         )
         st.dataframe(status_frame, use_container_width=True, hide_index=True)
+
+with st.expander("Cross-market analytics"):
+    country_frames = {name: read_prices(INSTRUMENTS[name]["symbol"]) for name in chart_options}
+    correlation, overlap = monthly_log_return_correlation(country_frames)
+    if correlation.empty:
+        st.caption("At least two instruments with overlapping monthly observations are required.")
+    else:
+        st.caption(f"Monthly log-return correlation · overlap {overlap[0]:%b %Y}–{overlap[1]:%b %Y}")
+        st.dataframe(correlation.style.format("{:.2f}"), use_container_width=True)
+    if dashboard_section == "Iran":
+        usd = read_prices("USD/IRT")
+        gold_toman = derived_series(read_prices("XAU/USD"), usd, "multiply", "Gold in Toman")
+        tedpix_usd = derived_series(read_prices("TEDPIX"), usd, "divide", "TEDPIX in USD")
+        for derived, label in ((gold_toman, "Gold in Toman"), (tedpix_usd, "TEDPIX in USD terms")):
+            if derived.empty:
+                st.caption(f"{label}: no common observation dates yet.")
+            else:
+                st.metric(label, f"{float(derived.iloc[-1]['close']):,.2f}")
+                st.download_button(
+                    f"Download {label} CSV", derived.to_csv(index=False),
+                    file_name=f"{label.lower().replace(' ', '-')}.csv", mime="text/csv"
+                )

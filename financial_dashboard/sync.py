@@ -92,9 +92,11 @@ def synchronize(mode: str) -> list[dict]:
             # CoinGecko as the no-key fallback, where its public API offers one year.
             if not ALPHAVANTAGE_API_KEY:
                 if mode == "backfill":
-                    bitcoin_fetcher = lambda: coingecko.fetch_backfill(COINGECKO_API_KEY)
+                    def bitcoin_fetcher():
+                        return coingecko.fetch_backfill(COINGECKO_API_KEY)
                 else:
-                    bitcoin_fetcher = lambda: coingecko.fetch_latest_completed(COINGECKO_API_KEY)
+                    def bitcoin_fetcher():
+                        return coingecko.fetch_latest_completed(COINGECKO_API_KEY)
                 results.append(_run_provider(coingecko.SOURCE, mode, bitcoin_fetcher))
     except Timeout:
         return [{"source": "all", "status": "failed", "rows": 0, "error": "A sync is already running"}]
