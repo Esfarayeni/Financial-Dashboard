@@ -9,15 +9,10 @@ import streamlit as st
 from financial_dashboard import db
 from financial_dashboard.analytics import (
     annualized_logarithmic_regression_change,
-    drawdown_from_peak,
-    derived_series,
-    inflation_adjusted_series,
     logarithmic_regression_channel,
     logarithmic_regression_r_squared,
-    monthly_log_return_correlation,
     period_change,
     rebased_price_level,
-    rolling_volatility,
 )
 from financial_dashboard.status import freshness_status
 from financial_dashboard.sync import synchronize
@@ -42,6 +37,7 @@ if "corridor_95" not in st.session_state:
 light_mode = st.session_state["light_mode"]
 theme = {
     "background": "#ffffff" if light_mode else "#090b10",
+    "chart_background": "#ffffff" if light_mode else "#0f131b",
     "surface": "#ffffff" if light_mode else "#0f131b",
     "surface_alt": "#f5f7fa" if light_mode else "#141a24",
     "text": "#131722" if light_mode else "#e8edf5",
@@ -59,24 +55,37 @@ st.markdown(
     header[data-testid="stHeader"], [data-testid="stDecoration"] {{ display: none !important; }}
     [data-testid="stToolbar"], footer {{ visibility: hidden; }}
     [data-testid="stAppViewContainer"], .stApp {{
-      background: {theme["background"]}; color: {theme["text"]};
+      background-color: {theme["background"]}; color: {theme["text"]};
+      background-image: {"radial-gradient(#c9d0dc 1.15px, transparent 1.15px)" if light_mode else "none"};
+      background-size: 22px 22px;
     }}
     [data-testid="stAppViewContainer"] > .main {{ padding-top: 0 !important; }}
-    .block-container {{ max-width: 1440px; padding: 1.1rem 2rem 2rem; }}
+    .block-container {{ max-width: 1480px; padding: 2rem 2.4rem 3rem; }}
     .brand {{ font: 700 0.78rem/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
-             letter-spacing: .16em; color: {theme["muted"]}; text-transform: uppercase; }}
-    .market-title {{ font-size: 1.55rem; font-weight: 650; letter-spacing: -.025em;
-                     margin: .15rem 0 0; color: {theme["text"]}; }}
-    .price {{ font-size: clamp(2rem, 4vw, 3.8rem); line-height: 1; font-weight: 640;
-             letter-spacing: -.055em; margin: .65rem 0 .35rem; color: {theme["text"]}; }}
+             letter-spacing: .14em; color: #667085; text-transform: uppercase; margin-top: .2rem; }}
+    .market-title {{ font-size: 1.75rem; font-weight: 760; letter-spacing: -.045em;
+                     margin: .2rem 0 .35rem; color: {theme["text"]}; }}
+    .market-snapshot {{ width: min(100%, 560px); margin: 1.7rem 0 1.25rem; padding: 1.55rem 1.7rem;
+      color: {theme["text"]}; border: 0; border-radius: 30px;
+      box-shadow: 0 14px 30px rgba(25, 38, 67, .09);
+      background: {theme["surface"]}; }}
+    .snapshot-head {{ display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      font-size: .78rem; letter-spacing: .09em; font-weight: 700; text-transform: uppercase; opacity: .92; }}
+    .snapshot-name {{ font-size: 1.12rem; letter-spacing: -.01em; text-transform: none; }}
+    .snapshot-head span:last-child {{ color: #7b5c11; }}
+    .snapshot-price {{ font-size: clamp(2.25rem, 4vw, 3.55rem); line-height: 1; font-weight: 760;
+      letter-spacing: -.06em; margin: 1rem 0 .45rem; }}
+    .snapshot-detail {{ font-size: .9rem; opacity: .93; }}
     .muted {{ color: {theme["muted"]}; font-size: .84rem; }}
-    .stPlotlyChart {{ position: relative; z-index: 0; margin-bottom: 1rem; }}
+    .stPlotlyChart {{ position: relative; z-index: 0; margin-bottom: 1rem; border-radius: 30px;
+      overflow: hidden; background: {theme["surface"]}; box-shadow: 0 12px 28px rgba(25, 38, 67, .09); }}
     .source-line {{ position: relative; z-index: 1; display: block; margin-top: .35rem;
                     padding: .8rem 0 0; min-height: 2.25rem;
-                    border-top: 1px solid {theme["border"]}; background: {theme["background"]};
+                    border-top: 1px solid {theme["border"]}; background: {theme["surface"]};
                     color: {theme["muted"]}; font-size: .8rem; }}
-    div[data-testid="stMetric"] {{ background: {theme["surface"]}; border: 1px solid {theme["border"]};
-                                  border-radius: 10px; padding: .85rem 1rem; }}
+    div[data-testid="stMetric"] {{ background: {theme["surface"]}; border: 0;
+                                  border-radius: 26px; padding: 1.1rem 1.2rem;
+                                  box-shadow: 0 10px 24px rgba(25, 38, 67, .075); }}
     [data-testid="stMetricLabel"], [data-testid="stMetricLabel"] * {{
       color: {theme["muted"]} !important; opacity: 1 !important;
     }}
@@ -84,8 +93,9 @@ st.markdown(
       color: {theme["text"]} !important; font-size: 1.15rem;
     }}
     div[role="radiogroup"] {{ gap: .25rem; }}
-    div[role="radiogroup"] label {{ background: {theme["surface"]}; border: 1px solid {theme["border"]};
-                                    border-radius: 8px; padding: .42rem .72rem; }}
+    div[role="radiogroup"] label {{ background: {theme["surface"]}; border: 0;
+                                    border-radius: 16px; padding: .52rem .9rem;
+                                    box-shadow: 0 5px 14px rgba(25, 38, 67, .075); }}
     div[role="radiogroup"] label p, .stButton button, [data-testid="stWidgetLabel"] p {{
       color: {theme["text"]} !important;
     }}
@@ -100,9 +110,10 @@ st.markdown(
     [data-testid="stSelectbox"] [data-baseweb="select"] > div,
     [data-testid="stSelectbox"] [data-baseweb="select"] > div > div,
     [data-testid="stSelectbox"] [data-baseweb="select"] input {{
-      background: {"#f1f1f1" if light_mode else "#20242c"} !important;
-      border-color: {"#dedede" if light_mode else "#343a45"} !important;
-      border-radius: 8px !important;
+      background: {"#ffffff" if light_mode else "#20242c"} !important;
+      border-color: {"#e3e7ee" if light_mode else "#343a45"} !important;
+      border-radius: 18px !important;
+      box-shadow: {"0 6px 15px rgba(25, 38, 67, .07)" if light_mode else "none"};
       color: {theme["text"]} !important;
     }}
     [data-testid="stSelectbox"] [data-baseweb="select"] * {{
@@ -118,8 +129,12 @@ st.markdown(
     [data-testid="stToggle"] [role="switch"] > div {{
       background: {"#ffffff" if light_mode else "#141820"} !important;
     }}
-    .stButton button {{ border-radius: 8px; border-color: {theme["border"]};
-                        background: {theme["surface_alt"]}; }}
+    .stButton button {{ border-radius: 18px; border-color: {theme["border"]};
+                        background: {theme["surface"]}; box-shadow: 0 6px 15px rgba(25, 38, 67, .07);
+                        font-weight: 650; }}
+    [data-testid="stHorizontalBlock"]:has(.brand) {{ background: {theme["surface"]}; border: 0;
+      border-radius: 28px; padding: .7rem 1.15rem; box-shadow: 0 12px 26px rgba(25, 38, 67, .08); }}
+    [data-testid="stHorizontalBlock"]:has(.brand) .stButton button {{ background: #246df0; color: #fff !important; border-color: #246df0; }}
     [data-testid="stDateInputField"] {{ background: {theme["surface"]} !important;
                                          border: 1px solid {theme["border"]} !important; }}
     [data-testid="stDateInput"] [data-testid="stDateInputField"] * {{ color: {theme["text"]} !important; }}
@@ -132,7 +147,7 @@ st.markdown(
     [data-testid="stCaptionContainer"] {{ color: {theme["muted"]}; }}
     @media (max-width: 700px) {{
       .block-container {{ padding: .85rem .8rem 1.5rem; }}
-      .price {{ font-size: 2.35rem; }}
+      .market-snapshot {{ width: 100%; }}
     }}
     </style>
     """,
@@ -236,8 +251,8 @@ def build_chart(
     fig.update_layout(
         height=510,
         margin={"l": 16, "r": 88, "t": 20, "b": 54},
-        paper_bgcolor=colors["background"],
-        plot_bgcolor=colors["background"],
+        paper_bgcolor=colors["chart_background"],
+        plot_bgcolor=colors["chart_background"],
         showlegend=comparison_frame is not None and not comparison_frame.empty,
         legend={"orientation": "h", "y": 1.05, "x": 0, "font": {"color": colors["muted"]}},
         hovermode="x unified",
@@ -276,10 +291,11 @@ db.initialize()
 
 # Restore a shareable detail view before Streamlit instantiates its widgets.
 query = st.query_params
+if "dashboard_view" in query:
+    del st.query_params["dashboard_view"]
 for key, allowed in {
     "dashboard_section": {"Iran", "U.S."},
     "selected_range": set(RANGES),
-    "dashboard_view": {"Detail", "Overview"},
 }.items():
     value = query.get(key)
     if value in allowed and key not in st.session_state:
@@ -303,13 +319,6 @@ with header_right:
             st.session_state["sync_results"] = synchronize("daily")
             read_prices.clear()
 
-if "dashboard_view" not in st.session_state:
-    st.session_state["dashboard_view"] = "Detail"
-dashboard_view = st.selectbox(
-    "Workspace", ("Detail", "Overview"), key="dashboard_view", label_visibility="collapsed"
-)
-st.query_params["dashboard_view"] = dashboard_view
-
 if "sync_results" in st.session_state:
     results = st.session_state["sync_results"]
     failures = [r for r in results if r["status"] == "failed"]
@@ -317,50 +326,6 @@ if "sync_results" in st.session_state:
         st.warning("Some sources could not be updated. Existing chart data was preserved.")
     else:
         st.toast("Market data refreshed")
-    with st.expander("Latest refresh results"):
-        st.dataframe(
-            pd.DataFrame(results).rename(columns={"source": "Source", "status": "Status", "rows": "Rows", "error": "Message"}),
-            use_container_width=True,
-            hide_index=True,
-        )
-
-if dashboard_view == "Overview":
-    st.markdown("### Market overview")
-    st.caption("Latest locally stored observations. Select an instrument to open its detailed chart.")
-    for country, names in (("Iran", IRAN_INSTRUMENTS), ("U.S.", US_INSTRUMENTS)):
-        st.markdown(f"#### {country}")
-        columns = st.columns(min(3, len(names)))
-        for column, name in zip(columns * ((len(names) + len(columns) - 1) // len(columns)), names):
-            instrument = INSTRUMENTS[name]
-            overview_frame = read_prices(instrument["symbol"])
-            with column:
-                if overview_frame.empty:
-                    st.metric(name, "No data")
-                else:
-                    latest_overview = overview_frame.iloc[-1]
-                    _, one_day = period_change(overview_frame, 1)
-                    _, one_month = period_change(overview_frame, 30)
-                    _, one_year = period_change(overview_frame, 365)
-                    st.metric(
-                        name,
-                        format_price(float(latest_overview["close"]), instrument["symbol"], instrument["decimals"]),
-                        delta=f"1D {one_day:+.1f}% · 1M {one_month:+.1f}% · 1Y {one_year:+.1f}%",
-                    )
-                    sparkline = go.Figure(go.Scatter(
-                        x=overview_frame.tail(90)["market_date"], y=overview_frame.tail(90)["close"],
-                        mode="lines", line={"color": instrument["accent"], "width": 1.5}, hoverinfo="skip"
-                    ))
-                    sparkline.update_layout(height=80, margin={"l": 0, "r": 0, "t": 0, "b": 0},
-                                            paper_bgcolor=theme["background"], plot_bgcolor=theme["background"],
-                                            xaxis={"visible": False}, yaxis={"visible": False})
-                    st.plotly_chart(sparkline, use_container_width=True, theme=None, config={"displayModeBar": False})
-                    if st.button(f"Open {name}", key=f"open_overview_{name}"):
-                        st.session_state["dashboard_section"] = country
-                        st.session_state["iran_chart" if country == "Iran" else "us_chart"] = name
-                        st.session_state["dashboard_view"] = "Detail"
-                        st.rerun()
-    st.stop()
-
 if st.session_state.get("dashboard_section") not in {"Iran", "U.S."}:
     st.session_state["dashboard_section"] = "Iran"
 
@@ -479,32 +444,29 @@ change = float(latest["close"] - previous["close"])
 change_pct = (change / float(previous["close"]) * 100) if previous["close"] else 0.0
 direction = "+" if change >= 0 else ""
 
-st.markdown(
-    f'<div class="price">{float(latest["close"]):,.2f}×</div>'
-    if is_cumulative_inflation
-    else f'<div class="price">{format_price(float(latest["close"]), symbol, instrument["decimals"])}</div>',
-    unsafe_allow_html=True,
-)
 if is_cumulative_inflation:
     cumulative_inflation = (float(latest["close"]) - 1) * 100
     sign = "+" if cumulative_inflation >= 0 else ""
-    st.markdown(
-        f'<div class="muted">{sign}{cumulative_inflation:.2f}% cumulative inflation '
-        f'since {frame["market_date"].iloc[0]:%b %Y} &nbsp;·&nbsp; {latest["market_date"]:%b %Y}</div>',
-        unsafe_allow_html=True,
+    price_value = f"{float(latest['close']):,.2f}×"
+    price_detail = (
+        f"{sign}{cumulative_inflation:.2f}% cumulative inflation since "
+        f"{frame['market_date'].iloc[0]:%b %Y} · {latest['market_date']:%b %Y}"
     )
 elif is_inflation:
-    st.markdown(
-        f'<div class="muted">{direction}{change:.2f} percentage points from the prior month '
-        f'&nbsp;·&nbsp; {latest["market_date"]:%b %Y}</div>',
-        unsafe_allow_html=True,
-    )
+    price_value = format_price(float(latest["close"]), symbol, instrument["decimals"])
+    price_detail = f"{direction}{change:.2f} percentage points from the prior month · {latest['market_date']:%b %Y}"
 else:
-    st.markdown(
-        f'<div class="muted">{direction}{format_price(change, symbol, instrument["decimals"])} &nbsp; '
-        f'{direction}{change_pct:.2f}% &nbsp;·&nbsp; {latest["market_date"]:%b %d, %Y}</div>',
-        unsafe_allow_html=True,
+    price_value = format_price(float(latest["close"]), symbol, instrument["decimals"])
+    price_detail = (
+        f"{direction}{format_price(change, symbol, instrument['decimals'])} · "
+        f"{direction}{change_pct:.2f}% · {latest['market_date']:%b %d, %Y}"
     )
+st.markdown(
+    f'<section class="market-snapshot"><div class="snapshot-head"><span class="snapshot-name">{selected_name}</span>'
+    '<span>Daily close</span></div>'
+    f'<div class="snapshot-price">{price_value}</div><div class="snapshot-detail">{price_detail}</div></section>',
+    unsafe_allow_html=True,
+)
 
 daily_absolute, daily_pct = period_change(frame, None)
 weekly_absolute, weekly_pct = period_change(frame, 7)
@@ -536,18 +498,13 @@ else:
             delta=f"{absolute_sign}{format_price(absolute, symbol, instrument['decimals'])}",
         )
 
-chart_selector_column, comparison_selector_column, analysis_column, range_column, controls_right = st.columns(
-    [1.45, 1.45, 1.45, 3.0, 1.1], vertical_alignment="center"
+chart_selector_column, comparison_selector_column, range_column, controls_right = st.columns(
+    [1.65, 1.65, 3.25, 1.1], vertical_alignment="center"
 )
 with chart_selector_column:
     st.selectbox("Chart", chart_options, key=chart_selector_key, label_visibility="collapsed")
 with comparison_selector_column:
     st.selectbox("Compare with", comparison_options, key="comparison_chart", label_visibility="collapsed")
-with analysis_column:
-    analysis_mode = st.selectbox(
-        "View", ("Price", "Drawdown", "30D volatility", "Inflation-adjusted"),
-        label_visibility="collapsed", key="analysis_mode"
-    )
 with range_column:
     selected_range = st.radio(
         "Range", list(RANGES), horizontal=True, label_visibility="collapsed", key="selected_range"
@@ -599,50 +556,14 @@ with details_column:
             help="Both chart lines are rebased to 1.00× at this shared start date.",
         )
 
-display_frame = chart_primary_frame.copy()
-display_comparison = comparison_frame
-display_title = selected_name
-display_accent = instrument["accent"]
-display_decimals = 2 if comparison_frame is not None else instrument["decimals"]
-display_logarithmic = logarithmic
-if analysis_mode == "Drawdown":
-    display_frame = drawdown_from_peak(comparison_primary_frame)[["market_date", "drawdown"]].rename(
-        columns={"drawdown": "close"}
-    )
-    display_title = f"{selected_name} drawdown"
-    display_accent = "#e76f51"
-    display_decimals = 2
-    display_logarithmic = False
-    display_comparison = None
-elif analysis_mode == "30D volatility":
-    display_frame = rolling_volatility(comparison_primary_frame)[["market_date", "volatility"]].rename(
-        columns={"volatility": "close"}
-    )
-    display_title = f"{selected_name} volatility"
-    display_accent = "#7b61ff"
-    display_decimals = 2
-    display_logarithmic = False
-    display_comparison = None
-elif analysis_mode == "Inflation-adjusted":
-    cpi_symbol = "IRAN_INFLATION" if dashboard_section == "Iran" else "US_INFLATION"
-    cpi_frame = read_prices(cpi_symbol)
-    display_frame = inflation_adjusted_series(comparison_primary_frame, cpi_frame)
-    display_title = f"{selected_name} in constant purchasing power"
-    display_comparison = None
-    display_logarithmic = logarithmic
-    if display_frame.empty:
-        st.info("No matching CPI observations are available for this inflation-adjusted view.")
-        display_frame = chart_primary_frame.copy()
-        display_title = selected_name
-
 days = RANGES[selected_range]
-visible = display_frame
-visible_comparison = display_comparison
+visible = chart_primary_frame
+visible_comparison = comparison_frame
 if days is not None:
     cutoff = pd.Timestamp(datetime.now(timezone.utc).date() - timedelta(days=days))
     visible = chart_primary_frame[chart_primary_frame["market_date"] >= cutoff]
-    if display_comparison is not None:
-        visible_comparison = display_comparison[display_comparison["market_date"] >= cutoff]
+    if comparison_frame is not None:
+        visible_comparison = comparison_frame[comparison_frame["market_date"] >= cutoff]
 if visible.empty:
     # Monthly sources can have no observation inside a short calendar range;
     # keep their latest point visible instead of rendering an empty chart.
@@ -650,14 +571,14 @@ if visible.empty:
 
 corridor = None
 annualized_regression_change = None
-regression_frame = display_frame
+regression_frame = chart_primary_frame
 # A century of monthly history plus a recent daily segment must not give the
 # recent decade thousands of times more weight in the long-term trend fit.
-if symbol == "SP500" and selected_range == "All" and analysis_mode == "Price":
+if symbol == "SP500" and selected_range == "All":
     regression_frame = (
         frame.set_index("market_date").resample("ME").last().dropna(subset=["close"]).reset_index()
     )
-if corridor_enabled and analysis_mode == "Price":
+if corridor_enabled:
     try:
         corridor = logarithmic_regression_channel(
             regression_frame, corridor_start, coverage=0.95 if corridor_95 else 1.0
@@ -673,14 +594,14 @@ if comparison_error:
 
 chart = build_chart(
     visible,
-    display_title,
-    display_accent,
-    display_decimals,
-    display_logarithmic,
+    selected_name,
+    instrument["accent"],
+    2 if comparison_frame is not None else instrument["decimals"],
+    logarithmic,
     theme,
     corridor,
     visible_comparison,
-    comparison_name if visible_comparison is not None else None,
+    comparison_name if comparison_frame is not None else None,
 )
 
 if annualized_regression_change is not None:
@@ -710,7 +631,7 @@ with details_column:
         "95% corridor",
         key="corridor_95",
         help="Ignore the 5% most extreme logarithmic residuals for a tighter channel.",
-        disabled=not corridor_enabled or analysis_mode != "Price",
+        disabled=not corridor_enabled,
     )
 with chart_column:
     st.plotly_chart(
@@ -718,13 +639,6 @@ with chart_column:
         use_container_width=True,
         theme=None,
         config={"displayModeBar": False, "scrollZoom": False, "responsive": True},
-    )
-    download_frame = visible[["market_date", "close"]].copy()
-    st.download_button(
-        "Download visible CSV",
-        data=download_frame.to_csv(index=False),
-        file_name=f"{symbol.lower().replace('/', '-')}-{analysis_mode.lower().replace(' ', '-')}.csv",
-        mime="text/csv",
     )
 
 freshness_state, freshness = freshness_status(latest["market_date"], latest["source"])
@@ -740,40 +654,3 @@ st.markdown(
     f'<div class="source-line">Source: {source_label} &nbsp;·&nbsp; {freshness} &nbsp;·&nbsp; Informational data, not financial advice.</div>',
     unsafe_allow_html=True,
 )
-
-with st.expander("Data status"):
-    status_frame = db.source_status()
-    if status_frame.empty:
-        st.caption("No sync runs have been recorded yet.")
-    else:
-        freshness_parts = status_frame.apply(
-            lambda row: freshness_status(row["market_date"], row["source"]), axis=1
-        )
-        status_frame["observation status"] = [item[0] for item in freshness_parts]
-        status_frame["latest observation"] = [item[1] for item in freshness_parts]
-        status_frame = status_frame.rename(
-            columns={"source": "source", "finished_at": "last successful fetch", "row_count": "rows"}
-        )
-        st.dataframe(status_frame, use_container_width=True, hide_index=True)
-
-with st.expander("Cross-market analytics"):
-    country_frames = {name: read_prices(INSTRUMENTS[name]["symbol"]) for name in chart_options}
-    correlation, overlap = monthly_log_return_correlation(country_frames)
-    if correlation.empty:
-        st.caption("At least two instruments with overlapping monthly observations are required.")
-    else:
-        st.caption(f"Monthly log-return correlation · overlap {overlap[0]:%b %Y}–{overlap[1]:%b %Y}")
-        st.dataframe(correlation.style.format("{:.2f}"), use_container_width=True)
-    if dashboard_section == "Iran":
-        usd = read_prices("USD/IRT")
-        gold_toman = derived_series(read_prices("XAU/USD"), usd, "multiply", "Gold in Toman")
-        tedpix_usd = derived_series(read_prices("TEDPIX"), usd, "divide", "TEDPIX in USD")
-        for derived, label in ((gold_toman, "Gold in Toman"), (tedpix_usd, "TEDPIX in USD terms")):
-            if derived.empty:
-                st.caption(f"{label}: no common observation dates yet.")
-            else:
-                st.metric(label, f"{float(derived.iloc[-1]['close']):,.2f}")
-                st.download_button(
-                    f"Download {label} CSV", derived.to_csv(index=False),
-                    file_name=f"{label.lower().replace(' ', '-')}.csv", mime="text/csv"
-                )
