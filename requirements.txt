@@ -1,0 +1,8 @@
+streamlit>=1.42,<2
+plotly>=5.24,<7
+pandas>=2.2,<3
+pyarrow>=17,<23
+openpyxl>=3.1,<4
+requests>=2.32,<3
+python-dotenv>=1.0,<2
+filelock>=3.16,<4

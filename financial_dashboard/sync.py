@@ -1,0 +1,120 @@
+from __future__ import annotations
+
+import argparse
+import sys
+from collections.abc import Callable
+
+from filelock import FileLock, Timeout
+
+from . import db
+from .config import ALPHAVANTAGE_API_KEY, COINGECKO_API_KEY, FRED_API_KEY, LOCK_PATH
+from .providers import alphavantage, bonbast, coingecko, databourse, fred, sci, shiller, worldbank
+
+
+def _run_provider(source: str, mode: str, fetcher: Callable):
+    try:
+        with db.sync_run(source, mode) as run:
+            rows = fetcher()
+            run["rows_written"] = db.upsert_prices(rows)
+            return {"source": source, "status": "success", "rows": run["rows_written"]}
+    except Exception as exc:
+        return {"source": source, "status": "failed", "rows": 0, "error": str(exc)}
+
+
+def synchronize(mode: str) -> list[dict]:
+    if mode not in {"backfill", "daily"}:
+        raise ValueError("mode must be 'backfill' or 'daily'")
+    db.initialize()
+
+    results: list[dict] = []
+    try:
+        with FileLock(str(LOCK_PATH), timeout=1):
+            bonbast_fetcher = (
+                bonbast.fetch_backfill if mode == "backfill" else bonbast.fetch_latest_completed
+            )
+            bonbast_sync_source = (
+                bonbast.ARCHIVE_SYNC_SOURCE if mode == "backfill" else bonbast.GRAPH_SYNC_SOURCE
+            )
+            results.append(_run_provider(bonbast_sync_source, mode, bonbast_fetcher))
+
+            tedpix_fetcher = (
+                databourse.fetch_history if mode == "backfill" else databourse.fetch_latest_completed
+            )
+            results.append(_run_provider(databourse.SOURCE, mode, tedpix_fetcher))
+
+            sci_fetcher = sci.fetch_history if mode == "backfill" else sci.fetch_latest_completed
+            results.append(_run_provider(sci.SOURCE, mode, sci_fetcher))
+
+            if FRED_API_KEY:
+                sp500_fetcher = (
+                    (lambda: fred.fetch_history(FRED_API_KEY))
+                    if mode == "backfill"
+                    else (lambda: fred.fetch_latest_completed(FRED_API_KEY))
+                )
+                results.append(_run_provider(fred.SOURCE, mode, sp500_fetcher))
+                cpi_fetcher = (
+                    (lambda: fred.fetch_cpi_history(FRED_API_KEY))
+                    if mode == "backfill"
+                    else (lambda: fred.fetch_cpi_latest_completed(FRED_API_KEY))
+                )
+                results.append(_run_provider("fred_cpi", mode, cpi_fetcher))
+            else:
+                reason = "FRED_API_KEY is not configured"
+                db.record_skipped(fred.SOURCE, mode, reason)
+                results.append({"source": fred.SOURCE, "status": "skipped", "rows": 0, "error": reason})
+                db.record_skipped("fred_cpi", mode, reason)
+                results.append({"source": "fred_cpi", "status": "skipped", "rows": 0, "error": reason})
+
+            # The Pink Sheet is a long-range, monthly backfill. Daily refreshes
+            # remain with the higher-frequency providers already in use.
+            if mode == "backfill":
+                results.append(_run_provider(worldbank.SOURCE, mode, worldbank.fetch_history))
+                results.append(_run_provider(shiller.SOURCE, mode, shiller.fetch_history))
+
+            if ALPHAVANTAGE_API_KEY:
+                results.append(
+                    _run_provider(
+                        alphavantage.SOURCE,
+                        mode,
+                        lambda: alphavantage.fetch_all(
+                            ALPHAVANTAGE_API_KEY, latest_only=mode == "daily"
+                        ),
+                    )
+                )
+            else:
+                reason = "ALPHAVANTAGE_API_KEY is not configured"
+                db.record_skipped(alphavantage.SOURCE, mode, reason)
+                results.append(
+                    {"source": alphavantage.SOURCE, "status": "skipped", "rows": 0, "error": reason}
+                )
+
+            # Alpha Vantage supplies full Bitcoin history alongside metals. Keep
+            # CoinGecko as the no-key fallback, where its public API offers one year.
+            if not ALPHAVANTAGE_API_KEY:
+                if mode == "backfill":
+                    bitcoin_fetcher = lambda: coingecko.fetch_backfill(COINGECKO_API_KEY)
+                else:
+                    bitcoin_fetcher = lambda: coingecko.fetch_latest_completed(COINGECKO_API_KEY)
+                results.append(_run_provider(coingecko.SOURCE, mode, bitcoin_fetcher))
+    except Timeout:
+        return [{"source": "all", "status": "failed", "rows": 0, "error": "A sync is already running"}]
+
+    return results
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Update the local market database")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--backfill", action="store_true", help="Import all available history")
+    group.add_argument("--daily", action="store_true", help="Import the latest completed values")
+    args = parser.parse_args()
+
+    results = synchronize("backfill" if args.backfill else "daily")
+    for result in results:
+        detail = f" ({result.get('error')})" if result.get("error") else ""
+        print(f"{result['source']}: {result['status']} — {result['rows']} rows{detail}")
+    return 1 if any(result["status"] == "failed" for result in results) else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,0 +1,104 @@
+from __future__ import annotations
+
+from datetime import date, datetime, timezone
+from typing import Any
+
+import requests
+
+from ..config import USER_AGENT
+from ..db import Price
+
+
+URL = "https://api.stlouisfed.org/fred/series/observations"
+SOURCE = "fred"
+SYMBOL = "SP500"
+CPI_SYMBOL = "US_INFLATION"
+CPI_SERIES = "CPIAUCNS"
+
+
+class FredError(RuntimeError):
+    pass
+
+
+def _extract_rows(
+    payload: dict[str, Any],
+    latest_only: bool = False,
+    *,
+    symbol: str = SYMBOL,
+    unit: str = "index_points",
+) -> list[Price]:
+    if payload.get("error_message"):
+        raise FredError(str(payload["error_message"]))
+    observations = payload.get("observations")
+    if not isinstance(observations, list):
+        raise FredError("FRED returned an unexpected response")
+    fetched_at = datetime.now(timezone.utc)
+    today = fetched_at.date()
+    prices: list[Price] = []
+    for row in observations:
+        if not isinstance(row, dict):
+            continue
+        try:
+            market_date = date.fromisoformat(str(row.get("date", "")))
+            close = float(str(row.get("value", "")).strip())
+        except (TypeError, ValueError):
+            continue
+        if market_date >= today or close <= 0:
+            continue
+        prices.append(
+            Price(
+                symbol=symbol,
+                market_date=market_date,
+                close=close,
+                currency="USD",
+                unit=unit,
+                source=SOURCE,
+                fetched_at=fetched_at,
+            )
+        )
+    if not prices:
+        raise FredError("FRED returned no usable observations")
+    prices.sort(key=lambda row: row.market_date)
+    return prices[-1:] if latest_only else prices
+
+
+def fetch_history(api_key: str) -> list[Price]:
+    return _extract_rows(_download(api_key))
+
+
+def fetch_latest_completed(api_key: str) -> list[Price]:
+    return _extract_rows(_download(api_key), latest_only=True)
+
+
+def fetch_cpi_history(api_key: str) -> list[Price]:
+    return _extract_rows(
+        _download(api_key, CPI_SERIES), symbol=CPI_SYMBOL, unit="cpi_index_1982_1984_100"
+    )
+
+
+def fetch_cpi_latest_completed(api_key: str) -> list[Price]:
+    return _extract_rows(
+        _download(api_key, CPI_SERIES),
+        latest_only=True,
+        symbol=CPI_SYMBOL,
+        unit="cpi_index_1982_1984_100",
+    )
+
+
+def _download(api_key: str, series_id: str = SYMBOL) -> dict[str, Any]:
+    response = requests.get(
+        URL,
+        params={
+            "series_id": series_id,
+            "api_key": api_key,
+            "file_type": "json",
+            "sort_order": "asc",
+        },
+        headers={"User-Agent": USER_AGENT},
+        timeout=30,
+    )
+    response.raise_for_status()
+    payload = response.json()
+    if not isinstance(payload, dict):
+        raise FredError("FRED returned an unexpected S&P 500 response")
+    return payload
