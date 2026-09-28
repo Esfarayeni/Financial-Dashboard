@@ -111,3 +111,86 @@ def annualized_logarithmic_regression_change(
     """Return the fitted logarithmic trend as an equivalent annual percentage change."""
     _, _, daily_slope = _fit_logarithmic_regression(frame, start_date, minimum_observations)
     return math.expm1(daily_slope * 365.25) * 100
+
+
+def logarithmic_regression_r_squared(
+    frame: pd.DataFrame, start_date: date | pd.Timestamp, minimum_observations: int = 30
+) -> float:
+    """Return goodness-of-fit for the log-price regression, from 0 to 1."""
+    selected, fitted_log, _ = _fit_logarithmic_regression(frame, start_date, minimum_observations)
+    actual_log = selected["close"].map(math.log)
+    total = float(((actual_log - actual_log.mean()) ** 2).sum())
+    if total == 0:
+        return 1.0
+    residual = float(((actual_log - fitted_log) ** 2).sum())
+    return max(0.0, 1 - residual / total)
+
+
+def drawdown_from_peak(frame: pd.DataFrame) -> pd.DataFrame:
+    """Return percentage drawdown from the prior running high for a positive series."""
+    result = frame[["market_date", "close"]].copy().sort_values("market_date")
+    if result.empty:
+        result["drawdown"] = pd.Series(dtype=float)
+        return result
+    peak = result["close"].cummax()
+    result["drawdown"] = (result["close"] / peak - 1) * 100
+    return result.reset_index(drop=True)
+
+
+def rolling_volatility(frame: pd.DataFrame, window: int = 30, periods_per_year: int = 365) -> pd.DataFrame:
+    """Return annualized rolling volatility of logarithmic returns in percent."""
+    if window < 2:
+        raise ValueError("window must be at least 2")
+    result = frame[["market_date", "close"]].copy().sort_values("market_date")
+    result["volatility"] = result["close"].map(math.log).diff().rolling(window).std() * math.sqrt(periods_per_year) * 100
+    return result.dropna(subset=["volatility"]).reset_index(drop=True)
+
+
+def monthly_log_return_correlation(series: dict[str, pd.DataFrame]) -> tuple[pd.DataFrame, tuple[pd.Timestamp, pd.Timestamp] | None]:
+    """Correlate monthly log returns over the common overlapping period."""
+    monthly: list[pd.Series] = []
+    for name, frame in series.items():
+        if frame.empty:
+            continue
+        item = frame.set_index("market_date")["close"].sort_index().resample("ME").last()
+        monthly.append(item.map(math.log).diff().rename(name))
+    if len(monthly) < 2:
+        return pd.DataFrame(), None
+    joined = pd.concat(monthly, axis=1, join="inner").dropna()
+    if joined.empty:
+        return pd.DataFrame(), None
+    return joined.corr(), (joined.index.min(), joined.index.max())
+
+
+def derived_series(
+    left: pd.DataFrame, right: pd.DataFrame, operation: str, name: str
+) -> pd.DataFrame:
+    """Create a derived series on dates shared by both inputs."""
+    aligned = left[["market_date", "close"]].merge(
+        right[["market_date", "close"]], on="market_date", suffixes=("_left", "_right")
+    )
+    if operation == "multiply":
+        close = aligned["close_left"] * aligned["close_right"]
+    elif operation == "divide":
+        close = aligned["close_left"] / aligned["close_right"]
+    else:
+        raise ValueError("operation must be 'multiply' or 'divide'")
+    return pd.DataFrame({"market_date": aligned["market_date"], "close": close, "name": name})
+
+
+def inflation_adjusted_series(price: pd.DataFrame, cpi: pd.DataFrame) -> pd.DataFrame:
+    """Express a price series in prices at the first matched CPI observation."""
+    if price.empty or cpi.empty:
+        return pd.DataFrame(columns=["market_date", "close"])
+    aligned = pd.merge_asof(
+        price[["market_date", "close"]].sort_values("market_date"),
+        cpi[["market_date", "close"]].sort_values("market_date"),
+        on="market_date", direction="backward", suffixes=("_price", "_cpi"),
+    ).dropna()
+    if aligned.empty:
+        return pd.DataFrame(columns=["market_date", "close"])
+    base_cpi = float(aligned.iloc[0]["close_cpi"])
+    return pd.DataFrame({
+        "market_date": aligned["market_date"],
+        "close": aligned["close_price"] * base_cpi / aligned["close_cpi"],
+    })

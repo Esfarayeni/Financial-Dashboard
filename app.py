@@ -13,6 +13,7 @@ from financial_dashboard.analytics import (
     period_change,
     rebased_price_level,
 )
+from financial_dashboard.status import freshness_status
 from financial_dashboard.sync import synchronize
 
 
@@ -147,7 +148,7 @@ US_INSTRUMENTS = ("U.S. Inflation", "S&P 500", "Gold", "Silver", "Bitcoin")
 RANGES = {"1M": 31, "3M": 92, "1Y": 366, "5Y": 1827, "All": None}
 
 
-@st.cache_data(ttl=30)
+@st.cache_data(ttl=900)
 def read_prices(symbol: str) -> pd.DataFrame:
     return db.load_prices(symbol)
 
@@ -194,7 +195,7 @@ def build_chart(
                 x=source_frame["market_date"], y=source_frame["close"], mode="lines",
                 name="US equities long-term (monthly)" if is_long_term else title,
                 line={"color": accent, "width": 2, "dash": "dot" if is_long_term else "solid"},
-                hovertemplate=f"<b>%{{y:,.{decimals}f}}</b><extra></extra>",
+                hovertemplate=f"%{{x|%b %-d, %Y}}<br><b>%{{y:,.{decimals}f}}</b><extra></extra>",
             )
         )
     if comparison_frame is not None and not comparison_frame.empty:
@@ -205,7 +206,7 @@ def build_chart(
                 mode="lines",
                 name=comparison_title or "Comparison",
                 line={"color": "#f59e0b", "width": 2},
-                hovertemplate=f"<b>%{{y:,.{decimals}f}}×</b><extra></extra>",
+                hovertemplate=f"%{{x|%b %-d, %Y}}<br><b>%{{y:,.{decimals}f}}×</b><extra></extra>",
             )
         )
     if corridor is not None and not corridor.empty:
@@ -231,7 +232,7 @@ def build_chart(
         plot_bgcolor=colors["background"],
         showlegend=comparison_frame is not None and not comparison_frame.empty,
         legend={"orientation": "h", "y": 1.05, "x": 0, "font": {"color": colors["muted"]}},
-        hovermode="closest",
+        hovermode="x unified",
         dragmode="zoom",
         font={"family": "Inter, ui-sans-serif, system-ui", "color": colors["muted"], "size": 12},
         xaxis={
@@ -265,6 +266,18 @@ def build_chart(
 
 db.initialize()
 
+# Restore a shareable detail view before Streamlit instantiates its widgets.
+query = st.query_params
+for key, allowed in {
+    "dashboard_section": {"Iran", "U.S."},
+    "selected_range": set(RANGES),
+}.items():
+    value = query.get(key)
+    if value in allowed and key not in st.session_state:
+        st.session_state[key] = value
+if "selected_range" not in st.session_state:
+    st.session_state["selected_range"] = "All"
+
 header_left, theme_column, header_right = st.columns([5, 1.05, 1.35], vertical_alignment="center")
 with header_left:
     st.markdown('<div class="brand">Market / Daily</div>', unsafe_allow_html=True)
@@ -282,11 +295,18 @@ with header_right:
             read_prices.clear()
 
 if "sync_results" in st.session_state:
-    failures = [r for r in st.session_state["sync_results"] if r["status"] == "failed"]
+    results = st.session_state["sync_results"]
+    failures = [r for r in results if r["status"] == "failed"]
     if failures:
         st.warning("Some sources could not be updated. Existing chart data was preserved.")
     else:
         st.toast("Market data refreshed")
+    with st.expander("Latest refresh results"):
+        st.dataframe(
+            pd.DataFrame(results).rename(columns={"source": "Source", "status": "Status", "rows": "Rows", "error": "Message"}),
+            use_container_width=True,
+            hide_index=True,
+        )
 
 if st.session_state.get("dashboard_section") not in {"Iran", "U.S."}:
     st.session_state["dashboard_section"] = "Iran"
@@ -298,12 +318,17 @@ dashboard_section = st.radio(
     label_visibility="collapsed",
     key="dashboard_section",
 )
+st.query_params["dashboard_section"] = dashboard_section
 chart_options = IRAN_INSTRUMENTS if dashboard_section == "Iran" else US_INSTRUMENTS
 chart_selector_key = "iran_chart" if dashboard_section == "Iran" else "us_chart"
+if query.get("chart") in chart_options and chart_selector_key not in st.session_state:
+    st.session_state[chart_selector_key] = query["chart"]
 if st.session_state.get(chart_selector_key) not in chart_options:
     st.session_state[chart_selector_key] = chart_options[0]
 selected_name = st.session_state[chart_selector_key]
 comparison_options = ("None",) + tuple(name for name in chart_options if name != selected_name)
+if query.get("compare") in comparison_options and "comparison_chart" not in st.session_state:
+    st.session_state["comparison_chart"] = query["compare"]
 if st.session_state.get("comparison_chart") not in comparison_options:
     st.session_state["comparison_chart"] = "None"
 comparison_name = st.session_state["comparison_chart"]
@@ -466,9 +491,19 @@ with chart_selector_column:
 with comparison_selector_column:
     st.selectbox("Compare with", comparison_options, key="comparison_chart", label_visibility="collapsed")
 with range_column:
-    selected_range = st.radio("Range", list(RANGES), index=4, horizontal=True, label_visibility="collapsed")
+    selected_range = st.radio(
+        "Range", list(RANGES), horizontal=True, label_visibility="collapsed", key="selected_range"
+    )
 with controls_right:
     st.caption("Drag to zoom · Double-click to reset")
+
+st.query_params.update(
+    {
+        "chart": st.session_state[chart_selector_key],
+        "compare": st.session_state["comparison_chart"],
+        "selected_range": selected_range,
+    }
+)
 
 chart_column, details_column = st.columns([6.15, 1.45], vertical_alignment="top")
 logarithmic = st.session_state["logarithmic"]
@@ -587,9 +622,7 @@ with chart_column:
         config={"displayModeBar": False, "scrollZoom": False, "responsive": True},
     )
 
-fetched_at = pd.to_datetime(latest["fetched_at"], utc=True)
-age = datetime.now(timezone.utc) - fetched_at.to_pydatetime()
-freshness = "Current" if age < timedelta(days=2) else f"Stored {age.days}d ago"
+freshness_state, freshness = freshness_status(latest["market_date"], latest["source"])
 source_label = latest["source"].replace("_", " ").title()
 if symbol == "SP500":
     if "spx_csv" in set(frame["source"]):
@@ -602,3 +635,18 @@ st.markdown(
     f'<div class="source-line">Source: {source_label} &nbsp;·&nbsp; {freshness} &nbsp;·&nbsp; Informational data, not financial advice.</div>',
     unsafe_allow_html=True,
 )
+
+with st.expander("Data status"):
+    status_frame = db.source_status()
+    if status_frame.empty:
+        st.caption("No sync runs have been recorded yet.")
+    else:
+        freshness_parts = status_frame.apply(
+            lambda row: freshness_status(row["market_date"], row["source"]), axis=1
+        )
+        status_frame["observation status"] = [item[0] for item in freshness_parts]
+        status_frame["latest observation"] = [item[1] for item in freshness_parts]
+        status_frame = status_frame.rename(
+            columns={"source": "source", "finished_at": "last successful fetch", "row_count": "rows"}
+        )
+        st.dataframe(status_frame, use_container_width=True, hide_index=True)

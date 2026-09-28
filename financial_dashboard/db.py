@@ -187,6 +187,30 @@ def latest_sync(path: Path = DB_PATH) -> sqlite3.Row | None:
         ).fetchone()
 
 
+def source_status(path: Path = DB_PATH) -> pd.DataFrame:
+    """Return latest sync and latest stored observation for each source."""
+    with _connection(path) as conn:
+        return pd.read_sql_query(
+            """
+            WITH latest_runs AS (
+                SELECT source, finished_at, status, rows_written, error,
+                       ROW_NUMBER() OVER (PARTITION BY source ORDER BY id DESC) AS rank
+                FROM sync_runs WHERE status != 'running'
+            ), observations AS (
+                SELECT source, MAX(market_date) AS market_date, COUNT(*) AS row_count
+                FROM prices GROUP BY source
+            )
+            SELECT COALESCE(r.source, o.source) AS source, r.finished_at, r.status,
+                   r.rows_written, r.error, o.market_date, COALESCE(o.row_count, 0) AS row_count
+            FROM latest_runs AS r FULL OUTER JOIN observations AS o ON r.source = o.source
+            WHERE r.rank = 1 OR r.rank IS NULL
+            ORDER BY source
+            """,
+            conn,
+            parse_dates=["finished_at", "market_date"],
+        )
+
+
 @contextmanager
 def sync_run(source: str, mode: str, path: Path = DB_PATH):
     started_at = datetime.now(timezone.utc).isoformat()
