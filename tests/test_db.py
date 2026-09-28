@@ -1,6 +1,6 @@
 from datetime import date, datetime, timezone
 
-from financial_dashboard.db import Price, initialize, load_prices, upsert_prices
+from financial_dashboard.db import Price, initialize, load_prices, source_status, sync_run, upsert_prices
 
 
 def test_upsert_is_idempotent(tmp_path):
@@ -58,3 +58,18 @@ def test_daily_spx_csv_supersedes_shiller_until_fred_begins(tmp_path):
     frame = load_prices("SP500", path)
 
     assert list(frame["source"]) == ["spx_csv", "spx_csv", "fred"]
+
+
+def test_source_status_combines_sync_and_observation_details(tmp_path):
+    path = tmp_path / "market.db"
+    initialize(path)
+    row = Price("USD/IRT", date(2026, 9, 25), 100, "IRT", "toman", "bonbast", datetime.now(timezone.utc))
+    upsert_prices([row], path)
+    with sync_run("bonbast", "daily", path) as run:
+        run["rows_written"] = 1
+
+    status = source_status(path)
+
+    assert status.iloc[0]["source"] == "bonbast"
+    assert status.iloc[0]["market_date"].date() == date(2026, 9, 25)
+    assert status.iloc[0]["row_count"] == 1
