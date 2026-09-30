@@ -133,12 +133,17 @@ def load_prices(symbol: str, path: Path = DB_PATH) -> pd.DataFrame:
                 SELECT MIN(market_date) AS start_date, MAX(market_date) AS end_date
                 FROM prices
                 WHERE symbol = ? AND source = 'spx_csv'
+            ), yahoo_start AS (
+                SELECT MIN(market_date) AS market_date
+                FROM prices
+                WHERE symbol = ? AND source = 'yahoo_finance'
             )
             SELECT p.market_date, p.close, p.currency, p.unit, p.source, p.fetched_at
             FROM prices AS p
             CROSS JOIN alpha_start AS alpha
             CROSS JOIN fred_start AS fred
             CROSS JOIN spx_csv_coverage AS spx_csv
+            CROSS JOIN yahoo_start AS yahoo
             WHERE p.symbol = ?
               -- Do not interleave monthly averages with the existing daily
               -- Alpha Vantage series. The Pink Sheet fills only the earlier gap.
@@ -170,11 +175,7 @@ def load_prices(symbol: str, path: Path = DB_PATH) -> pd.DataFrame:
               AND NOT (
                   p.source IN ('alpha_vantage', 'coingecko')
                   AND p.symbol IN ('BTC/USD', 'ETH/USD', 'BNB/USD')
-                  AND EXISTS (
-                      SELECT 1 FROM prices AS yahoo
-                      WHERE yahoo.symbol = p.symbol
-                        AND yahoo.source = 'yahoo_finance'
-                  )
+                  AND yahoo.market_date IS NOT NULL
               )
               -- Free exchange archives extend only the early gaps before
               -- Yahoo begins for Ethereum and BNB.
@@ -184,18 +185,13 @@ def load_prices(symbol: str, path: Path = DB_PATH) -> pd.DataFrame:
                       'gemini_eth_usd_archive',
                       'binance_bnb_usdt_archive'
                   )
-                  AND EXISTS (
-                      SELECT 1 FROM prices AS yahoo
-                      WHERE yahoo.symbol = p.symbol
-                        AND yahoo.source = 'yahoo_finance'
-                      GROUP BY yahoo.symbol
-                      HAVING p.market_date >= MIN(yahoo.market_date)
-                  )
+                  AND yahoo.market_date IS NOT NULL
+                  AND p.market_date >= yahoo.market_date
               )
             ORDER BY p.market_date
             """,
             conn,
-            params=(symbol, symbol, symbol, symbol),
+            params=(symbol, symbol, symbol, symbol, symbol),
             parse_dates=["market_date", "fetched_at"],
         )
     return frame
