@@ -180,6 +180,12 @@ def read_prices(symbol: str) -> pd.DataFrame:
     return db.load_prices(symbol)
 
 
+@st.cache_resource
+def initialize_database() -> None:
+    """Run SQLite schema and compatibility maintenance once per app process."""
+    db.initialize()
+
+
 def format_price(value: float, symbol: str, decimals: int) -> str:
     sign = "-" if value < 0 else ""
     amount = abs(value)
@@ -306,7 +312,7 @@ def build_chart(
     return fig
 
 
-db.initialize()
+initialize_database()
 
 # Restore a shareable detail view before Streamlit instantiates its widgets.
 query = st.query_params
