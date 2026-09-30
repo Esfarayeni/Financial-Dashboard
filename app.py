@@ -9,6 +9,7 @@ import streamlit as st
 from financial_dashboard import db
 from financial_dashboard.analytics import (
     annualized_logarithmic_regression_change,
+    downsample_for_chart,
     logarithmic_regression_channel,
     logarithmic_regression_r_squared,
     period_change,
@@ -574,6 +575,14 @@ if visible.empty:
     # keep their latest point visible instead of rendering an empty chart.
     visible = chart_primary_frame.tail(1)
 
+# Keep every stored observation for metrics and regression.  Only the plotted
+# traces are reduced, so long ranges remain responsive without altering any
+# analytical result.
+display_visible = downsample_for_chart(visible)
+display_visible_comparison = (
+    downsample_for_chart(visible_comparison) if visible_comparison is not None else None
+)
+
 corridor = None
 annualized_regression_change = None
 regression_frame = chart_primary_frame
@@ -591,21 +600,21 @@ if corridor_enabled and not is_policy_rate:
         annualized_regression_change = annualized_logarithmic_regression_change(
             regression_frame, corridor_start
         )
-        corridor = corridor[corridor["market_date"].isin(visible["market_date"])]
+        corridor = corridor[corridor["market_date"].isin(display_visible["market_date"])]
     except ValueError as error:
         st.warning(str(error))
 if comparison_error:
     st.warning(comparison_error)
 
 chart = build_chart(
-    visible,
+    display_visible,
     selected_name,
     instrument["accent"],
     2 if comparison_frame is not None else instrument["decimals"],
     logarithmic and not is_policy_rate,
     theme,
     corridor,
-    visible_comparison,
+    display_visible_comparison,
     comparison_name if comparison_frame is not None else None,
     step_line=symbol == "FED_FUNDS_TARGET",
 )

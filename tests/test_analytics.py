@@ -5,6 +5,7 @@ import pytest
 
 from financial_dashboard.analytics import (
     annualized_logarithmic_regression_change,
+    downsample_for_chart,
     drawdown_from_peak,
     inflation_adjusted_series,
     logarithmic_regression_channel,
@@ -15,6 +16,31 @@ from financial_dashboard.analytics import (
     rolling_volatility,
     year_over_year_change,
 )
+
+
+def test_downsample_for_chart_keeps_recent_daily_and_reduces_older_history():
+    dates = pd.date_range("2017-01-01", "2026-01-01", freq="D")
+    frame = pd.DataFrame(
+        {
+            "market_date": dates,
+            "close": range(1, len(dates) + 1),
+            "source": "test_source",
+        }
+    )
+
+    result = downsample_for_chart(frame)
+    latest = dates[-1]
+    recent_start = latest - pd.DateOffset(years=1)
+    medium_start = latest - pd.DateOffset(years=5)
+
+    expected_recent = frame[frame["market_date"] >= recent_start]
+    assert result[result["market_date"] >= recent_start]["market_date"].tolist() == expected_recent[
+        "market_date"
+    ].tolist()
+    assert len(result[(result["market_date"] >= medium_start) & (result["market_date"] < recent_start)]) <= 210
+    assert len(result[result["market_date"] < medium_start]) <= 50
+    assert result.iloc[-1]["market_date"] == latest
+    assert set(result["source"]) == {"test_source"}
 
 
 def test_period_changes_use_previous_and_calendar_targets():

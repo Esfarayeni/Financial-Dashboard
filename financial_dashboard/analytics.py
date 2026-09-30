@@ -6,6 +6,44 @@ from datetime import date
 import pandas as pd
 
 
+def downsample_for_chart(frame: pd.DataFrame) -> pd.DataFrame:
+    """Reduce older display points without changing the underlying series.
+
+    The newest year stays daily, years one through five are represented by
+    their final weekly observation, and earlier history by its final monthly
+    observation.  The original observation date and all metadata are kept, so
+    this can safely be used for a plotted line while metrics and regression
+    continue to use the complete frame.
+    """
+    if frame.empty:
+        return frame.copy()
+
+    result = frame.sort_values("market_date").copy()
+    latest = pd.Timestamp(result["market_date"].iloc[-1])
+    recent_start = latest - pd.DateOffset(years=1)
+    medium_start = latest - pd.DateOffset(years=5)
+
+    recent = result[result["market_date"] >= recent_start]
+    medium = result[
+        (result["market_date"] >= medium_start) & (result["market_date"] < recent_start)
+    ]
+    older = result[result["market_date"] < medium_start]
+
+    def last_in_period(part: pd.DataFrame, frequency: str) -> pd.DataFrame:
+        if part.empty:
+            return part
+        return part.groupby(pd.Grouper(key="market_date", freq=frequency)).tail(1)
+
+    return (
+        pd.concat(
+            [last_in_period(older, "ME"), last_in_period(medium, "W-FRI"), recent],
+            ignore_index=True,
+        )
+        .sort_values("market_date")
+        .reset_index(drop=True)
+    )
+
+
 def period_change(frame: pd.DataFrame, days: int | None) -> tuple[float, float]:
     """Return absolute and percentage change from a prior observation.
 
