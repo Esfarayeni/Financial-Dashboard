@@ -15,7 +15,6 @@ from financial_dashboard.analytics import (
     rebased_price_level,
 )
 from financial_dashboard.status import freshness_status
-from financial_dashboard.sync import synchronize
 
 
 st.set_page_config(
@@ -315,7 +314,7 @@ for key, allowed in {
 if "selected_range" not in st.session_state:
     st.session_state["selected_range"] = "All"
 
-header_left, theme_column, header_right = st.columns([5, 1.05, 1.35], vertical_alignment="center")
+header_left, theme_column = st.columns([6, 1.05], vertical_alignment="center")
 with header_left:
     st.markdown('<div class="brand">Market / Daily</div>', unsafe_allow_html=True)
     st.markdown('<div class="market-title">Financial dashboard</div>', unsafe_allow_html=True)
@@ -325,19 +324,6 @@ with theme_column:
         key="light_mode",
         help="Switch between light and dark appearance",
     )
-with header_right:
-    if st.button("↻  Refresh data", use_container_width=True, help="Fetch the latest completed daily values"):
-        with st.spinner("Updating sources…"):
-            st.session_state["sync_results"] = synchronize("daily")
-            read_prices.clear()
-
-if "sync_results" in st.session_state:
-    results = st.session_state["sync_results"]
-    failures = [r for r in results if r["status"] == "failed"]
-    if failures:
-        st.warning("Some sources could not be updated. Existing chart data was preserved.")
-    else:
-        st.toast("Market data refreshed")
 if st.session_state.get("dashboard_section") not in {"Iran", "U.S.", "Crypto"}:
     st.session_state["dashboard_section"] = "Iran"
 
