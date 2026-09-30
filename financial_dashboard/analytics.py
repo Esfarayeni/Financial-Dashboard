@@ -118,6 +118,7 @@ def logarithmic_regression_channel(
     start_date: date | pd.Timestamp,
     minimum_observations: int = 30,
     coverage: float = 1.0,
+    output_dates: pd.Series | None = None,
 ) -> pd.DataFrame:
     """Fit a log-price trend and return a symmetric envelope around it.
 
@@ -126,19 +127,26 @@ def logarithmic_regression_channel(
     """
     if not 0 < coverage <= 1:
         raise ValueError("Coverage must be greater than 0 and at most 1")
-    selected, fitted_log, _ = _fit_logarithmic_regression(
+    selected, fitted_log, daily_slope = _fit_logarithmic_regression(
         frame, start_date, minimum_observations
     )
     log_prices = selected["close"].map(math.log)
     absolute_residuals = (log_prices - fitted_log).abs()
     envelope = float(absolute_residuals.quantile(coverage))
 
+    dates = selected["market_date"] if output_dates is None else pd.to_datetime(output_dates)
+    dates = pd.Series(dates).dropna().drop_duplicates().sort_values().reset_index(drop=True)
+    dates = dates[dates >= selected["market_date"].iloc[0]].reset_index(drop=True)
+    elapsed_output_days = (dates - selected["market_date"].iloc[0]).dt.days.astype(float)
+    intercept = float(fitted_log.iloc[0])
+    projected_log = intercept + elapsed_output_days * daily_slope
+
     return pd.DataFrame(
         {
-            "market_date": selected["market_date"],
-            "center": fitted_log.map(math.exp),
-            "upper": (fitted_log + envelope).map(math.exp),
-            "lower": (fitted_log - envelope).map(math.exp),
+            "market_date": dates,
+            "center": projected_log.map(math.exp),
+            "upper": (projected_log + envelope).map(math.exp),
+            "lower": (projected_log - envelope).map(math.exp),
         }
     )
 

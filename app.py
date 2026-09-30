@@ -599,21 +599,24 @@ display_visible_comparison = (
 corridor = None
 annualized_regression_change = None
 regression_frame = chart_primary_frame
-# A century of monthly history plus a recent daily segment must not give the
-# recent decade thousands of times more weight in the long-term trend fit.
-if symbol == "SP500" and selected_range == "All":
+# Long-range daily series should not give the most recent period thousands of
+# times more weight than their early history.  Fit their All-range trend from
+# monthly closes, then project that trend back onto the displayed dates.
+if symbol in {"SP500", "BTC/USD", "ETH/USD", "BNB/USD"} and selected_range == "All":
     regression_frame = (
         frame.set_index("market_date").resample("ME").last().dropna(subset=["close"]).reset_index()
     )
 if corridor_enabled and not is_policy_rate:
     try:
         corridor = logarithmic_regression_channel(
-            regression_frame, corridor_start, coverage=0.95 if corridor_95 else 1.0
+            regression_frame,
+            corridor_start,
+            coverage=0.95 if corridor_95 else 1.0,
+            output_dates=display_visible["market_date"],
         )
         annualized_regression_change = annualized_logarithmic_regression_change(
             regression_frame, corridor_start
         )
-        corridor = corridor[corridor["market_date"].isin(display_visible["market_date"])]
     except ValueError as error:
         st.warning(str(error))
 if comparison_error:

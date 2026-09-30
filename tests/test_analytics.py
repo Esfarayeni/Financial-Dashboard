@@ -103,6 +103,23 @@ def test_logarithmic_regression_channel_fits_exponential_prices():
     assert channel["lower"].tolist() == pytest.approx(frame["close"].tolist())
 
 
+def test_logarithmic_regression_channel_projects_to_requested_display_dates():
+    frame = pd.DataFrame(
+        {
+            "market_date": pd.date_range("2026-01-01", periods=61, freq="D"),
+            "close": [100 * math.exp(day * 0.02) for day in range(61)],
+        }
+    )
+    display_dates = frame.loc[[0, 30, 60], "market_date"]
+
+    channel = logarithmic_regression_channel(
+        frame, frame["market_date"].iloc[0], output_dates=display_dates
+    )
+
+    assert channel["market_date"].tolist() == display_dates.tolist()
+    assert channel["center"].tolist() == pytest.approx(frame.loc[[0, 30, 60], "close"].tolist())
+
+
 def test_logarithmic_regression_channel_encloses_each_close():
     frame = pd.DataFrame(
         {
