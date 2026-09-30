@@ -215,8 +215,15 @@ def build_chart(
     full_view_start = int((first_date - date_padding).timestamp() * 1000)
     full_view_end = int((last_date + date_padding).timestamp() * 1000)
     fig = go.Figure()
+    # Historical crypto archives and Yahoo Finance are one continuous price
+    # series.  Rendering every provider as its own trace creates an artificial
+    # visual break at a provider handoff, even when consecutive closes agree.
+    # The Shiller portion of the S&P 500 is the one intentional exception: it
+    # is lower-frequency data and remains visibly dotted.
     source_groups = (
-        list(frame.groupby("source", sort=False)) if "source" in frame.columns else [("derived", frame)]
+        list(frame.groupby("source", sort=False))
+        if "source" in frame.columns and "shiller_monthly" in set(frame["source"])
+        else [("combined", frame)]
     )
     for source, source_frame in source_groups:
         is_long_term = source == "shiller_monthly"
