@@ -129,10 +129,11 @@ def fetch_backfill() -> list[Price]:
 
 
 def fetch_latest_completed() -> list[Price]:
-    # At the scheduled run time Tehran has entered the next calendar day.
-    target = datetime.now(timezone(timedelta(hours=3, minutes=30))).date() - timedelta(days=1)
-    rows = fetch_range(target - timedelta(days=7), target, strict_range=False)
-    completed = [row for row in rows if row.market_date <= target]
-    if not completed:
-        raise BonbastFormatError("Bonbast returned no completed daily price")
-    return completed[-1:]
+    # Bonbast's graph is the selected reference series. Its newest plotted
+    # observation is already the delayed/fixed value we want to store, so do
+    # not intentionally discard it for the prior Tehran calendar day.
+    today = datetime.now(timezone(timedelta(hours=3, minutes=30))).date()
+    rows = fetch_range(today - timedelta(days=7), today, strict_range=False)
+    if not rows:
+        raise BonbastFormatError("Bonbast returned no USD price")
+    return rows[-1:]

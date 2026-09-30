@@ -7,8 +7,19 @@ from collections.abc import Callable
 from filelock import FileLock, Timeout
 
 from . import db
-from .config import ALPHAVANTAGE_API_KEY, COINGECKO_API_KEY, FRED_API_KEY, LOCK_PATH
-from .providers import alphavantage, bonbast, coingecko, databourse, fred, sci, shiller, worldbank
+from .config import ALPHAVANTAGE_API_KEY, FRED_API_KEY, LOCK_PATH
+from .providers import (
+    alphavantage,
+    blockchain,
+    bonbast,
+    crypto_archive,
+    databourse,
+    fred,
+    sci,
+    shiller,
+    worldbank,
+    yahoo,
+)
 
 
 def _run_provider(source: str, mode: str, fetcher: Callable):
@@ -58,25 +69,44 @@ def synchronize(mode: str) -> list[dict]:
                     else (lambda: fred.fetch_cpi_latest_completed(FRED_API_KEY))
                 )
                 results.append(_run_provider("fred_cpi", mode, cpi_fetcher))
+                target_fetcher = (
+                    (lambda: fred.fetch_target_history(FRED_API_KEY))
+                    if mode == "backfill"
+                    else (lambda: fred.fetch_target_latest_completed(FRED_API_KEY))
+                )
+                results.append(_run_provider("fred_target", mode, target_fetcher))
             else:
                 reason = "FRED_API_KEY is not configured"
                 db.record_skipped(fred.SOURCE, mode, reason)
                 results.append({"source": fred.SOURCE, "status": "skipped", "rows": 0, "error": reason})
                 db.record_skipped("fred_cpi", mode, reason)
                 results.append({"source": "fred_cpi", "status": "skipped", "rows": 0, "error": reason})
+                db.record_skipped("fred_target", mode, reason)
+                results.append({"source": "fred_target", "status": "skipped", "rows": 0, "error": reason})
 
             # The Pink Sheet is a long-range, monthly backfill. Daily refreshes
             # remain with the higher-frequency providers already in use.
             if mode == "backfill":
                 results.append(_run_provider(worldbank.SOURCE, mode, worldbank.fetch_history))
                 results.append(_run_provider(shiller.SOURCE, mode, shiller.fetch_history))
+                results.append(_run_provider(blockchain.SOURCE, mode, blockchain.fetch_history))
+                results.append(
+                    _run_provider(
+                        crypto_archive.GEMINI_SOURCE, mode, crypto_archive.fetch_gemini_ethereum_history
+                    )
+                )
+                results.append(
+                    _run_provider(
+                        crypto_archive.BINANCE_SOURCE, mode, crypto_archive.fetch_binance_bnb_history
+                    )
+                )
 
             if ALPHAVANTAGE_API_KEY:
                 results.append(
                     _run_provider(
                         alphavantage.SOURCE,
                         mode,
-                        lambda: alphavantage.fetch_all(
+                        lambda: alphavantage.fetch_metals(
                             ALPHAVANTAGE_API_KEY, latest_only=mode == "daily"
                         ),
                     )
@@ -88,16 +118,13 @@ def synchronize(mode: str) -> list[dict]:
                     {"source": alphavantage.SOURCE, "status": "skipped", "rows": 0, "error": reason}
                 )
 
-            # Alpha Vantage supplies full Bitcoin history alongside metals. Keep
-            # CoinGecko as the no-key fallback, where its public API offers one year.
-            if not ALPHAVANTAGE_API_KEY:
-                if mode == "backfill":
-                    def bitcoin_fetcher():
-                        return coingecko.fetch_backfill(COINGECKO_API_KEY)
-                else:
-                    def bitcoin_fetcher():
-                        return coingecko.fetch_latest_completed(COINGECKO_API_KEY)
-                results.append(_run_provider(coingecko.SOURCE, mode, bitcoin_fetcher))
+            results.append(
+                _run_provider(
+                    yahoo.SOURCE,
+                    mode,
+                    lambda: yahoo.fetch_all(latest_only=mode == "daily"),
+                )
+            )
     except Timeout:
         return [{"source": "all", "status": "failed", "rows": 0, "error": "A sync is already running"}]
 

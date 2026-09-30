@@ -132,13 +132,19 @@ def fetch_bitcoin_history(api_key: str) -> list[Price]:
     return _extract_bitcoin_rows(response.json())
 
 
-def fetch_all(api_key: str, latest_only: bool = False) -> list[Price]:
+def fetch_metals(api_key: str, latest_only: bool = False) -> list[Price]:
     prices: list[Price] = []
     for index, provider_symbol in enumerate(SYMBOLS):
         if index:
             time.sleep(1.1)
         rows = fetch_history(provider_symbol, api_key)
         prices.extend(rows[-1:] if latest_only else rows)
+    return prices
+
+
+def fetch_all(api_key: str, latest_only: bool = False) -> list[Price]:
+    """Compatibility helper retaining Alpha Vantage's historical BTC import."""
+    prices = fetch_metals(api_key, latest_only)
     time.sleep(1.1)
     bitcoin_rows = fetch_bitcoin_history(api_key)
     prices.extend(bitcoin_rows[-1:] if latest_only else bitcoin_rows)

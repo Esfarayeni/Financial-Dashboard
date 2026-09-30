@@ -9,18 +9,28 @@ from ..config import REQUEST_TIMEOUT_SECONDS, USER_AGENT
 from ..db import Price
 
 
-URL = "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart"
+URL_TEMPLATE = "https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart"
 SOURCE = "coingecko"
+COINS = {
+    "bitcoin": ("BTC/USD", "usd"),
+    "ethereum": ("ETH/USD", "usd"),
+    "binancecoin": ("BNB/USD", "usd"),
+}
 
 
 class CoinGeckoError(RuntimeError):
     pass
 
 
-def _parse(payload: dict[str, Any]) -> list[Price]:
+def _parse(payload: dict[str, Any], coin_id: str = "bitcoin") -> list[Price]:
     raw_prices = payload.get("prices")
     if not isinstance(raw_prices, list):
         raise CoinGeckoError("CoinGecko returned an unexpected response")
+
+    try:
+        symbol, unit = COINS[coin_id]
+    except KeyError as exc:
+        raise ValueError(f"Unsupported CoinGecko asset: {coin_id}") from exc
 
     fetched_at = datetime.now(timezone.utc)
     by_date: dict[str, Price] = {}
@@ -33,11 +43,11 @@ def _parse(payload: dict[str, Any]) -> list[Price]:
             continue
         market_date = datetime.fromtimestamp(float(timestamp_ms) / 1000, tz=timezone.utc).date()
         by_date[market_date.isoformat()] = Price(
-            symbol="BTC/USD",
+            symbol=symbol,
             market_date=market_date,
             close=value,
             currency="USD",
-            unit="usd",
+            unit=unit,
             source=SOURCE,
             fetched_at=fetched_at,
         )
@@ -46,30 +56,36 @@ def _parse(payload: dict[str, Any]) -> list[Price]:
     return sorted(by_date.values(), key=lambda row: row.market_date)
 
 
-def fetch(days: str | int, api_key: str = "") -> list[Price]:
+def fetch(coin_id: str, days: str | int, api_key: str = "") -> list[Price]:
+    if coin_id not in COINS:
+        raise ValueError(f"Unsupported CoinGecko asset: {coin_id}")
     headers = {"User-Agent": USER_AGENT}
     if api_key:
         headers["x-cg-demo-api-key"] = api_key
     response = requests.get(
-        URL,
+        URL_TEMPLATE.format(coin_id=coin_id),
         params={"vs_currency": "usd", "days": str(days), "interval": "daily"},
         headers=headers,
         timeout=REQUEST_TIMEOUT_SECONDS,
     )
     response.raise_for_status()
-    return _parse(response.json())
+    return _parse(response.json(), coin_id)
 
 
-def fetch_backfill(api_key: str = "") -> list[Price]:
+def fetch_backfill(coin_id: str = "bitcoin", api_key: str = "") -> list[Price]:
     try:
-        return fetch("max", api_key)
+        rows = fetch(coin_id, "max", api_key)
     except (requests.RequestException, CoinGeckoError):
-        return fetch(365, api_key)
+        rows = fetch(coin_id, 365, api_key)
+    return _completed_rows(rows)
 
 
-def fetch_latest_completed(api_key: str = "") -> list[Price]:
-    rows = fetch(3, api_key)
+def _completed_rows(rows: list[Price]) -> list[Price]:
     today_utc = datetime.now(timezone.utc).date()
     completed = [row for row in rows if row.market_date < today_utc]
-    return (completed or rows)[-1:]
+    return completed or rows[-1:]
 
+
+def fetch_latest_completed(coin_id: str = "bitcoin", api_key: str = "") -> list[Price]:
+    rows = fetch(coin_id, 3, api_key)
+    return _completed_rows(rows)[-1:]

@@ -8,7 +8,7 @@ for long-horizon comparison rather than trading execution.
 
 ## Features
 
-- USD/Toman, gold, silver, Bitcoin, S&P 500, TEDPIX, U.S. CPI, and Iran CPI.
+- USD/Toman, gold, silver, Bitcoin, Ethereum, BNB, S&P 500, TEDPIX, U.S. CPI, and Iran CPI.
 - Logarithmic charts, regression corridors, a tighter 95% corridor, annualized
   trend and R², comparison overlays, and bounded zoom.
 - Optional drawdown, rolling volatility, and inflation-adjusted views.
@@ -25,7 +25,11 @@ for long-horizon comparison rather than trading execution.
 | Bonbast graph | USD/Toman | Daily | Public chart parser; may change without notice. |
 | DataBourse | TEDPIX | Daily | Third-party public chart, not the official exchange API. |
 | World Bank Pink Sheet | Gold, silver | Monthly long history | Monthly averages/fixings. |
-| Alpha Vantage | Gold, silver, Bitcoin | Daily | Free key and rate limits required. |
+| Alpha Vantage | Gold, silver | Daily | Free key and rate limits required. |
+| Yahoo Finance | Bitcoin, Ethereum, BNB | Daily | Free, no key; long daily history via `yfinance`. |
+| Blockchain.com Charts API | Bitcoin before Yahoo coverage | Daily | Free market-price index; earliest values are sparse/indicative. |
+| Gemini CSV archive | Ethereum before Yahoo coverage | Daily | Free, one-time historical extension. |
+| Binance public API | BNB before Yahoo coverage | Daily | Free BNB/USDT candles; USDT is used as a USD proxy. |
 | FRED | S&P 500, U.S. CPI | Daily / monthly | Requires a free key. |
 | SCI public structured mirror | Iran CPI | Monthly | Publication lag and source revisions are possible. |
 | Shiller-derived series / local SPX CSV | S&P 500 earlier history | Monthly / daily | Used only for the historical gap. |
@@ -50,14 +54,24 @@ cp .env.example .env
 
 Add a free Alpha Vantage key to `.env`, then initialize the data. The initial
 backfill imports World Bank Pink Sheet monthly gold and silver data from 1960,
-then Alpha Vantage supplies the newer daily gold, silver, and full Bitcoin
-history. CoinGecko remains the one-year Bitcoin fallback when Alpha Vantage is
-not configured:
+then Alpha Vantage supplies the newer daily metal prices. Yahoo Finance supplies
+the long daily history for Bitcoin, Ethereum, and BNB:
 
 ```bash
 .venv/bin/python -m financial_dashboard.sync --backfill
 .venv/bin/streamlit run app.py
 ```
+
+## Streamlit Community Cloud
+
+The repository includes a read-only SQLite data snapshot so the public app
+starts with historical charts. On Community Cloud, use `app.py` as the
+entrypoint, choose Python 3.12, and add `ALPHAVANTAGE_API_KEY` and
+`FRED_API_KEY` through **App settings → Secrets**. Copy
+`.streamlit/secrets.toml.example` into the Cloud secrets editor and add your
+real values there; never commit them. Runtime refreshes are not durable after a
+Cloud restart, so a production deployment should use an external database and
+scheduled sync job.
 
 For S&P 500 and U.S. CPI updates, add a free `FRED_API_KEY` too. The app still
 runs when optional provider keys are not present; the relevant source is shown

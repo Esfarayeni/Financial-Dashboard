@@ -1,7 +1,9 @@
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 
 import pytest
 
+from financial_dashboard.db import Price
+from financial_dashboard.providers import bonbast
 from financial_dashboard.providers.bonbast import BonbastFormatError, parse_graph_html
 
 
@@ -37,3 +39,14 @@ def test_parse_graph_html_rejects_mismatched_lengths():
     with pytest.raises(BonbastFormatError):
         parse_graph_html(HTML.replace("228600, 230700", "228600"))
 
+
+def test_fetch_latest_completed_keeps_the_newest_graph_observation(monkeypatch):
+    rows = [
+        Price("USD/IRT", date(2026, 9, 26), 230_000, "IRT", "toman", "bonbast", datetime.now(timezone.utc)),
+        Price("USD/IRT", date(2026, 9, 27), 231_000, "IRT", "toman", "bonbast", datetime.now(timezone.utc)),
+    ]
+    monkeypatch.setattr(bonbast, "fetch_range", lambda *args, **kwargs: rows)
+
+    result = bonbast.fetch_latest_completed()
+
+    assert result == [rows[-1]]

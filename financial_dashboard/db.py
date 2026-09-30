@@ -165,6 +165,33 @@ def load_prices(symbol: str, path: Path = DB_PATH) -> pd.DataFrame:
                   AND fred.market_date IS NOT NULL
                   AND p.market_date >= fred.market_date
               )
+              -- Yahoo Finance is the selected long-term daily source for all
+              -- crypto charts. Its presence hides its legacy daily sources.
+              AND NOT (
+                  p.source IN ('alpha_vantage', 'coingecko')
+                  AND p.symbol IN ('BTC/USD', 'ETH/USD', 'BNB/USD')
+                  AND EXISTS (
+                      SELECT 1 FROM prices AS yahoo
+                      WHERE yahoo.symbol = p.symbol
+                        AND yahoo.source = 'yahoo_finance'
+                  )
+              )
+              -- Free exchange archives extend only the early gaps before
+              -- Yahoo begins for Ethereum and BNB.
+              AND NOT (
+                  p.source IN (
+                      'blockchain_market_price',
+                      'gemini_eth_usd_archive',
+                      'binance_bnb_usdt_archive'
+                  )
+                  AND EXISTS (
+                      SELECT 1 FROM prices AS yahoo
+                      WHERE yahoo.symbol = p.symbol
+                        AND yahoo.source = 'yahoo_finance'
+                      GROUP BY yahoo.symbol
+                      HAVING p.market_date >= MIN(yahoo.market_date)
+                  )
+              )
             ORDER BY p.market_date
             """,
             conn,

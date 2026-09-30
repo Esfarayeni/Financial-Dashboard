@@ -4,5 +4,6 @@ pandas>=2.2,<3
 pyarrow>=17,<23
 openpyxl>=3.1,<4
 requests>=2.32,<3
+yfinance>=0.2.66,<1
 python-dotenv>=1.0,<2
 filelock>=3.16,<4

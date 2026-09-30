@@ -14,6 +14,8 @@ SOURCE = "fred"
 SYMBOL = "SP500"
 CPI_SYMBOL = "US_INFLATION"
 CPI_SERIES = "CPIAUCNS"
+TARGET_SYMBOL = "FED_FUNDS_TARGET"
+TARGET_SERIES = "DFEDTARU"
 
 
 class FredError(RuntimeError):
@@ -85,6 +87,22 @@ def fetch_cpi_latest_completed(api_key: str) -> list[Price]:
     )
 
 
+def fetch_target_history(api_key: str) -> list[Price]:
+    """Fetch the FOMC federal funds target range upper limit."""
+    return _extract_rows(
+        _download(api_key, TARGET_SERIES), symbol=TARGET_SYMBOL, unit="percent"
+    )
+
+
+def fetch_target_latest_completed(api_key: str) -> list[Price]:
+    return _extract_rows(
+        _download(api_key, TARGET_SERIES),
+        latest_only=True,
+        symbol=TARGET_SYMBOL,
+        unit="percent",
+    )
+
+
 def _download(api_key: str, series_id: str = SYMBOL) -> dict[str, Any]:
     response = requests.get(
         URL,
@@ -100,5 +118,5 @@ def _download(api_key: str, series_id: str = SYMBOL) -> dict[str, Any]:
     response.raise_for_status()
     payload = response.json()
     if not isinstance(payload, dict):
-        raise FredError("FRED returned an unexpected S&P 500 response")
+        raise FredError("FRED returned an unexpected response")
     return payload

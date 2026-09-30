@@ -1,4 +1,4 @@
-from financial_dashboard.providers.fred import CPI_SYMBOL, _extract_rows
+from financial_dashboard.providers.fred import CPI_SYMBOL, TARGET_SYMBOL, _extract_rows
 
 
 def test_extract_rows_reads_sp500_and_skips_missing_values():
@@ -27,3 +27,15 @@ def test_extract_rows_supports_cpi_symbol_and_unit():
 
     assert rows[0].symbol == "US_INFLATION"
     assert rows[0].unit == "cpi_index_1982_1984_100"
+
+
+def test_extract_rows_supports_fed_funds_target_rate():
+    rows = _extract_rows(
+        {"observations": [{"date": "2026-08-01", "value": "4.25"}]},
+        symbol=TARGET_SYMBOL,
+        unit="percent",
+    )
+
+    assert rows[0].symbol == "FED_FUNDS_TARGET"
+    assert rows[0].close == 4.25
+    assert rows[0].unit == "percent"

@@ -159,13 +159,19 @@ INSTRUMENTS = {
     "Gold": {"symbol": "XAU/USD", "accent": "#d69e2e", "decimals": 2},
     "Silver": {"symbol": "XAG/USD", "accent": "#64748b", "decimals": 2},
     "Bitcoin": {"symbol": "BTC/USD", "accent": "#f7931a", "decimals": 0},
+    "Ethereum": {"symbol": "ETH/USD", "accent": "#627eea", "decimals": 2},
+    "BNB": {"symbol": "BNB/USD", "accent": "#f0b90b", "decimals": 2},
     "S&P 500": {"symbol": "SP500", "accent": "#7b61ff", "decimals": 2},
+    "Fed Funds Target": {"symbol": "FED_FUNDS_TARGET", "accent": "#246df0", "decimals": 2},
     "U.S. Inflation": {"symbol": "US_INFLATION", "accent": "#e76f51", "decimals": 2},
     "Iran Inflation": {"symbol": "IRAN_INFLATION", "accent": "#c05a8b", "decimals": 2},
     "TEDPIX": {"symbol": "TEDPIX", "accent": "#089981", "decimals": 0},
 }
 IRAN_INSTRUMENTS = ("USD / Toman", "Iran Inflation", "TEDPIX")
-US_INSTRUMENTS = ("U.S. Inflation", "S&P 500", "Gold", "Silver", "Bitcoin")
+US_INSTRUMENTS = (
+    "U.S. Inflation", "Fed Funds Target", "S&P 500", "Gold", "Silver"
+)
+CRYPTO_INSTRUMENTS = ("Bitcoin", "Ethereum", "BNB")
 RANGES = {"1M": 31, "3M": 92, "1Y": 366, "5Y": 1827, "All": None}
 
 
@@ -183,7 +189,7 @@ def format_price(value: float, symbol: str, decimals: int) -> str:
         return f"{sign}{amount:,.0f} pts"
     if symbol == "SP500":
         return f"{sign}{amount:,.{decimals}f} pts"
-    if symbol in {"US_INFLATION", "IRAN_INFLATION"}:
+    if symbol in {"US_INFLATION", "IRAN_INFLATION", "FED_FUNDS_TARGET"}:
         return f"{sign}{amount:,.{decimals}f}%"
     return f"{sign}${amount:,.{decimals}f}"
 
@@ -198,6 +204,7 @@ def build_chart(
     corridor: pd.DataFrame | None = None,
     comparison_frame: pd.DataFrame | None = None,
     comparison_title: str | None = None,
+    step_line: bool = False,
 ) -> go.Figure:
     first_date = pd.Timestamp(frame["market_date"].iloc[0])
     last_date = pd.Timestamp(frame["market_date"].iloc[-1])
@@ -217,7 +224,12 @@ def build_chart(
             go.Scatter(
                 x=source_frame["market_date"], y=source_frame["close"], mode="lines",
                 name="US equities long-term (monthly)" if is_long_term else title,
-                line={"color": accent, "width": 2, "dash": "dot" if is_long_term else "solid"},
+                line={
+                    "color": accent,
+                    "width": 2,
+                    "dash": "dot" if is_long_term else "solid",
+                    "shape": "hv" if step_line else "linear",
+                },
                 hovertemplate=f"%{{x|%b %-d, %Y}}<br><b>%{{y:,.{decimals}f}}</b><extra></extra>",
             )
         )
@@ -294,7 +306,7 @@ query = st.query_params
 if "dashboard_view" in query:
     del st.query_params["dashboard_view"]
 for key, allowed in {
-    "dashboard_section": {"Iran", "U.S."},
+    "dashboard_section": {"Iran", "U.S.", "Crypto"},
     "selected_range": set(RANGES),
 }.items():
     value = query.get(key)
@@ -326,19 +338,23 @@ if "sync_results" in st.session_state:
         st.warning("Some sources could not be updated. Existing chart data was preserved.")
     else:
         st.toast("Market data refreshed")
-if st.session_state.get("dashboard_section") not in {"Iran", "U.S."}:
+if st.session_state.get("dashboard_section") not in {"Iran", "U.S.", "Crypto"}:
     st.session_state["dashboard_section"] = "Iran"
 
 dashboard_section = st.radio(
-    "Country",
-    ("Iran", "U.S."),
+    "Market",
+    ("Iran", "U.S.", "Crypto"),
     horizontal=True,
     label_visibility="collapsed",
     key="dashboard_section",
 )
 st.query_params["dashboard_section"] = dashboard_section
-chart_options = IRAN_INSTRUMENTS if dashboard_section == "Iran" else US_INSTRUMENTS
-chart_selector_key = "iran_chart" if dashboard_section == "Iran" else "us_chart"
+chart_options = {
+    "Iran": IRAN_INSTRUMENTS,
+    "U.S.": US_INSTRUMENTS,
+    "Crypto": CRYPTO_INSTRUMENTS,
+}[dashboard_section]
+chart_selector_key = {"Iran": "iran_chart", "U.S.": "us_chart", "Crypto": "crypto_chart"}[dashboard_section]
 if query.get("chart") in chart_options and chart_selector_key not in st.session_state:
     st.session_state[chart_selector_key] = query["chart"]
 if st.session_state.get(chart_selector_key) not in chart_options:
@@ -354,6 +370,7 @@ instrument = INSTRUMENTS[selected_name]
 symbol = instrument["symbol"]
 frame = read_prices(symbol)
 is_inflation = symbol in {"US_INFLATION", "IRAN_INFLATION"}
+is_policy_rate = symbol == "FED_FUNDS_TARGET"
 
 if frame.empty:
     st.markdown("---")
@@ -369,9 +386,11 @@ if frame.empty:
         st.info(
             "No U.S. inflation history is stored yet. Add your free FRED key to .env, then run the initial backfill."
         )
+    elif symbol == "FED_FUNDS_TARGET":
+        st.info("No Fed Funds Target history is stored yet. Refresh data to import the official FRED series.")
     elif symbol == "IRAN_INFLATION":
         st.info("No Iran inflation history is stored yet. Run the initial backfill to import SCI monthly CPI data.")
-    elif symbol in {"XAU/USD", "XAG/USD"}:
+    elif symbol in {"XAU/USD", "XAG/USD", "BTC/USD", "ETH/USD", "BNB/USD"}:
         st.info(
             f"No {selected_name} history is stored yet. Add your free Alpha Vantage key to .env, then run the initial backfill."
         )
@@ -533,7 +552,7 @@ with details_column:
             key=inflation_channel_key,
             help="This CPI observation is rebased to 1.00× and is also the regression start.",
         )
-    elif corridor_enabled:
+    elif corridor_enabled and not is_policy_rate:
         corridor_key = f"corridor_start_{symbol}"
         corridor_min_start = frame["market_date"].iloc[0].date()
         corridor_max_start = frame["market_date"].iloc[-30].date()
@@ -578,7 +597,7 @@ if symbol == "SP500" and selected_range == "All":
     regression_frame = (
         frame.set_index("market_date").resample("ME").last().dropna(subset=["close"]).reset_index()
     )
-if corridor_enabled:
+if corridor_enabled and not is_policy_rate:
     try:
         corridor = logarithmic_regression_channel(
             regression_frame, corridor_start, coverage=0.95 if corridor_95 else 1.0
@@ -597,11 +616,12 @@ chart = build_chart(
     selected_name,
     instrument["accent"],
     2 if comparison_frame is not None else instrument["decimals"],
-    logarithmic,
+    logarithmic and not is_policy_rate,
     theme,
     corridor,
     visible_comparison,
     comparison_name if comparison_frame is not None else None,
+    step_line=symbol == "FED_FUNDS_TARGET",
 )
 
 if annualized_regression_change is not None:
@@ -621,17 +641,19 @@ with details_column:
         "Log scale",
         key="logarithmic",
         help="Use equal vertical space for equal percentage moves",
+        disabled=is_policy_rate,
     )
     st.toggle(
         "Regression corridor",
         key="corridor_enabled",
         help="Fit a log-price trend from the selected start date and enclose all daily closes.",
+        disabled=is_policy_rate,
     )
     st.toggle(
         "95% corridor",
         key="corridor_95",
         help="Ignore the 5% most extreme logarithmic residuals for a tighter channel.",
-        disabled=not corridor_enabled,
+        disabled=not corridor_enabled or is_policy_rate,
     )
 with chart_column:
     st.plotly_chart(
@@ -650,6 +672,12 @@ if symbol == "SP500":
         source_label += " · Long-term dotted segment: Shiller-derived monthly US equities"
 elif symbol == "IRAN_INFLATION":
     source_label = "Statistical Center of Iran (SCI)"
+elif symbol == "ETH/USD" and "gemini_eth_usd_archive" in set(frame["source"]):
+    source_label += " · Early history: Gemini ETH/USD archive"
+elif symbol == "BNB/USD" and "binance_bnb_usdt_archive" in set(frame["source"]):
+    source_label += " · Early history: Binance BNB/USDT (USDT≈USD)"
+elif symbol == "BTC/USD" and "blockchain_market_price" in set(frame["source"]):
+    source_label += " · Early history: Blockchain.com market-price index"
 st.markdown(
     f'<div class="source-line">Source: {source_label} &nbsp;·&nbsp; {freshness} &nbsp;·&nbsp; Informational data, not financial advice.</div>',
     unsafe_allow_html=True,

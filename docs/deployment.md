@@ -20,8 +20,24 @@ separate the web application from the data refresh job.
   keeps scraper traffic and data local.
 - A container host with a scheduled job works when a persistent volume and
   secrets are available.
-- Streamlit Community Cloud is suitable only for a demonstrator unless an
-  external persistent database and refresh service are configured.
+- Streamlit Community Cloud is suitable for a public demonstrator. This
+  repository includes a versioned SQLite snapshot so the app has chart history
+  after each Cloud restart. A refresh updates only the running instance; use a
+  scheduled external sync plus a managed database before treating it as a
+  durable production service.
+
+## Streamlit Community Cloud quick launch
+
+1. Push the repository, including `data/market.db`, to GitHub.
+2. In [share.streamlit.io](https://share.streamlit.io), choose **Create app**.
+3. Select the `main` branch and `app.py` as the entrypoint.
+4. Choose an available `streamlit.app` subdomain, such as
+   `iran-market-dashboard`.
+5. In **Advanced settings**, choose Python 3.12 and paste the values from
+   `.streamlit/secrets.toml.example`, with your real Alpha Vantage and FRED
+   keys substituted. Do not commit the real secret file.
+6. Deploy, then use **Manage app → Cloud logs** for any build or provider
+   errors.
 
 ## Data-source risks
 
