@@ -5,6 +5,8 @@ import pytest
 
 from financial_dashboard.analytics import (
     annualized_logarithmic_regression_change,
+    calendar_year_change,
+    cumulative_interest_growth,
     downsample_for_chart,
     drawdown_from_peak,
     inflation_adjusted_series,
@@ -16,6 +18,39 @@ from financial_dashboard.analytics import (
     rolling_volatility,
     year_over_year_change,
 )
+
+
+def test_calendar_year_change_uses_calendar_anniversary_and_prior_available_close():
+    frame = pd.DataFrame({
+        "market_date": pd.to_datetime(["2014-02-28", "2019-02-28", "2019-03-01", "2024-02-29"]),
+        "close": [100.0, 200.0, 220.0, 400.0],
+    })
+    assert calendar_year_change(frame, 5) == (200.0, 100.0)
+    assert calendar_year_change(frame, 10) == (300.0, 300.0)
+    assert calendar_year_change(frame, 11) is None
+    assert calendar_year_change(frame.iloc[0:0], 5) is None
+
+
+def test_interest_growth_starts_at_one_and_uses_prior_yield():
+    frame = pd.DataFrame({
+        "market_date": pd.to_datetime(["2020-01-01", "2020-01-02", "2020-01-05"]),
+        "close": [10.0, 5.0, 20.0],
+    })
+    result = cumulative_interest_growth(frame)
+    assert result.iloc[0]["close"] == 1.0
+    assert result.iloc[-1]["close"] == pytest.approx(1.10 ** (1 / 365.25) * 1.05 ** (3 / 365.25))
+    assert frame["close"].tolist() == [10.0, 5.0, 20.0]
+
+
+def test_interest_growth_does_not_invent_growth_across_publication_gap():
+    frame = pd.DataFrame({
+        "market_date": pd.to_datetime(["2002-02-15", "2006-02-09", "2006-02-10"]),
+        "close": [5.0, 4.0, 4.1],
+    })
+    result = cumulative_interest_growth(frame)
+    assert result.iloc[0]["market_date"] == pd.Timestamp("2006-02-09")
+    assert result.iloc[0]["close"] == 1.0
+    assert result.iloc[-1]["close"] == pytest.approx(1.04 ** (1 / 365.25))
 
 
 def test_downsample_for_chart_keeps_recent_daily_and_reduces_older_history():

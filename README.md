@@ -11,6 +11,15 @@ for long-horizon comparison rather than trading execution.
 - USD/Toman, gold, silver, Bitcoin, Ethereum, BNB, S&P 500, TEDPIX, U.S. CPI, and Iran CPI.
 - Logarithmic charts, regression corridors, a tighter 95% corridor, annualized
   trend and R², comparison overlays, and bounded zoom.
+- U.S. Treasury 2-, 10-, and 30-year daily constant-maturity yields from FRED
+  (`DGS2`, `DGS10`, `DGS30`), stored in percent and displayed as estimated
+  cumulative interest growth rebased to 1× at the channel start. The prior
+  observation's annual yield is compounded over elapsed days / 365.25.
+  This illustrative index is not a bond total-return series.
+  The initial import stores full history; daily sync fetches from the latest
+  stored date with a seven-day overlap. Cumulative charts start after any long
+  publication gap, so the 30-year growth view starts in February 2006 without
+  inventing missing yields. Log scale and regression channels are available.
 - Optional drawdown, rolling volatility, and inflation-adjusted views.
 - Overview cards with 1D / 1M / 1Y movement and small sparklines.
 - CSV download for the current visible series and cross-market monthly-return

@@ -9,6 +9,8 @@ import streamlit as st
 from financial_dashboard import db
 from financial_dashboard.analytics import (
     annualized_logarithmic_regression_change,
+    calendar_year_change,
+    cumulative_interest_growth,
     downsample_for_chart,
     logarithmic_regression_channel,
     logarithmic_regression_r_squared,
@@ -33,6 +35,8 @@ if "corridor_enabled" not in st.session_state:
     st.session_state["corridor_enabled"] = True
 if "corridor_95" not in st.session_state:
     st.session_state["corridor_95"] = True
+if "treasury_cumulative" not in st.session_state:
+    st.session_state["treasury_cumulative"] = True
 
 light_mode = st.session_state["light_mode"]
 theme = {
@@ -52,6 +56,11 @@ st.markdown(
     <style>
     :root {{ color-scheme: {"light" if light_mode else "dark"}; }}
     :root {{ --primary-color: #2962ff; }}
+    :root {{ --space-tight: .5rem; --space-group: 1rem; --space-section: 1.5rem; }}
+    :root {{ --font-ui: "Source Sans", "Segoe UI", sans-serif;
+      --type-body: 1rem; --type-label: .875rem; --type-meta: .875rem;
+      --type-metric: 1.5rem; --type-price: clamp(2rem, 3vw, 3rem); }}
+    .stApp, input, button, select {{ font-family: var(--font-ui); }}
     header[data-testid="stHeader"], [data-testid="stDecoration"] {{ display: none !important; }}
     [data-testid="stToolbar"], footer {{ visibility: hidden; }}
     [data-testid="stAppViewContainer"], .stApp {{
@@ -60,38 +69,47 @@ st.markdown(
       background-size: 22px 22px;
     }}
     [data-testid="stAppViewContainer"] > .main {{ padding-top: 0 !important; }}
-    .block-container {{ max-width: 1480px; padding: 2rem 2.4rem 3rem; }}
-    .brand {{ font: 700 0.78rem/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
-             letter-spacing: .14em; color: #667085; text-transform: uppercase; margin-top: .2rem; }}
-    .market-title {{ font-size: 1.75rem; font-weight: 760; letter-spacing: -.045em;
-                     margin: .2rem 0 .35rem; color: {theme["text"]}; }}
-    .market-snapshot {{ width: min(100%, 560px); margin: 1.7rem 0 1.25rem; padding: 1.55rem 1.7rem;
+    .block-container {{ max-width: 1480px; padding: 1.25rem 2.4rem 3rem; }}
+    .masthead {{ display: flex; align-items: baseline; gap: .25rem 1rem; flex-wrap: wrap; }}
+    .brand {{ font-size: 1.65rem; line-height: 1.2; font-weight: 700;
+             letter-spacing: -.03em; color: #2962ff; margin: 0; }}
+    h1.market-title {{ font-size: var(--type-body) !important; font-weight: 400 !important;
+      line-height: 1.4 !important; letter-spacing: 0; padding: 0 !important;
+      margin: 0; color: {theme["text"]}; }}
+    .market-snapshot {{ width: 100%; display: block;
+      margin: 0; padding: 1rem 1.25rem;
       color: {theme["text"]}; border: 0; border-radius: 30px;
       box-shadow: 0 14px 30px rgba(25, 38, 67, .09);
       background: {theme["surface"]}; }}
-    .snapshot-head {{ display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-      font-size: .78rem; letter-spacing: .09em; font-weight: 700; text-transform: uppercase; opacity: .92; }}
-    .snapshot-name {{ font-size: 1.12rem; letter-spacing: -.01em; text-transform: none; }}
+    .snapshot-head {{ display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-tight); flex-wrap: wrap;
+      font-size: .75rem; line-height: 1.4; letter-spacing: .04em; font-weight: 600; text-transform: uppercase; }}
+    .snapshot-name {{ font-size: 1.25rem; font-weight: 600; letter-spacing: -.01em; text-transform: none; }}
     .snapshot-head span:last-child {{ color: #7b5c11; }}
-    .snapshot-price {{ font-size: clamp(2.25rem, 4vw, 3.55rem); line-height: 1; font-weight: 760;
-      letter-spacing: -.06em; margin: 1rem 0 .45rem; }}
-    .snapshot-detail {{ font-size: .9rem; opacity: .93; }}
-    .muted {{ color: {theme["muted"]}; font-size: .84rem; }}
+    .snapshot-price {{
+      font-size: var(--type-price); line-height: 1.15; font-weight: 700;
+      font-variant-numeric: tabular-nums; letter-spacing: -.03em; margin: .5rem 0; }}
+    .snapshot-detail {{ font-size: var(--type-meta); line-height: 1.5; margin-top: .45rem;
+      font-variant-numeric: lining-nums tabular-nums; overflow-wrap: anywhere; }}
+    .muted {{ color: {theme["text"]}; font-size: var(--type-meta); line-height: 1.5; }}
     .stPlotlyChart {{ position: relative; z-index: 0; margin-bottom: 1rem; border-radius: 30px;
       overflow: hidden; background: {theme["surface"]}; box-shadow: 0 12px 28px rgba(25, 38, 67, .09); }}
     .source-line {{ position: relative; z-index: 1; display: block; margin-top: .35rem;
                     padding: .8rem 0 0; min-height: 2.25rem;
                     border-top: 1px solid {theme["border"]}; background: {theme["surface"]};
-                    color: {theme["muted"]}; font-size: .8rem; }}
+                    color: {theme["text"]}; font-size: var(--type-meta); line-height: 1.5; }}
     div[data-testid="stMetric"] {{ background: {theme["surface"]}; border: 0;
-                                  border-radius: 26px; padding: 1.1rem 1.2rem;
+                                  border-radius: 26px; padding: .85rem 1.2rem;
                                   box-shadow: 0 10px 24px rgba(25, 38, 67, .075); }}
     [data-testid="stMetricLabel"], [data-testid="stMetricLabel"] * {{
-      color: {theme["muted"]} !important; opacity: 1 !important;
+      color: {theme["text"]} !important; opacity: 1 !important;
+      font-size: var(--type-label); font-weight: 400; line-height: 1.4;
     }}
     [data-testid="stMetricValue"], [data-testid="stMetricValue"] * {{
-      color: {theme["text"]} !important; font-size: 1.15rem;
+      color: {theme["text"]} !important; font-size: var(--type-metric); font-weight: 600;
+      line-height: 1.25; font-variant-numeric: lining-nums tabular-nums; letter-spacing: -.01em;
     }}
+    [data-testid="stMetricDelta"] {{ font-size: var(--type-meta); font-variant-numeric: tabular-nums; }}
     div[role="radiogroup"] {{ gap: .25rem; }}
     div[role="radiogroup"] label {{ background: {theme["surface"]}; border: 0;
                                     border-radius: 16px; padding: .52rem .9rem;
@@ -99,6 +117,15 @@ st.markdown(
     div[role="radiogroup"] label p, .stButton button, [data-testid="stWidgetLabel"] p {{
       color: {theme["text"]} !important;
     }}
+    div[role="radiogroup"] label:has(input:checked),
+    div[role="radiogroup"] label:has([aria-checked="true"]) {{
+      background: {theme["surface_alt"]}; font-weight: 700;
+      box-shadow: inset 0 0 0 1px #2962ff;
+    }}
+    [data-testid="stSelectbox"] [data-testid="stWidgetLabel"] p,
+    [data-testid="stRadio"] [data-testid="stWidgetLabel"] p {{ font-size: var(--type-label); font-weight: 600; }}
+    [data-testid="stWidgetLabel"] p {{ font-size: var(--type-label); line-height: 1.4; }}
+    [data-testid="stSlider"] p {{ font-variant-numeric: tabular-nums; }}
     [data-testid="stCheckbox"][data-selected="true"] > label > div:first-of-type {{
       background: #2962ff !important;
     }}
@@ -132,9 +159,18 @@ st.markdown(
     .stButton button {{ border-radius: 18px; border-color: {theme["border"]};
                         background: {theme["surface"]}; box-shadow: 0 6px 15px rgba(25, 38, 67, .07);
                         font-weight: 650; }}
-    [data-testid="stHorizontalBlock"]:has(.brand) {{ background: {theme["surface"]}; border: 0;
-      border-radius: 28px; padding: .7rem 1.15rem; box-shadow: 0 12px 26px rgba(25, 38, 67, .08); }}
-    [data-testid="stHorizontalBlock"]:has(.brand) .stButton button {{ background: #246df0; color: #fff !important; border-color: #246df0; }}
+    .st-key-dashboard_header > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"] {{
+      background: {theme["surface"]}; border: 0;
+      border-radius: 28px; padding: .85rem 1.15rem; box-shadow: 0 12px 26px rgba(25, 38, 67, .08); }}
+    .st-key-theme_mode button {{ width: 44px; height: 44px; min-width: 44px;
+      padding: 0; background: {theme["surface_alt"]}; color: {theme["text"]} !important;
+      border-color: {theme["border"]}; }}
+    .st-key-theme_mode button [data-has-shortcut] {{ gap: 0 !important;
+      align-items: center; justify-content: center; }}
+    .st-key-theme_mode button [data-testid="stMarkdownContainer"] {{ position: absolute; }}
+    /* Keep the action name available to screen readers, but show only its icon. */
+    .st-key-theme_mode button p {{ position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }}
     [data-testid="stDateInputField"] {{ background: {theme["surface"]} !important;
                                          border: 1px solid {theme["border"]} !important; }}
     [data-testid="stDateInput"] [data-testid="stDateInputField"] * {{ color: {theme["text"]} !important; }}
@@ -144,10 +180,63 @@ st.markdown(
     [data-testid="stDateInput"] button {{ background: {theme["surface"]} !important;
                                            color: {theme["text"]} !important;
                                            border-color: {theme["border"]} !important; }}
-    [data-testid="stCaptionContainer"] {{ color: {theme["muted"]}; }}
+    [data-testid="stCaptionContainer"], [data-testid="stCaptionContainer"] p {{
+      color: {theme["text"]} !important; opacity: 1 !important;
+      font-size: var(--type-meta); line-height: {"1.5" if light_mode else "1.6"};
+      font-weight: {"400" if light_mode else "600"}; max-width: 70ch;
+    }}
+    .js-plotly-plot text {{ font-variant-numeric: lining-nums tabular-nums; }}
+    ::selection {{ background: #2962ff; color: #ffffff; }}
+    input {{ caret-color: #2962ff; }}
+    button:focus-visible, input:focus-visible, [role="switch"]:focus-visible {{
+      outline: 2px solid #2962ff; outline-offset: 3px;
+    }}
+    .st-key-market_summary {{ margin: var(--space-tight) 0; }}
+    .st-key-chart_toolbar {{ margin-top: var(--space-tight); width: calc((100% - 1.5rem) * .76); }}
+    .st-key-chart_workspace {{ margin-top: var(--space-tight); }}
+    .st-key-change_metrics [data-testid="stHorizontalBlock"] {{ gap: .75rem; }}
+    .st-key-change_metrics [data-testid="stMetric"] {{
+      min-height: 7rem; box-sizing: border-box;
+    }}
+    .st-key-chart_toolbar [data-testid="stHorizontalBlock"] {{ align-items: end; }}
+    .st-key-chart_workspace > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"] {{
+      gap: var(--space-section); }}
+    @media (max-width: 1100px) {{
+      .st-key-market_summary > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"] {{
+        flex-wrap: wrap; }}
+      .st-key-market_summary > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"]
+        > [data-testid="stColumn"] {{ flex: 1 1 100%; width: 100%; min-width: 100%; }}
+      .st-key-chart_toolbar [data-testid="stHorizontalBlock"] {{ flex-wrap: wrap; }}
+      .st-key-chart_toolbar [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {{
+        flex: 1 1 calc(50% - 1rem); min-width: calc(50% - 1rem); }}
+      .st-key-chart_toolbar [data-testid="stHorizontalBlock"] > [data-testid="stColumn"]:nth-child(3) {{
+        flex-basis: 100%; }}
+    }}
+    @media (max-width: 900px) {{
+      .st-key-chart_toolbar {{ width: 100%; }}
+      .st-key-chart_workspace > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"] {{
+        flex-wrap: wrap; gap: var(--space-group); }}
+      .st-key-chart_workspace > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"]
+        > [data-testid="stColumn"] {{ flex: 1 1 100%; min-width: 100%; }}
+    }}
     @media (max-width: 700px) {{
       .block-container {{ padding: .85rem .8rem 1.5rem; }}
-      .market-snapshot {{ width: 100%; }}
+      .masthead {{ gap: .25rem; flex-direction: column; }}
+      .market-snapshot {{ display: block; padding: 1.1rem 1.2rem; }}
+      .snapshot-price {{ margin: .65rem 0 .4rem; }}
+      .snapshot-head {{ flex-wrap: wrap; gap: .3rem 1rem; }}
+      .st-key-change_metrics [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {{
+        flex: 1 1 calc(50% - 1rem); min-width: calc(50% - 1rem); }}
+      div[data-testid="stMetric"] {{ padding: .7rem .85rem; }}
+      :root {{ --type-metric: 1.375rem; }}
+      .st-key-dashboard_header > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"] {{
+        flex-wrap: wrap; gap: var(--space-group); padding: .75rem 1rem; }}
+      .st-key-dashboard_header > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"]
+        > [data-testid="stColumn"]:first-child {{ flex: 1 1 100%; min-width: 100%; }}
+      .st-key-dashboard_header > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"]
+        > [data-testid="stColumn"]:nth-child(2) {{ flex: 1 1 calc(100% - 128px); min-width: 0; }}
+      .st-key-dashboard_header > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"]
+        > [data-testid="stColumn"]:last-child {{ flex: 0 1 112px; min-width: 112px; }}
     }}
     </style>
     """,
@@ -163,15 +252,20 @@ INSTRUMENTS = {
     "BNB": {"symbol": "BNB/USD", "accent": "#f0b90b", "decimals": 2},
     "S&P 500": {"symbol": "SP500", "accent": "#7b61ff", "decimals": 2},
     "Fed Funds Target": {"symbol": "FED_FUNDS_TARGET", "accent": "#246df0", "decimals": 2},
+    "2-Year Treasury Yield": {"symbol": "US_TREASURY_2Y", "accent": "#246df0", "decimals": 2},
+    "10-Year Treasury Yield": {"symbol": "US_TREASURY_10Y", "accent": "#7b61ff", "decimals": 2},
+    "30-Year Treasury Yield": {"symbol": "US_TREASURY_30Y", "accent": "#089981", "decimals": 2},
     "U.S. Inflation": {"symbol": "US_INFLATION", "accent": "#e76f51", "decimals": 2},
     "Iran Inflation": {"symbol": "IRAN_INFLATION", "accent": "#c05a8b", "decimals": 2},
     "TEDPIX": {"symbol": "TEDPIX", "accent": "#089981", "decimals": 0},
 }
 IRAN_INSTRUMENTS = ("USD / Toman", "Iran Inflation", "TEDPIX")
 US_INSTRUMENTS = (
-    "U.S. Inflation", "Fed Funds Target", "S&P 500", "Gold", "Silver"
+    "U.S. Inflation", "Fed Funds Target", "2-Year Treasury Yield", "10-Year Treasury Yield",
+    "30-Year Treasury Yield", "S&P 500"
 )
 CRYPTO_INSTRUMENTS = ("Bitcoin", "Ethereum", "BNB")
+COMMODITY_INSTRUMENTS = ("Gold", "Silver")
 RANGES = {"1M": 31, "3M": 92, "1Y": 366, "5Y": 1827, "All": None}
 
 
@@ -195,7 +289,7 @@ def format_price(value: float, symbol: str, decimals: int) -> str:
         return f"{sign}{amount:,.0f} pts"
     if symbol == "SP500":
         return f"{sign}{amount:,.{decimals}f} pts"
-    if symbol in {"US_INFLATION", "IRAN_INFLATION", "FED_FUNDS_TARGET"}:
+    if symbol in {"US_INFLATION", "IRAN_INFLATION", "FED_FUNDS_TARGET"} or symbol.startswith("US_TREASURY_"):
         return f"{sign}{amount:,.{decimals}f}%"
     return f"{sign}${amount:,.{decimals}f}"
 
@@ -211,6 +305,8 @@ def build_chart(
     comparison_frame: pd.DataFrame | None = None,
     comparison_title: str | None = None,
     step_line: bool = False,
+    value_suffix: str = "",
+    break_long_gaps: bool = False,
 ) -> go.Figure:
     first_date = pd.Timestamp(frame["market_date"].iloc[0])
     last_date = pd.Timestamp(frame["market_date"].iloc[-1])
@@ -233,9 +329,18 @@ def build_chart(
     )
     for source, source_frame in source_groups:
         is_long_term = source == "shiller_monthly"
+        dates, values = [], []
+        previous_date = None
+        for market_date, close in zip(source_frame["market_date"], source_frame["close"], strict=True):
+            if break_long_gaps and previous_date is not None and (market_date - previous_date).days > 120:
+                dates.append(market_date)
+                values.append(None)
+            dates.append(market_date)
+            values.append(close)
+            previous_date = market_date
         fig.add_trace(
             go.Scatter(
-                x=source_frame["market_date"], y=source_frame["close"], mode="lines",
+                x=dates, y=values, mode="lines", connectgaps=False,
                 name="US equities long-term (monthly)" if is_long_term else title,
                 line={
                     "color": accent,
@@ -243,7 +348,7 @@ def build_chart(
                     "dash": "dot" if is_long_term else "solid",
                     "shape": "hv" if step_line else "linear",
                 },
-                hovertemplate=f"%{{x|%b %-d, %Y}}<br><b>%{{y:,.{decimals}f}}</b><extra></extra>",
+                hovertemplate=f"%{{x|%b %-d, %Y}}<br><b>%{{y:,.{decimals}f}}{value_suffix}</b><extra></extra>",
             )
         )
     if comparison_frame is not None and not comparison_frame.empty:
@@ -282,7 +387,7 @@ def build_chart(
         legend={"orientation": "h", "y": 1.05, "x": 0, "font": {"color": colors["muted"]}},
         hovermode="x unified",
         dragmode="zoom",
-        font={"family": "Inter, ui-sans-serif, system-ui", "color": colors["muted"], "size": 12},
+        font={"family": '"Source Sans", "Segoe UI", sans-serif', "color": colors["text"], "size": 14},
         xaxis={
             "showgrid": True,
             "gridcolor": colors["grid"],
@@ -304,9 +409,12 @@ def build_chart(
             "gridcolor": colors["grid"],
             "zeroline": False,
             "tickformat": f",.{decimals}f",
+            "ticksuffix": value_suffix,
             "automargin": True,
             "separatethousands": True,
             "fixedrange": False,
+            "dtick": "D2" if logarithmic else None,
+            "nticks": 8,
         },
     )
     return fig
@@ -319,7 +427,7 @@ query = st.query_params
 if "dashboard_view" in query:
     del st.query_params["dashboard_view"]
 for key, allowed in {
-    "dashboard_section": {"Iran", "U.S.", "Crypto"},
+    "dashboard_section": {"Iran", "U.S.", "Crypto", "Commodity"},
     "selected_range": set(RANGES),
 }.items():
     value = query.get(key)
@@ -328,33 +436,49 @@ for key, allowed in {
 if "selected_range" not in st.session_state:
     st.session_state["selected_range"] = "All"
 
-header_left, theme_column = st.columns([6, 1.05], vertical_alignment="center")
-with header_left:
-    st.markdown('<div class="brand">Market / Daily</div>', unsafe_allow_html=True)
-    st.markdown('<div class="market-title">Financial dashboard</div>', unsafe_allow_html=True)
-with theme_column:
-    st.toggle(
-        "☀ Light",
-        key="light_mode",
-        help="Switch between light and dark appearance",
-    )
-if st.session_state.get("dashboard_section") not in {"Iran", "U.S.", "Crypto"}:
-    st.session_state["dashboard_section"] = "Iran"
+if st.session_state.get("dashboard_section") not in {"Iran", "U.S.", "Crypto", "Commodity"}:
+    st.session_state["dashboard_section"] = "U.S."
 
-dashboard_section = st.radio(
-    "Market",
-    ("Iran", "U.S.", "Crypto"),
-    horizontal=True,
-    label_visibility="collapsed",
-    key="dashboard_section",
-)
+
+def toggle_appearance() -> None:
+    st.session_state["light_mode"] = not st.session_state["light_mode"]
+
+
+with st.container(key="dashboard_header"):
+    header_left, market_column, theme_column = st.columns([2.8, 3.8, 1], vertical_alignment="center")
+with header_left:
+    st.markdown(
+        '<div class="masthead"><div class="brand">Market / Daily</div>'
+        '<h1 class="market-title">Financial dashboard</h1></div>',
+        unsafe_allow_html=True,
+    )
+with theme_column:
+    st.button(
+        "Switch to dark mode" if light_mode else "Switch to light mode",
+        icon=":material/light_mode:" if light_mode else ":material/dark_mode:",
+        key="theme_mode",
+        help="Switch to dark mode" if light_mode else "Switch to light mode",
+        on_click=toggle_appearance,
+    )
+with market_column:
+    dashboard_section = st.radio(
+        "Market",
+        ("U.S.", "Iran", "Crypto", "Commodity"),
+        horizontal=True,
+        label_visibility="collapsed",
+        key="dashboard_section",
+    )
 st.query_params["dashboard_section"] = dashboard_section
 chart_options = {
     "Iran": IRAN_INSTRUMENTS,
     "U.S.": US_INSTRUMENTS,
     "Crypto": CRYPTO_INSTRUMENTS,
+    "Commodity": COMMODITY_INSTRUMENTS,
 }[dashboard_section]
-chart_selector_key = {"Iran": "iran_chart", "U.S.": "us_chart", "Crypto": "crypto_chart"}[dashboard_section]
+chart_selector_key = {
+    "Iran": "iran_chart", "U.S.": "us_chart", "Crypto": "crypto_chart",
+    "Commodity": "commodity_chart",
+}[dashboard_section]
 if query.get("chart") in chart_options and chart_selector_key not in st.session_state:
     st.session_state[chart_selector_key] = query["chart"]
 if st.session_state.get(chart_selector_key) not in chart_options:
@@ -370,7 +494,9 @@ instrument = INSTRUMENTS[selected_name]
 symbol = instrument["symbol"]
 frame = read_prices(symbol)
 is_inflation = symbol in {"US_INFLATION", "IRAN_INFLATION"}
-is_policy_rate = symbol == "FED_FUNDS_TARGET"
+is_treasury_yield = symbol.startswith("US_TREASURY_")
+is_cumulative_treasury = is_treasury_yield and st.session_state["treasury_cumulative"]
+is_policy_rate = symbol == "FED_FUNDS_TARGET" or (is_treasury_yield and not is_cumulative_treasury)
 
 if frame.empty:
     st.markdown("---")
@@ -388,6 +514,8 @@ if frame.empty:
         )
     elif symbol == "FED_FUNDS_TARGET":
         st.info("No Fed Funds Target history is stored yet. Refresh data to import the official FRED series.")
+    elif is_treasury_yield:
+        st.info("No Treasury yield history is stored yet. Add your FRED key and run the initial backfill.")
     elif symbol == "IRAN_INFLATION":
         st.info("No Iran inflation history is stored yet. Run the initial backfill to import SCI monthly CPI data.")
     elif symbol in {"XAU/USD", "XAG/USD", "BTC/USD", "ETH/USD", "BNB/USD"}:
@@ -403,7 +531,9 @@ if frame.empty:
 
 # Keep the raw index levels available for normalized overlay comparisons while
 # the primary view can still apply its own display transformation.
-if is_inflation:
+if is_cumulative_treasury:
+    frame = cumulative_interest_growth(frame)
+if is_inflation or is_cumulative_treasury:
     # The cumulative inflation view deliberately begins in 1960, matching the
     # long-horizon scope used elsewhere in the dashboard.
     frame = frame[frame["market_date"] >= pd.Timestamp("1960-01-01")].reset_index(drop=True)
@@ -415,7 +545,7 @@ if is_inflation:
     if not inflation_min_start <= st.session_state[inflation_channel_key] <= inflation_max_start:
         st.session_state[inflation_channel_key] = inflation_max_start
 comparison_primary_frame = frame.copy()
-if is_inflation:
+if is_inflation or is_cumulative_treasury:
     frame = rebased_price_level(comparison_primary_frame, st.session_state[inflation_channel_key])
 else:
     comparison_primary_frame = frame.copy()
@@ -429,6 +559,8 @@ chart_primary_frame = frame
 if comparison_name != "None":
     comparison_symbol = INSTRUMENTS[comparison_name]["symbol"]
     comparison_raw = read_prices(comparison_symbol)
+    if comparison_symbol.startswith("US_TREASURY_") and st.session_state["treasury_cumulative"]:
+        comparison_raw = cumulative_interest_growth(comparison_raw)
     if comparison_symbol in {"US_INFLATION", "IRAN_INFLATION"}:
         comparison_raw = comparison_raw[
             comparison_raw["market_date"] >= pd.Timestamp("1960-01-01")
@@ -474,62 +606,98 @@ if is_cumulative_inflation:
 elif is_inflation:
     price_value = format_price(float(latest["close"]), symbol, instrument["decimals"])
     price_detail = f"{direction}{change:.2f} percentage points from the prior month · {latest['market_date']:%b %Y}"
+elif is_cumulative_treasury:
+    price_value = f"{float(latest['close']):,.2f}×"
+    price_detail = (
+        f"{(float(latest['close']) - 1) * 100:+.2f}% estimated interest growth since "
+        f"{frame['market_date'].iloc[0]:%b %d, %Y} · {latest['market_date']:%b %d, %Y}"
+    )
+elif is_treasury_yield:
+    price_value = format_price(float(latest["close"]), symbol, instrument["decimals"])
+    price_detail = f"{change:+.2f} percentage points · {latest['market_date']:%b %d, %Y}"
 else:
     price_value = format_price(float(latest["close"]), symbol, instrument["decimals"])
     price_detail = (
         f"{direction}{format_price(change, symbol, instrument['decimals'])} · "
         f"{direction}{change_pct:.2f}% · {latest['market_date']:%b %d, %Y}"
     )
-st.markdown(
-    f'<section class="market-snapshot"><div class="snapshot-head"><span class="snapshot-name">{selected_name}</span>'
-    '<span>Daily close</span></div>'
-    f'<div class="snapshot-price">{price_value}</div><div class="snapshot-detail">{price_detail}</div></section>',
-    unsafe_allow_html=True,
-)
+with st.container(key="market_summary"):
+    quote_column, metrics_column = st.columns([2.1, 5.4], vertical_alignment="center")
+with quote_column:
+    st.markdown(
+        f'<section class="market-snapshot"><div class="snapshot-head"><span class="snapshot-name">{selected_name}</span>'
+        f'<span>{"Estimated growth" if is_cumulative_treasury else "Daily yield" if is_treasury_yield else "Daily close"}</span></div>'
+        f'<div class="snapshot-price">{price_value}</div><div class="snapshot-detail">{price_detail}</div></section>',
+        unsafe_allow_html=True,
+    )
 
 daily_absolute, daily_pct = period_change(frame, None)
 weekly_absolute, weekly_pct = period_change(frame, 7)
 monthly_absolute, monthly_pct = period_change(frame, 30)
 yearly_absolute, yearly_pct = period_change(frame, 365)
 
-metric_cols = st.columns(4)
 if is_inflation:
-    monthly_change, monthly_pct = period_change(frame, 31)
-    yearly_change, yearly_pct = period_change(frame, 366)
-    cumulative_pct = (float(latest["close"]) - 1) * 100
-    metric_cols[0].metric("Since start", f"{cumulative_pct:+.2f}%")
-    metric_cols[1].metric("Purchasing power", f"{100 / float(latest['close']):.2f}%")
-    metric_cols[2].metric("1 month CPI", f"{monthly_pct:+.2f}%")
-    metric_cols[3].metric("1 year CPI", f"{yearly_pct:+.2f}%")
+    # Use the stored CPI history so the channel's rebasing start cannot change
+    # the latest inflation rates. Consecutive monthly observations avoid
+    # skipping a month when the preceding month has fewer than 31 days.
+    _, monthly_pct = period_change(comparison_primary_frame, None)
+    latest_cpi_date = comparison_primary_frame["market_date"].iloc[-1]
+    annual_days = (latest_cpi_date - (latest_cpi_date - pd.DateOffset(years=1))).days
+    _, yearly_pct = period_change(comparison_primary_frame, annual_days)
+    metric_entries = [("Monthly change", None, monthly_pct), ("Yearly change", None, yearly_pct)]
 else:
-    for column, label, absolute, percentage in zip(
-        metric_cols,
+    metric_entries = list(zip(
         ("Daily change", "Weekly change", "Monthly change", "Yearly change"),
         (daily_absolute, weekly_absolute, monthly_absolute, yearly_absolute),
         (daily_pct, weekly_pct, monthly_pct, yearly_pct),
         strict=True,
-    ):
-        sign = "+" if percentage >= 0 else ""
-        absolute_sign = "+" if absolute >= 0 else ""
-        column.metric(
-            label,
-            f"{sign}{percentage:.2f}%",
-            delta=f"{absolute_sign}{format_price(absolute, symbol, instrument['decimals'])}",
-        )
+    ))
+    if is_cumulative_treasury:
+        metric_entries = [(label, None, percentage) for label, _, percentage in metric_entries]
+if is_inflation:
+    for years in (5, 10):
+        result = calendar_year_change(comparison_primary_frame, years)
+        percentage = result[1] if result is not None else None
+        metric_entries.append((f"{years}-year change", None, percentage))
 
-chart_selector_column, comparison_selector_column, range_column, controls_right = st.columns(
-    [1.65, 1.65, 3.25, 1.1], vertical_alignment="center"
-)
+with metrics_column:
+    with st.container(key="change_metrics"):
+        columns_per_row = 4
+        for row_start in range(0, len(metric_entries), columns_per_row):
+            metric_cols = st.columns(columns_per_row)
+            for column, (label, absolute, percentage) in zip(
+                metric_cols, metric_entries[row_start:row_start + columns_per_row], strict=True
+            ):
+                if percentage is None:
+                    column.metric(label, "N/A", help="Not enough stored history for this period.")
+                    continue
+                delta = None
+                if absolute is not None:
+                    absolute_sign = "+" if absolute >= 0 else ""
+                    delta = f"{absolute_sign}{format_price(absolute, symbol, instrument['decimals'])}"
+                column.metric(
+                    label,
+                    f"{absolute * 100:+.0f} bp" if is_treasury_yield and not is_cumulative_treasury
+                    else f"{percentage:+.2f}%",
+                    delta=None if is_treasury_yield else delta,
+                    help="Total percentage change over the period, not an annualized return."
+                    if label in {"5-year change", "10-year change"}
+                    else "Estimated compounded interest growth, not bond total return." if is_cumulative_treasury
+                    else "Yield change in basis points (100 bp = 1 percentage point)." if is_treasury_yield else None,
+                )
+
+with st.container(key="chart_toolbar"):
+    chart_selector_column, comparison_selector_column, range_column = st.columns(
+        [1.5, 1.5, 3.3], vertical_alignment="bottom"
+    )
 with chart_selector_column:
-    st.selectbox("Chart", chart_options, key=chart_selector_key, label_visibility="collapsed")
+    st.selectbox("Chart", chart_options, key=chart_selector_key)
 with comparison_selector_column:
-    st.selectbox("Compare with", comparison_options, key="comparison_chart", label_visibility="collapsed")
+    st.selectbox("Compare with", comparison_options, key="comparison_chart")
 with range_column:
     selected_range = st.radio(
-        "Range", list(RANGES), horizontal=True, label_visibility="collapsed", key="selected_range"
+        "Range", list(RANGES), horizontal=True, key="selected_range"
     )
-with controls_right:
-    st.caption("Drag to zoom · Double-click to reset")
 
 st.query_params.update(
     {
@@ -539,18 +707,24 @@ st.query_params.update(
     }
 )
 
-chart_column, details_column = st.columns([6.15, 1.45], vertical_alignment="top")
+with st.container(key="chart_workspace"):
+    chart_column, details_column = st.columns([5.7, 1.8], vertical_alignment="top")
 logarithmic = st.session_state["logarithmic"]
 corridor_enabled = st.session_state["corridor_enabled"]
 corridor_95 = st.session_state["corridor_95"]
 with details_column:
-    if is_inflation:
+    if is_treasury_yield:
+        st.toggle(
+            "Cumulative growth", key="treasury_cumulative",
+            help="On: estimated compounded interest starting at 1×. Off: published Treasury yield in percent.",
+        )
+    if is_inflation or is_cumulative_treasury:
         corridor_start = st.slider(
             "Channel start",
             min_value=inflation_min_start,
             max_value=inflation_max_start,
             key=inflation_channel_key,
-            help="This CPI observation is rebased to 1.00× and is also the regression start.",
+            help="This observation is rebased to 1.00× and is also the regression start.",
         )
     elif corridor_enabled and not is_policy_rate:
         corridor_key = f"corridor_start_{symbol}"
@@ -633,6 +807,9 @@ chart = build_chart(
     display_visible_comparison,
     comparison_name if comparison_frame is not None else None,
     step_line=symbol == "FED_FUNDS_TARGET",
+    value_suffix=("×" if is_cumulative_treasury or comparison_frame is not None else "%")
+    if is_treasury_yield else "",
+    break_long_gaps=is_treasury_yield,
 )
 
 if annualized_regression_change is not None:
@@ -673,6 +850,7 @@ with chart_column:
         theme=None,
         config={"displayModeBar": False, "scrollZoom": False, "responsive": True},
     )
+    st.caption("Drag to zoom · Double-click to reset")
 
 freshness_state, freshness = freshness_status(latest["market_date"], latest["source"])
 source_label = latest["source"].replace("_", " ").title()
@@ -681,6 +859,17 @@ if symbol == "SP500":
         source_label += " · Daily history: local SPX CSV (1960–2016)"
     elif "shiller_monthly" in set(frame["source"]):
         source_label += " · Long-term dotted segment: Shiller-derived monthly US equities"
+elif is_treasury_yield:
+    source_label = (
+        "FRED / Federal Reserve H.15 · Estimated interest-growth index, not bond total return"
+        " · Prior annual yield compounded over elapsed days (365.25-day year)"
+        if is_cumulative_treasury else "FRED / Federal Reserve H.15 · Daily constant-maturity yield"
+    )
+    if symbol == "US_TREASURY_30Y":
+        source_label += (
+            " · Starts after the 2002–2006 publication gap; missing yields are not estimated"
+            if is_cumulative_treasury else " · No published 30-year yields Feb 2002–Feb 2006 (gap preserved)"
+        )
 elif symbol == "IRAN_INFLATION":
     source_label = "Statistical Center of Iran (SCI)"
 elif symbol == "ETH/USD" and "gemini_eth_usd_archive" in set(frame["source"]):

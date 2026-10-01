@@ -67,12 +67,48 @@ def period_change(frame: pd.DataFrame, days: int | None) -> tuple[float, float]:
     return absolute, percentage
 
 
+def calendar_year_change(frame: pd.DataFrame, years: int) -> tuple[float, float] | None:
+    """Total change over calendar years, or None when that history is absent."""
+    if years < 1:
+        raise ValueError("Years must be positive")
+    if frame.empty:
+        return None
+    ordered = frame.sort_values("market_date")
+    latest_date = pd.Timestamp(ordered.iloc[-1]["market_date"])
+    target = latest_date - pd.DateOffset(years=years)
+    if not (ordered["market_date"] <= target).any():
+        return None
+    return period_change(ordered, (latest_date - target).days)
+
+
 def year_over_year_change(frame: pd.DataFrame) -> pd.DataFrame:
     """Convert a monthly index series to the conventional annual inflation rate."""
     result = frame.sort_values("market_date").copy()
     prior_year = result["close"].shift(12)
     result["close"] = (result["close"] / prior_year - 1) * 100
     return result.dropna(subset=["close"]).reset_index(drop=True)
+
+
+def cumulative_interest_growth(frame: pd.DataFrame, max_gap_days: int = 14) -> pd.DataFrame:
+    """Estimated 1x growth using prior quoted annual yield and actual/365.25 time.
+
+    This is an illustrative reinvestment index, not a bond total-return series.
+    Start after the last long publication gap: unknown yields are not imputed.
+    """
+    result = frame.sort_values("market_date").copy().reset_index(drop=True)
+    if result.empty:
+        return result
+    gaps = result["market_date"].diff().dt.days
+    breaks = gaps[gaps > max_gap_days].index
+    if len(breaks):
+        result = result.iloc[breaks[-1]:].reset_index(drop=True)
+    elapsed_years = result["market_date"].diff().dt.total_seconds().fillna(0) / (365.25 * 86400)
+    prior_yield = result["close"].shift(1).fillna(0) / 100
+    if (prior_yield <= -1).any():
+        raise ValueError("Annual yields must exceed -100%")
+    growth_log = (prior_yield.map(math.log1p) * elapsed_years).cumsum()
+    result["close"] = growth_log.map(math.exp)
+    return result
 
 
 def rebased_price_level(frame: pd.DataFrame, start_date: date | pd.Timestamp) -> pd.DataFrame:

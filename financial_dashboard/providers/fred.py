@@ -16,6 +16,7 @@ CPI_SYMBOL = "US_INFLATION"
 CPI_SERIES = "CPIAUCNS"
 TARGET_SYMBOL = "FED_FUNDS_TARGET"
 TARGET_SERIES = "DFEDTARU"
+TREASURY_SERIES = {"DGS2": "US_TREASURY_2Y", "DGS10": "US_TREASURY_10Y", "DGS30": "US_TREASURY_30Y"}
 
 
 class FredError(RuntimeError):
@@ -103,15 +104,29 @@ def fetch_target_latest_completed(api_key: str) -> list[Price]:
     )
 
 
-def _download(api_key: str, series_id: str = SYMBOL) -> dict[str, Any]:
+def fetch_treasury_history(
+    api_key: str, series_id: str, observation_start: str | None = None
+) -> list[Price]:
+    """Daily constant-maturity yields; optionally fetch only recent observations."""
+    if series_id not in TREASURY_SERIES:
+        raise ValueError("Unsupported Treasury maturity")
+    return _extract_rows(
+        _download(api_key, series_id, observation_start),
+        symbol=TREASURY_SERIES[series_id], unit="percent",
+    )
+
+
+def _download(
+    api_key: str, series_id: str = SYMBOL, observation_start: str | None = None
+) -> dict[str, Any]:
+    params = {
+        "series_id": series_id, "api_key": api_key, "file_type": "json", "sort_order": "asc",
+    }
+    if observation_start:
+        params["observation_start"] = observation_start
     response = requests.get(
         URL,
-        params={
-            "series_id": series_id,
-            "api_key": api_key,
-            "file_type": "json",
-            "sort_order": "asc",
-        },
+        params=params,
         headers={"User-Agent": USER_AGENT},
         timeout=30,
     )

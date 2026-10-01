@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import sys
 from collections.abc import Callable
+from datetime import timedelta
 
 from filelock import FileLock, Timeout
 
@@ -75,6 +76,18 @@ def synchronize(mode: str) -> list[dict]:
                     else (lambda: fred.fetch_target_latest_completed(FRED_API_KEY))
                 )
                 results.append(_run_provider("fred_target", mode, target_fetcher))
+                for series_id, symbol in fred.TREASURY_SERIES.items():
+                    stored = db.load_prices(symbol) if mode == "daily" else None
+                    start = (
+                        (stored["market_date"].iloc[-1].date() - timedelta(days=7)).isoformat()
+                        if stored is not None and not stored.empty else None
+                    )
+                    results.append(_run_provider(
+                        f"fred_{series_id.lower()}", mode,
+                        lambda series_id=series_id, start=start: fred.fetch_treasury_history(
+                            FRED_API_KEY, series_id, start
+                        ),
+                    ))
             else:
                 reason = "FRED_API_KEY is not configured"
                 db.record_skipped(fred.SOURCE, mode, reason)
@@ -83,6 +96,10 @@ def synchronize(mode: str) -> list[dict]:
                 results.append({"source": "fred_cpi", "status": "skipped", "rows": 0, "error": reason})
                 db.record_skipped("fred_target", mode, reason)
                 results.append({"source": "fred_target", "status": "skipped", "rows": 0, "error": reason})
+                for series_id in fred.TREASURY_SERIES:
+                    source = f"fred_{series_id.lower()}"
+                    db.record_skipped(source, mode, reason)
+                    results.append({"source": source, "status": "skipped", "rows": 0, "error": reason})
 
             # The Pink Sheet is a long-range, monthly backfill. Daily refreshes
             # remain with the higher-frequency providers already in use.
