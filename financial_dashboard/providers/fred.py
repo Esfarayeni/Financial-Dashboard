@@ -16,6 +16,12 @@ CPI_SYMBOL = "US_INFLATION"
 CPI_SERIES = "CPIAUCNS"
 TARGET_SYMBOL = "FED_FUNDS_TARGET"
 TARGET_SERIES = "DFEDTARU"
+HISTORICAL_TARGET_SERIES = "DFEDTAR"
+TARGET_RANGE_START = date(2008, 12, 16)
+OIL_SYMBOL = "BRENT/USD"
+OIL_SERIES = "DCOILBRENTEU"
+DOLLAR_SYMBOL = "US_DOLLAR_BROAD"
+DOLLAR_SERIES = "DTWEXBGS"
 TREASURY_SERIES = {"DGS2": "US_TREASURY_2Y", "DGS10": "US_TREASURY_10Y", "DGS30": "US_TREASURY_30Y"}
 
 
@@ -89,9 +95,17 @@ def fetch_cpi_latest_completed(api_key: str) -> list[Price]:
 
 
 def fetch_target_history(api_key: str) -> list[Price]:
-    """Fetch the FOMC federal funds target range upper limit."""
-    return _extract_rows(
+    """Single target before Dec 16, 2008; target range upper limit thereafter."""
+    historical = _extract_rows(
+        _download(api_key, HISTORICAL_TARGET_SERIES), symbol=TARGET_SYMBOL, unit="percent"
+    )
+    current = _extract_rows(
         _download(api_key, TARGET_SERIES), symbol=TARGET_SYMBOL, unit="percent"
+    )
+    return sorted(
+        [row for row in historical if row.market_date < TARGET_RANGE_START]
+        + [row for row in current if row.market_date >= TARGET_RANGE_START],
+        key=lambda row: row.market_date,
     )
 
 
@@ -113,6 +127,21 @@ def fetch_treasury_history(
     return _extract_rows(
         _download(api_key, series_id, observation_start),
         symbol=TREASURY_SERIES[series_id], unit="percent",
+    )
+
+
+def fetch_oil_history(api_key: str, observation_start: str | None = None) -> list[Price]:
+    """Brent crude spot prices in USD per barrel, from EIA via FRED."""
+    return _extract_rows(
+        _download(api_key, OIL_SERIES, observation_start),
+        symbol=OIL_SYMBOL, unit="usd_per_barrel",
+    )
+
+
+def fetch_dollar_history(api_key: str, observation_start: str | None = None) -> list[Price]:
+    return _extract_rows(
+        _download(api_key, DOLLAR_SERIES, observation_start),
+        symbol=DOLLAR_SYMBOL, unit="index_jan_2006_100",
     )
 
 

@@ -5,6 +5,7 @@ import sys
 from collections.abc import Callable
 from datetime import timedelta
 
+import pandas as pd
 from filelock import FileLock, Timeout
 
 from . import db
@@ -76,6 +77,22 @@ def synchronize(mode: str) -> list[dict]:
                     else (lambda: fred.fetch_target_latest_completed(FRED_API_KEY))
                 )
                 results.append(_run_provider("fred_target", mode, target_fetcher))
+                oil_stored = db.load_prices(fred.OIL_SYMBOL) if mode == "daily" else None
+                oil_start = (
+                    (oil_stored["market_date"].iloc[-1].date() - timedelta(days=7)).isoformat()
+                    if oil_stored is not None and not oil_stored.empty else None
+                )
+                results.append(_run_provider(
+                    "fred_oil", mode, lambda: fred.fetch_oil_history(FRED_API_KEY, oil_start),
+                ))
+                dollar_stored = db.load_prices(fred.DOLLAR_SYMBOL) if mode == "daily" else None
+                dollar_start = (
+                    (dollar_stored["market_date"].iloc[-1].date() - timedelta(days=7)).isoformat()
+                    if dollar_stored is not None and not dollar_stored.empty else None
+                )
+                results.append(_run_provider(
+                    "fred_dollar", mode, lambda: fred.fetch_dollar_history(FRED_API_KEY, dollar_start),
+                ))
                 for series_id, symbol in fred.TREASURY_SERIES.items():
                     stored = db.load_prices(symbol) if mode == "daily" else None
                     start = (
@@ -96,6 +113,10 @@ def synchronize(mode: str) -> list[dict]:
                 results.append({"source": "fred_cpi", "status": "skipped", "rows": 0, "error": reason})
                 db.record_skipped("fred_target", mode, reason)
                 results.append({"source": "fred_target", "status": "skipped", "rows": 0, "error": reason})
+                db.record_skipped("fred_oil", mode, reason)
+                results.append({"source": "fred_oil", "status": "skipped", "rows": 0, "error": reason})
+                db.record_skipped("fred_dollar", mode, reason)
+                results.append({"source": "fred_dollar", "status": "skipped", "rows": 0, "error": reason})
                 for series_id in fred.TREASURY_SERIES:
                     source = f"fred_{series_id.lower()}"
                     db.record_skipped(source, mode, reason)
@@ -117,6 +138,12 @@ def synchronize(mode: str) -> list[dict]:
                         crypto_archive.BINANCE_SOURCE, mode, crypto_archive.fetch_binance_bnb_history
                     )
                 )
+
+            if mode == "daily":
+                copper_stored = db.load_prices("COPPER/USD")
+                latest_month = pd.Timestamp.now(tz="UTC").tz_localize(None).to_period("M") - 1
+                if copper_stored.empty or copper_stored["market_date"].iloc[-1].to_period("M") < latest_month:
+                    results.append(_run_provider("world_bank_copper", mode, worldbank.fetch_copper_history))
 
             if ALPHAVANTAGE_API_KEY:
                 results.append(

@@ -13,7 +13,6 @@ from financial_dashboard.analytics import (
     cumulative_interest_growth,
     downsample_for_chart,
     logarithmic_regression_channel,
-    logarithmic_regression_r_squared,
     period_change,
     rebased_price_level,
 )
@@ -37,6 +36,8 @@ if "corridor_95" not in st.session_state:
     st.session_state["corridor_95"] = True
 if "treasury_cumulative" not in st.session_state:
     st.session_state["treasury_cumulative"] = True
+if "fed_target_cumulative" not in st.session_state:
+    st.session_state["fed_target_cumulative"] = False
 
 light_mode = st.session_state["light_mode"]
 theme = {
@@ -247,6 +248,9 @@ INSTRUMENTS = {
     "USD / Toman": {"symbol": "USD/IRT", "accent": "#2962ff", "decimals": 0},
     "Gold": {"symbol": "XAU/USD", "accent": "#d69e2e", "decimals": 2},
     "Silver": {"symbol": "XAG/USD", "accent": "#64748b", "decimals": 2},
+    "Oil (Brent)": {"symbol": "BRENT/USD", "accent": "#089981", "decimals": 2},
+    "Copper": {"symbol": "COPPER/USD", "accent": "#b87333", "decimals": 2},
+    "Broad U.S. Dollar Index": {"symbol": "US_DOLLAR_BROAD", "accent": "#246df0", "decimals": 2},
     "Bitcoin": {"symbol": "BTC/USD", "accent": "#f7931a", "decimals": 0},
     "Ethereum": {"symbol": "ETH/USD", "accent": "#627eea", "decimals": 2},
     "BNB": {"symbol": "BNB/USD", "accent": "#f0b90b", "decimals": 2},
@@ -262,10 +266,10 @@ INSTRUMENTS = {
 IRAN_INSTRUMENTS = ("USD / Toman", "Iran Inflation", "TEDPIX")
 US_INSTRUMENTS = (
     "U.S. Inflation", "Fed Funds Target", "2-Year Treasury Yield", "10-Year Treasury Yield",
-    "30-Year Treasury Yield", "S&P 500"
+    "30-Year Treasury Yield", "S&P 500", "Broad U.S. Dollar Index"
 )
 CRYPTO_INSTRUMENTS = ("Bitcoin", "Ethereum", "BNB")
-COMMODITY_INSTRUMENTS = ("Gold", "Silver")
+COMMODITY_INSTRUMENTS = ("Gold", "Silver", "Oil (Brent)", "Copper")
 RANGES = {"1M": 31, "3M": 92, "1Y": 366, "5Y": 1827, "All": None}
 
 
@@ -285,6 +289,12 @@ def format_price(value: float, symbol: str, decimals: int) -> str:
     amount = abs(value)
     if symbol == "USD/IRT":
         return f"{sign}{amount:,.0f} T"
+    if symbol == "BRENT/USD":
+        return f"{sign}${amount:,.{decimals}f} / bbl"
+    if symbol == "COPPER/USD":
+        return f"{sign}${amount:,.{decimals}f} / tonne"
+    if symbol == "US_DOLLAR_BROAD":
+        return f"{sign}{amount:,.{decimals}f} pts"
     if symbol == "TEDPIX":
         return f"{sign}{amount:,.0f} pts"
     if symbol == "SP500":
@@ -495,12 +505,18 @@ symbol = instrument["symbol"]
 frame = read_prices(symbol)
 is_inflation = symbol in {"US_INFLATION", "IRAN_INFLATION"}
 is_treasury_yield = symbol.startswith("US_TREASURY_")
-is_cumulative_treasury = is_treasury_yield and st.session_state["treasury_cumulative"]
-is_policy_rate = symbol == "FED_FUNDS_TARGET" or (is_treasury_yield and not is_cumulative_treasury)
+is_fed_target = symbol == "FED_FUNDS_TARGET"
+is_cumulative_interest = (
+    (is_treasury_yield and st.session_state["treasury_cumulative"])
+    or (is_fed_target and st.session_state["fed_target_cumulative"])
+)
+is_policy_rate = (is_fed_target or is_treasury_yield) and not is_cumulative_interest
 
 if frame.empty:
     st.markdown("---")
-    if symbol == "TEDPIX":
+    if symbol == "BRENT/USD":
+        st.info("No Brent oil history is stored yet. Configure your FRED key and run the initial backfill.")
+    elif symbol == "TEDPIX":
         st.info(
             "No TEDPIX history is stored yet. Run the initial backfill to import the free DataBourse chart history."
         )
@@ -531,9 +547,9 @@ if frame.empty:
 
 # Keep the raw index levels available for normalized overlay comparisons while
 # the primary view can still apply its own display transformation.
-if is_cumulative_treasury:
+if is_cumulative_interest:
     frame = cumulative_interest_growth(frame)
-if is_inflation or is_cumulative_treasury:
+if is_inflation or is_cumulative_interest:
     # The cumulative inflation view deliberately begins in 1960, matching the
     # long-horizon scope used elsewhere in the dashboard.
     frame = frame[frame["market_date"] >= pd.Timestamp("1960-01-01")].reset_index(drop=True)
@@ -545,7 +561,7 @@ if is_inflation or is_cumulative_treasury:
     if not inflation_min_start <= st.session_state[inflation_channel_key] <= inflation_max_start:
         st.session_state[inflation_channel_key] = inflation_max_start
 comparison_primary_frame = frame.copy()
-if is_inflation or is_cumulative_treasury:
+if is_inflation or is_cumulative_interest:
     frame = rebased_price_level(comparison_primary_frame, st.session_state[inflation_channel_key])
 else:
     comparison_primary_frame = frame.copy()
@@ -560,6 +576,8 @@ if comparison_name != "None":
     comparison_symbol = INSTRUMENTS[comparison_name]["symbol"]
     comparison_raw = read_prices(comparison_symbol)
     if comparison_symbol.startswith("US_TREASURY_") and st.session_state["treasury_cumulative"]:
+        comparison_raw = cumulative_interest_growth(comparison_raw)
+    if comparison_symbol == "FED_FUNDS_TARGET" and st.session_state["fed_target_cumulative"]:
         comparison_raw = cumulative_interest_growth(comparison_raw)
     if comparison_symbol in {"US_INFLATION", "IRAN_INFLATION"}:
         comparison_raw = comparison_raw[
@@ -606,7 +624,7 @@ if is_cumulative_inflation:
 elif is_inflation:
     price_value = format_price(float(latest["close"]), symbol, instrument["decimals"])
     price_detail = f"{direction}{change:.2f} percentage points from the prior month · {latest['market_date']:%b %Y}"
-elif is_cumulative_treasury:
+elif is_cumulative_interest:
     price_value = f"{float(latest['close']):,.2f}×"
     price_detail = (
         f"{(float(latest['close']) - 1) * 100:+.2f}% estimated interest growth since "
@@ -626,7 +644,7 @@ with st.container(key="market_summary"):
 with quote_column:
     st.markdown(
         f'<section class="market-snapshot"><div class="snapshot-head"><span class="snapshot-name">{selected_name}</span>'
-        f'<span>{"Estimated growth" if is_cumulative_treasury else "Daily yield" if is_treasury_yield else "Daily close"}</span></div>'
+        f'<span>{"Monthly average" if symbol == "COPPER/USD" else "Estimated growth" if is_cumulative_interest else "Daily yield" if is_treasury_yield else "Daily close"}</span></div>'
         f'<div class="snapshot-price">{price_value}</div><div class="snapshot-detail">{price_detail}</div></section>',
         unsafe_allow_html=True,
     )
@@ -645,6 +663,17 @@ if is_inflation:
     annual_days = (latest_cpi_date - (latest_cpi_date - pd.DateOffset(years=1))).days
     _, yearly_pct = period_change(comparison_primary_frame, annual_days)
     metric_entries = [("Monthly change", None, monthly_pct), ("Yearly change", None, yearly_pct)]
+elif symbol == "COPPER/USD":
+    metric_entries = []
+    for label, months in (("Monthly change", 1), ("Quarterly change", 3), ("Yearly change", 12), ("5-year change", 60)):
+        target = frame["market_date"].iloc[-1].to_period("M") - months
+        prior = frame[frame["market_date"].dt.to_period("M") <= target]
+        if prior.empty:
+            metric_entries.append((label, None, None))
+        else:
+            base = float(prior.iloc[-1]["close"])
+            absolute = float(latest["close"]) - base
+            metric_entries.append((label, absolute, absolute / base * 100))
 else:
     metric_entries = list(zip(
         ("Daily change", "Weekly change", "Monthly change", "Yearly change"),
@@ -652,7 +681,7 @@ else:
         (daily_pct, weekly_pct, monthly_pct, yearly_pct),
         strict=True,
     ))
-    if is_cumulative_treasury:
+    if is_cumulative_interest:
         metric_entries = [(label, None, percentage) for label, _, percentage in metric_entries]
 if is_inflation:
     for years in (5, 10):
@@ -677,12 +706,12 @@ with metrics_column:
                     delta = f"{absolute_sign}{format_price(absolute, symbol, instrument['decimals'])}"
                 column.metric(
                     label,
-                    f"{absolute * 100:+.0f} bp" if is_treasury_yield and not is_cumulative_treasury
+                    f"{absolute * 100:+.0f} bp" if is_treasury_yield and not is_cumulative_interest
                     else f"{percentage:+.2f}%",
-                    delta=None if is_treasury_yield else delta,
+                    delta=None if is_treasury_yield or is_cumulative_interest else delta,
                     help="Total percentage change over the period, not an annualized return."
                     if label in {"5-year change", "10-year change"}
-                    else "Estimated compounded interest growth, not bond total return." if is_cumulative_treasury
+                    else "Illustrative compounded growth, not an investment return." if is_cumulative_interest
                     else "Yield change in basis points (100 bp = 1 percentage point)." if is_treasury_yield else None,
                 )
 
@@ -713,12 +742,17 @@ logarithmic = st.session_state["logarithmic"]
 corridor_enabled = st.session_state["corridor_enabled"]
 corridor_95 = st.session_state["corridor_95"]
 with details_column:
+    if is_fed_target:
+        st.toggle(
+            "Cumulative growth", key="fed_target_cumulative",
+            help="On: illustrative growth starting at 1× using the prior policy rate. Off: policy target in percent. Not an actual investment return.",
+        )
     if is_treasury_yield:
         st.toggle(
             "Cumulative growth", key="treasury_cumulative",
             help="On: estimated compounded interest starting at 1×. Off: published Treasury yield in percent.",
         )
-    if is_inflation or is_cumulative_treasury:
+    if is_inflation or is_cumulative_interest:
         corridor_start = st.slider(
             "Channel start",
             min_value=inflation_min_start,
@@ -806,9 +840,9 @@ chart = build_chart(
     corridor,
     display_visible_comparison,
     comparison_name if comparison_frame is not None else None,
-    step_line=symbol == "FED_FUNDS_TARGET",
-    value_suffix=("×" if is_cumulative_treasury or comparison_frame is not None else "%")
-    if is_treasury_yield else "",
+    step_line=is_fed_target and not is_cumulative_interest,
+    value_suffix=("×" if is_cumulative_interest or comparison_frame is not None else "%")
+    if is_treasury_yield or is_fed_target else "",
     break_long_gaps=is_treasury_yield,
 )
 
@@ -819,10 +853,6 @@ if annualized_regression_change is not None:
             "Trend / year",
             f"{trend_sign}{annualized_regression_change:.2f}% / year",
             help="Annualized percentage change implied by the logarithmic regression trend.",
-        )
-        st.caption(
-            f"R² {logarithmic_regression_r_squared(regression_frame, corridor_start):.3f} · "
-            "descriptive trend, not a prediction"
         )
 with details_column:
     st.toggle(
@@ -859,16 +889,29 @@ if symbol == "SP500":
         source_label += " · Daily history: local SPX CSV (1960–2016)"
     elif "shiller_monthly" in set(frame["source"]):
         source_label += " · Long-term dotted segment: Shiller-derived monthly US equities"
+elif symbol == "BRENT/USD":
+    source_label = "U.S. Energy Information Administration via FRED · Brent crude spot price · USD per barrel"
+elif symbol == "COPPER/USD":
+    source_label = "World Bank Pink Sheet · Monthly copper averages · USD per metric ton"
+elif symbol == "US_DOLLAR_BROAD":
+    source_label = "Federal Reserve via FRED · Broad trade-weighted U.S. dollar index · January 2006 = 100 · Not ICE DXY"
+elif symbol == "FED_FUNDS_TARGET":
+    source_label = (
+        "Federal Reserve via FRED · Single target (DFEDTAR) before Dec 16, 2008; "
+        "target range upper limit (DFEDTARU) thereafter · Pre-1994 targets are reconstructed research data"
+    )
+    if is_cumulative_interest:
+        source_label += " · Illustrative growth: prior annual policy rate compounded over elapsed days / 365.25; not an investment return"
 elif is_treasury_yield:
     source_label = (
         "FRED / Federal Reserve H.15 · Estimated interest-growth index, not bond total return"
         " · Prior annual yield compounded over elapsed days (365.25-day year)"
-        if is_cumulative_treasury else "FRED / Federal Reserve H.15 · Daily constant-maturity yield"
+        if is_cumulative_interest else "FRED / Federal Reserve H.15 · Daily constant-maturity yield"
     )
     if symbol == "US_TREASURY_30Y":
         source_label += (
             " · Starts after the 2002–2006 publication gap; missing yields are not estimated"
-            if is_cumulative_treasury else " · No published 30-year yields Feb 2002–Feb 2006 (gap preserved)"
+            if is_cumulative_interest else " · No published 30-year yields Feb 2002–Feb 2006 (gap preserved)"
         )
 elif symbol == "IRAN_INFLATION":
     source_label = "Statistical Center of Iran (SCI)"

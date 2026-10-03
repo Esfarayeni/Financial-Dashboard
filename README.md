@@ -9,6 +9,17 @@ for long-horizon comparison rather than trading execution.
 ## Features
 
 - USD/Toman, gold, silver, Bitcoin, Ethereum, BNB, S&P 500, TEDPIX, U.S. CPI, and Iran CPI.
+- Commodity includes gold, silver, and Brent crude oil spot prices (USD per barrel)
+  from EIA via FRED (`DCOILBRENTEU`). Oil history is stored locally; daily sync
+  requests recent dates with a seven-day overlap rather than the full history.
+- Copper uses World Bank monthly averages in USD per metric ton from 1960.
+  Daily sync checks for a missing completed month before downloading the workbook.
+- Broad U.S. Dollar Index uses FRED `DTWEXBGS` (January 2006 = 100), not ICE DXY.
+  Daily updates fetch recent dates with a seven-day overlap.
+- Fed Funds Target joins FRED `DFEDTAR` from September 1982 through December 15,
+  2008 with `DFEDTARU` (range upper limit) from December 16, 2008 onward.
+  Pre-1994 target observations are reconstructed research data. Backfill imports
+  both series; daily updates continue to use only the current target-range series.
 - Logarithmic charts, regression corridors, a tighter 95% corridor, annualized
   trend and R², comparison overlays, and bounded zoom.
 - U.S. Treasury 2-, 10-, and 30-year daily constant-maturity yields from FRED
