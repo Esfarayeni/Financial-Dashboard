@@ -8,6 +8,11 @@ for long-horizon comparison rather than trading execution.
 
 ## Features
 
+- Market Watch is the default page for a clean URL: grouped latest-value cards
+  read stored data only and link to detailed charts. Monthly series are labeled
+  monthly; policy rates and yields show basis-point changes. Existing chart
+  URLs continue to open Charts directly.
+
 - USD/Toman, gold, silver, Bitcoin, Ethereum, BNB, S&P 500, TEDPIX, U.S. CPI, and Iran CPI.
 - Commodity includes gold, silver, and Brent crude oil spot prices (USD per barrel)
   from EIA via FRED (`DCOILBRENTEU`). Oil history is stored locally; daily sync
@@ -101,6 +106,27 @@ Bonbast USD/Toman history does not need an API key. The initial import uses a fr
 
 ## Daily updates
 
+### Online app (GitHub Actions)
+
+`.github/workflows/daily-prices.yml` updates the stored database daily at
+**00:15 UTC** (8:15 PM New York during daylight saving time, 7:15 PM in winter).
+GitHub may start scheduled runs late; this is not a real-time price feed.
+
+After pushing the workflow to `main`, add `FRED_API_KEY` and
+`ALPHAVANTAGE_API_KEY` under **GitHub repository → Settings → Secrets and
+variables → Actions → New repository secret**. Streamlit secrets are separate
+and are not available to Actions. The workflow checks that both keys exist
+before fetching data.
+
+Run **Actions → Daily price update → Run workflow** for the first update.
+The job commits only `data/market.db`; Streamlit Community Cloud picks up the
+new repository snapshot. Successful sources are saved even if another source
+fails, and the run is then marked failed so the problem is visible. Branch
+protection must permit the Actions bot to push to `main`. Source publication
+schedules still determine when new daily or monthly observations are available.
+
+### Local app
+
 Run an update manually:
 
 ```bash
@@ -113,7 +139,8 @@ Install the included macOS schedule (daily at 8:15 PM local time):
 ./scripts/install_scheduler.sh
 ```
 
-Remove it with `./scripts/uninstall_scheduler.sh`. The dashboard also includes a **Refresh data** button.
+Remove it with `./scripts/uninstall_scheduler.sh`. This local schedule does not
+publish updates to the online app.
 
 ## Notes
 

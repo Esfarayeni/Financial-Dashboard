@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+from html import escape
+from urllib.parse import urlencode
 
 import pandas as pd
 import plotly.graph_objects as go
@@ -17,6 +19,7 @@ from financial_dashboard.analytics import (
     rebased_price_level,
 )
 from financial_dashboard.status import freshness_status
+from financial_dashboard.market_watch import latest_change
 
 
 st.set_page_config(
@@ -271,6 +274,8 @@ US_INSTRUMENTS = (
 CRYPTO_INSTRUMENTS = ("Bitcoin", "Ethereum", "BNB")
 COMMODITY_INSTRUMENTS = ("Gold", "Silver", "Oil (Brent)", "Copper")
 RANGES = {"1M": 31, "3M": 92, "1Y": 366, "5Y": 1827, "All": None}
+MARKETS = {"U.S.": US_INSTRUMENTS, "Iran": IRAN_INSTRUMENTS,
+           "Crypto": CRYPTO_INSTRUMENTS, "Commodity": COMMODITY_INSTRUMENTS}
 
 
 @st.cache_data(ttl=900)
@@ -434,8 +439,12 @@ initialize_database()
 
 # Restore a shareable detail view before Streamlit instantiates its widgets.
 query = st.query_params
-if "dashboard_view" in query:
-    del st.query_params["dashboard_view"]
+if "dashboard_page" not in st.session_state:
+    st.session_state["dashboard_page"] = (
+        "Market Watch" if query.get("dashboard_view") == "Market Watch"
+        else "Charts" if query.get("dashboard_view") in {"Charts", "Detail"} or query.get("chart")
+        else "Market Watch"
+    )
 for key, allowed in {
     "dashboard_section": {"Iran", "U.S.", "Crypto", "Commodity"},
     "selected_range": set(RANGES),
@@ -452,6 +461,11 @@ if st.session_state.get("dashboard_section") not in {"Iran", "U.S.", "Crypto", "
 
 def toggle_appearance() -> None:
     st.session_state["light_mode"] = not st.session_state["light_mode"]
+
+
+def reset_chart_range() -> None:
+    """Open each newly selected chart at its full available history."""
+    st.session_state["selected_range"] = "All"
 
 
 with st.container(key="dashboard_header"):
@@ -471,12 +485,72 @@ with theme_column:
         on_click=toggle_appearance,
     )
 with market_column:
+    dashboard_page = st.radio(
+        "Page", ("Market Watch", "Charts"), horizontal=True,
+        label_visibility="collapsed", key="dashboard_page",
+    )
+st.query_params["dashboard_view"] = dashboard_page
+if dashboard_page == "Market Watch":
+    st.markdown(f"""<style>
+    .watch-grid {{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.75rem; margin-bottom:1rem; }}
+    a.watch-card {{ display:flex; flex-direction:column; gap:.3rem; min-height:140px; box-sizing:border-box;
+      padding:.85rem 1.2rem; border:1px solid transparent; border-radius:26px; background:{theme['surface']}; color:{theme['text']};
+      box-shadow:0 6px 18px rgba(25,38,67,.08); text-decoration:none; font-variant-numeric:tabular-nums; }}
+    a.watch-card:hover {{ background:{theme['surface_alt']}; }}
+    a.watch-card.watch-up {{ border-color:{'#a3d9b7' if light_mode else '#3e8060'}; }}
+    a.watch-card.watch-down {{ border-color:{'#efb4ae' if light_mode else '#965951'}; }}
+    a.watch-card.watch-up:hover {{ border-color:{'#58a878' if light_mode else '#69dfa4'}; }}
+    a.watch-card.watch-down:hover {{ border-color:{'#d47970' if light_mode else '#ff9b93'}; }}
+    a.watch-card:focus-visible {{ outline:2px solid #2962ff; outline-offset:3px; }}
+    .watch-name {{ font-size:var(--type-label); font-weight:400; line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }}
+    .watch-value {{ font-size:var(--type-metric); font-weight:600; line-height:1.25; overflow-wrap:anywhere; }}
+    .watch-change {{ font-size:1.2rem; line-height:1.25; font-weight:600; display:flex; align-items:baseline; gap:.5rem; }}
+    .watch-card .up {{ color:{'#087443' if light_mode else '#69dfa4'}; }}
+    .watch-card .down {{ color:{'#b42318' if light_mode else '#ff9b93'}; }}
+    .watch-basis, .watch-date {{ font-size:.875rem; line-height:1.4; font-weight:400; color:{theme['text']}; }}
+    .watch-date {{ margin-top:auto; padding-top:.2rem; }}
+    @media(max-width:1000px) {{ .watch-grid {{ grid-template-columns:repeat(2,minmax(0,1fr)); }} }}
+    @media(max-width:600px) {{ .watch-grid {{ grid-template-columns:minmax(0,1fr); }} a.watch-card {{ min-height:130px; }} }}
+    </style>""", unsafe_allow_html=True)
+    for market, names in MARKETS.items():
+        st.subheader(market)
+        rows = []
+        for name in names:
+            asset = INSTRUMENTS[name]
+            data = latest_change(read_prices(asset["symbol"]), asset["symbol"])
+            latest = data["latest"]
+            link = "?" + urlencode({"dashboard_view": "Charts", "dashboard_section": market,
+                                    "chart": name, "compare": "None", "selected_range": "All"})
+            if latest is None:
+                value, change, date_text = "—", "No stored data", "—"
+            else:
+                value = (
+                    f"{latest['close']:,.2f} CPI" if asset["symbol"] in {"US_INFLATION", "IRAN_INFLATION"}
+                    else format_price(float(latest["close"]), asset["symbol"], asset["decimals"])
+                )
+                date_text = f"{latest['market_date']:%b %d, %Y}"
+                change = "N/A" if data["change"] is None else f"{data['change']:+.2f}{data['unit']}"
+            color = "" if data["change"] is None or data["change"] == 0 else "up" if data["change"] > 0 else "down"
+            previous = f" · vs {data['previous_date']:%b %d, %Y}" if data["previous_date"] is not None else ""
+            rows.append(
+                f'<a class="watch-card{" watch-" + color if color else ""}" href="{escape(link, quote=True)}" target="_self" title="Open {escape(name, quote=True)} chart">'
+                f'<div class="watch-name">{escape(name)}</div>'
+                f'<div class="watch-value">{escape(value)}</div>'
+                f'<div class="watch-change {color}" title="{escape(data["basis"] + previous, quote=True)}">{escape(change)}'
+                f'<span class="watch-basis">{"Monthly" if data["basis"] == "Monthly" else "Daily" if latest is not None else ""}</span></div>'
+                f'<div class="watch-date">{escape(date_text)}</div></a>'
+            )
+        st.markdown('<div class="watch-grid">' + "".join(rows) + '</div>', unsafe_allow_html=True)
+    st.stop()
+
+with st.container(key="market_tabs"):
     dashboard_section = st.radio(
         "Market",
         ("U.S.", "Iran", "Crypto", "Commodity"),
         horizontal=True,
         label_visibility="collapsed",
         key="dashboard_section",
+        on_change=reset_chart_range,
     )
 st.query_params["dashboard_section"] = dashboard_section
 chart_options = {
@@ -720,7 +794,7 @@ with st.container(key="chart_toolbar"):
         [1.5, 1.5, 3.3], vertical_alignment="bottom"
     )
 with chart_selector_column:
-    st.selectbox("Chart", chart_options, key=chart_selector_key)
+    st.selectbox("Chart", chart_options, key=chart_selector_key, on_change=reset_chart_range)
 with comparison_selector_column:
     st.selectbox("Compare with", comparison_options, key="comparison_chart")
 with range_column:
