@@ -2,8 +2,9 @@ name: Daily price update
 
 on:
   schedule:
-    # 8:15 PM New York during daylight saving time; 7:15 PM in winter.
-    - cron: "15 0 * * *"
+    # 8 AM New York: select the correct UTC hour using the DST gate below.
+    - cron: "0 12 * * *"
+    - cron: "0 13 * * *"
   workflow_dispatch:
 
 permissions:
@@ -14,7 +15,29 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  schedule-check:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.check.outputs.run }}
+    steps:
+      - name: Select 8 AM New York schedule
+        id: check
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          expected="0 13 * * *"
+          if [ "$(TZ=America/New_York date +%z)" = "-0400" ]; then
+            expected="0 12 * * *"
+          fi
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] || [ "$SCHEDULE" = "$expected" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
   update:
+    needs: schedule-check
+    if: needs.schedule-check.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:

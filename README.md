@@ -109,7 +109,9 @@ Bonbast USD/Toman history does not need an API key. The initial import uses a fr
 ### Online app (GitHub Actions)
 
 `.github/workflows/daily-prices.yml` updates the stored database daily at
-**00:15 UTC** (8:15 PM New York during daylight saving time, 7:15 PM in winter).
+**8:00 AM America/New_York**, adjusting automatically for daylight saving time
+(12:00 UTC in summer, 13:00 UTC in winter). A timezone gate selects one of the
+two UTC schedules; manual runs always proceed.
 GitHub may start scheduled runs late; this is not a real-time price feed.
 
 After pushing the workflow to `main`, add `FRED_API_KEY` and
