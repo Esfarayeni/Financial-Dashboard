@@ -8,7 +8,7 @@ from datetime import timedelta
 import pandas as pd
 from filelock import FileLock, Timeout
 
-from . import db
+from . import db, stocks
 from .config import ALPHAVANTAGE_API_KEY, FRED_API_KEY, LOCK_PATH
 from .providers import (
     alphavantage,
@@ -169,6 +169,8 @@ def synchronize(mode: str) -> list[dict]:
                     lambda: yahoo.fetch_all(latest_only=mode == "daily"),
                 )
             )
+            results.extend(stocks.synchronize(backfill=mode == "backfill"))
+            results.extend(stocks.update_metadata())
     except Timeout:
         return [{"source": "all", "status": "failed", "rows": 0, "error": "A sync is already running"}]
 

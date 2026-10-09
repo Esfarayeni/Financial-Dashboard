@@ -68,13 +68,16 @@ jobs:
         run: python -m financial_dashboard.sync --daily
       - name: Publish updated database snapshot
         run: |
-          if git diff --quiet -- data/market.db; then
+          git add -- data/market.db
+          if [ -d data/stocks ]; then
+            git add -- data/stocks
+          fi
+          if git diff --cached --quiet; then
             echo "No database changes to publish."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- data/market.db
           git commit -m "Update daily market data"
           # Preserve a concurrent main-branch update; never force-push.
           git pull --rebase origin main

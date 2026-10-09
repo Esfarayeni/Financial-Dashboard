@@ -13,6 +13,7 @@ ASSETS = {
     "BTC-USD": ("BTC/USD", "usd"),
     "ETH-USD": ("ETH/USD", "usd"),
     "BNB-USD": ("BNB/USD", "usd"),
+    "BZ=F": ("BRENT_FUTURES/USD", "usd_per_barrel"),
 }
 
 

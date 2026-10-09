@@ -8,7 +8,52 @@ for long-horizon comparison rather than trading execution.
 
 ## Features
 
-- Market Watch is the default page for a clean URL: grouped latest-value cards
+- Stocks adds an S&P 500 constituent snapshot: 500 companies and
+  503 share-class tickers, catalog retrieved October 9, 2026 from the
+  [public constituent table](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies).
+  This is current membership, not a historical-membership backtest.
+  Market Watch is stocks-only, with Leaderboard and Market cap views and no
+  Stocks/Markets tab bar. Other instruments remain available in Charts.
+  Market Watch shows Yahoo Close; charts and comparisons use Yahoo Adj Close
+  (split/dividend adjusted). Yahoo's historical Close is itself split adjusted.
+  A compact right sidebar shows up to 12 top gainers and 12 top losers with logos,
+  company identity and percentage changes. Independent Daily, Weekly, Monthly and
+  Yearly controls sit below each heading, without pagination. The sidebar stacks
+  below the leaderboard on mobile. Calendar periods use the last
+  close on or before the comparison date. Company links open their charts.
+  Sector averages exclude companies listed less than five years and unknown
+  listing ages. Eligibility uses Yahoo's first-trade date or matching history
+  start; when only a listing year is known, year-end is used conservatively.
+  The full company leaderboard uses reference-style logo/ticker rows, colored
+  percentages, sorting, and 20/50/100-row pagination (20 by default) with first/previous/next/last
+  controls. Company links open charts in the same tab;
+  unchanged/missing changes and older-session quotes are excluded from movers.
+  Compressed per-stock Parquet snapshots in `data/stocks/` keep histories small.
+  Import once with `.venv/bin/python -m financial_dashboard.stocks --backfill`.
+  Daily sync fetches recent missing sessions with a 14-day overlap, retries
+  failures once and limits concurrency to three stocks. Changed overlap prices
+  trigger a full refresh to preserve corporate-action adjustment consistency.
+  Empty/failed downloads do not erase the previous snapshot.
+  Market Watch has separate Markets and Stocks tabs. The stock leaderboard ranks
+  annualized log-regression trends over each stock's available adjusted history,
+  with market cap, sector, history dates, and Yahoo's first-trade year (not a
+  verified IPO date). Daily sync refreshes metadata; viewing uses local snapshots.
+  Sector averages are equal-weight company means of available annualized trends;
+  they are not comparable-period sector index returns. The market-cap treemap
+  shows only the largest 50 companies, grouped and colored by sector, with
+  company names and market caps inside tiles. Search filters that top-50 set.
+  The poster-style map uses locally cached logos in larger tiles; each tile
+  links to its company chart. Smaller screens scroll horizontally rather than
+  compressing labels into unreadable tiles. No remote images load during viewing.
+  It counts each company once, not each share class. Company
+  caps are not float-adjusted index weights. Logos are downloaded once from
+  Financial Modeling Prep's public image endpoint and rendered from local files;
+  missing logos leave the company name visible. Import with `--logos`.
+  Yahoo data use/redistribution rights must be resolved before public deployment;
+  this integration does not grant a redistribution license.
+
+- Charts is the first/default page for a clean URL, with log scale and both
+  regression corridor toggles initially enabled. Market Watch's latest-value cards
   read stored data only and link to detailed charts. Monthly series are labeled
   monthly; policy rates and yields show basis-point changes. Existing chart
   URLs continue to open Charts directly.
@@ -17,6 +62,10 @@ for long-horizon comparison rather than trading execution.
 - Commodity includes gold, silver, and Brent crude oil spot prices (USD per barrel)
   from EIA via FRED (`DCOILBRENTEU`). Oil history is stored locally; daily sync
   requests recent dates with a seven-day overlap rather than the full history.
+- Oil — Brent Futures is a separate Yahoo Finance `BZ=F` daily-close series in
+  USD per barrel. Daily sync stores the latest completed session, not a live
+  intraday quote. Futures contract rolls can affect the history; futures are
+  never appended to the Brent spot series.
 - Copper uses World Bank monthly averages in USD per metric ton from 1960.
   Daily sync checks for a missing completed month before downloading the workbook.
 - Broad U.S. Dollar Index uses FRED `DTWEXBGS` (January 2006 = 100), not ICE DXY.
@@ -51,7 +100,7 @@ for long-horizon comparison rather than trading execution.
 | DataBourse | TEDPIX | Daily | Third-party public chart, not the official exchange API. |
 | World Bank Pink Sheet | Gold, silver | Monthly long history | Monthly averages/fixings. |
 | Alpha Vantage | Gold, silver | Daily | Free key and rate limits required. |
-| Yahoo Finance | Bitcoin, Ethereum, BNB | Daily | Free, no key; long daily history via `yfinance`. |
+| Yahoo Finance | Bitcoin, Ethereum, BNB, Brent futures (`BZ=F`) | Daily | Free, no key; daily history via `yfinance`; futures are separate from spot. |
 | Blockchain.com Charts API | Bitcoin before Yahoo coverage | Daily | Free market-price index; earliest values are sparse/indicative. |
 | Gemini CSV archive | Ethereum before Yahoo coverage | Daily | Free, one-time historical extension. |
 | Binance public API | BNB before Yahoo coverage | Daily | Free BNB/USDT candles; USDT is used as a USD proxy. |
@@ -121,7 +170,8 @@ and are not available to Actions. The workflow checks that both keys exist
 before fetching data.
 
 Run **Actions → Daily price update → Run workflow** for the first update.
-The job commits only `data/market.db`; Streamlit Community Cloud picks up the
+The job commits `data/market.db` and stock snapshots in `data/stocks/`;
+Streamlit Community Cloud picks up the
 new repository snapshot. Successful sources are saved even if another source
 fails, and the run is then marked failed so the problem is visible. Branch
 protection must permit the Actions bot to push to `main`. Source publication

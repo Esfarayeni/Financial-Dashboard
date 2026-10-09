@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
-from html import escape
-from urllib.parse import urlencode
 
 import pandas as pd
 import plotly.graph_objects as go
@@ -19,7 +17,9 @@ from financial_dashboard.analytics import (
     rebased_price_level,
 )
 from financial_dashboard.status import freshness_status
-from financial_dashboard.market_watch import latest_change
+from financial_dashboard import stocks
+from financial_dashboard.stock_tables import table_html, movers_html
+from financial_dashboard.market_cap_map import map_html
 
 
 st.set_page_config(
@@ -252,6 +252,7 @@ INSTRUMENTS = {
     "Gold": {"symbol": "XAU/USD", "accent": "#d69e2e", "decimals": 2},
     "Silver": {"symbol": "XAG/USD", "accent": "#64748b", "decimals": 2},
     "Oil (Brent)": {"symbol": "BRENT/USD", "accent": "#089981", "decimals": 2},
+    "Oil — Brent Futures": {"symbol": "BRENT_FUTURES/USD", "accent": "#089981", "decimals": 2},
     "Copper": {"symbol": "COPPER/USD", "accent": "#b87333", "decimals": 2},
     "Broad U.S. Dollar Index": {"symbol": "US_DOLLAR_BROAD", "accent": "#246df0", "decimals": 2},
     "Bitcoin": {"symbol": "BTC/USD", "accent": "#f7931a", "decimals": 0},
@@ -272,15 +273,82 @@ US_INSTRUMENTS = (
     "30-Year Treasury Yield", "S&P 500", "Broad U.S. Dollar Index"
 )
 CRYPTO_INSTRUMENTS = ("Bitcoin", "Ethereum", "BNB")
-COMMODITY_INSTRUMENTS = ("Gold", "Silver", "Oil (Brent)", "Copper")
+COMMODITY_INSTRUMENTS = ("Gold", "Silver", "Oil (Brent)", "Oil — Brent Futures", "Copper")
+INSTRUMENTS.update(stocks.INSTRUMENTS)
+STOCK_INSTRUMENTS = tuple(stocks.INSTRUMENTS)
 RANGES = {"1M": 31, "3M": 92, "1Y": 366, "5Y": 1827, "All": None}
 MARKETS = {"U.S.": US_INSTRUMENTS, "Iran": IRAN_INSTRUMENTS,
-           "Crypto": CRYPTO_INSTRUMENTS, "Commodity": COMMODITY_INSTRUMENTS}
+           "Crypto": CRYPTO_INSTRUMENTS, "Commodity": COMMODITY_INSTRUMENTS,
+           "Stocks": STOCK_INSTRUMENTS}
 
 
 @st.cache_data(ttl=900)
-def read_prices(symbol: str) -> pd.DataFrame:
+def read_prices(symbol: str, adjusted: bool = True) -> pd.DataFrame:
+    if symbol.startswith("STOCK:"):
+        return stocks.load_prices(symbol, adjusted=adjusted)
     return db.load_prices(symbol)
+
+
+@st.cache_data(ttl=900)
+def stock_leaderboard() -> pd.DataFrame:
+    return stocks.leaderboard()
+
+
+@st.cache_data(ttl=900)
+def stock_daily_movers(period: str = "Daily") -> pd.DataFrame:
+    return stocks.daily_movers(period=period)
+
+
+def render_stock_table(frame, columns, label):
+    st.markdown(table_html(frame, columns, label), unsafe_allow_html=True)
+
+
+def change_stock_page(page):
+    st.session_state["stock_table_page"] = page
+
+
+def render_stock_leaderboard(ranking):
+    sort_column, sort_direction = st.columns([3, 1])
+    sortable = ["Trend/year (%)", "Market cap ($B)"]
+    if st.session_state.get("stock_table_sort") not in sortable:
+        st.session_state["stock_table_sort"] = sortable[0]
+    with sort_column:
+        sort = st.selectbox("Sort by", sortable, key="stock_table_sort", format_func=lambda column: {
+            "Trend/year (%)": "Annual growth trend",
+        }.get(column, column))
+    with sort_direction:
+        order = st.selectbox("Order", ("Descending", "Ascending"), key="stock_table_order")
+    ranking = ranking.sort_values([sort, "Ticker"], ascending=[order == "Ascending", True], na_position="last")
+    if st.session_state.get("stock_table_rows") not in (20, 50, 100):
+        st.session_state["stock_table_rows"] = 20
+    page_size = st.session_state["stock_table_rows"]
+    signature = (sort, order, page_size)
+    if st.session_state.get("stock_table_signature") != signature:
+        st.session_state["stock_table_page"] = 0
+        st.session_state["stock_table_signature"] = signature
+    last = max(0, (len(ranking) - 1) // page_size)
+    page = min(st.session_state.get("stock_table_page", 0), last)
+    start = page * page_size
+    render_stock_table(ranking.iloc[start:start + page_size], [
+        ("Company", "Symbol", "symbol"), ("Trend/year (%)", "Annual growth trend", "percent"),
+        ("Sector avg/year (%)", "Sector avg. growth trend", "percent"), ("Market cap ($B)", "Mkt cap", "money"),
+        ("Listing year", "Listing year", "integer"), ("Sector", "Sector", "text"),
+    ], "Stock trend leaderboard")
+    with st.container(key="stock_pagination"):
+        size, count, first, previous, following, final = st.columns([3, 3, 1, 1, 1, 1], vertical_alignment="center")
+        with size:
+            st.selectbox("Rows per page", (20, 50, 100), key="stock_table_rows")
+        with count:
+            st.write(f"{start + 1 if len(ranking) else 0}–{min(start + page_size, len(ranking))} of {len(ranking)}")
+        for column, title, icon, target, disabled in [
+            (first, "First page", "first_page", 0, page == 0),
+            (previous, "Previous page", "chevron_left", page - 1, page == 0),
+            (following, "Next page", "chevron_right", page + 1, page == last),
+            (final, "Last page", "last_page", last, page == last),
+        ]:
+            with column:
+                st.button("", icon=f":material/{icon}:", help=title, key=f"stock_table_{icon}",
+                          disabled=disabled, on_click=change_stock_page, args=(target,))
 
 
 @st.cache_resource
@@ -294,7 +362,7 @@ def format_price(value: float, symbol: str, decimals: int) -> str:
     amount = abs(value)
     if symbol == "USD/IRT":
         return f"{sign}{amount:,.0f} T"
-    if symbol == "BRENT/USD":
+    if symbol in {"BRENT/USD", "BRENT_FUTURES/USD"}:
         return f"{sign}${amount:,.{decimals}f} / bbl"
     if symbol == "COPPER/USD":
         return f"{sign}${amount:,.{decimals}f} / tonne"
@@ -441,12 +509,11 @@ initialize_database()
 query = st.query_params
 if "dashboard_page" not in st.session_state:
     st.session_state["dashboard_page"] = (
-        "Market Watch" if query.get("dashboard_view") == "Market Watch"
-        else "Charts" if query.get("dashboard_view") in {"Charts", "Detail"} or query.get("chart")
+        "Charts" if query.get("dashboard_view") == "Charts"
         else "Market Watch"
     )
 for key, allowed in {
-    "dashboard_section": {"Iran", "U.S.", "Crypto", "Commodity"},
+    "dashboard_section": set(MARKETS),
     "selected_range": set(RANGES),
 }.items():
     value = query.get(key)
@@ -455,7 +522,7 @@ for key, allowed in {
 if "selected_range" not in st.session_state:
     st.session_state["selected_range"] = "All"
 
-if st.session_state.get("dashboard_section") not in {"Iran", "U.S.", "Crypto", "Commodity"}:
+if st.session_state.get("dashboard_section") not in MARKETS:
     st.session_state["dashboard_section"] = "U.S."
 
 
@@ -492,61 +559,90 @@ with market_column:
 st.query_params["dashboard_view"] = dashboard_page
 if dashboard_page == "Market Watch":
     st.markdown(f"""<style>
-    .watch-grid {{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.75rem; margin-bottom:1rem; }}
-    a.watch-card {{ display:flex; flex-direction:column; gap:.3rem; min-height:140px; box-sizing:border-box;
-      padding:.85rem 1.2rem; border:1px solid transparent; border-radius:26px; background:{theme['surface']}; color:{theme['text']};
-      box-shadow:0 6px 18px rgba(25,38,67,.08); text-decoration:none; font-variant-numeric:tabular-nums; }}
-    a.watch-card:hover {{ background:{theme['surface_alt']}; }}
-    a.watch-card.watch-up {{ border-color:{'#a3d9b7' if light_mode else '#3e8060'}; }}
-    a.watch-card.watch-down {{ border-color:{'#efb4ae' if light_mode else '#965951'}; }}
-    a.watch-card.watch-up:hover {{ border-color:{'#58a878' if light_mode else '#69dfa4'}; }}
-    a.watch-card.watch-down:hover {{ border-color:{'#d47970' if light_mode else '#ff9b93'}; }}
-    a.watch-card:focus-visible {{ outline:2px solid #2962ff; outline-offset:3px; }}
-    .watch-name {{ font-size:var(--type-label); font-weight:400; line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }}
-    .watch-value {{ font-size:var(--type-metric); font-weight:600; line-height:1.25; overflow-wrap:anywhere; }}
-    .watch-change {{ font-size:1.2rem; line-height:1.25; font-weight:600; display:flex; align-items:baseline; gap:.5rem; }}
-    .watch-card .up {{ color:{'#087443' if light_mode else '#69dfa4'}; }}
-    .watch-card .down {{ color:{'#b42318' if light_mode else '#ff9b93'}; }}
-    .watch-basis, .watch-date {{ font-size:.875rem; line-height:1.4; font-weight:400; color:{theme['text']}; }}
-    .watch-date {{ margin-top:auto; padding-top:.2rem; }}
-    @media(max-width:1000px) {{ .watch-grid {{ grid-template-columns:repeat(2,minmax(0,1fr)); }} }}
-    @media(max-width:600px) {{ .watch-grid {{ grid-template-columns:minmax(0,1fr); }} a.watch-card {{ min-height:130px; }} }}
+    .st-key-cap_explanation [data-testid="stCaptionContainer"],
+    .st-key-cap_explanation [data-testid="stCaptionContainer"] p {{
+      max-width:none; width:100%; font-size:1rem; line-height:1.6;
+    }}
+    .stock-table-scroll {{ overflow-x:auto; background:{theme['surface']}; margin-bottom:1rem; border-radius:8px; }}
+    .stock-table {{ width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; font-size:.95rem; color:{theme['text']}; }}
+    .stock-table th, .stock-table td {{ border:0; border-bottom:1px solid {theme['grid']}; padding:16px 18px; white-space:nowrap; }}
+    .stock-table th {{ font-weight:400; color:{theme['muted']}; text-align:left; background:{theme['surface']}; }}
+    .stock-table .numeric {{ text-align:right; }}
+    .stock-table tbody tr:hover {{ background:{theme['surface_alt']}; }}
+    .stock-table .positive {{ color:{'#087443' if light_mode else '#69dfa4'}; }}
+    .stock-table .negative {{ color:{'#b42318' if light_mode else '#ff9b93'}; }}
+    .stock-table a.stock-symbol {{ display:flex; align-items:center; gap:12px; color:inherit; text-decoration:none; }}
+    .stock-symbol img {{ object-fit:contain; flex-shrink:0; }}
+    .stock-symbol .ticker {{ background:{theme['surface_alt']}; border-radius:6px; padding:6px 10px; font-weight:600; min-width:58px; text-align:center; }}
+    .stock-symbol .company {{ max-width:260px; white-space:normal; min-width:160px; }}
+    .logo-placeholder {{ width:28px; height:28px; flex-shrink:0; }}
+    .st-key-stock_gainers_panel, .st-key-stock_losers_panel {{ background:{theme['surface']}; border-radius:16px; }}
+    .movers-list {{ list-style:none; margin:0 !important; padding:0 !important; font-variant-numeric:tabular-nums; }}
+    .movers-list li {{ margin:0; padding:0; }}
+    .movers-list a {{ display:flex; align-items:center; gap:8px; min-height:50px; padding:6px 0; color:{theme['text']}; text-decoration:none; }}
+    .movers-list a:hover {{ background:{theme['surface_alt']}; }}
+    .movers-list a:focus-visible {{ outline:2px solid #2962ff; outline-offset:2px; }}
+    .mover-rank {{ flex:0 0 18px; font-size:12px; color:{theme['text']}; }}
+    .movers-list img, .mover-logo-placeholder {{ width:24px; height:24px; flex-shrink:0; object-fit:contain; }}
+    .mover-identity {{ flex:1; min-width:0; display:flex; flex-direction:column; font-size:13px; line-height:1.3; }}
+    .mover-identity span {{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12px; }}
+    .mover-percent {{ flex-shrink:0; font-size:13px; font-weight:600; }}
+    .movers-list .positive {{ color:{'#087443' if light_mode else '#69dfa4'}; }}
+    .movers-list .negative {{ color:{'#b42318' if light_mode else '#ff9b93'}; }}
+    .stock-symbol:focus-visible, .stock-table-scroll:focus-visible {{ outline:2px solid #2962ff; outline-offset:3px; }}
+    .sr-only {{ position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }}
+    @media(max-width:600px) {{ .stock-table th, .stock-table td {{ padding:12px; }} .stock-symbol .company {{ min-width:120px; }} }}
+    @media(max-width:600px) {{
+      .st-key-stock_pagination [data-testid="stHorizontalBlock"] {{ flex-wrap:wrap; gap:12px; }}
+      .st-key-stock_pagination [data-testid="stColumn"] {{ width:auto !important; min-width:0 !important; flex:1 1 18% !important; }}
+      .st-key-stock_pagination [data-testid="stColumn"]:nth-child(-n+2) {{ flex-basis:40% !important; }}
+    }}
     </style>""", unsafe_allow_html=True)
-    for market, names in MARKETS.items():
-        st.subheader(market)
-        rows = []
-        for name in names:
-            asset = INSTRUMENTS[name]
-            data = latest_change(read_prices(asset["symbol"]), asset["symbol"])
-            latest = data["latest"]
-            link = "?" + urlencode({"dashboard_view": "Charts", "dashboard_section": market,
-                                    "chart": name, "compare": "None", "selected_range": "All"})
-            if latest is None:
-                value, change, date_text = "—", "No stored data", "—"
+    names = MARKETS["Stocks"]
+    st.subheader("Stocks")
+    full_ranking = stock_leaderboard()
+    ranking = full_ranking.copy()
+    ranking["Market cap ($B)"] = ranking["Market cap (USD)"] / 1e9
+    stock_view = st.radio("Stock view", ("Leaderboard", "Market cap"), horizontal=True)
+    if stock_view == "Leaderboard":
+        main_column, movers_column = st.columns([3, 1.15], gap="large")
+    else:
+        main_column = st.container()
+    with main_column:
+        if stock_view == "Leaderboard":
+            render_stock_leaderboard(ranking)
+        else:
+            caps = stocks.market_cap_data(full_ranking).head(50)
+            caps["Market cap ($B)"] = caps["Market cap (USD)"] / 1e9
+            st.subheader("Most valuable companies")
+            if caps.empty:
+                st.info("No stored market-cap data is available.")
             else:
-                value = (
-                    f"{latest['close']:,.2f} CPI" if asset["symbol"] in {"US_INFLATION", "IRAN_INFLATION"}
-                    else format_price(float(latest["close"]), asset["symbol"], asset["decimals"])
-                )
-                date_text = f"{latest['market_date']:%b %d, %Y}"
-                change = "N/A" if data["change"] is None else f"{data['change']:+.2f}{data['unit']}"
-            color = "" if data["change"] is None or data["change"] == 0 else "up" if data["change"] > 0 else "down"
-            previous = f" · vs {data['previous_date']:%b %d, %Y}" if data["previous_date"] is not None else ""
-            rows.append(
-                f'<a class="watch-card{" watch-" + color if color else ""}" href="{escape(link, quote=True)}" target="_self" title="Open {escape(name, quote=True)} chart">'
-                f'<div class="watch-name">{escape(name)}</div>'
-                f'<div class="watch-value">{escape(value)}</div>'
-                f'<div class="watch-change {color}" title="{escape(data["basis"] + previous, quote=True)}">{escape(change)}'
-                f'<span class="watch-basis">{"Monthly" if data["basis"] == "Monthly" else "Daily" if latest is not None else ""}</span></div>'
-                f'<div class="watch-date">{escape(date_text)}</div></a>'
-            )
-        st.markdown('<div class="watch-grid">' + "".join(rows) + '</div>', unsafe_allow_html=True)
+                st.markdown(map_html(caps, dark=not light_mode), unsafe_allow_html=True)
+            with st.container(key="cap_explanation"):
+                st.caption("Largest 50 companies in our S&P 500 dataset. Tile area = market cap; color = sector. Smaller companies are omitted, and share classes count once. These are not S&P index weights.")
+    if stock_view == "Leaderboard":
+        with movers_column:
+            for direction, heading in (("gainers", "Top gainers"), ("losers", "Top losers")):
+                with st.container(border=True, key=f"stock_{direction}_panel"):
+                    st.subheader(heading)
+                    period = st.radio(f"{heading} period", ("Daily", "Weekly", "Monthly", "Yearly"), horizontal=True,
+                                      label_visibility="collapsed", key=f"stock_{direction}_period")
+                    movers = stock_daily_movers(period)
+                    movers = movers[movers.Name.isin(names)]
+                    selected = (movers[movers.Change > 0] if direction == "gainers"
+                                else movers[movers.Change < 0].sort_values(["Change", "Name"]))
+                    details = ranking.copy()
+                    details["Name"] = details.Company + " (" + details.Ticker + ")"
+                    selected = selected.head(12).merge(details, on="Name", how="left")
+                    st.markdown(movers_html(selected, f"{heading} · {period}"), unsafe_allow_html=True)
+            st.caption("Closing-price changes. Calendar periods use the last close on or before the comparison date.")
     st.stop()
 
 with st.container(key="market_tabs"):
     dashboard_section = st.radio(
         "Market",
-        ("U.S.", "Iran", "Crypto", "Commodity"),
+        tuple(MARKETS),
         horizontal=True,
         label_visibility="collapsed",
         key="dashboard_section",
@@ -558,10 +654,12 @@ chart_options = {
     "U.S.": US_INSTRUMENTS,
     "Crypto": CRYPTO_INSTRUMENTS,
     "Commodity": COMMODITY_INSTRUMENTS,
+    "Stocks": STOCK_INSTRUMENTS,
 }[dashboard_section]
 chart_selector_key = {
     "Iran": "iran_chart", "U.S.": "us_chart", "Crypto": "crypto_chart",
     "Commodity": "commodity_chart",
+    "Stocks": "stock_chart",
 }[dashboard_section]
 if query.get("chart") in chart_options and chart_selector_key not in st.session_state:
     st.session_state[chart_selector_key] = query["chart"]
@@ -707,6 +805,12 @@ elif is_cumulative_interest:
 elif is_treasury_yield:
     price_value = format_price(float(latest["close"]), symbol, instrument["decimals"])
     price_detail = f"{change:+.2f} percentage points · {latest['market_date']:%b %d, %Y}"
+elif symbol.startswith("STOCK:"):
+    quote_frame = read_prices(symbol, adjusted=False)
+    quote_latest = quote_frame.iloc[-1]
+    _, quote_pct = period_change(quote_frame, None)
+    price_value = format_price(float(quote_latest["close"]), symbol, instrument["decimals"])
+    price_detail = f"{quote_pct:+.2f}% · {quote_latest['market_date']:%b %d, %Y} · Chart: adjusted close"
 else:
     price_value = format_price(float(latest["close"]), symbol, instrument["decimals"])
     price_detail = (
@@ -924,7 +1028,7 @@ if annualized_regression_change is not None:
     trend_sign = "+" if annualized_regression_change >= 0 else ""
     with details_column:
         st.metric(
-            "Trend / year",
+            "Annual growth trend",
             f"{trend_sign}{annualized_regression_change:.2f}% / year",
             help="Annualized percentage change implied by the logarithmic regression trend.",
         )
@@ -958,13 +1062,17 @@ with chart_column:
 
 freshness_state, freshness = freshness_status(latest["market_date"], latest["source"])
 source_label = latest["source"].replace("_", " ").title()
-if symbol == "SP500":
+if symbol.startswith("STOCK:"):
+    source_label = "Yahoo Finance · Split/dividend-adjusted daily close · Current S&P 500 constituent snapshot; not historical membership"
+elif symbol == "SP500":
     if "spx_csv" in set(frame["source"]):
         source_label += " · Daily history: local SPX CSV (1960–2016)"
     elif "shiller_monthly" in set(frame["source"]):
         source_label += " · Long-term dotted segment: Shiller-derived monthly US equities"
 elif symbol == "BRENT/USD":
     source_label = "U.S. Energy Information Administration via FRED · Brent crude spot price · USD per barrel"
+elif symbol == "BRENT_FUTURES/USD":
+    source_label = "Yahoo Finance · BZ=F · Brent futures daily close · USD per barrel · Not spot; contract rolls can affect history"
 elif symbol == "COPPER/USD":
     source_label = "World Bank Pink Sheet · Monthly copper averages · USD per metric ton"
 elif symbol == "US_DOLLAR_BROAD":
