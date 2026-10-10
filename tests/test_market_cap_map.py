@@ -29,3 +29,35 @@ def test_map_uses_local_logos_and_chart_links():
     assert 'aria-label="Sector color key"' in html
     assert '<span class="cap-swatch" style="background:#72a5bc"' in html
     assert html.count('Information Technology') == 1
+
+
+def test_medium_tiles_show_compact_local_logos():
+    frame = pd.DataFrame([{"Company": f"Company {i}", "Ticker": f"C{i}",
+                           "Sector": "Information Technology", "Market cap (USD)": 1e11,
+                           "Logo": "data:image/png;base64,AAAA"} for i in range(50)])
+    html = map_html(frame)
+    assert 'class="cap-tile cap-compact"' in html
+    assert html.count('<img') == 50
+    assert '.cap-compact .cap-name { display:none; }' in html
+
+
+def test_white_marks_get_navy_tint_without_changing_other_logos():
+    frame = pd.DataFrame([{"Company": name, "Ticker": ticker,
+                           "Sector": "Financials", "Market cap (USD)": 1e12,
+                           "Logo": "data:image/png;base64,AAAA"}
+                          for name, ticker in [("Visa", "V"), ("AbbVie", "ABBV"),
+                                               ("UnitedHealth Group", "UNH"), ("Mastercard", "MA")]])
+    html = map_html(frame)
+    assert html.count('class="cap-logo cap-logo-navy"') == 3
+    assert html.count('class="cap-logo"') == 1
+    assert '.cap-logo-navy img { mix-blend-mode:normal; filter:brightness(0)' in html
+
+
+def test_small_tiles_include_logos_and_keep_missing_logo_fallback():
+    frame = pd.DataFrame([{"Company": f"Company {i}", "Ticker": f"C{i}",
+                           "Sector": "Information Technology", "Market cap (USD)": 1e11,
+                           "Logo": "data:image/png;base64,AAAA" if i else None} for i in range(150)])
+    html = map_html(frame)
+    assert html.count('<img') == 149
+    assert 'C0' in html
+    assert '@container (max-height:64px)' in html

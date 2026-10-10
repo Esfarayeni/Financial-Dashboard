@@ -18,7 +18,7 @@ from financial_dashboard.analytics import (
 )
 from financial_dashboard.status import freshness_status
 from financial_dashboard import stocks
-from financial_dashboard.stock_tables import table_html, movers_html
+from financial_dashboard.stock_tables import table_html, movers_html, chart_identity_html
 from financial_dashboard.market_cap_map import map_html
 
 
@@ -89,7 +89,11 @@ st.markdown(
       gap: var(--space-tight); flex-wrap: wrap;
       font-size: .75rem; line-height: 1.4; letter-spacing: .04em; font-weight: 600; text-transform: uppercase; }}
     .snapshot-name {{ font-size: 1.25rem; font-weight: 600; letter-spacing: -.01em; text-transform: none; }}
-    .snapshot-head span:last-child {{ color: #7b5c11; }}
+    .snapshot-head > span:last-child {{ color: #7b5c11; }}
+    .stock-chart-identity {{ display:flex; align-items:center; gap:10px; min-width:0; }}
+    .stock-chart-identity span {{ overflow-wrap:anywhere; }}
+    .chart-stock-logo {{ width:32px; height:32px; object-fit:contain; flex-shrink:0; background:#fff; border-radius:6px; padding:3px; box-sizing:border-box; }}
+    .chart-stock-logo-navy {{ filter:{'brightness(0) saturate(100%) invert(15%) sepia(76%) saturate(1660%) hue-rotate(209deg) brightness(91%) contrast(108%)' if light_mode else 'brightness(0) invert(1)'}; background:transparent; }}
     .snapshot-price {{
       font-size: var(--type-price); line-height: 1.15; font-weight: 700;
       font-variant-numeric: tabular-nums; letter-spacing: -.03em; margin: .5rem 0; }}
@@ -820,8 +824,12 @@ else:
 with st.container(key="market_summary"):
     quote_column, metrics_column = st.columns([2.1, 5.4], vertical_alignment="center")
 with quote_column:
+    snapshot_identity = f'<span class="snapshot-name">{selected_name}</span>'
+    if symbol.startswith("STOCK:"):
+        ticker = symbol.removeprefix("STOCK:")
+        snapshot_identity = chart_identity_html(selected_name, ticker, stocks.logo_uri(ticker))
     st.markdown(
-        f'<section class="market-snapshot"><div class="snapshot-head"><span class="snapshot-name">{selected_name}</span>'
+        f'<section class="market-snapshot"><div class="snapshot-head">{snapshot_identity}'
         f'<span>{"Monthly average" if symbol == "COPPER/USD" else "Estimated growth" if is_cumulative_interest else "Daily yield" if is_treasury_yield else "Daily close"}</span></div>'
         f'<div class="snapshot-price">{price_value}</div><div class="snapshot-detail">{price_detail}</div></section>',
         unsafe_allow_html=True,

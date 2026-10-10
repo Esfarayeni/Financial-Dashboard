@@ -1,6 +1,23 @@
 import pandas as pd
 
-from financial_dashboard.stock_tables import movers_html, table_html
+from financial_dashboard.stock_tables import movers_html, table_html, chart_identity_html
+
+
+def test_chart_identity_uses_local_logo_and_escapes_name():
+    html = chart_identity_html('A & <B>', 'AB', 'data:image/png;base64,AAAA')
+    assert 'A &amp; &lt;B&gt;' in html
+    assert 'src="data:image/png;base64,AAAA"' in html
+    assert 'alt=""' in html
+    assert 'chart-stock-logo-navy' not in html
+    for ticker in ('V', 'ABBV', 'UNH'):
+        assert 'chart-stock-logo-navy' in chart_identity_html(ticker, ticker, 'data:image/png;base64,AAAA')
+
+
+def test_chart_identity_keeps_name_without_missing_or_remote_logo():
+    for logo in (None, 'https://example.com/logo.png'):
+        html = chart_identity_html('Company (AB)', 'AB', logo)
+        assert '<img' not in html
+        assert 'Company (AB)' in html
 
 
 def test_stock_table_formats_values_and_escapes_company():

@@ -5,6 +5,15 @@ from urllib.parse import urlencode
 import pandas as pd
 
 
+def chart_identity_html(name: str, ticker: str, logo: str | None) -> str:
+    """Stock chart heading; local logos only, with a text-only fallback."""
+    image = ''
+    if isinstance(logo, str) and logo.startswith('data:image/png;base64,'):
+        css = 'chart-stock-logo chart-stock-logo-navy' if ticker in {'V', 'ABBV', 'UNH'} else 'chart-stock-logo'
+        image = f'<img class="{css}" src="{escape(logo, quote=True)}" alt="" width="32" height="32">'
+    return f'<span class="snapshot-name stock-chart-identity">{image}<span>{escape(name)}</span></span>'
+
+
 def movers_html(frame: pd.DataFrame, label: str) -> str:
     rows = []
     for rank, (_, row) in enumerate(frame.iterrows(), 1):

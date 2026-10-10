@@ -65,10 +65,12 @@ def map_html(caps: pd.DataFrame, dark=False):
             link = '?' + urlencode(dict(dashboard_view="Charts", dashboard_section="Stocks", chart=f"{name} ({ticker})", selected_range="All", compare="None"))
             large = tw >= 140 and th >= 110
             logo = row.get("Logo")
-            image = (f'<span class="cap-logo"><img src="{escape(logo, quote=True)}" alt="" loading="lazy"></span>'
-                     if large and isinstance(logo, str) and logo.startswith("data:image/png;base64,") else '')
+            logo_class = 'cap-logo cap-logo-navy' if ticker in {'V', 'ABBV', 'UNH'} else 'cap-logo'
+            image = (f'<span class="{logo_class}"><img src="{escape(logo, quote=True)}" alt="" loading="lazy"></span>'
+                     if isinstance(logo, str) and logo.startswith("data:image/png;base64,") else '')
+            size_class = ' cap-large' if large else ' cap-compact' if image else ''
             tiles.append(
-                f'<a class="cap-tile{" cap-large" if large else ""}" href="{escape(link, quote=True)}" target="_self" '
+                f'<a class="cap-tile{size_class}" href="{escape(link, quote=True)}" target="_self" '
                 f'aria-label="{escape(name + " (" + ticker + "), " + cap + ". Open chart", quote=True)}" title="{escape(name + " · " + ticker + " · " + cap, quote=True)}" '
                 f'style="left:{tx/width*100:.4f}%;top:{ty/height*100:.4f}%;width:{tw/width*100:.4f}%;height:{th/height*100:.4f}%;background:{COLORS[sector]}">'
                 f'<span class="cap-corner">{escape(cap)}</span><span class="cap-brand">{image}<span class="cap-name">{escape(name)}</span>'
@@ -92,8 +94,23 @@ def map_html(caps: pd.DataFrame, dark=False):
     .cap-ticker {{ font-size:11px; line-height:1.1; }}
     .cap-logo {{ display:flex; justify-content:center; align-items:center; background:transparent; padding:8px; width:min(28cqw,28cqh,80px); height:min(28cqw,28cqh,80px); flex-shrink:0; }}
     .cap-logo img {{ width:100%; height:100%; object-fit:contain; mix-blend-mode:multiply; }}
+    /* Transparent white Visa, AbbVie and UnitedHealth marks need a navy tint on pastel tiles. */
+    .cap-logo-navy img {{ mix-blend-mode:normal; filter:brightness(0) saturate(100%) invert(15%) sepia(76%) saturate(1660%) hue-rotate(209deg) brightness(91%) contrast(108%); }}
+    .cap-compact .cap-brand {{ inset:24px 4px 4px; gap:3px; }}
+    .cap-compact .cap-name {{ display:none; }}
+    .cap-compact .cap-logo {{ padding:0; width:min(35cqw,30cqh,32px); height:min(35cqw,30cqh,32px); }}
+    .cap-compact .cap-ticker {{ display:block; font-size:11px; font-weight:600; }}
     @container (max-height:100px) {{ .cap-logo {{ display:none; }} .cap-ticker {{ display:none; }} .cap-brand {{ inset:26px 5px 4px; }} }}
     @container (max-height:160px) {{ .cap-large .cap-ticker {{ display:none; }} }}
     @container (max-height:55px) {{ .cap-brand {{ display:none; }} }}
     @container (max-width:95px) {{ .cap-logo, .cap-name {{ display:none; }} .cap-corner {{ left:4px; font-size:10px; }} .cap-ticker {{ font-size:12px; font-weight:600; }} }}
+    @container (min-width:40px) and (min-height:40px) {{
+      .cap-compact .cap-brand {{ display:flex; inset:22px 3px 3px; }}
+      .cap-compact .cap-logo {{ display:flex; width:min(35cqw,30cqh,32px); height:min(35cqw,30cqh,32px); }}
+    }}
+    @container (max-height:64px) {{
+      .cap-compact .cap-ticker {{ display:none; }}
+      .cap-compact .cap-logo {{ width:min(35cqw,25cqh,24px); height:min(35cqw,25cqh,24px); }}
+      .cap-compact .cap-corner {{ font-size:10px; left:4px; top:4px; }}
+    }}
     </style><div class="cap-map-scroll" role="region" aria-label="Top 50 companies by market cap; scroll horizontally on small screens" tabindex="0"><div class="cap-map">{''.join(tiles)}</div></div><ul class="cap-legend" aria-label="Sector color key">{legend}</ul>'''
