@@ -1,2517 +1,3020 @@
 {
   "AAPL": {
-    "market_cap": 4891969323008,
-    "updated": "2026-10-09T17:04:34.081742+00:00",
-    "listing_year": 1980
+    "market_cap": 4912984883200,
+    "updated": "2026-10-10T16:43:37.839738+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-12-12"
   },
   "ABBV": {
-    "market_cap": 490154164224,
-    "updated": "2026-10-09T17:04:34.400492+00:00",
-    "listing_year": 2013
+    "market_cap": 488554921984,
+    "updated": "2026-10-10T16:43:35.511046+00:00",
+    "listing_year": 2013,
+    "listing_date": "2013-01-02"
   },
   "ABT": {
-    "market_cap": 171827068928,
-    "updated": "2026-10-09T17:04:34.636915+00:00",
-    "listing_year": 1980
+    "market_cap": 172346179584,
+    "updated": "2026-10-10T16:43:35.280605+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "ACN": {
-    "market_cap": 127014699008,
-    "updated": "2026-10-09T17:04:35.064309+00:00",
-    "listing_year": 2001
+    "market_cap": 127932612608,
+    "updated": "2026-10-10T16:43:35.494807+00:00",
+    "listing_year": 2001,
+    "listing_date": "2001-07-19"
   },
   "ADBE": {
-    "market_cap": 94151376896,
-    "updated": "2026-10-09T17:04:35.619451+00:00",
-    "listing_year": 1986
+    "market_cap": 94291484672,
+    "updated": "2026-10-10T16:43:35.478556+00:00",
+    "listing_year": 1986,
+    "listing_date": "1986-08-13"
   },
   "AMAT": {
-    "market_cap": 403964919808,
-    "updated": "2026-10-09T17:04:35.933874+00:00",
-    "listing_year": 1980
+    "market_cap": 402377703424,
+    "updated": "2026-10-10T16:43:37.873468+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "AMD": {
-    "market_cap": 994797617152,
-    "updated": "2026-10-09T17:04:36.235888+00:00",
-    "listing_year": 1980
+    "market_cap": 992708001792,
+    "updated": "2026-10-10T16:43:35.709078+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "AMGN": {
-    "market_cap": 224789381120,
-    "updated": "2026-10-09T17:04:36.570510+00:00",
-    "listing_year": 1983
+    "market_cap": 224291995648,
+    "updated": "2026-10-10T16:43:37.473416+00:00",
+    "listing_year": 1983,
+    "listing_date": "1983-06-17"
   },
   "AMT": {
-    "market_cap": 83670122496,
-    "updated": "2026-10-09T17:04:36.814284+00:00",
-    "listing_year": 1998
+    "market_cap": 84916568064,
+    "updated": "2026-10-10T16:43:37.229024+00:00",
+    "listing_year": 1998,
+    "listing_date": "1998-02-27"
   },
   "AMZN": {
-    "market_cap": 2812639182848,
-    "updated": "2026-10-09T17:04:37.132722+00:00",
-    "listing_year": 1997
+    "market_cap": 2830652145664,
+    "updated": "2026-10-10T16:43:36.792808+00:00",
+    "listing_year": 1997,
+    "listing_date": "1997-05-15"
   },
   "ANET": {
-    "market_cap": 273455071232,
-    "updated": "2026-10-09T17:04:37.510694+00:00",
-    "listing_year": 2014
+    "market_cap": 273357848576,
+    "updated": "2026-10-10T16:43:38.298516+00:00",
+    "listing_year": 2014,
+    "listing_date": "2014-06-06"
   },
   "AVGO": {
-    "market_cap": 1731467149312,
-    "updated": "2026-10-09T17:04:37.749915+00:00",
-    "listing_year": 2009
+    "market_cap": 1725858185216,
+    "updated": "2026-10-10T16:43:40.242210+00:00",
+    "listing_year": 2009,
+    "listing_date": "2009-08-06"
   },
   "AXP": {
-    "market_cap": 207856992256,
-    "updated": "2026-10-09T17:04:38.456042+00:00",
-    "listing_year": 1972
+    "market_cap": 208110239744,
+    "updated": "2026-10-10T16:43:37.063115+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-06-01"
   },
   "BA": {
-    "market_cap": 150146596864,
-    "updated": "2026-10-09T17:04:39.242082+00:00",
-    "listing_year": 1962
+    "market_cap": 150462742528,
+    "updated": "2026-10-10T16:43:40.008413+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "BAC": {
-    "market_cap": 378482524160,
-    "updated": "2026-10-09T17:04:39.718881+00:00",
-    "listing_year": 1973
+    "market_cap": 379846098944,
+    "updated": "2026-10-10T16:43:39.284415+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "BKNG": {
-    "market_cap": 120280989696,
-    "updated": "2026-10-09T17:04:40.131430+00:00",
-    "listing_year": 1999
+    "market_cap": 120476344320,
+    "updated": "2026-10-10T16:43:40.032411+00:00",
+    "listing_year": 1999,
+    "listing_date": "1999-03-31"
   },
   "BLK": {
-    "market_cap": 176011280384,
-    "updated": "2026-10-09T17:04:40.652931+00:00",
-    "listing_year": 1999
+    "market_cap": 175862611968,
+    "updated": "2026-10-10T16:43:39.744416+00:00",
+    "listing_year": 1999,
+    "listing_date": "1999-10-01"
   },
   "BMY": {
-    "market_cap": 121541517312,
-    "updated": "2026-10-09T17:04:40.925578+00:00",
-    "listing_year": 1972
+    "market_cap": 120765284352,
+    "updated": "2026-10-10T16:43:40.247131+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-06-01"
   },
   "BNY": {
-    "market_cap": 97277132800,
-    "updated": "2026-10-09T17:04:41.177080+00:00",
-    "listing_year": 1973
+    "market_cap": 96829325312,
+    "updated": "2026-10-10T16:43:39.966911+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-05-03"
   },
   "BRK-B": {
-    "market_cap": 1102369259520,
-    "updated": "2026-10-09T17:04:41.547175+00:00",
-    "listing_year": 1996
+    "market_cap": 1103792701440,
+    "updated": "2026-10-10T16:43:39.455613+00:00",
+    "listing_year": 1996,
+    "listing_date": "1996-05-09"
   },
   "C": {
-    "market_cap": 216221597696,
-    "updated": "2026-10-09T17:04:41.880194+00:00",
-    "listing_year": 1977
+    "market_cap": 217462898688,
+    "updated": "2026-10-10T16:43:42.645869+00:00",
+    "listing_year": 1977,
+    "listing_date": "1977-01-03"
   },
   "CAT": {
-    "market_cap": 368599138304,
-    "updated": "2026-10-09T17:04:42.225404+00:00",
-    "listing_year": 1962
+    "market_cap": 367955935232,
+    "updated": "2026-10-10T16:43:41.301775+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "CMCSA": {
-    "market_cap": 72942231552,
-    "updated": "2026-10-09T17:04:42.536851+00:00",
-    "listing_year": 1980
+    "market_cap": 73314836480,
+    "updated": "2026-10-10T16:43:43.230109+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "COF": {
-    "market_cap": 122831937536,
-    "updated": "2026-10-09T17:04:42.904281+00:00",
-    "listing_year": 1994
+    "market_cap": 122242990080,
+    "updated": "2026-10-10T16:43:40.857614+00:00",
+    "listing_year": 1994,
+    "listing_date": "1994-11-16"
   },
   "COP": {
-    "market_cap": 161788919808,
-    "updated": "2026-10-09T17:04:43.272427+00:00",
-    "listing_year": 1981
+    "market_cap": 161099366400,
+    "updated": "2026-10-10T16:43:43.308345+00:00",
+    "listing_year": 1981,
+    "listing_date": "1981-12-31"
   },
   "COST": {
-    "market_cap": 417972879360,
-    "updated": "2026-10-09T17:04:43.919021+00:00",
-    "listing_year": 1986
+    "market_cap": 419608035328,
+    "updated": "2026-10-10T16:43:43.936690+00:00",
+    "listing_year": 1986,
+    "listing_date": "1986-07-09"
   },
   "CRM": {
-    "market_cap": 188047278080,
-    "updated": "2026-10-09T17:04:44.327088+00:00",
-    "listing_year": 2004
+    "market_cap": 188573990912,
+    "updated": "2026-10-10T16:44:02.033306+00:00",
+    "listing_year": 2004,
+    "listing_date": "2004-06-23"
   },
   "CSCO": {
-    "market_cap": 464042459136,
-    "updated": "2026-10-09T17:04:44.663055+00:00",
-    "listing_year": 1990
+    "market_cap": 466762858496,
+    "updated": "2026-10-10T16:43:42.603657+00:00",
+    "listing_year": 1990,
+    "listing_date": "1990-02-16"
   },
   "CVS": {
-    "market_cap": 111257632768,
-    "updated": "2026-10-09T17:04:45.167888+00:00",
-    "listing_year": 1973
+    "market_cap": 110196088832,
+    "updated": "2026-10-10T16:43:44.240070+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "CVX": {
-    "market_cap": 417723416576,
-    "updated": "2026-10-09T17:04:45.543274+00:00",
-    "listing_year": 1962
+    "market_cap": 415820677120,
+    "updated": "2026-10-10T16:43:41.985461+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "DE": {
-    "market_cap": 169680666624,
-    "updated": "2026-10-09T17:04:45.773104+00:00",
-    "listing_year": 1972
+    "market_cap": 167418494976,
+    "updated": "2026-10-10T16:43:44.675784+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-06-01"
   },
   "DELL": {
-    "market_cap": 368790405120,
-    "updated": "2026-10-09T17:04:46.136859+00:00",
-    "listing_year": 2016
+    "market_cap": 372624424960,
+    "updated": "2026-10-10T16:43:44.715169+00:00",
+    "listing_year": 2016,
+    "listing_date": "2016-08-17"
   },
   "DHR": {
-    "market_cap": 154326532096,
-    "updated": "2026-10-09T17:04:46.424214+00:00",
-    "listing_year": 1978
+    "market_cap": 154523369472,
+    "updated": "2026-10-10T16:43:44.437387+00:00",
+    "listing_year": 1978,
+    "listing_date": "1978-12-29"
   },
   "DIS": {
-    "market_cap": 186240450560,
-    "updated": "2026-10-09T17:04:46.775149+00:00",
-    "listing_year": 1962
+    "market_cap": 186568523776,
+    "updated": "2026-10-10T16:44:07.611575+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "DUK": {
-    "market_cap": 90975649792,
-    "updated": "2026-10-09T17:04:47.122040+00:00",
-    "listing_year": 1980
+    "market_cap": 90952261632,
+    "updated": "2026-10-10T16:43:45.750390+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "EMR": {
-    "market_cap": 90182320128,
-    "updated": "2026-10-09T17:04:47.472300+00:00",
-    "listing_year": 1972
+    "market_cap": 90268778496,
+    "updated": "2026-10-10T16:43:46.442226+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-06-01"
   },
   "FDX": {
-    "market_cap": 69079367680,
-    "updated": "2026-10-09T17:04:47.720412+00:00",
-    "listing_year": 1978
+    "market_cap": 69039128576,
+    "updated": "2026-10-10T16:43:47.934928+00:00",
+    "listing_year": 1978,
+    "listing_date": "1978-04-12"
   },
   "GD": {
-    "market_cap": 89803366400,
-    "updated": "2026-10-09T17:04:48.067590+00:00",
-    "listing_year": 1962
+    "market_cap": 89627475968,
+    "updated": "2026-10-10T16:43:49.526028+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "GE": {
-    "market_cap": 318033657856,
-    "updated": "2026-10-09T17:04:48.389285+00:00",
-    "listing_year": 1962
+    "market_cap": 319776784384,
+    "updated": "2026-10-10T16:43:49.490221+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "GEV": {
-    "market_cap": 267768037376,
-    "updated": "2026-10-09T17:04:48.672769+00:00",
-    "listing_year": 2024
+    "market_cap": 267593334784,
+    "updated": "2026-10-10T16:43:49.200059+00:00",
+    "listing_year": 2024,
+    "listing_date": "2024-03-27"
   },
   "GILD": {
-    "market_cap": 187592818688,
-    "updated": "2026-10-09T17:04:48.889394+00:00",
-    "listing_year": 1992
+    "market_cap": 187444019200,
+    "updated": "2026-10-10T16:43:49.689413+00:00",
+    "listing_year": 1992,
+    "listing_date": "1992-01-22"
   },
   "GM": {
-    "market_cap": 72302010368,
-    "updated": "2026-10-09T17:04:49.269873+00:00",
-    "listing_year": 2010
+    "market_cap": 72591564800,
+    "updated": "2026-10-10T16:43:49.645892+00:00",
+    "listing_year": 2010,
+    "listing_date": "2010-11-18"
   },
   "GOOG": {
-    "market_cap": 4282189611008,
-    "updated": "2026-10-09T17:04:49.565396+00:00",
-    "listing_year": 2004
+    "market_cap": 4254305091584,
+    "updated": "2026-10-10T16:43:36.648134+00:00",
+    "listing_year": 2004,
+    "listing_date": "2004-08-19"
   },
   "GOOGL": {
-    "market_cap": 4326462062592,
-    "updated": "2026-10-09T17:04:49.792416+00:00",
-    "listing_year": 2004
+    "market_cap": 4300779028480,
+    "updated": "2026-10-10T16:43:36.580810+00:00",
+    "listing_year": 2004,
+    "listing_date": "2004-08-19"
   },
   "GS": {
-    "market_cap": 259200778240,
-    "updated": "2026-10-09T17:04:50.088874+00:00",
-    "listing_year": 1999
+    "market_cap": 260691574784,
+    "updated": "2026-10-10T16:43:50.001669+00:00",
+    "listing_year": 1999,
+    "listing_date": "1999-05-04"
   },
   "HD": {
-    "market_cap": 291435085824,
-    "updated": "2026-10-09T17:04:50.334319+00:00",
-    "listing_year": 1981
+    "market_cap": 290068267008,
+    "updated": "2026-10-10T16:43:50.654113+00:00",
+    "listing_year": 1981,
+    "listing_date": "1981-09-22"
   },
   "IBM": {
-    "market_cap": 213996404736,
-    "updated": "2026-10-09T17:04:50.611876+00:00",
-    "listing_year": 1962
+    "market_cap": 213986983936,
+    "updated": "2026-10-10T16:43:51.469401+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "INTC": {
-    "market_cap": 557261193216,
-    "updated": "2026-10-09T17:04:50.829545+00:00",
-    "listing_year": 1980
+    "market_cap": 553455190016,
+    "updated": "2026-10-10T16:43:51.900450+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "INTU": {
-    "market_cap": 80793452544,
-    "updated": "2026-10-09T17:04:51.139552+00:00",
-    "listing_year": 1993
+    "market_cap": 80905699328,
+    "updated": "2026-10-10T16:43:52.262972+00:00",
+    "listing_year": 1993,
+    "listing_date": "1993-03-12"
   },
   "ISRG": {
-    "market_cap": 150213836800,
-    "updated": "2026-10-09T17:04:51.514491+00:00",
-    "listing_year": 2000
+    "market_cap": 149775761408,
+    "updated": "2026-10-10T16:43:52.299852+00:00",
+    "listing_year": 2000,
+    "listing_date": "2000-06-16"
   },
   "JNJ": {
-    "market_cap": 629224505344,
-    "updated": "2026-10-09T17:04:51.799808+00:00",
-    "listing_year": 1962
+    "market_cap": 630043836416,
+    "updated": "2026-10-10T16:43:52.901189+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "JPM": {
-    "market_cap": 886265872384,
-    "updated": "2026-10-09T17:04:52.096517+00:00",
-    "listing_year": 1980
+    "market_cap": 885149401088,
+    "updated": "2026-10-10T16:43:53.050213+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "KO": {
-    "market_cap": 379527856128,
-    "updated": "2026-10-09T17:04:52.517312+00:00",
-    "listing_year": 1962
+    "market_cap": 378839465984,
+    "updated": "2026-10-10T16:43:42.947873+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "LIN": {
-    "market_cap": 223077531648,
-    "updated": "2026-10-09T17:04:52.829764+00:00",
-    "listing_year": 1992
+    "market_cap": 222989942784,
+    "updated": "2026-10-10T16:43:54.443415+00:00",
+    "listing_year": 1992,
+    "listing_date": "1992-06-17"
   },
   "LLY": {
-    "market_cap": 1047497605120,
-    "updated": "2026-10-09T17:04:53.078950+00:00",
-    "listing_year": 1972
+    "market_cap": 1051603894272,
+    "updated": "2026-10-10T16:43:54.286086+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-06-01"
   },
   "LMT": {
-    "market_cap": 117410185216,
-    "updated": "2026-10-09T17:04:53.533780+00:00",
-    "listing_year": 1962
+    "market_cap": 117608660992,
+    "updated": "2026-10-10T16:43:54.445400+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "LOW": {
-    "market_cap": 104409350144,
-    "updated": "2026-10-09T17:04:53.871138+00:00",
-    "listing_year": 1980
+    "market_cap": 104356044800,
+    "updated": "2026-10-10T16:43:54.617417+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "LRCX": {
-    "market_cap": 399974006784,
-    "updated": "2026-10-09T17:04:54.078978+00:00",
-    "listing_year": 1984
+    "market_cap": 399004139520,
+    "updated": "2026-10-10T16:43:54.035033+00:00",
+    "listing_year": 1984,
+    "listing_date": "1984-05-04"
   },
   "MA": {
-    "market_cap": 514988703744,
-    "updated": "2026-10-09T17:04:54.373625+00:00",
-    "listing_year": 2006
+    "market_cap": 516092493824,
+    "updated": "2026-10-10T16:43:55.423333+00:00",
+    "listing_year": 2006,
+    "listing_date": "2006-05-25"
   },
   "MCD": {
-    "market_cap": 167180320768,
-    "updated": "2026-10-09T17:04:54.646116+00:00",
-    "listing_year": 1966
+    "market_cap": 166458523648,
+    "updated": "2026-10-10T16:43:55.567901+00:00",
+    "listing_year": 1966,
+    "listing_date": "1966-07-05"
   },
   "MDLZ": {
-    "market_cap": 77223026688,
-    "updated": "2026-10-09T17:04:54.947684+00:00",
-    "listing_year": 2001
+    "market_cap": 77101768704,
+    "updated": "2026-10-10T16:43:56.399778+00:00",
+    "listing_year": 2001,
+    "listing_date": "2001-06-13"
   },
   "MDT": {
-    "market_cap": 112819961856,
-    "updated": "2026-10-09T17:04:55.193729+00:00",
-    "listing_year": 1973
+    "market_cap": 113178124288,
+    "updated": "2026-10-10T16:43:55.637019+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-05-02"
   },
   "META": {
-    "market_cap": 1850610417664,
-    "updated": "2026-10-09T17:04:55.583421+00:00",
-    "listing_year": 2012
+    "market_cap": 1830816186368,
+    "updated": "2026-10-10T16:43:55.800555+00:00",
+    "listing_year": 2012,
+    "listing_date": "2012-05-18"
   },
   "MMM": {
-    "market_cap": 83366526976,
-    "updated": "2026-10-09T17:04:55.853344+00:00",
-    "listing_year": 1962
+    "market_cap": 82494963712,
+    "updated": "2026-10-10T16:43:35.324138+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "MO": {
-    "market_cap": 119895957504,
-    "updated": "2026-10-09T17:04:56.057922+00:00",
-    "listing_year": 1962
+    "market_cap": 119687241728,
+    "updated": "2026-10-10T16:43:36.699186+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "MRK": {
-    "market_cap": 359633453056,
-    "updated": "2026-10-09T17:04:56.482153+00:00",
-    "listing_year": 1962
+    "market_cap": 359220183040,
+    "updated": "2026-10-10T16:43:55.736619+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "MS": {
-    "market_cap": 297759735808,
-    "updated": "2026-10-09T17:04:56.704015+00:00",
-    "listing_year": 1993
+    "market_cap": 298439016448,
+    "updated": "2026-10-10T16:43:56.557349+00:00",
+    "listing_year": 1993,
+    "listing_date": "1993-02-23"
   },
   "MSFT": {
-    "market_cap": 3971850174464,
-    "updated": "2026-10-09T17:04:56.974054+00:00",
-    "listing_year": 1986
+    "market_cap": 3973186846720,
+    "updated": "2026-10-10T16:43:56.143602+00:00",
+    "listing_year": 1986,
+    "listing_date": "1986-03-13"
   },
   "MU": {
-    "market_cap": 1161626124288,
-    "updated": "2026-10-09T17:04:57.201230+00:00",
-    "listing_year": 1984
+    "market_cap": 1164234457088,
+    "updated": "2026-10-10T16:43:56.089007+00:00",
+    "listing_year": 1984,
+    "listing_date": "1984-06-01"
   },
   "NEE": {
-    "market_cap": 161715470336,
-    "updated": "2026-10-09T17:04:57.513282+00:00",
-    "listing_year": 1973
+    "market_cap": 161412988928,
+    "updated": "2026-10-10T16:43:57.221300+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "NFLX": {
-    "market_cap": 293974114304,
-    "updated": "2026-10-09T17:04:57.772425+00:00",
-    "listing_year": 2002
+    "market_cap": 292724965376,
+    "updated": "2026-10-10T16:43:57.057981+00:00",
+    "listing_year": 2002,
+    "listing_date": "2002-05-23"
   },
   "NOW": {
-    "market_cap": 144782557184,
-    "updated": "2026-10-09T17:04:58.029287+00:00",
-    "listing_year": 2012
+    "market_cap": 145629806592,
+    "updated": "2026-10-10T16:44:02.311284+00:00",
+    "listing_year": 2012,
+    "listing_date": "2012-06-29"
   },
   "NVDA": {
-    "market_cap": 5541205114880,
-    "updated": "2026-10-09T17:04:58.383852+00:00",
-    "listing_year": 1999
+    "market_cap": 5536424132608,
+    "updated": "2026-10-10T16:43:57.998784+00:00",
+    "listing_year": 1999,
+    "listing_date": "1999-01-22"
   },
   "ORCL": {
-    "market_cap": 429108985856,
-    "updated": "2026-10-09T17:04:58.775827+00:00",
-    "listing_year": 1986
+    "market_cap": 428654231552,
+    "updated": "2026-10-10T16:43:58.527114+00:00",
+    "listing_year": 1986,
+    "listing_date": "1986-03-12"
   },
   "PANW": {
-    "market_cap": 339764576256,
-    "updated": "2026-10-09T17:04:59.388219+00:00",
-    "listing_year": 2012
+    "market_cap": 342562045952,
+    "updated": "2026-10-10T16:43:59.002419+00:00",
+    "listing_year": 2012,
+    "listing_date": "2012-07-20"
   },
   "PEP": {
-    "market_cap": 172209602560,
-    "updated": "2026-10-09T17:04:59.721956+00:00",
-    "listing_year": 1972
+    "market_cap": 171664506880,
+    "updated": "2026-10-10T16:43:59.300789+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-06-01"
   },
   "PFE": {
-    "market_cap": 160303316992,
-    "updated": "2026-10-09T17:05:00.167590+00:00",
-    "listing_year": 1972
+    "market_cap": 161186775040,
+    "updated": "2026-10-10T16:43:59.357284+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-06-01"
   },
   "PG": {
-    "market_cap": 350793203712,
-    "updated": "2026-10-09T17:05:00.705170+00:00",
-    "listing_year": 1962
+    "market_cap": 351257722880,
+    "updated": "2026-10-10T16:43:59.983376+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "PLTR": {
-    "market_cap": 493624229888,
-    "updated": "2026-10-09T17:05:00.948346+00:00",
-    "listing_year": 2020
+    "market_cap": 502359359488,
+    "updated": "2026-10-10T16:43:58.822155+00:00",
+    "listing_year": 2020,
+    "listing_date": "2020-09-30"
   },
   "PM": {
-    "market_cap": 312704598016,
-    "updated": "2026-10-09T17:05:01.271373+00:00",
-    "listing_year": 2008
+    "market_cap": 313577439232,
+    "updated": "2026-10-10T16:43:59.494925+00:00",
+    "listing_year": 2008,
+    "listing_date": "2008-03-17"
   },
   "QCOM": {
-    "market_cap": 184949800960,
-    "updated": "2026-10-09T17:05:01.630382+00:00",
-    "listing_year": 1991
+    "market_cap": 187405828096,
+    "updated": "2026-10-10T16:44:00.542522+00:00",
+    "listing_year": 1991,
+    "listing_date": "1991-12-13"
   },
   "RTX": {
-    "market_cap": 251168047104,
-    "updated": "2026-10-09T17:05:01.913784+00:00",
-    "listing_year": 1962
+    "market_cap": 250642579456,
+    "updated": "2026-10-10T16:44:00.967778+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-04-02"
   },
   "SBUX": {
-    "market_cap": 105102409728,
-    "updated": "2026-10-09T17:05:02.229034+00:00",
-    "listing_year": 1992
+    "market_cap": 103454998528,
+    "updated": "2026-10-10T16:44:03.166636+00:00",
+    "listing_year": 1992,
+    "listing_date": "1992-06-26"
   },
   "SCHW": {
-    "market_cap": 167717191680,
-    "updated": "2026-10-09T17:05:02.670141+00:00",
-    "listing_year": 1987
+    "market_cap": 167226753024,
+    "updated": "2026-10-10T16:43:41.821189+00:00",
+    "listing_year": 1987,
+    "listing_date": "1987-09-22"
   },
   "SNDK": {
-    "market_cap": 231465959424,
-    "updated": "2026-10-09T17:05:02.877032+00:00",
-    "listing_year": 2025
+    "market_cap": 228616585216,
+    "updated": "2026-10-10T16:44:01.957891+00:00",
+    "listing_year": 2025,
+    "listing_date": "2025-02-13"
   },
   "SO": {
-    "market_cap": 98965725184,
-    "updated": "2026-10-09T17:05:03.194852+00:00",
-    "listing_year": 1981
+    "market_cap": 99126779904,
+    "updated": "2026-10-10T16:44:03.008828+00:00",
+    "listing_year": 1981,
+    "listing_date": "1981-12-31"
   },
   "T": {
-    "market_cap": 152088707072,
-    "updated": "2026-10-09T17:05:03.522191+00:00",
-    "listing_year": 1983
+    "market_cap": 151985913856,
+    "updated": "2026-10-10T16:43:38.618939+00:00",
+    "listing_year": 1983,
+    "listing_date": "1983-11-21"
   },
   "TMO": {
-    "market_cap": 243750354944,
-    "updated": "2026-10-09T17:05:03.791730+00:00",
-    "listing_year": 1980
+    "market_cap": 243301122048,
+    "updated": "2026-10-10T16:44:04.857805+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "TMUS": {
-    "market_cap": 160149880832,
-    "updated": "2026-10-09T17:05:04.045498+00:00",
-    "listing_year": 2007
+    "market_cap": 159377555456,
+    "updated": "2026-10-10T16:44:03.795120+00:00",
+    "listing_year": 2007,
+    "listing_date": "2007-04-19"
   },
   "TSLA": {
-    "market_cap": 1514394746880,
-    "updated": "2026-10-09T17:05:04.514950+00:00",
-    "listing_year": 2010
+    "market_cap": 1511491895296,
+    "updated": "2026-10-10T16:44:04.426904+00:00",
+    "listing_year": 2010,
+    "listing_date": "2010-06-29"
   },
   "TXN": {
-    "market_cap": 257812086784,
-    "updated": "2026-10-09T17:05:04.774056+00:00",
-    "listing_year": 1972
+    "market_cap": 259124887552,
+    "updated": "2026-10-10T16:44:04.665586+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-06-01"
   },
   "UBER": {
-    "market_cap": 145593679872,
-    "updated": "2026-10-09T17:05:05.014009+00:00",
-    "listing_year": 2019
+    "market_cap": 146063474688,
+    "updated": "2026-10-10T16:44:05.646714+00:00",
+    "listing_year": 2019,
+    "listing_date": "2019-05-10"
   },
   "UNH": {
-    "market_cap": 339492798464,
-    "updated": "2026-10-09T17:05:05.291732+00:00",
-    "listing_year": 1984
+    "market_cap": 340457717760,
+    "updated": "2026-10-10T16:44:06.074580+00:00",
+    "listing_year": 1984,
+    "listing_date": "1984-10-17"
   },
   "UNP": {
-    "market_cap": 165218336768,
-    "updated": "2026-10-09T17:05:05.547975+00:00",
-    "listing_year": 1980
+    "market_cap": 165354979328,
+    "updated": "2026-10-10T16:44:05.898225+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-01-02"
   },
   "UPS": {
-    "market_cap": 80577519616,
-    "updated": "2026-10-09T17:05:05.884192+00:00",
-    "listing_year": 1999
+    "market_cap": 80458416128,
+    "updated": "2026-10-10T16:44:05.987649+00:00",
+    "listing_year": 1999,
+    "listing_date": "1999-11-10"
   },
   "USB": {
-    "market_cap": 88598601728,
-    "updated": "2026-10-09T17:05:06.114143+00:00",
-    "listing_year": 1973
+    "market_cap": 88933580800,
+    "updated": "2026-10-10T16:44:05.549829+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-05-03"
   },
   "V": {
-    "market_cap": 723157254144,
-    "updated": "2026-10-09T17:05:06.480464+00:00",
-    "listing_year": 2008
+    "market_cap": 723626622976,
+    "updated": "2026-10-10T16:44:07.063981+00:00",
+    "listing_year": 2008,
+    "listing_date": "2008-03-19"
   },
   "VZ": {
-    "market_cap": 171529895936,
-    "updated": "2026-10-09T17:05:06.730416+00:00",
-    "listing_year": 1983
+    "market_cap": 173046398976,
+    "updated": "2026-10-10T16:44:06.578954+00:00",
+    "listing_year": 1983,
+    "listing_date": "1983-11-21"
   },
   "WFC": {
-    "market_cap": 252640018432,
-    "updated": "2026-10-09T17:05:07.110406+00:00",
-    "listing_year": 1972
+    "market_cap": 252655140864,
+    "updated": "2026-10-10T16:44:07.811855+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-06-01"
   },
   "WMT": {
-    "market_cap": 885097562112,
-    "updated": "2026-10-09T17:05:07.914078+00:00",
-    "listing_year": 1972
+    "market_cap": 886132113408,
+    "updated": "2026-10-10T16:44:07.457057+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-08-25"
   },
   "XOM": {
-    "market_cap": 696845729792,
-    "updated": "2026-10-09T17:05:08.125767+00:00",
-    "listing_year": 1962
+    "market_cap": 694666395648,
+    "updated": "2026-10-10T16:43:47.588634+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "AOS": {
-    "market_cap": 7686989312,
-    "updated": "2026-10-09T17:27:10.665904+00:00",
-    "listing_year": 1983
+    "market_cap": 7662525440,
+    "updated": "2026-10-10T16:43:35.254305+00:00",
+    "listing_year": 1983,
+    "listing_date": "1983-09-30"
   },
   "AES": {
-    "market_cap": 10644576256,
-    "updated": "2026-10-09T17:27:10.665174+00:00",
-    "listing_year": 1991
+    "market_cap": 10658772992,
+    "updated": "2026-10-10T16:43:35.714437+00:00",
+    "listing_year": 1991,
+    "listing_date": "1991-06-26"
   },
   "AFL": {
-    "market_cap": 57569251328,
-    "updated": "2026-10-09T17:27:10.709708+00:00",
-    "listing_year": 1980
+    "market_cap": 57423859712,
+    "updated": "2026-10-10T16:43:35.673291+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "A": {
-    "market_cap": 48505167872,
-    "updated": "2026-10-09T17:27:10.905386+00:00",
-    "listing_year": 1999
+    "market_cap": 48086450176,
+    "updated": "2026-10-10T16:43:35.866782+00:00",
+    "listing_year": 1999,
+    "listing_date": "1999-11-18"
   },
   "APD": {
-    "market_cap": 62908665856,
-    "updated": "2026-10-09T17:27:10.881298+00:00",
-    "listing_year": 1980
+    "market_cap": 62632534016,
+    "updated": "2026-10-10T16:43:36.113780+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "ABNB": {
-    "market_cap": 98943344640,
-    "updated": "2026-10-09T17:27:11.122543+00:00",
-    "listing_year": 2020
+    "market_cap": 99320578048,
+    "updated": "2026-10-10T16:43:35.879922+00:00",
+    "listing_year": 2020,
+    "listing_date": "2020-12-10"
   },
   "AKAM": {
-    "market_cap": 15182222336,
-    "updated": "2026-10-09T17:27:11.186872+00:00",
-    "listing_year": 1999
+    "market_cap": 15370490880,
+    "updated": "2026-10-10T16:43:36.103092+00:00",
+    "listing_year": 1999,
+    "listing_date": "1999-10-29"
   },
   "ALB": {
-    "market_cap": 11937981440,
-    "updated": "2026-10-09T17:27:11.233843+00:00",
-    "listing_year": 1994
+    "market_cap": 11950371840,
+    "updated": "2026-10-10T16:43:36.035617+00:00",
+    "listing_year": 1994,
+    "listing_date": "1994-02-22"
   },
   "ARE": {
-    "market_cap": 7814846464,
-    "updated": "2026-10-09T17:27:11.383584+00:00",
-    "listing_year": 1997
+    "market_cap": 7832055808,
+    "updated": "2026-10-10T16:43:36.216110+00:00",
+    "listing_year": 1997,
+    "listing_date": "1997-05-28"
   },
   "ALGN": {
-    "market_cap": 10047166464,
-    "updated": "2026-10-09T17:27:11.648991+00:00",
-    "listing_year": 2001
+    "market_cap": 10138098688,
+    "updated": "2026-10-10T16:43:36.294742+00:00",
+    "listing_year": 2001,
+    "listing_date": "2001-01-30"
   },
   "ALLE": {
-    "market_cap": 12895827968,
-    "updated": "2026-10-09T17:27:11.556248+00:00",
-    "listing_year": 2013
+    "market_cap": 12796335104,
+    "updated": "2026-10-10T16:43:36.320726+00:00",
+    "listing_year": 2013,
+    "listing_date": "2013-11-18"
   },
   "LNT": {
-    "market_cap": 17067414528,
-    "updated": "2026-10-09T17:27:11.756574+00:00",
-    "listing_year": 1973
+    "market_cap": 17073897472,
+    "updated": "2026-10-10T16:43:36.398207+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "ALL": {
-    "market_cap": 58262261760,
-    "updated": "2026-10-09T17:27:11.887744+00:00",
-    "listing_year": 1993
+    "market_cap": 58013196288,
+    "updated": "2026-10-10T16:43:36.505819+00:00",
+    "listing_year": 1993,
+    "listing_date": "1993-06-03"
   },
   "AMCR": {
-    "market_cap": 19203082240,
-    "updated": "2026-10-09T17:27:11.942818+00:00",
-    "listing_year": 2012
+    "market_cap": 19272374272,
+    "updated": "2026-10-10T16:43:36.871860+00:00",
+    "listing_year": 2012,
+    "listing_date": "2012-05-15"
   },
   "AEE": {
-    "market_cap": 28220016640,
-    "updated": "2026-10-09T17:27:12.055494+00:00",
-    "listing_year": 1998
+    "market_cap": 28290613248,
+    "updated": "2026-10-10T16:43:36.859766+00:00",
+    "listing_year": 1998,
+    "listing_date": "1998-01-02"
   },
   "AEP": {
-    "market_cap": 66726785024,
-    "updated": "2026-10-09T17:27:12.173256+00:00",
-    "listing_year": 1962
+    "market_cap": 66857439232,
+    "updated": "2026-10-10T16:43:37.087157+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "AIG": {
-    "market_cap": 40545136640,
-    "updated": "2026-10-09T17:27:12.234615+00:00",
-    "listing_year": 1973
+    "market_cap": 40283693056,
+    "updated": "2026-10-10T16:43:37.038870+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-01-02"
   },
   "AWK": {
-    "market_cap": 25574453248,
-    "updated": "2026-10-09T17:27:12.307016+00:00",
-    "listing_year": 2008
+    "market_cap": 25612193792,
+    "updated": "2026-10-10T16:43:37.260327+00:00",
+    "listing_year": 2008,
+    "listing_date": "2008-04-23"
   },
   "AMP": {
-    "market_cap": 44200173568,
-    "updated": "2026-10-09T17:27:12.536469+00:00",
-    "listing_year": 2005
+    "market_cap": 44211658752,
+    "updated": "2026-10-10T16:43:37.379029+00:00",
+    "listing_year": 2005,
+    "listing_date": "2005-09-15"
   },
   "AME": {
-    "market_cap": 57021857792,
-    "updated": "2026-10-09T17:27:12.815957+00:00",
-    "listing_year": 1984
+    "market_cap": 56989761536,
+    "updated": "2026-10-10T16:43:37.426666+00:00",
+    "listing_year": 1984,
+    "listing_date": "1984-07-19"
   },
   "APH": {
-    "market_cap": 213897953280,
-    "updated": "2026-10-09T17:27:12.512419+00:00",
-    "listing_year": 1991
+    "market_cap": 215130947584,
+    "updated": "2026-10-10T16:43:37.532732+00:00",
+    "listing_year": 1991,
+    "listing_date": "1991-11-08"
   },
   "ADI": {
-    "market_cap": 194523971584,
-    "updated": "2026-10-09T17:27:12.817126+00:00",
-    "listing_year": 1980
+    "market_cap": 196825645056,
+    "updated": "2026-10-10T16:43:37.682370+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "AON": {
-    "market_cap": 58158436352,
-    "updated": "2026-10-09T17:27:12.827367+00:00",
-    "listing_year": 1980
+    "market_cap": 58009944064,
+    "updated": "2026-10-10T16:43:37.630233+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-06-02"
   },
   "APA": {
-    "market_cap": 16142446592,
-    "updated": "2026-10-09T17:27:13.219692+00:00",
-    "listing_year": 1979
+    "market_cap": 16074128384,
+    "updated": "2026-10-10T16:43:37.712422+00:00",
+    "listing_year": 1979,
+    "listing_date": "1979-05-15"
   },
   "APO": {
-    "market_cap": 70236250112,
-    "updated": "2026-10-09T17:27:13.103513+00:00",
-    "listing_year": 2011
+    "market_cap": 70067945472,
+    "updated": "2026-10-10T16:43:37.838778+00:00",
+    "listing_year": 2011,
+    "listing_date": "2011-03-30"
   },
   "APP": {
-    "market_cap": 92971261952,
-    "updated": "2026-10-09T17:27:13.130080+00:00",
-    "listing_year": 2021
+    "market_cap": 93068689408,
+    "updated": "2026-10-10T16:43:38.106200+00:00",
+    "listing_year": 2021,
+    "listing_date": "2021-04-15"
   },
   "APTV": {
-    "market_cap": 9079804928,
-    "updated": "2026-10-09T17:27:13.370564+00:00",
-    "listing_year": 2011
+    "market_cap": 9094339584,
+    "updated": "2026-10-10T16:43:38.086807+00:00",
+    "listing_year": 2011,
+    "listing_date": "2011-11-17"
   },
   "ACGL": {
-    "market_cap": 32809181184,
-    "updated": "2026-10-09T17:27:13.605124+00:00",
-    "listing_year": 1995
+    "market_cap": 32611266560,
+    "updated": "2026-10-10T16:43:38.089638+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-09-14"
   },
   "ADM": {
-    "market_cap": 39098970112,
-    "updated": "2026-10-09T17:27:13.596450+00:00",
-    "listing_year": 1980
+    "market_cap": 38503751680,
+    "updated": "2026-10-10T16:43:38.289118+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "ARES": {
-    "market_cap": 39205961728,
-    "updated": "2026-10-09T17:27:13.586856+00:00",
-    "listing_year": 2014
+    "market_cap": 38890774528,
+    "updated": "2026-10-10T16:43:38.427761+00:00",
+    "listing_year": 2014,
+    "listing_date": "2014-05-02"
   },
   "AJG": {
-    "market_cap": 59740270592,
-    "updated": "2026-10-09T17:27:14.031266+00:00",
-    "listing_year": 1984
+    "market_cap": 59650547712,
+    "updated": "2026-10-10T16:43:38.503543+00:00",
+    "listing_year": 1984,
+    "listing_date": "1984-06-20"
   },
   "AIZ": {
-    "market_cap": 13206685696,
-    "updated": "2026-10-09T17:27:13.895355+00:00",
-    "listing_year": 2004
+    "market_cap": 13144290304,
+    "updated": "2026-10-10T16:43:38.544463+00:00",
+    "listing_year": 2004,
+    "listing_date": "2004-02-05"
   },
   "ATO": {
-    "market_cap": 27273910272,
-    "updated": "2026-10-09T17:27:13.878346+00:00",
-    "listing_year": 1983
+    "market_cap": 27318691840,
+    "updated": "2026-10-10T16:43:38.736232+00:00",
+    "listing_year": 1983,
+    "listing_date": "1983-12-28"
   },
   "ADSK": {
-    "market_cap": 49198579712,
-    "updated": "2026-10-09T17:27:14.132670+00:00",
-    "listing_year": 1985
+    "market_cap": 49188151296,
+    "updated": "2026-10-10T16:43:38.711358+00:00",
+    "listing_year": 1985,
+    "listing_date": "1985-06-28"
   },
   "ADP": {
-    "market_cap": 107467382784,
-    "updated": "2026-10-09T17:27:14.132429+00:00",
-    "listing_year": 1980
+    "market_cap": 107336622080,
+    "updated": "2026-10-10T16:43:38.788384+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "AZO": {
-    "market_cap": 47141871616,
-    "updated": "2026-10-09T17:27:14.338217+00:00",
-    "listing_year": 1991
+    "market_cap": 47546195968,
+    "updated": "2026-10-10T16:43:38.914677+00:00",
+    "listing_year": 1991,
+    "listing_date": "1991-04-02"
   },
   "AVY": {
-    "market_cap": 12665714688,
-    "updated": "2026-10-09T17:27:14.405131+00:00",
-    "listing_year": 1973
+    "market_cap": 12718767104,
+    "updated": "2026-10-10T16:43:38.918037+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "AXON": {
-    "market_cap": 33776486400,
-    "updated": "2026-10-09T17:27:14.519593+00:00",
-    "listing_year": 2001
+    "market_cap": 34354491392,
+    "updated": "2026-10-10T16:43:38.996938+00:00",
+    "listing_year": 2001,
+    "listing_date": "2001-06-19"
   },
   "BKR": {
-    "market_cap": 56133734400,
-    "updated": "2026-10-09T17:27:14.581015+00:00",
-    "listing_year": 1987
+    "market_cap": 56284618752,
+    "updated": "2026-10-10T16:43:39.074608+00:00",
+    "listing_year": 1987,
+    "listing_date": "1987-04-06"
   },
   "BALL": {
-    "market_cap": 15426911232,
-    "updated": "2026-10-09T17:27:14.640090+00:00",
-    "listing_year": 1973
+    "market_cap": 15474557952,
+    "updated": "2026-10-10T16:43:39.179093+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "BAX": {
-    "market_cap": 12568172544,
-    "updated": "2026-10-09T17:27:14.791543+00:00",
-    "listing_year": 1981
+    "market_cap": 12588853248,
+    "updated": "2026-10-10T16:43:39.292851+00:00",
+    "listing_year": 1981,
+    "listing_date": "1981-10-27"
   },
   "BDX": {
-    "market_cap": 49816825856,
-    "updated": "2026-10-09T17:27:15.019085+00:00",
-    "listing_year": 1973
+    "market_cap": 50051076096,
+    "updated": "2026-10-10T16:43:39.337973+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "BBY": {
-    "market_cap": 18581872640,
-    "updated": "2026-10-09T17:27:14.958349+00:00",
-    "listing_year": 1985
+    "market_cap": 18248407040,
+    "updated": "2026-10-10T16:43:39.528020+00:00",
+    "listing_year": 1985,
+    "listing_date": "1985-04-18"
   },
   "TECH": {
-    "market_cap": 11361480704,
-    "updated": "2026-10-09T17:27:15.020725+00:00",
-    "listing_year": 1989
+    "market_cap": 11363049472,
+    "updated": "2026-10-10T16:43:39.566900+00:00",
+    "listing_year": 1989,
+    "listing_date": "1989-02-09"
   },
   "BIIB": {
-    "market_cap": 33438208000,
-    "updated": "2026-10-09T17:27:15.177653+00:00",
-    "listing_year": 1991
+    "market_cap": 33349556224,
+    "updated": "2026-10-10T16:43:39.651458+00:00",
+    "listing_year": 1991,
+    "listing_date": "1991-09-17"
   },
   "BX": {
-    "market_cap": 137011011584,
-    "updated": "2026-10-09T17:27:15.316254+00:00",
-    "listing_year": 2007
+    "market_cap": 136610586624,
+    "updated": "2026-10-10T16:43:39.722004+00:00",
+    "listing_year": 2007,
+    "listing_date": "2007-06-22"
   },
   "XYZ": {
-    "market_cap": 46120030208,
-    "updated": "2026-10-09T17:27:15.226839+00:00",
-    "listing_year": 2015
+    "market_cap": 46405406720,
+    "updated": "2026-10-10T16:43:39.848765+00:00",
+    "listing_year": 2015,
+    "listing_date": "2015-11-19"
   },
   "BE": {
-    "market_cap": 81106944000,
-    "updated": "2026-10-09T17:27:15.506812+00:00",
-    "listing_year": 2018
+    "market_cap": 82614927360,
+    "updated": "2026-10-10T16:43:39.875894+00:00",
+    "listing_year": 2018,
+    "listing_date": "2018-07-25"
   },
   "BSX": {
-    "market_cap": 61208211456,
-    "updated": "2026-10-09T17:27:15.639695+00:00",
-    "listing_year": 1992
+    "market_cap": 61925580800,
+    "updated": "2026-10-10T16:43:40.194463+00:00",
+    "listing_year": 1992,
+    "listing_date": "1992-05-19"
   },
   "BR": {
-    "market_cap": 18591813632,
-    "updated": "2026-10-09T17:27:15.525945+00:00",
-    "listing_year": 2007
+    "market_cap": 18679310336,
+    "updated": "2026-10-10T16:43:40.394979+00:00",
+    "listing_year": 2007,
+    "listing_date": "2007-03-22"
   },
   "BRO": {
-    "market_cap": 21155739648,
-    "updated": "2026-10-09T17:27:15.748885+00:00",
-    "listing_year": 1981
+    "market_cap": 21040300032,
+    "updated": "2026-10-10T16:43:40.505057+00:00",
+    "listing_year": 1981,
+    "listing_date": "1981-02-11"
   },
   "BF-B": {
-    "market_cap": 12150725632,
-    "updated": "2026-10-09T17:27:15.840462+00:00",
-    "listing_year": 1980
+    "market_cap": 12109427712,
+    "updated": "2026-10-10T16:43:40.413627+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "BG": {
-    "market_cap": 20050511872,
-    "updated": "2026-10-09T17:27:15.905159+00:00",
-    "listing_year": 2001
+    "market_cap": 19736397824,
+    "updated": "2026-10-10T16:43:40.555170+00:00",
+    "listing_year": 2001,
+    "listing_date": "2001-08-02"
   },
   "BXP": {
-    "market_cap": 10716083200,
-    "updated": "2026-10-09T17:27:16.036235+00:00",
-    "listing_year": 1997
+    "market_cap": 10680811520,
+    "updated": "2026-10-10T16:43:40.567384+00:00",
+    "listing_year": 1997,
+    "listing_date": "1997-06-18"
   },
   "CHRW": {
-    "market_cap": 16718056448,
-    "updated": "2026-10-09T17:27:16.069882+00:00",
-    "listing_year": 1997
+    "market_cap": 16600240128,
+    "updated": "2026-10-10T16:43:40.704211+00:00",
+    "listing_year": 1997,
+    "listing_date": "1997-10-16"
   },
   "CDNS": {
-    "market_cap": 96836435968,
-    "updated": "2026-10-09T17:27:16.122341+00:00",
-    "listing_year": 1987
+    "market_cap": 97169661952,
+    "updated": "2026-10-10T16:43:40.744809+00:00",
+    "listing_year": 1987,
+    "listing_date": "1987-06-10"
   },
   "CPT": {
-    "market_cap": 11314594816,
-    "updated": "2026-10-09T17:27:16.273843+00:00",
-    "listing_year": 1993
+    "market_cap": 11293185024,
+    "updated": "2026-10-10T16:43:40.770515+00:00",
+    "listing_year": 1993,
+    "listing_date": "1993-07-22"
   },
   "CAH": {
-    "market_cap": 54943240192,
-    "updated": "2026-10-09T17:27:16.365116+00:00",
-    "listing_year": 1983
+    "market_cap": 55011553280,
+    "updated": "2026-10-10T16:43:40.930190+00:00",
+    "listing_year": 1983,
+    "listing_date": "1983-08-04"
   },
   "CCL": {
-    "market_cap": 35262402560,
-    "updated": "2026-10-09T17:27:16.449797+00:00",
-    "listing_year": 1987
+    "market_cap": 35430477824,
+    "updated": "2026-10-10T16:43:41.004659+00:00",
+    "listing_year": 1987,
+    "listing_date": "1987-07-24"
   },
   "CARR": {
-    "market_cap": 45873692672,
-    "updated": "2026-10-09T17:27:16.656103+00:00",
-    "listing_year": 2020
+    "market_cap": 45799501824,
+    "updated": "2026-10-10T16:43:41.087840+00:00",
+    "listing_year": 2020,
+    "listing_date": "2020-03-19"
   },
   "CVNA": {
-    "market_cap": 70509379584,
-    "updated": "2026-10-09T17:27:16.609713+00:00",
-    "listing_year": 2017
+    "market_cap": 70642393088,
+    "updated": "2026-10-10T16:43:41.128056+00:00",
+    "listing_year": 2017,
+    "listing_date": "2017-04-28"
   },
   "CASY": {
-    "market_cap": 23801237504,
-    "updated": "2026-10-09T17:27:16.714408+00:00",
-    "listing_year": 1983
+    "market_cap": 23886247936,
+    "updated": "2026-10-10T16:43:41.269715+00:00",
+    "listing_year": 1983,
+    "listing_date": "1983-10-20"
   },
   "CBOE": {
-    "market_cap": 31739717632,
-    "updated": "2026-10-09T17:27:16.984847+00:00",
-    "listing_year": 2010
+    "market_cap": 31763738624,
+    "updated": "2026-10-10T16:43:41.312858+00:00",
+    "listing_year": 2010,
+    "listing_date": "2010-06-15"
   },
   "CBRE": {
-    "market_cap": 37494206464,
-    "updated": "2026-10-09T17:27:16.982413+00:00",
-    "listing_year": 2004
+    "market_cap": 37876449280,
+    "updated": "2026-10-10T16:43:41.433313+00:00",
+    "listing_year": 2004,
+    "listing_date": "2004-06-10"
   },
   "CDW": {
-    "market_cap": 17787478016,
-    "updated": "2026-10-09T17:27:17.044591+00:00",
-    "listing_year": 2013
+    "market_cap": 17773727744,
+    "updated": "2026-10-10T16:43:41.456610+00:00",
+    "listing_year": 2013,
+    "listing_date": "2013-06-27"
   },
   "COR": {
-    "market_cap": 61600919552,
-    "updated": "2026-10-09T17:27:17.196229+00:00",
-    "listing_year": 1995
+    "market_cap": 61799378944,
+    "updated": "2026-10-10T16:43:41.529104+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-04-04"
   },
   "CNC": {
-    "market_cap": 32544389120,
-    "updated": "2026-10-09T17:27:17.280588+00:00",
-    "listing_year": 2001
+    "market_cap": 32287514624,
+    "updated": "2026-10-10T16:43:41.588111+00:00",
+    "listing_year": 2001,
+    "listing_date": "2001-12-13"
   },
   "CNP": {
-    "market_cap": 25443069952,
-    "updated": "2026-10-09T17:27:17.322329+00:00",
-    "listing_year": 1962
+    "market_cap": 25426599936,
+    "updated": "2026-10-10T16:43:41.626208+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "CF": {
-    "market_cap": 17067914240,
-    "updated": "2026-10-09T17:27:17.547451+00:00",
-    "listing_year": 2005
+    "market_cap": 16880254976,
+    "updated": "2026-10-10T16:43:41.799111+00:00",
+    "listing_year": 2005,
+    "listing_date": "2005-08-11"
   },
   "CRL": {
-    "market_cap": 14602287104,
-    "updated": "2026-10-09T17:27:17.589215+00:00",
-    "listing_year": 2000
+    "market_cap": 14536539136,
+    "updated": "2026-10-10T16:43:41.749796+00:00",
+    "listing_year": 2000,
+    "listing_date": "2000-06-23"
   },
   "CHTR": {
-    "market_cap": 13406426112,
-    "updated": "2026-10-09T17:27:17.676183+00:00",
-    "listing_year": 2010
+    "market_cap": 13435016192,
+    "updated": "2026-10-10T16:43:41.933786+00:00",
+    "listing_year": 2010,
+    "listing_date": "2010-01-05"
   },
   "CMG": {
-    "market_cap": 39702491136,
-    "updated": "2026-10-09T17:27:17.808007+00:00",
-    "listing_year": 2006
+    "market_cap": 39974555648,
+    "updated": "2026-10-10T16:43:41.973971+00:00",
+    "listing_year": 2006,
+    "listing_date": "2006-01-26"
   },
   "CB": {
-    "market_cap": 131989848064,
-    "updated": "2026-10-09T17:27:17.940655+00:00",
-    "listing_year": 1993
+    "market_cap": 131634921472,
+    "updated": "2026-10-10T16:43:42.247821+00:00",
+    "listing_year": 1993,
+    "listing_date": "1993-03-25"
   },
   "CHD": {
-    "market_cap": 23242424320,
-    "updated": "2026-10-09T17:27:18.029562+00:00",
-    "listing_year": 1980
+    "market_cap": 23272075264,
+    "updated": "2026-10-10T16:43:42.268581+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "CIEN": {
-    "market_cap": 64332148736,
-    "updated": "2026-10-09T17:27:18.077939+00:00",
-    "listing_year": 1997
+    "market_cap": 63781220352,
+    "updated": "2026-10-10T16:43:42.183365+00:00",
+    "listing_year": 1997,
+    "listing_date": "1997-02-07"
   },
   "CI": {
-    "market_cap": 74510532608,
-    "updated": "2026-10-09T17:27:18.315490+00:00",
-    "listing_year": 1982
+    "market_cap": 74629439488,
+    "updated": "2026-10-10T16:43:42.398960+00:00",
+    "listing_year": 1982,
+    "listing_date": "1982-03-31"
   },
   "CINF": {
-    "market_cap": 25149681664,
-    "updated": "2026-10-09T17:27:18.261709+00:00",
-    "listing_year": 1980
+    "market_cap": 25076779008,
+    "updated": "2026-10-10T16:43:42.473913+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "CTAS": {
-    "market_cap": 80276676608,
-    "updated": "2026-10-09T17:27:18.356560+00:00",
-    "listing_year": 1983
+    "market_cap": 80371974144,
+    "updated": "2026-10-10T16:43:42.455544+00:00",
+    "listing_year": 1983,
+    "listing_date": "1983-08-19"
   },
   "CFG": {
     "market_cap": 26774208512,
-    "updated": "2026-10-09T17:27:18.545337+00:00",
-    "listing_year": 2014
+    "updated": "2026-10-10T16:43:42.636880+00:00",
+    "listing_year": 2014,
+    "listing_date": "2014-09-24"
   },
   "CLX": {
-    "market_cap": 10052986880,
-    "updated": "2026-10-09T17:27:18.990481+00:00",
-    "listing_year": 1973
+    "market_cap": 10134620160,
+    "updated": "2026-10-10T16:43:42.788983+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "CME": {
-    "market_cap": 100331601920,
-    "updated": "2026-10-09T17:27:18.594700+00:00",
-    "listing_year": 2002
+    "market_cap": 100883554304,
+    "updated": "2026-10-10T16:43:42.802090+00:00",
+    "listing_year": 2002,
+    "listing_date": "2002-12-06"
   },
   "CMS": {
-    "market_cap": 20484425728,
-    "updated": "2026-10-09T17:27:18.803011+00:00",
-    "listing_year": 1973
+    "market_cap": 20536166400,
+    "updated": "2026-10-10T16:43:42.807151+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "CTSH": {
-    "market_cap": 26776655872,
-    "updated": "2026-10-09T17:27:18.989683+00:00",
-    "listing_year": 1998
+    "market_cap": 26666299392,
+    "updated": "2026-10-10T16:43:42.963763+00:00",
+    "listing_year": 1998,
+    "listing_date": "1998-06-19"
   },
   "COHR": {
-    "market_cap": 60765765632,
-    "updated": "2026-10-09T17:27:19.061692+00:00",
-    "listing_year": 1987
+    "market_cap": 61564620800,
+    "updated": "2026-10-10T16:43:42.962932+00:00",
+    "listing_year": 1987,
+    "listing_date": "1987-10-02"
   },
   "COIN": {
-    "market_cap": 47949725696,
-    "updated": "2026-10-09T17:27:19.231533+00:00",
-    "listing_year": 2021
+    "market_cap": 47329705984,
+    "updated": "2026-10-10T16:43:43.122126+00:00",
+    "listing_year": 2021,
+    "listing_date": "2021-04-14"
   },
   "CL": {
-    "market_cap": 70390358016,
-    "updated": "2026-10-09T17:27:19.381856+00:00",
-    "listing_year": 1973
+    "market_cap": 70366437376,
+    "updated": "2026-10-10T16:43:43.124747+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-05-02"
   },
   "FIX": {
-    "market_cap": 60847472640,
-    "updated": "2026-10-09T17:27:19.287548+00:00",
-    "listing_year": 1997
+    "market_cap": 60382556160,
+    "updated": "2026-10-10T16:43:43.285083+00:00",
+    "listing_year": 1997,
+    "listing_date": "1997-06-27"
   },
   "ED": {
-    "market_cap": 39187042304,
-    "updated": "2026-10-09T17:27:19.789328+00:00",
-    "listing_year": 1962
+    "market_cap": 39238819840,
+    "updated": "2026-10-10T16:43:43.384002+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "STZ": {
-    "market_cap": 20679198720,
-    "updated": "2026-10-09T17:27:19.660987+00:00",
-    "listing_year": 1992
+    "market_cap": 20753657856,
+    "updated": "2026-10-10T16:43:43.434963+00:00",
+    "listing_year": 1992,
+    "listing_date": "1992-03-17"
   },
   "CEG": {
-    "market_cap": 105863512064,
-    "updated": "2026-10-09T17:27:19.681396+00:00",
-    "listing_year": 2022
+    "market_cap": 105608404992,
+    "updated": "2026-10-10T16:43:43.470544+00:00",
+    "listing_year": 2022,
+    "listing_date": "2022-01-19"
   },
   "COO": {
-    "market_cap": 10260780032,
-    "updated": "2026-10-09T17:27:19.928283+00:00",
-    "listing_year": 1983
+    "market_cap": 10338743296,
+    "updated": "2026-10-10T16:43:43.553226+00:00",
+    "listing_year": 1983,
+    "listing_date": "1983-01-21"
   },
   "CPRT": {
-    "market_cap": 25238243328,
-    "updated": "2026-10-09T17:27:19.895488+00:00",
-    "listing_year": 1994
+    "market_cap": 25307346944,
+    "updated": "2026-10-10T16:43:43.746415+00:00",
+    "listing_year": 1994,
+    "listing_date": "1994-03-17"
   },
   "GLW": {
-    "market_cap": 135044153344,
-    "updated": "2026-10-09T17:27:20.125243+00:00",
-    "listing_year": 1981
+    "market_cap": 134962323456,
+    "updated": "2026-10-10T16:43:43.704661+00:00",
+    "listing_year": 1981,
+    "listing_date": "1981-12-31"
   },
   "CPAY": {
-    "market_cap": 26055370752,
-    "updated": "2026-10-09T17:27:20.280520+00:00",
-    "listing_year": 2010
+    "market_cap": 26127269888,
+    "updated": "2026-10-10T16:43:43.716057+00:00",
+    "listing_year": 2010,
+    "listing_date": "2010-12-15"
   },
   "CSGP": {
-    "market_cap": 12018160640,
-    "updated": "2026-10-09T17:27:20.175548+00:00",
-    "listing_year": 1998
+    "market_cap": 12022212608,
+    "updated": "2026-10-10T16:43:43.866902+00:00",
+    "listing_year": 1998,
+    "listing_date": "1998-07-01"
   },
   "CRH": {
-    "market_cap": 54287212544,
-    "updated": "2026-10-09T17:27:20.461370+00:00",
-    "listing_year": 1989
+    "market_cap": 54247297024,
+    "updated": "2026-10-10T16:43:43.909901+00:00",
+    "listing_year": 1989,
+    "listing_date": "1989-07-13"
   },
   "CRWD": {
-    "market_cap": 279846518784,
-    "updated": "2026-10-09T17:27:20.389756+00:00",
-    "listing_year": 2019
+    "market_cap": 281623035904,
+    "updated": "2026-10-10T16:43:44.034112+00:00",
+    "listing_year": 2019,
+    "listing_date": "2019-06-12"
   },
   "CCI": {
-    "market_cap": 33815058432,
-    "updated": "2026-10-09T17:27:20.650890+00:00",
-    "listing_year": 1998
+    "market_cap": 34802679808,
+    "updated": "2026-10-10T16:43:44.078631+00:00",
+    "listing_year": 1998,
+    "listing_date": "1998-08-18"
   },
   "CSX": {
-    "market_cap": 87612792832,
-    "updated": "2026-10-09T17:27:20.782196+00:00",
-    "listing_year": 1980
+    "market_cap": 87547961344,
+    "updated": "2026-10-10T16:43:44.246755+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-11-03"
   },
   "CMI": {
-    "market_cap": 71931756544,
-    "updated": "2026-10-09T17:27:20.848804+00:00",
-    "listing_year": 1973
+    "market_cap": 72052211712,
+    "updated": "2026-10-10T16:43:44.263798+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "DRI": {
-    "market_cap": 22422722560,
-    "updated": "2026-10-09T17:27:20.903907+00:00",
-    "listing_year": 1995
+    "market_cap": 22363889664,
+    "updated": "2026-10-10T16:43:44.404396+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-05-09"
   },
   "DDOG": {
-    "market_cap": 104526733312,
-    "updated": "2026-10-09T17:27:20.985872+00:00",
-    "listing_year": 2019
+    "market_cap": 105302343680,
+    "updated": "2026-10-10T16:43:44.451843+00:00",
+    "listing_year": 2019,
+    "listing_date": "2019-09-19"
   },
   "DVA": {
-    "market_cap": 11417010176,
-    "updated": "2026-10-09T17:27:21.155504+00:00",
-    "listing_year": 1995
+    "market_cap": 11436149760,
+    "updated": "2026-10-10T16:43:44.559012+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-10-31"
   },
   "DECK": {
-    "market_cap": 11332372480,
-    "updated": "2026-10-09T17:27:21.150611+00:00",
-    "listing_year": 1993
+    "market_cap": 11288114176,
+    "updated": "2026-10-10T16:43:44.760436+00:00",
+    "listing_year": 1993,
+    "listing_date": "1993-10-15"
   },
   "DAL": {
-    "market_cap": 53043875840,
-    "updated": "2026-10-09T17:27:21.260092+00:00",
-    "listing_year": 2007
+    "market_cap": 54036885504,
+    "updated": "2026-10-10T16:43:44.863294+00:00",
+    "listing_year": 2007,
+    "listing_date": "2007-05-03"
   },
   "DVN": {
-    "market_cap": 53372002304,
-    "updated": "2026-10-09T17:27:21.468611+00:00",
-    "listing_year": 1985
+    "market_cap": 53085999104,
+    "updated": "2026-10-10T16:43:44.919422+00:00",
+    "listing_year": 1985,
+    "listing_date": "1985-07-22"
   },
   "DXCM": {
-    "market_cap": 31551133696,
-    "updated": "2026-10-09T17:27:21.458214+00:00",
-    "listing_year": 2005
+    "market_cap": 31739813888,
+    "updated": "2026-10-10T16:43:44.959825+00:00",
+    "listing_year": 2005,
+    "listing_date": "2005-04-14"
   },
   "FANG": {
-    "market_cap": 53775024128,
-    "updated": "2026-10-09T17:27:21.489358+00:00",
-    "listing_year": 2012
+    "market_cap": 53800202240,
+    "updated": "2026-10-10T16:43:45.026552+00:00",
+    "listing_year": 2012,
+    "listing_date": "2012-10-12"
   },
   "DLR": {
-    "market_cap": 67239243776,
-    "updated": "2026-10-09T17:27:21.848775+00:00",
-    "listing_year": 2004
+    "market_cap": 67511164928,
+    "updated": "2026-10-10T16:43:45.224798+00:00",
+    "listing_year": 2004,
+    "listing_date": "2004-10-29"
   },
   "DG": {
-    "market_cap": 27925671936,
-    "updated": "2026-10-09T17:27:21.771575+00:00",
-    "listing_year": 2009
+    "market_cap": 28069074944,
+    "updated": "2026-10-10T16:43:45.127870+00:00",
+    "listing_year": 2009,
+    "listing_date": "2009-11-13"
   },
   "DLTR": {
-    "market_cap": 22110353408,
-    "updated": "2026-10-09T17:27:21.775569+00:00",
-    "listing_year": 1995
+    "market_cap": 22260459520,
+    "updated": "2026-10-10T16:43:45.200699+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-03-07"
   },
   "D": {
-    "market_cap": 54266753024,
-    "updated": "2026-10-09T17:27:22.002566+00:00",
-    "listing_year": 1980
+    "market_cap": 54213980160,
+    "updated": "2026-10-10T16:43:45.324353+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "DPZ": {
-    "market_cap": 10210016256,
-    "updated": "2026-10-09T17:27:21.995871+00:00",
-    "listing_year": 2004
+    "market_cap": 10234165248,
+    "updated": "2026-10-10T16:43:45.415920+00:00",
+    "listing_year": 2004,
+    "listing_date": "2004-07-13"
   },
   "DASH": {
-    "market_cap": 84506099712,
-    "updated": "2026-10-09T17:27:22.133542+00:00",
-    "listing_year": 2020
+    "market_cap": 85143044096,
+    "updated": "2026-10-10T16:43:45.381127+00:00",
+    "listing_year": 2020,
+    "listing_date": "2020-12-09"
   },
   "DOV": {
-    "market_cap": 25473417216,
-    "updated": "2026-10-09T17:27:22.272857+00:00",
-    "listing_year": 1980
+    "market_cap": 25431666688,
+    "updated": "2026-10-10T16:43:45.516549+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "DOW": {
-    "market_cap": 20792578048,
-    "updated": "2026-10-09T17:27:22.301134+00:00",
-    "listing_year": 2019
+    "market_cap": 20528924672,
+    "updated": "2026-10-10T16:43:45.569146+00:00",
+    "listing_year": 2019,
+    "listing_date": "2019-03-20"
   },
   "DHI": {
-    "market_cap": 37460389888,
-    "updated": "2026-10-09T17:27:22.365359+00:00",
-    "listing_year": 1992
+    "market_cap": 37726109696,
+    "updated": "2026-10-10T16:43:45.573216+00:00",
+    "listing_year": 1992,
+    "listing_date": "1992-06-05"
   },
   "DTE": {
-    "market_cap": 26373081088,
-    "updated": "2026-10-09T17:27:22.655831+00:00",
-    "listing_year": 1962
+    "market_cap": 26406375424,
+    "updated": "2026-10-10T16:43:45.749307+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "DD": {
-    "market_cap": 17644716032,
-    "updated": "2026-10-09T17:27:22.536206+00:00",
-    "listing_year": 1972
+    "market_cap": 17555587072,
+    "updated": "2026-10-10T16:43:45.877637+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-06-01"
   },
   "ETN": {
-    "market_cap": 167048904704,
-    "updated": "2026-10-09T17:27:22.656794+00:00",
-    "listing_year": 1972
+    "market_cap": 166876053504,
+    "updated": "2026-10-10T16:43:45.906211+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-06-01"
   },
   "EBAY": {
-    "market_cap": 50093649920,
-    "updated": "2026-10-09T17:27:22.819428+00:00",
-    "listing_year": 1998
+    "market_cap": 49924550656,
+    "updated": "2026-10-10T16:43:45.943300+00:00",
+    "listing_year": 1998,
+    "listing_date": "1998-09-24"
   },
   "ECHO": {
-    "market_cap": 27525720064,
-    "updated": "2026-10-09T17:27:22.947823+00:00",
-    "listing_year": 2008
+    "market_cap": 27580973056,
+    "updated": "2026-10-10T16:43:46.042062+00:00",
+    "listing_year": 2008,
+    "listing_date": "2008-01-02"
   },
   "ECL": {
-    "market_cap": 79114338304,
-    "updated": "2026-10-09T17:27:22.904869+00:00",
-    "listing_year": 1973
+    "market_cap": 79005007872,
+    "updated": "2026-10-10T16:43:46.095779+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "EIX": {
-    "market_cap": 21249429504,
-    "updated": "2026-10-09T17:27:23.183037+00:00",
-    "listing_year": 1973
+    "market_cap": 21280212992,
+    "updated": "2026-10-10T16:43:46.108855+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-05-03"
   },
   "EW": {
-    "market_cap": 48256208896,
-    "updated": "2026-10-09T17:27:23.184323+00:00",
-    "listing_year": 2000
+    "market_cap": 49115041792,
+    "updated": "2026-10-10T16:43:46.198710+00:00",
+    "listing_year": 2000,
+    "listing_date": "2000-03-27"
   },
   "ELV": {
-    "market_cap": 90165583872,
-    "updated": "2026-10-09T17:27:23.183649+00:00",
-    "listing_year": 2001
+    "market_cap": 89501958144,
+    "updated": "2026-10-10T16:43:46.260577+00:00",
+    "listing_year": 2001,
+    "listing_date": "2001-10-30"
   },
   "EME": {
-    "market_cap": 34889224192,
-    "updated": "2026-10-09T17:27:23.450504+00:00",
-    "listing_year": 1995
+    "market_cap": 34822561792,
+    "updated": "2026-10-10T16:43:46.320211+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-01-10"
   },
   "ETR": {
-    "market_cap": 48933965824,
-    "updated": "2026-10-09T17:27:23.382834+00:00",
-    "listing_year": 1972
+    "market_cap": 49115525120,
+    "updated": "2026-10-10T16:43:46.480365+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-06-01"
   },
   "EOG": {
-    "market_cap": 77966016512,
-    "updated": "2026-10-09T17:27:23.528241+00:00",
-    "listing_year": 1989
+    "market_cap": 77714243584,
+    "updated": "2026-10-10T16:43:46.477216+00:00",
+    "listing_year": 1989,
+    "listing_date": "1989-10-04"
   },
   "EQT": {
-    "market_cap": 33089798144,
-    "updated": "2026-10-09T17:27:23.867652+00:00",
-    "listing_year": 1980
+    "market_cap": 33046013952,
+    "updated": "2026-10-10T16:43:46.617663+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "EFX": {
-    "market_cap": 17014163456,
-    "updated": "2026-10-09T17:27:23.706167+00:00",
-    "listing_year": 1980
+    "market_cap": 17126947840,
+    "updated": "2026-10-10T16:43:46.632717+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "EQIX": {
-    "market_cap": 100531650560,
-    "updated": "2026-10-09T17:27:23.840218+00:00",
-    "listing_year": 2000
+    "market_cap": 101243076608,
+    "updated": "2026-10-10T16:43:46.764620+00:00",
+    "listing_year": 2000,
+    "listing_date": "2000-08-11"
   },
   "ERIE": {
-    "market_cap": 11745218560,
-    "updated": "2026-10-09T17:27:23.939491+00:00",
-    "listing_year": 1995
+    "market_cap": 11610441728,
+    "updated": "2026-10-10T16:43:46.832934+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-10-02"
   },
   "ESS": {
-    "market_cap": 18815576064,
-    "updated": "2026-10-09T17:27:24.049785+00:00",
-    "listing_year": 1994
+    "market_cap": 18720104448,
+    "updated": "2026-10-10T16:43:46.786705+00:00",
+    "listing_year": 1994,
+    "listing_date": "1994-06-07"
   },
   "EL": {
-    "market_cap": 35415240704,
-    "updated": "2026-10-09T17:27:24.291132+00:00",
-    "listing_year": 1995
+    "market_cap": 35525750784,
+    "updated": "2026-10-10T16:43:46.920392+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-11-17"
   },
   "EG": {
-    "market_cap": 14078685184,
-    "updated": "2026-10-09T17:27:24.321895+00:00",
-    "listing_year": 1995
+    "market_cap": 14124313600,
+    "updated": "2026-10-10T16:43:46.941445+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-10-03"
   },
   "EVRG": {
-    "market_cap": 18620604416,
-    "updated": "2026-10-09T17:27:24.301165+00:00",
-    "listing_year": 1973
+    "market_cap": 18666717184,
+    "updated": "2026-10-10T16:43:47.053442+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "P": {
-    "market_cap": 51165380608,
-    "updated": "2026-10-09T17:27:24.836529+00:00",
-    "listing_year": 2015
+    "market_cap": 51480281088,
+    "updated": "2026-10-10T16:43:47.073888+00:00",
+    "listing_year": 2015,
+    "listing_date": "2015-10-06"
   },
   "ES": {
-    "market_cap": 24772014080,
-    "updated": "2026-10-09T17:27:24.526711+00:00",
-    "listing_year": 1973
+    "market_cap": 24758833152,
+    "updated": "2026-10-10T16:43:47.134322+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "EXC": {
-    "market_cap": 43033706496,
-    "updated": "2026-10-09T17:27:24.589528+00:00",
-    "listing_year": 1973
+    "market_cap": 43023405056,
+    "updated": "2026-10-10T16:43:47.208626+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-05-02"
   },
   "EXE": {
-    "market_cap": 20460304384,
-    "updated": "2026-10-09T17:27:24.850122+00:00",
-    "listing_year": 2021
+    "market_cap": 20423264256,
+    "updated": "2026-10-10T16:43:47.224373+00:00",
+    "listing_year": 2021,
+    "listing_date": "2021-02-10"
   },
   "EXPE": {
-    "market_cap": 32475572224,
-    "updated": "2026-10-09T17:27:24.910779+00:00",
-    "listing_year": 2005
+    "market_cap": 32912455680,
+    "updated": "2026-10-10T16:43:47.469602+00:00",
+    "listing_year": 2005,
+    "listing_date": "2005-07-21"
   },
   "EXPD": {
-    "market_cap": 25058940928,
-    "updated": "2026-10-09T17:27:25.055366+00:00",
-    "listing_year": 1984
+    "market_cap": 25119389696,
+    "updated": "2026-10-10T16:43:47.453292+00:00",
+    "listing_year": 1984,
+    "listing_date": "1984-09-26"
   },
   "EXR": {
-    "market_cap": 29629317120,
-    "updated": "2026-10-09T17:27:25.106584+00:00",
-    "listing_year": 2004
+    "market_cap": 29717596160,
+    "updated": "2026-10-10T16:43:47.380112+00:00",
+    "listing_year": 2004,
+    "listing_date": "2004-08-16"
   },
   "FFIV": {
-    "market_cap": 27101769728,
-    "updated": "2026-10-09T17:27:25.161782+00:00",
-    "listing_year": 1999
+    "market_cap": 27171420160,
+    "updated": "2026-10-10T16:43:47.618711+00:00",
+    "listing_year": 1999,
+    "listing_date": "1999-06-04"
   },
   "FDS": {
-    "market_cap": 10092434432,
-    "updated": "2026-10-09T17:27:25.339421+00:00",
-    "listing_year": 1996
+    "market_cap": 10213712896,
+    "updated": "2026-10-10T16:43:47.636790+00:00",
+    "listing_year": 1996,
+    "listing_date": "1996-06-28"
   },
   "FICO": {
-    "market_cap": 14721164288,
-    "updated": "2026-10-09T17:27:25.433951+00:00",
-    "listing_year": 1987
+    "market_cap": 14418150400,
+    "updated": "2026-10-10T16:43:47.785404+00:00",
+    "listing_year": 1987,
+    "listing_date": "1987-07-22"
   },
   "FAST": {
-    "market_cap": 58183868416,
-    "updated": "2026-10-09T17:27:25.463301+00:00",
-    "listing_year": 1987
+    "market_cap": 58235502592,
+    "updated": "2026-10-10T16:43:47.779083+00:00",
+    "listing_year": 1987,
+    "listing_date": "1987-08-20"
   },
   "FRT": {
-    "market_cap": 9253239808,
-    "updated": "2026-10-09T17:27:25.652151+00:00",
-    "listing_year": 1973
+    "market_cap": 9280330752,
+    "updated": "2026-10-10T16:43:47.795792+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-05-03"
   },
   "FDXF": {
-    "market_cap": 17157204992,
-    "updated": "2026-10-09T17:27:25.801479+00:00",
-    "listing_year": 2026
+    "market_cap": 17264859136,
+    "updated": "2026-10-10T16:43:47.946749+00:00",
+    "listing_year": 2026,
+    "listing_date": "2026-05-27"
   },
   "FERG": {
-    "market_cap": 42309079040,
-    "updated": "2026-10-09T17:27:25.677298+00:00",
-    "listing_year": 2010
+    "market_cap": 42567335936,
+    "updated": "2026-10-10T16:43:47.978924+00:00",
+    "listing_year": 2010,
+    "listing_date": "2010-01-05"
   },
   "FIS": {
-    "market_cap": 17539158016,
-    "updated": "2026-10-09T17:27:25.943895+00:00",
-    "listing_year": 2001
+    "market_cap": 17554630656,
+    "updated": "2026-10-10T16:43:48.166232+00:00",
+    "listing_year": 2001,
+    "listing_date": "2001-06-20"
   },
   "FITB": {
-    "market_cap": 45566816256,
-    "updated": "2026-10-09T17:27:25.982109+00:00",
-    "listing_year": 1980
+    "market_cap": 45925036032,
+    "updated": "2026-10-10T16:43:48.104392+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "FSLR": {
-    "market_cap": 19104366592,
-    "updated": "2026-10-09T17:27:26.134110+00:00",
-    "listing_year": 2006
+    "market_cap": 19110279168,
+    "updated": "2026-10-10T16:43:48.303962+00:00",
+    "listing_year": 2006,
+    "listing_date": "2006-11-17"
   },
   "FE": {
-    "market_cap": 26030116864,
-    "updated": "2026-10-09T17:27:26.165582+00:00",
-    "listing_year": 1997
+    "market_cap": 26038796288,
+    "updated": "2026-10-10T16:43:48.279177+00:00",
+    "listing_year": 1997,
+    "listing_date": "1997-11-10"
   },
   "FISV": {
-    "market_cap": 24174114816,
-    "updated": "2026-10-09T17:27:26.327416+00:00",
-    "listing_year": 1986
+    "market_cap": 24264515584,
+    "updated": "2026-10-10T16:43:48.436118+00:00",
+    "listing_year": 1986,
+    "listing_date": "1986-09-25"
   },
   "FLEX": {
-    "market_cap": 43696087040,
-    "updated": "2026-10-09T17:27:26.480848+00:00",
-    "listing_year": 1994
+    "market_cap": 44272447488,
+    "updated": "2026-10-10T16:43:48.434116+00:00",
+    "listing_year": 1994,
+    "listing_date": "1994-03-18"
   },
   "F": {
-    "market_cap": 48509104128,
-    "updated": "2026-10-09T17:27:26.601389+00:00",
-    "listing_year": 1972
+    "market_cap": 48529039360,
+    "updated": "2026-10-10T16:43:48.511808+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-06-01"
   },
   "FTNT": {
-    "market_cap": 142443167744,
-    "updated": "2026-10-09T17:27:26.562014+00:00",
-    "listing_year": 2009
+    "market_cap": 142890729472,
+    "updated": "2026-10-10T16:43:48.755472+00:00",
+    "listing_year": 2009,
+    "listing_date": "2009-11-18"
   },
   "FTV": {
-    "market_cap": 17222522880,
-    "updated": "2026-10-09T17:27:26.704515+00:00",
-    "listing_year": 2016
+    "market_cap": 17293496320,
+    "updated": "2026-10-10T16:43:48.654239+00:00",
+    "listing_year": 2016,
+    "listing_date": "2016-07-05"
   },
   "FOXA": {
-    "market_cap": 26379902976,
-    "updated": "2026-10-09T17:27:26.849998+00:00",
-    "listing_year": 2019
+    "market_cap": 26316650496,
+    "updated": "2026-10-10T16:43:48.700218+00:00",
+    "listing_year": 2019,
+    "listing_date": "2019-03-12"
   },
   "FOX": {
-    "market_cap": 23620048896,
-    "updated": "2026-10-09T17:27:26.915460+00:00",
-    "listing_year": 2019
+    "market_cap": 23567339520,
+    "updated": "2026-10-10T16:43:48.847009+00:00",
+    "listing_year": 2019,
+    "listing_date": "2019-03-13"
   },
   "BEN": {
-    "market_cap": 16184788992,
-    "updated": "2026-10-09T17:27:27.060518+00:00",
-    "listing_year": 1983
+    "market_cap": 16258460672,
+    "updated": "2026-10-10T16:43:48.876219+00:00",
+    "listing_year": 1983,
+    "listing_date": "1983-09-23"
   },
   "FCX": {
-    "market_cap": 105561653248,
-    "updated": "2026-10-09T17:27:27.151659+00:00",
-    "listing_year": 1995
+    "market_cap": 105820135424,
+    "updated": "2026-10-10T16:43:49.037681+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-07-10"
   },
   "GRMN": {
-    "market_cap": 51723055104,
-    "updated": "2026-10-09T17:27:27.109068+00:00",
-    "listing_year": 2000
+    "market_cap": 51753906176,
+    "updated": "2026-10-10T16:43:49.036775+00:00",
+    "listing_year": 2000,
+    "listing_date": "2000-12-08"
   },
   "IT": {
-    "market_cap": 12063979520,
-    "updated": "2026-10-09T17:27:27.414570+00:00",
-    "listing_year": 1993
+    "market_cap": 12070926336,
+    "updated": "2026-10-10T16:43:49.032226+00:00",
+    "listing_year": 1993,
+    "listing_date": "1993-10-05"
   },
   "GEHC": {
-    "market_cap": 29608034304,
-    "updated": "2026-10-09T17:27:27.385139+00:00",
-    "listing_year": 2022
+    "market_cap": 29693851648,
+    "updated": "2026-10-10T16:43:49.199227+00:00",
+    "listing_year": 2022,
+    "listing_date": "2022-12-15"
   },
   "GEN": {
-    "market_cap": 13692678144,
-    "updated": "2026-10-09T17:27:27.499569+00:00",
-    "listing_year": 1989
+    "market_cap": 13917148160,
+    "updated": "2026-10-10T16:43:49.386775+00:00",
+    "listing_year": 1989,
+    "listing_date": "1989-06-23"
   },
   "GNRC": {
-    "market_cap": 13249222656,
-    "updated": "2026-10-09T17:27:27.637827+00:00",
-    "listing_year": 2010
+    "market_cap": 13285841920,
+    "updated": "2026-10-10T16:43:49.363576+00:00",
+    "listing_year": 2010,
+    "listing_date": "2010-02-11"
   },
   "GIS": {
-    "market_cap": 17093947392,
-    "updated": "2026-10-09T17:27:27.677455+00:00",
-    "listing_year": 1980
+    "market_cap": 17265047552,
+    "updated": "2026-10-10T16:43:49.536215+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "GPC": {
-    "market_cap": 17534384128,
-    "updated": "2026-10-09T17:27:27.725686+00:00",
-    "listing_year": 1980
+    "market_cap": 17510946816,
+    "updated": "2026-10-10T16:43:49.762948+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "GPN": {
-    "market_cap": 21664307200,
-    "updated": "2026-10-09T17:27:27.988551+00:00",
-    "listing_year": 2001
+    "market_cap": 21751629824,
+    "updated": "2026-10-10T16:43:49.810172+00:00",
+    "listing_year": 2001,
+    "listing_date": "2001-01-16"
   },
   "GL": {
-    "market_cap": 12661330944,
-    "updated": "2026-10-09T17:27:27.986711+00:00",
-    "listing_year": 1980
+    "market_cap": 12616373248,
+    "updated": "2026-10-10T16:43:49.928750+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-10-01"
   },
   "GDDY": {
-    "market_cap": 13254948864,
-    "updated": "2026-10-09T17:27:28.076436+00:00",
-    "listing_year": 2015
+    "market_cap": 13215687680,
+    "updated": "2026-10-10T16:43:49.969404+00:00",
+    "listing_year": 2015,
+    "listing_date": "2015-03-31"
   },
   "HAL": {
-    "market_cap": 27039248384,
-    "updated": "2026-10-09T17:27:28.422612+00:00",
-    "listing_year": 1972
+    "market_cap": 27118393344,
+    "updated": "2026-10-10T16:43:50.132991+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-06-01"
   },
   "HIG": {
-    "market_cap": 35023749120,
-    "updated": "2026-10-09T17:27:28.248735+00:00",
-    "listing_year": 1995
+    "market_cap": 34972282880,
+    "updated": "2026-10-10T16:43:50.140731+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-12-15"
   },
   "HAS": {
-    "market_cap": 13245486080,
-    "updated": "2026-10-09T17:27:28.423260+00:00",
-    "listing_year": 1980
+    "market_cap": 13162269696,
+    "updated": "2026-10-10T16:43:50.271941+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "HCA": {
-    "market_cap": 97066287104,
-    "updated": "2026-10-09T17:27:28.496271+00:00",
-    "listing_year": 2011
+    "market_cap": 97661665280,
+    "updated": "2026-10-10T16:43:50.308842+00:00",
+    "listing_year": 2011,
+    "listing_date": "2011-03-10"
   },
   "DOC": {
-    "market_cap": 13335298048,
-    "updated": "2026-10-09T17:27:28.717635+00:00",
-    "listing_year": 1985
+    "market_cap": 13328207872,
+    "updated": "2026-10-10T16:43:50.335702+00:00",
+    "listing_year": 1985,
+    "listing_date": "1985-05-23"
   },
   "HSIC": {
-    "market_cap": 9318045696,
-    "updated": "2026-10-09T17:27:28.621410+00:00",
-    "listing_year": 1995
+    "market_cap": 9362624512,
+    "updated": "2026-10-10T16:43:50.487911+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-11-03"
   },
   "HSY": {
-    "market_cap": 32540915712,
-    "updated": "2026-10-09T17:27:28.991759+00:00",
-    "listing_year": 1980
+    "market_cap": 32698644480,
+    "updated": "2026-10-10T16:43:50.473118+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "HPE": {
-    "market_cap": 96891658240,
-    "updated": "2026-10-09T17:27:28.843417+00:00",
-    "listing_year": 2015
+    "market_cap": 97515569152,
+    "updated": "2026-10-10T16:43:50.488873+00:00",
+    "listing_year": 2015,
+    "listing_date": "2015-10-19"
   },
   "HLT": {
-    "market_cap": 73564717056,
-    "updated": "2026-10-09T17:27:29.013268+00:00",
-    "listing_year": 2013
+    "market_cap": 73497198592,
+    "updated": "2026-10-10T16:43:50.636066+00:00",
+    "listing_year": 2013,
+    "listing_date": "2013-12-12"
   },
   "HONA": {
-    "market_cap": 49970769920,
-    "updated": "2026-10-09T17:27:29.251580+00:00",
-    "listing_year": 2026
+    "market_cap": 50059513856,
+    "updated": "2026-10-10T16:43:50.695934+00:00",
+    "listing_year": 2026,
+    "listing_date": "2026-06-15"
   },
   "HON": {
-    "market_cap": 65877561344,
-    "updated": "2026-10-09T17:27:29.224502+00:00",
-    "listing_year": 1962
+    "market_cap": 65837944832,
+    "updated": "2026-10-10T16:43:50.787912+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "HRL": {
     "market_cap": 10561231872,
-    "updated": "2026-10-09T17:27:29.233799+00:00",
-    "listing_year": 1980
+    "updated": "2026-10-10T16:43:50.834558+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "HST": {
-    "market_cap": 15676503040,
-    "updated": "2026-10-09T17:27:29.533243+00:00",
-    "listing_year": 1980
+    "market_cap": 15735554048,
+    "updated": "2026-10-10T16:43:50.888149+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "HWM": {
-    "market_cap": 90125131776,
-    "updated": "2026-10-09T17:27:29.617155+00:00",
-    "listing_year": 2016
+    "market_cap": 89834004480,
+    "updated": "2026-10-10T16:43:51.103171+00:00",
+    "listing_year": 2016,
+    "listing_date": "2016-11-01"
   },
   "HPQ": {
-    "market_cap": 27382882304,
-    "updated": "2026-10-09T17:27:29.547508+00:00",
-    "listing_year": 1962
+    "market_cap": 27234088960,
+    "updated": "2026-10-10T16:43:51.022650+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "HUBB": {
-    "market_cap": 25130342400,
-    "updated": "2026-10-09T17:27:29.995691+00:00",
-    "listing_year": 1972
+    "market_cap": 25048449024,
+    "updated": "2026-10-10T16:43:51.169590+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-06-05"
   },
   "HUM": {
-    "market_cap": 52341805056,
-    "updated": "2026-10-09T17:27:29.758236+00:00",
-    "listing_year": 1981
+    "market_cap": 51859079168,
+    "updated": "2026-10-10T16:43:51.268705+00:00",
+    "listing_year": 1981,
+    "listing_date": "1981-12-31"
   },
   "HBAN": {
-    "market_cap": 30835976192,
-    "updated": "2026-10-09T17:27:29.864085+00:00",
-    "listing_year": 1980
+    "market_cap": 30952755200,
+    "updated": "2026-10-10T16:43:51.311939+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "HII": {
-    "market_cap": 10472954880,
-    "updated": "2026-10-09T17:27:30.256704+00:00",
-    "listing_year": 2011
+    "market_cap": 10434337792,
+    "updated": "2026-10-10T16:43:51.355895+00:00",
+    "listing_year": 2011,
+    "listing_date": "2011-03-22"
   },
   "IEX": {
-    "market_cap": 17316802560,
-    "updated": "2026-10-09T17:27:30.125136+00:00",
-    "listing_year": 1989
+    "market_cap": 17271834624,
+    "updated": "2026-10-10T16:43:51.467606+00:00",
+    "listing_year": 1989,
+    "listing_date": "1989-06-02"
   },
   "IDXX": {
-    "market_cap": 40912216064,
-    "updated": "2026-10-09T17:27:30.395155+00:00",
-    "listing_year": 1991
+    "market_cap": 40808620032,
+    "updated": "2026-10-10T16:43:51.515844+00:00",
+    "listing_year": 1991,
+    "listing_date": "1991-06-21"
   },
   "ITW": {
-    "market_cap": 75303968768,
-    "updated": "2026-10-09T17:27:30.358628+00:00",
-    "listing_year": 1973
+    "market_cap": 75224227840,
+    "updated": "2026-10-10T16:43:51.619695+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-03-13"
   },
   "ILMN": {
-    "market_cap": 41400422400,
-    "updated": "2026-10-09T17:27:30.520381+00:00",
-    "listing_year": 2000
+    "market_cap": 42003673088,
+    "updated": "2026-10-10T16:43:51.647212+00:00",
+    "listing_year": 2000,
+    "listing_date": "2000-07-28"
   },
   "INCY": {
-    "market_cap": 23040651264,
-    "updated": "2026-10-09T17:27:30.714900+00:00",
-    "listing_year": 1993
+    "market_cap": 22862278656,
+    "updated": "2026-10-10T16:43:51.733616+00:00",
+    "listing_year": 1993,
+    "listing_date": "1993-11-04"
   },
   "IR": {
-    "market_cap": 30520035328,
-    "updated": "2026-10-09T17:27:30.667558+00:00",
-    "listing_year": 2017
+    "market_cap": 30554953728,
+    "updated": "2026-10-10T16:43:51.817898+00:00",
+    "listing_year": 2017,
+    "listing_date": "2017-05-12"
   },
   "PODD": {
-    "market_cap": 9311494144,
-    "updated": "2026-10-09T17:27:30.817461+00:00",
-    "listing_year": 2007
+    "market_cap": 9382236160,
+    "updated": "2026-10-10T16:43:51.872325+00:00",
+    "listing_year": 2007,
+    "listing_date": "2007-05-15"
   },
   "IBKR": {
-    "market_cap": 149637595136,
-    "updated": "2026-10-09T17:27:30.925210+00:00",
-    "listing_year": 2007
+    "market_cap": 149714272256,
+    "updated": "2026-10-10T16:43:51.970090+00:00",
+    "listing_year": 2007,
+    "listing_date": "2007-05-04"
   },
   "ICE": {
-    "market_cap": 88046313472,
-    "updated": "2026-10-09T17:27:31.190299+00:00",
-    "listing_year": 2005
+    "market_cap": 87684210688,
+    "updated": "2026-10-10T16:43:52.034047+00:00",
+    "listing_year": 2005,
+    "listing_date": "2005-11-16"
   },
   "IFF": {
-    "market_cap": 21580584960,
-    "updated": "2026-10-09T17:27:31.328304+00:00",
-    "listing_year": 1974
+    "market_cap": 21572931584,
+    "updated": "2026-10-10T16:43:52.128751+00:00",
+    "listing_year": 1974,
+    "listing_date": "1974-12-17"
   },
   "IP": {
-    "market_cap": 16962122752,
-    "updated": "2026-10-09T17:27:31.255823+00:00",
-    "listing_year": 1962
+    "market_cap": 17009783808,
+    "updated": "2026-10-10T16:43:52.171652+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "IVZ": {
-    "market_cap": 13052941312,
-    "updated": "2026-10-09T17:27:31.443958+00:00",
-    "listing_year": 1995
+    "market_cap": 13028658176,
+    "updated": "2026-10-10T16:43:52.433726+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-08-25"
   },
   "INVH": {
-    "market_cap": 15773184000,
-    "updated": "2026-10-09T17:27:31.569058+00:00",
-    "listing_year": 2017
+    "market_cap": 15822796800,
+    "updated": "2026-10-10T16:43:52.462653+00:00",
+    "listing_year": 2017,
+    "listing_date": "2017-02-01"
   },
   "IQV": {
-    "market_cap": 43042074624,
-    "updated": "2026-10-09T17:27:31.641829+00:00",
-    "listing_year": 2013
+    "market_cap": 42776248320,
+    "updated": "2026-10-10T16:43:52.493475+00:00",
+    "listing_year": 2013,
+    "listing_date": "2013-05-09"
   },
   "IRM": {
-    "market_cap": 34109298688,
-    "updated": "2026-10-09T17:27:31.823712+00:00",
-    "listing_year": 1996
+    "market_cap": 34089949184,
+    "updated": "2026-10-10T16:43:52.587731+00:00",
+    "listing_year": 1996,
+    "listing_date": "1996-02-01"
   },
   "JBHT": {
-    "market_cap": 21496188928,
-    "updated": "2026-10-09T17:27:31.824884+00:00",
-    "listing_year": 1983
+    "market_cap": 21530937344,
+    "updated": "2026-10-10T16:43:52.688942+00:00",
+    "listing_year": 1983,
+    "listing_date": "1983-11-22"
   },
   "JBL": {
-    "market_cap": 31963729920,
-    "updated": "2026-10-09T17:27:31.865373+00:00",
-    "listing_year": 1993
+    "market_cap": 32094189568,
+    "updated": "2026-10-10T16:43:52.736732+00:00",
+    "listing_year": 1993,
+    "listing_date": "1993-05-03"
   },
   "JKHY": {
-    "market_cap": 10499622912,
-    "updated": "2026-10-09T17:27:32.093885+00:00",
-    "listing_year": 1985
+    "market_cap": 10468422656,
+    "updated": "2026-10-10T16:43:52.763549+00:00",
+    "listing_year": 1985,
+    "listing_date": "1985-11-20"
   },
   "J": {
-    "market_cap": 16296456192,
-    "updated": "2026-10-09T17:27:32.383963+00:00",
-    "listing_year": 1980
+    "market_cap": 16285921280,
+    "updated": "2026-10-10T16:43:52.851983+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "JCI": {
-    "market_cap": 95598116864,
-    "updated": "2026-10-09T17:27:32.159035+00:00",
-    "listing_year": 1987
+    "market_cap": 95367929856,
+    "updated": "2026-10-10T16:43:52.972211+00:00",
+    "listing_year": 1987,
+    "listing_date": "1987-09-28"
   },
   "KVUE": {
-    "market_cap": 34007293952,
-    "updated": "2026-10-09T17:27:32.354473+00:00",
-    "listing_year": 2023
+    "market_cap": 33997692928,
+    "updated": "2026-10-10T16:43:53.092893+00:00",
+    "listing_year": 2023,
+    "listing_date": "2023-05-04"
   },
   "KDP": {
-    "market_cap": 42580246528,
-    "updated": "2026-10-09T17:27:32.388851+00:00",
-    "listing_year": 2008
+    "market_cap": 43219832832,
+    "updated": "2026-10-10T16:43:53.172391+00:00",
+    "listing_year": 2008,
+    "listing_date": "2008-05-07"
   },
   "KEY": {
-    "market_cap": 21278543872,
-    "updated": "2026-10-09T17:27:32.815903+00:00",
-    "listing_year": 1987
+    "market_cap": 21310556160,
+    "updated": "2026-10-10T16:43:53.341038+00:00",
+    "listing_year": 1987,
+    "listing_date": "1987-11-05"
   },
   "KEYS": {
-    "market_cap": 65099894784,
-    "updated": "2026-10-09T17:27:32.701613+00:00",
-    "listing_year": 2014
+    "market_cap": 65161179136,
+    "updated": "2026-10-10T16:43:53.315568+00:00",
+    "listing_year": 2014,
+    "listing_date": "2014-10-20"
   },
   "KMB": {
-    "market_cap": 32576116736,
-    "updated": "2026-10-09T17:27:32.681697+00:00",
-    "listing_year": 1980
+    "market_cap": 32456386560,
+    "updated": "2026-10-10T16:43:53.419317+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "KIM": {
-    "market_cap": 14854631424,
-    "updated": "2026-10-09T17:27:32.904031+00:00",
-    "listing_year": 1991
+    "market_cap": 14864692224,
+    "updated": "2026-10-10T16:43:53.471155+00:00",
+    "listing_year": 1991,
+    "listing_date": "1991-11-22"
   },
   "KMI": {
-    "market_cap": 72126119936,
-    "updated": "2026-10-09T17:27:33.189582+00:00",
-    "listing_year": 2011
+    "market_cap": 72348803072,
+    "updated": "2026-10-10T16:43:53.503964+00:00",
+    "listing_year": 2011,
+    "listing_date": "2011-02-11"
   },
   "KKR": {
-    "market_cap": 84545478656,
-    "updated": "2026-10-09T17:27:33.017158+00:00",
-    "listing_year": 2010
+    "market_cap": 84000555008,
+    "updated": "2026-10-10T16:43:53.635589+00:00",
+    "listing_year": 2010,
+    "listing_date": "2010-07-15"
   },
   "KLAC": {
-    "market_cap": 256264110080,
-    "updated": "2026-10-09T17:27:33.304978+00:00",
-    "listing_year": 1980
+    "market_cap": 255220121600,
+    "updated": "2026-10-10T16:43:53.739458+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-10-08"
   },
   "KHC": {
-    "market_cap": 26212632576,
-    "updated": "2026-10-09T17:27:33.277377+00:00",
-    "listing_year": 2015
+    "market_cap": 26408294400,
+    "updated": "2026-10-10T16:43:53.666624+00:00",
+    "listing_year": 2015,
+    "listing_date": "2015-07-06"
   },
   "KR": {
-    "market_cap": 36079063040,
-    "updated": "2026-10-09T17:27:33.486145+00:00",
-    "listing_year": 1962
+    "market_cap": 36403884032,
+    "updated": "2026-10-10T16:43:53.797111+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "LHX": {
-    "market_cap": 44103069696,
-    "updated": "2026-10-09T17:27:33.667559+00:00",
-    "listing_year": 1981
+    "market_cap": 44127281152,
+    "updated": "2026-10-10T16:43:53.832839+00:00",
+    "listing_year": 1981,
+    "listing_date": "1981-12-31"
   },
   "LH": {
-    "market_cap": 25490540544,
-    "updated": "2026-10-09T17:27:33.667076+00:00",
-    "listing_year": 1990
+    "market_cap": 25315364864,
+    "updated": "2026-10-10T16:43:53.942145+00:00",
+    "listing_year": 1990,
+    "listing_date": "1990-03-29"
   },
   "LVS": {
-    "market_cap": 23317241856,
-    "updated": "2026-10-09T17:27:33.747144+00:00",
-    "listing_year": 2004
+    "market_cap": 23427350528,
+    "updated": "2026-10-10T16:43:54.056124+00:00",
+    "listing_year": 2004,
+    "listing_date": "2004-12-15"
   },
   "LDOS": {
-    "market_cap": 15246048256,
-    "updated": "2026-10-09T17:27:33.927434+00:00",
-    "listing_year": 2006
+    "market_cap": 15269892096,
+    "updated": "2026-10-10T16:43:54.116905+00:00",
+    "listing_year": 2006,
+    "listing_date": "2006-10-17"
   },
   "LEN": {
-    "market_cap": 18039975936,
-    "updated": "2026-10-09T17:27:33.905043+00:00",
-    "listing_year": 1980
+    "market_cap": 18244569088,
+    "updated": "2026-10-10T16:43:54.237234+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "LII": {
-    "market_cap": 12266620928,
-    "updated": "2026-10-09T17:27:34.192536+00:00",
-    "listing_year": 1999
+    "market_cap": 12318807040,
+    "updated": "2026-10-10T16:43:54.250952+00:00",
+    "listing_year": 1999,
+    "listing_date": "1999-07-29"
   },
   "LYV": {
-    "market_cap": 40045735936,
-    "updated": "2026-10-09T17:27:34.191857+00:00",
-    "listing_year": 2005
+    "market_cap": 39679991808,
+    "updated": "2026-10-10T16:43:54.609005+00:00",
+    "listing_year": 2005,
+    "listing_date": "2005-12-21"
   },
   "L": {
-    "market_cap": 21912606720,
-    "updated": "2026-10-09T17:27:34.261299+00:00",
-    "listing_year": 1980
+    "market_cap": 21810393088,
+    "updated": "2026-10-10T16:43:54.605436+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "LULU": {
-    "market_cap": 10875480064,
-    "updated": "2026-10-09T17:27:34.495031+00:00",
-    "listing_year": 2007
+    "market_cap": 10945555456,
+    "updated": "2026-10-10T16:43:54.795933+00:00",
+    "listing_year": 2007,
+    "listing_date": "2007-07-27"
   },
   "LITE": {
-    "market_cap": 101561491456,
-    "updated": "2026-10-09T17:27:34.439144+00:00",
-    "listing_year": 2015
+    "market_cap": 99944595456,
+    "updated": "2026-10-10T16:43:54.768168+00:00",
+    "listing_year": 2015,
+    "listing_date": "2015-07-23"
   },
   "LYB": {
-    "market_cap": 19639091200,
-    "updated": "2026-10-09T17:27:34.564721+00:00",
-    "listing_year": 2010
+    "market_cap": 19391967232,
+    "updated": "2026-10-10T16:43:54.800525+00:00",
+    "listing_year": 2010,
+    "listing_date": "2010-04-28"
   },
   "MTB": {
-    "market_cap": 31357102080,
-    "updated": "2026-10-09T17:27:34.716990+00:00",
-    "listing_year": 1980
+    "market_cap": 31409092608,
+    "updated": "2026-10-10T16:43:54.936098+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "MPC": {
-    "market_cap": 129242578944,
-    "updated": "2026-10-09T17:27:34.806165+00:00",
-    "listing_year": 2011
+    "market_cap": 127783690240,
+    "updated": "2026-10-10T16:43:55.051360+00:00",
+    "listing_year": 2011,
+    "listing_date": "2011-06-24"
   },
   "MAR": {
-    "market_cap": 94856347648,
-    "updated": "2026-10-09T17:27:34.864884+00:00",
-    "listing_year": 1998
+    "market_cap": 95409168384,
+    "updated": "2026-10-10T16:43:55.066331+00:00",
+    "listing_year": 1998,
+    "listing_date": "1998-03-23"
   },
   "MRSH": {
-    "market_cap": 83998728192,
-    "updated": "2026-10-09T17:27:35.055401+00:00",
-    "listing_year": 1973
+    "market_cap": 83874652160,
+    "updated": "2026-10-10T16:43:55.133074+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "MLM": {
-    "market_cap": 33993072640,
-    "updated": "2026-10-09T17:27:35.081381+00:00",
-    "listing_year": 1994
+    "market_cap": 33972123648,
+    "updated": "2026-10-10T16:43:55.243933+00:00",
+    "listing_year": 1994,
+    "listing_date": "1994-02-17"
   },
   "MRVL": {
-    "market_cap": 246195650560,
-    "updated": "2026-10-09T17:27:35.142400+00:00",
-    "listing_year": 2000
+    "market_cap": 247395418112,
+    "updated": "2026-10-10T16:43:55.227998+00:00",
+    "listing_year": 2000,
+    "listing_date": "2000-06-30"
   },
   "MAS": {
-    "market_cap": 13588186112,
-    "updated": "2026-10-09T17:27:35.301613+00:00",
-    "listing_year": 1980
+    "market_cap": 13556635648,
+    "updated": "2026-10-10T16:43:55.343297+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "MKC": {
-    "market_cap": 12082339840,
-    "updated": "2026-10-09T17:27:35.464376+00:00",
-    "listing_year": 1973
+    "market_cap": 12056779776,
+    "updated": "2026-10-10T16:43:55.441332+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "MCK": {
-    "market_cap": 109273145344,
-    "updated": "2026-10-09T17:27:35.389720+00:00",
-    "listing_year": 1994
+    "market_cap": 109459693568,
+    "updated": "2026-10-10T16:43:55.678233+00:00",
+    "listing_year": 1994,
+    "listing_date": "1994-11-10"
   },
   "MET": {
-    "market_cap": 62244962304,
-    "updated": "2026-10-09T17:27:35.512011+00:00",
-    "listing_year": 2000
+    "market_cap": 62486446080,
+    "updated": "2026-10-10T16:43:55.836998+00:00",
+    "listing_year": 2000,
+    "listing_date": "2000-04-05"
   },
   "MTD": {
-    "market_cap": 31262644224,
-    "updated": "2026-10-09T17:27:35.648679+00:00",
-    "listing_year": 1997
+    "market_cap": 31056467968,
+    "updated": "2026-10-10T16:43:55.921749+00:00",
+    "listing_year": 1997,
+    "listing_date": "1997-11-14"
   },
   "MGM": {
     "market_cap": 7488765440,
-    "updated": "2026-10-09T17:27:35.767381+00:00",
-    "listing_year": 1988
+    "updated": "2026-10-10T16:43:55.976387+00:00",
+    "listing_year": 1988,
+    "listing_date": "1988-05-02"
   },
   "MCHP": {
-    "market_cap": 40334684160,
-    "updated": "2026-10-09T17:27:35.769809+00:00",
-    "listing_year": 1993
+    "market_cap": 41024307200,
+    "updated": "2026-10-10T16:43:56.023789+00:00",
+    "listing_year": 1993,
+    "listing_date": "1993-03-19"
   },
   "MAA": {
-    "market_cap": 13875936256,
-    "updated": "2026-10-09T17:27:35.977442+00:00",
-    "listing_year": 1994
+    "market_cap": 13902108672,
+    "updated": "2026-10-10T16:43:56.184574+00:00",
+    "listing_year": 1994,
+    "listing_date": "1994-01-28"
   },
   "MRNA": {
-    "market_cap": 87783948288,
-    "updated": "2026-10-09T17:27:36.010055+00:00",
-    "listing_year": 2018
+    "market_cap": 89828081664,
+    "updated": "2026-10-10T16:43:56.240730+00:00",
+    "listing_year": 2018,
+    "listing_date": "2018-12-07"
   },
   "MPWR": {
-    "market_cap": 66973061120,
-    "updated": "2026-10-09T17:27:36.075782+00:00",
-    "listing_year": 2004
+    "market_cap": 68126449664,
+    "updated": "2026-10-10T16:43:56.345781+00:00",
+    "listing_year": 2004,
+    "listing_date": "2004-11-19"
   },
   "MNST": {
-    "market_cap": 85424455680,
-    "updated": "2026-10-09T17:27:36.287067+00:00",
-    "listing_year": 1985
+    "market_cap": 85493014528,
+    "updated": "2026-10-10T16:43:56.482719+00:00",
+    "listing_year": 1985,
+    "listing_date": "1985-12-09"
   },
   "MCO": {
-    "market_cap": 79965093888,
-    "updated": "2026-10-09T17:27:36.287851+00:00",
-    "listing_year": 1994
+    "market_cap": 80395812864,
+    "updated": "2026-10-10T16:43:56.558941+00:00",
+    "listing_year": 1994,
+    "listing_date": "1994-10-31"
   },
   "MOS": {
-    "market_cap": 6006638592,
-    "updated": "2026-10-09T17:27:36.363508+00:00",
-    "listing_year": 1988
+    "market_cap": 5957364224,
+    "updated": "2026-10-10T16:43:56.679591+00:00",
+    "listing_year": 1988,
+    "listing_date": "1988-01-26"
   },
   "MSI": {
-    "market_cap": 73264103424,
-    "updated": "2026-10-09T17:27:36.658930+00:00",
-    "listing_year": 1962
+    "market_cap": 73509027840,
+    "updated": "2026-10-10T16:43:56.746711+00:00",
+    "listing_year": 1962,
+    "listing_date": "1962-01-02"
   },
   "MSCI": {
-    "market_cap": 40949460992,
-    "updated": "2026-10-09T17:27:36.613926+00:00",
-    "listing_year": 2007
+    "market_cap": 41084223488,
+    "updated": "2026-10-10T16:43:56.774686+00:00",
+    "listing_year": 2007,
+    "listing_date": "2007-11-15"
   },
   "NDAQ": {
-    "market_cap": 52236431360,
-    "updated": "2026-10-09T17:27:36.560389+00:00",
-    "listing_year": 2002
+    "market_cap": 52348227584,
+    "updated": "2026-10-10T16:43:56.841005+00:00",
+    "listing_year": 2002,
+    "listing_date": "2002-07-01"
   },
   "NTAP": {
-    "market_cap": 46422650880,
-    "updated": "2026-10-09T17:27:36.882857+00:00",
-    "listing_year": 1995
+    "market_cap": 46580764672,
+    "updated": "2026-10-10T16:43:56.936352+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-11-21"
   },
   "NEM": {
-    "market_cap": 124462137344,
-    "updated": "2026-10-09T17:27:36.878999+00:00",
-    "listing_year": 1980
+    "market_cap": 124167094272,
+    "updated": "2026-10-10T16:43:56.997400+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "NWSA": {
-    "market_cap": 15652450304,
-    "updated": "2026-10-09T17:27:36.965086+00:00",
-    "listing_year": 2013
+    "market_cap": 15690264576,
+    "updated": "2026-10-10T16:43:57.135014+00:00",
+    "listing_year": 2013,
+    "listing_date": "2013-06-19"
   },
   "NWS": {
-    "market_cap": 17293410304,
-    "updated": "2026-10-09T17:27:37.169927+00:00",
-    "listing_year": 2013
+    "market_cap": 17247434752,
+    "updated": "2026-10-10T16:43:57.200874+00:00",
+    "listing_year": 2013,
+    "listing_date": "2013-06-19"
   },
   "NKE": {
-    "market_cap": 51755585536,
-    "updated": "2026-10-09T17:27:37.239806+00:00",
-    "listing_year": 1980
+    "market_cap": 51555065856,
+    "updated": "2026-10-10T16:43:57.416832+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-12-02"
   },
   "NI": {
-    "market_cap": 19544471552,
-    "updated": "2026-10-09T17:27:37.335565+00:00",
-    "listing_year": 1973
+    "market_cap": 19546867712,
+    "updated": "2026-10-10T16:43:57.524165+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "NDSN": {
-    "market_cap": 18438440960,
-    "updated": "2026-10-09T17:27:37.645550+00:00",
-    "listing_year": 1980
+    "market_cap": 18278862848,
+    "updated": "2026-10-10T16:43:57.382588+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-18"
   },
   "NSC": {
-    "market_cap": 71257006080,
-    "updated": "2026-10-09T17:27:37.482865+00:00",
-    "listing_year": 1982
+    "market_cap": 71378296832,
+    "updated": "2026-10-10T16:43:57.568560+00:00",
+    "listing_year": 1982,
+    "listing_date": "1982-06-02"
   },
   "NTRS": {
-    "market_cap": 31030192128,
-    "updated": "2026-10-09T17:27:37.573172+00:00",
-    "listing_year": 1980
+    "market_cap": 30774970368,
+    "updated": "2026-10-10T16:43:57.634126+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "NOC": {
-    "market_cap": 68311007232,
-    "updated": "2026-10-09T17:27:37.695819+00:00",
-    "listing_year": 1981
+    "market_cap": 68292538368,
+    "updated": "2026-10-10T16:43:57.676972+00:00",
+    "listing_year": 1981,
+    "listing_date": "1981-12-31"
   },
   "NCLH": {
-    "market_cap": 7096748032,
-    "updated": "2026-10-09T17:27:37.937020+00:00",
-    "listing_year": 2013
+    "market_cap": 7149554688,
+    "updated": "2026-10-10T16:43:57.770315+00:00",
+    "listing_year": 2013,
+    "listing_date": "2013-01-18"
   },
   "NRG": {
-    "market_cap": 22509338624,
-    "updated": "2026-10-09T17:27:37.931985+00:00",
-    "listing_year": 2003
+    "market_cap": 22696425472,
+    "updated": "2026-10-10T16:43:57.816118+00:00",
+    "listing_year": 2003,
+    "listing_date": "2003-12-02"
   },
   "NUE": {
-    "market_cap": 57170403328,
-    "updated": "2026-10-09T17:27:38.041598+00:00",
-    "listing_year": 1980
+    "market_cap": 56793788416,
+    "updated": "2026-10-10T16:43:57.876649+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "NVR": {
-    "market_cap": 15880791040,
-    "updated": "2026-10-09T17:27:38.205882+00:00",
-    "listing_year": 1985
+    "market_cap": 15798853632,
+    "updated": "2026-10-10T16:43:58.038293+00:00",
+    "listing_year": 1985,
+    "listing_date": "1985-07-22"
   },
   "NXPI": {
-    "market_cap": 56821415936,
-    "updated": "2026-10-09T17:27:38.220499+00:00",
-    "listing_year": 2010
+    "market_cap": 57372393472,
+    "updated": "2026-10-10T16:43:58.089627+00:00",
+    "listing_year": 2010,
+    "listing_date": "2010-08-06"
   },
   "ORLY": {
-    "market_cap": 69797134336,
-    "updated": "2026-10-09T17:27:38.386677+00:00",
-    "listing_year": 1993
+    "market_cap": 69934653440,
+    "updated": "2026-10-10T16:43:58.192849+00:00",
+    "listing_year": 1993,
+    "listing_date": "1993-04-23"
   },
   "OXY": {
-    "market_cap": 60543037440,
-    "updated": "2026-10-09T17:27:38.629969+00:00",
-    "listing_year": 1981
+    "market_cap": 60088205312,
+    "updated": "2026-10-10T16:43:58.195150+00:00",
+    "listing_year": 1981,
+    "listing_date": "1981-12-31"
   },
   "ODFL": {
-    "market_cap": 37733765120,
-    "updated": "2026-10-09T17:27:38.775248+00:00",
-    "listing_year": 1991
+    "market_cap": 37843988480,
+    "updated": "2026-10-10T16:43:58.335574+00:00",
+    "listing_year": 1991,
+    "listing_date": "1991-10-24"
   },
   "OMC": {
-    "market_cap": 20921622528,
-    "updated": "2026-10-09T17:27:38.908277+00:00",
-    "listing_year": 1980
+    "market_cap": 20981979136,
+    "updated": "2026-10-10T16:43:58.355647+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "ON": {
-    "market_cap": 29689438208,
-    "updated": "2026-10-09T17:27:38.972903+00:00",
-    "listing_year": 2000
+    "market_cap": 30183872512,
+    "updated": "2026-10-10T16:43:58.411567+00:00",
+    "listing_year": 2000,
+    "listing_date": "2000-05-02"
   },
   "OKE": {
-    "market_cap": 56774651904,
-    "updated": "2026-10-09T17:27:39.067084+00:00",
-    "listing_year": 1980
+    "market_cap": 56610750464,
+    "updated": "2026-10-10T16:43:58.586828+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-10-01"
   },
   "OTIS": {
-    "market_cap": 25223151616,
-    "updated": "2026-10-09T17:27:39.216568+00:00",
-    "listing_year": 2020
+    "market_cap": 25105141760,
+    "updated": "2026-10-10T16:43:58.624017+00:00",
+    "listing_year": 2020,
+    "listing_date": "2020-03-19"
   },
   "PCAR": {
-    "market_cap": 56715825152,
-    "updated": "2026-10-09T17:27:39.241253+00:00",
-    "listing_year": 1980
+    "market_cap": 56868470784,
+    "updated": "2026-10-10T16:43:58.687264+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "PKG": {
-    "market_cap": 20442714112,
-    "updated": "2026-10-09T17:27:39.302540+00:00",
-    "listing_year": 2000
+    "market_cap": 20538048512,
+    "updated": "2026-10-10T16:43:58.899551+00:00",
+    "listing_year": 2000,
+    "listing_date": "2000-01-28"
   },
   "PH": {
-    "market_cap": 120898297856,
-    "updated": "2026-10-09T17:27:39.497943+00:00",
-    "listing_year": 1980
+    "market_cap": 121390768128,
+    "updated": "2026-10-10T16:43:59.110623+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "PAYX": {
-    "market_cap": 37210640384,
-    "updated": "2026-10-09T17:27:39.540726+00:00",
-    "listing_year": 1983
+    "market_cap": 37014851584,
+    "updated": "2026-10-10T16:43:59.090838+00:00",
+    "listing_year": 1983,
+    "listing_date": "1983-08-26"
   },
   "PYPL": {
-    "market_cap": 47238549504,
-    "updated": "2026-10-09T17:27:39.577781+00:00",
-    "listing_year": 2015
+    "market_cap": 47503740928,
+    "updated": "2026-10-10T16:43:59.165269+00:00",
+    "listing_year": 2015,
+    "listing_date": "2015-07-06"
   },
   "PNR": {
-    "market_cap": 8383788032,
-    "updated": "2026-10-09T17:27:39.747195+00:00",
-    "listing_year": 1973
+    "market_cap": 8374212096,
+    "updated": "2026-10-10T16:43:59.251589+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-05-03"
   },
   "PCG": {
-    "market_cap": 39315996672,
-    "updated": "2026-10-09T17:27:39.799758+00:00",
-    "listing_year": 1972
+    "market_cap": 39421079552,
+    "updated": "2026-10-10T16:43:59.585206+00:00",
+    "listing_year": 1972,
+    "listing_date": "1972-06-01"
   },
   "PSX": {
-    "market_cap": 113234067456,
-    "updated": "2026-10-09T17:27:39.956825+00:00",
-    "listing_year": 2012
+    "market_cap": 111532097536,
+    "updated": "2026-10-10T16:43:59.551416+00:00",
+    "listing_year": 2012,
+    "listing_date": "2012-04-12"
   },
   "PNW": {
-    "market_cap": 11928838144,
-    "updated": "2026-10-09T17:27:40.064407+00:00",
-    "listing_year": 1973
+    "market_cap": 11988830208,
+    "updated": "2026-10-10T16:43:59.691020+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "PNC": {
-    "market_cap": 87312809984,
-    "updated": "2026-10-09T17:27:40.094613+00:00",
-    "listing_year": 1975
+    "market_cap": 87452450816,
+    "updated": "2026-10-10T16:43:59.783615+00:00",
+    "listing_year": 1975,
+    "listing_date": "1975-11-17"
   },
   "PPG": {
-    "market_cap": 23280367616,
-    "updated": "2026-10-09T17:27:40.303100+00:00",
-    "listing_year": 1980
+    "market_cap": 23110307840,
+    "updated": "2026-10-10T16:43:59.782562+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "PPL": {
-    "market_cap": 25656285184,
-    "updated": "2026-10-09T17:27:40.303678+00:00",
-    "listing_year": 1980
+    "market_cap": 25774659584,
+    "updated": "2026-10-10T16:43:59.902324+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "PFG": {
-    "market_cap": 22979852288,
-    "updated": "2026-10-09T17:27:40.305651+00:00",
-    "listing_year": 2001
+    "market_cap": 22960580608,
+    "updated": "2026-10-10T16:43:59.943762+00:00",
+    "listing_year": 2001,
+    "listing_date": "2001-10-23"
   },
   "PGR": {
-    "market_cap": 126643281920,
-    "updated": "2026-10-09T17:27:40.551728+00:00",
-    "listing_year": 1980
+    "market_cap": 126196367360,
+    "updated": "2026-10-10T16:44:00.076589+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "PLD": {
-    "market_cap": 125856669696,
-    "updated": "2026-10-09T17:27:40.562036+00:00",
-    "listing_year": 1997
+    "market_cap": 125876117504,
+    "updated": "2026-10-10T16:44:00.118100+00:00",
+    "listing_year": 1997,
+    "listing_date": "1997-11-21"
   },
   "PRU": {
-    "market_cap": 38960848896,
-    "updated": "2026-10-09T17:27:40.678620+00:00",
-    "listing_year": 2001
+    "market_cap": 39016050688,
+    "updated": "2026-10-10T16:44:00.186216+00:00",
+    "listing_year": 2001,
+    "listing_date": "2001-12-13"
   },
   "PEG": {
-    "market_cap": 35911163904,
-    "updated": "2026-10-09T17:27:40.761779+00:00",
-    "listing_year": 1980
+    "market_cap": 36025798656,
+    "updated": "2026-10-10T16:44:00.239775+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-01-02"
   },
   "PTC": {
-    "market_cap": 21135484928,
-    "updated": "2026-10-09T17:27:40.770597+00:00",
-    "listing_year": 1989
+    "market_cap": 21123534848,
+    "updated": "2026-10-10T16:44:00.328335+00:00",
+    "listing_year": 1989,
+    "listing_date": "1989-12-08"
   },
   "PSA": {
-    "market_cap": 53753663488,
-    "updated": "2026-10-09T17:27:40.889703+00:00",
-    "listing_year": 1980
+    "market_cap": 54161002496,
+    "updated": "2026-10-10T16:44:00.357378+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-11-18"
   },
   "PHM": {
-    "market_cap": 21256372224,
-    "updated": "2026-10-09T17:27:41.137708+00:00",
-    "listing_year": 1980
+    "market_cap": 21357330432,
+    "updated": "2026-10-10T16:44:00.440346+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "PWR": {
-    "market_cap": 105610977280,
-    "updated": "2026-10-09T17:27:41.180398+00:00",
-    "listing_year": 1998
+    "market_cap": 106133413888,
+    "updated": "2026-10-10T16:44:00.616817+00:00",
+    "listing_year": 1998,
+    "listing_date": "1998-02-12"
   },
   "DGX": {
-    "market_cap": 25447682048,
-    "updated": "2026-10-09T17:27:41.208725+00:00",
-    "listing_year": 1996
+    "market_cap": 25492934656,
+    "updated": "2026-10-10T16:44:00.674516+00:00",
+    "listing_year": 1996,
+    "listing_date": "1996-12-17"
   },
   "Q": {
-    "market_cap": 26456512512,
-    "updated": "2026-10-09T17:27:41.366233+00:00",
-    "listing_year": 2025
+    "market_cap": 26485800960,
+    "updated": "2026-10-10T16:44:00.693668+00:00",
+    "listing_year": 2025,
+    "listing_date": "2025-10-27"
   },
   "RL": {
-    "market_cap": 22099351552,
-    "updated": "2026-10-09T17:27:41.530253+00:00",
-    "listing_year": 1997
+    "market_cap": 22121693184,
+    "updated": "2026-10-10T16:44:00.774715+00:00",
+    "listing_year": 1997,
+    "listing_date": "1997-06-12"
   },
   "RJF": {
-    "market_cap": 30543900672,
-    "updated": "2026-10-09T17:27:41.590418+00:00",
-    "listing_year": 1983
+    "market_cap": 30424799232,
+    "updated": "2026-10-10T16:44:00.829466+00:00",
+    "listing_year": 1983,
+    "listing_date": "1983-07-01"
   },
   "RDDT": {
-    "market_cap": 31022014464,
-    "updated": "2026-10-09T17:27:41.764069+00:00",
-    "listing_year": 2024
+    "market_cap": 30766127104,
+    "updated": "2026-10-10T16:44:00.922819+00:00",
+    "listing_year": 2024,
+    "listing_date": "2024-03-21"
   },
   "O": {
-    "market_cap": 51228151808,
-    "updated": "2026-10-09T17:27:41.756489+00:00",
-    "listing_year": 1994
+    "market_cap": 51266093056,
+    "updated": "2026-10-10T16:44:00.982937+00:00",
+    "listing_year": 1994,
+    "listing_date": "1994-10-18"
   },
   "REG": {
-    "market_cap": 13459159040,
-    "updated": "2026-10-09T17:27:41.809761+00:00",
-    "listing_year": 1993
+    "market_cap": 13470377984,
+    "updated": "2026-10-10T16:44:01.122316+00:00",
+    "listing_year": 1993,
+    "listing_date": "1993-10-29"
   },
   "REGN": {
-    "market_cap": 76911443968,
-    "updated": "2026-10-09T17:27:42.067502+00:00",
-    "listing_year": 1991
+    "market_cap": 76860014592,
+    "updated": "2026-10-10T16:44:01.136129+00:00",
+    "listing_year": 1991,
+    "listing_date": "1991-04-02"
   },
   "RF": {
-    "market_cap": 22955241472,
-    "updated": "2026-10-09T17:27:42.163394+00:00",
-    "listing_year": 1980
+    "market_cap": 23027656704,
+    "updated": "2026-10-10T16:44:01.175610+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "RSG": {
-    "market_cap": 66275209216,
-    "updated": "2026-10-09T17:27:42.130096+00:00",
-    "listing_year": 1998
+    "market_cap": 66411474944,
+    "updated": "2026-10-10T16:44:01.308812+00:00",
+    "listing_year": 1998,
+    "listing_date": "1998-07-01"
   },
   "RMD": {
-    "market_cap": 32424378368,
-    "updated": "2026-10-09T17:27:42.578521+00:00",
-    "listing_year": 1995
+    "market_cap": 32354060288,
+    "updated": "2026-10-10T16:44:01.342262+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-06-02"
   },
   "RVTY": {
-    "market_cap": 17289197568,
-    "updated": "2026-10-09T17:27:42.417380+00:00",
-    "listing_year": 1973
+    "market_cap": 17204389888,
+    "updated": "2026-10-10T16:44:01.362125+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "HOOD": {
-    "market_cap": 97829142528,
-    "updated": "2026-10-09T17:27:42.379226+00:00",
-    "listing_year": 2021
+    "market_cap": 98017951744,
+    "updated": "2026-10-10T16:44:01.496507+00:00",
+    "listing_year": 2021,
+    "listing_date": "2021-07-29"
   },
   "ROK": {
-    "market_cap": 48097050624,
-    "updated": "2026-10-09T17:27:42.643472+00:00",
-    "listing_year": 1981
+    "market_cap": 48135999488,
+    "updated": "2026-10-10T16:44:01.565363+00:00",
+    "listing_year": 1981,
+    "listing_date": "1981-12-31"
   },
   "ROL": {
-    "market_cap": 15456796672,
-    "updated": "2026-10-09T17:27:42.768088+00:00",
-    "listing_year": 1980
+    "market_cap": 15387029504,
+    "updated": "2026-10-10T16:44:01.597827+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "ROP": {
-    "market_cap": 36045410304,
-    "updated": "2026-10-09T17:27:42.788023+00:00",
-    "listing_year": 1992
+    "market_cap": 36008816640,
+    "updated": "2026-10-10T16:44:01.651667+00:00",
+    "listing_year": 1992,
+    "listing_date": "1992-02-13"
   },
   "ROST": {
-    "market_cap": 71404265472,
-    "updated": "2026-10-09T17:27:42.860820+00:00",
-    "listing_year": 1985
+    "market_cap": 71344922624,
+    "updated": "2026-10-10T16:44:01.736540+00:00",
+    "listing_year": 1985,
+    "listing_date": "1985-08-08"
   },
   "RCL": {
-    "market_cap": 74629832704,
-    "updated": "2026-10-09T17:27:43.112124+00:00",
-    "listing_year": 1993
+    "market_cap": 75491024896,
+    "updated": "2026-10-10T16:44:01.753625+00:00",
+    "listing_year": 1993,
+    "listing_date": "1993-04-28"
   },
   "SPGI": {
-    "market_cap": 119606255616,
-    "updated": "2026-10-09T17:27:43.200642+00:00",
-    "listing_year": 1973
+    "market_cap": 120225341440,
+    "updated": "2026-10-10T16:44:01.956257+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "SBAC": {
-    "market_cap": 19140947968,
-    "updated": "2026-10-09T17:27:43.372941+00:00",
-    "listing_year": 1999
+    "market_cap": 19360020480,
+    "updated": "2026-10-10T16:44:02.116315+00:00",
+    "listing_year": 1999,
+    "listing_date": "1999-06-16"
   },
   "SLB": {
-    "market_cap": 72188723200,
-    "updated": "2026-10-09T17:27:43.342992+00:00",
-    "listing_year": 1981
+    "market_cap": 72648810496,
+    "updated": "2026-10-10T16:44:02.117691+00:00",
+    "listing_year": 1981,
+    "listing_date": "1981-12-31"
   },
   "STX": {
-    "market_cap": 178537627648,
-    "updated": "2026-10-09T17:27:43.435691+00:00",
-    "listing_year": 2002
+    "market_cap": 178048729088,
+    "updated": "2026-10-10T16:44:02.221096+00:00",
+    "listing_year": 2002,
+    "listing_date": "2002-12-11"
   },
   "SRE": {
-    "market_cap": 52946313216,
-    "updated": "2026-10-09T17:27:43.692206+00:00",
-    "listing_year": 1998
+    "market_cap": 53188251648,
+    "updated": "2026-10-10T16:44:02.279664+00:00",
+    "listing_year": 1998,
+    "listing_date": "1998-06-29"
   },
   "SHW": {
-    "market_cap": 77590331392,
-    "updated": "2026-10-09T17:27:43.628162+00:00",
-    "listing_year": 1980
+    "market_cap": 77527236608,
+    "updated": "2026-10-10T16:44:02.454878+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "SPG": {
-    "market_cap": 76070846464,
-    "updated": "2026-10-09T17:27:43.697197+00:00",
-    "listing_year": 1993
+    "market_cap": 75704516608,
+    "updated": "2026-10-10T16:44:02.525993+00:00",
+    "listing_year": 1993,
+    "listing_date": "1993-12-14"
   },
   "SKYD": {
-    "market_cap": 47270420480,
-    "updated": "2026-10-09T17:27:43.832823+00:00",
-    "listing_year": 2005
+    "market_cap": 46186348544,
+    "updated": "2026-10-10T16:44:02.489877+00:00",
+    "listing_year": 2005,
+    "listing_date": "2005-12-05"
   },
   "SWKS": {
-    "market_cap": 18213570560,
-    "updated": "2026-10-09T17:27:43.903041+00:00",
-    "listing_year": 1984
+    "market_cap": 17954889728,
+    "updated": "2026-10-10T16:44:02.733526+00:00",
+    "listing_year": 1984,
+    "listing_date": "1984-09-07"
   },
   "SJM": {
-    "market_cap": 12747210752,
-    "updated": "2026-10-09T17:27:44.015083+00:00",
-    "listing_year": 1994
+    "market_cap": 12800622592,
+    "updated": "2026-10-10T16:44:02.756631+00:00",
+    "listing_year": 1994,
+    "listing_date": "1994-10-31"
   },
   "SW": {
-    "market_cap": 21620834304,
-    "updated": "2026-10-09T17:27:44.151144+00:00",
-    "listing_year": 2008
+    "market_cap": 21657550848,
+    "updated": "2026-10-10T16:44:02.680083+00:00",
+    "listing_year": 2008,
+    "listing_date": "2008-06-17"
   },
   "SNA": {
-    "market_cap": 18679699456,
-    "updated": "2026-10-09T17:27:44.255975+00:00",
-    "listing_year": 1973
+    "market_cap": 18640904192,
+    "updated": "2026-10-10T16:44:02.906290+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "SOLV": {
-    "market_cap": 14937132032,
-    "updated": "2026-10-09T17:27:44.528312+00:00",
-    "listing_year": 2024
+    "market_cap": 14858829824,
+    "updated": "2026-10-10T16:44:02.927200+00:00",
+    "listing_year": 2024,
+    "listing_date": "2024-03-26"
   },
   "LUV": {
-    "market_cap": 20116240384,
-    "updated": "2026-10-09T17:27:44.374363+00:00",
-    "listing_year": 1980
+    "market_cap": 20380413952,
+    "updated": "2026-10-10T16:44:03.124984+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-01-02"
   },
   "SWK": {
-    "market_cap": 13390645248,
-    "updated": "2026-10-09T17:27:44.561477+00:00",
-    "listing_year": 1980
+    "market_cap": 13375543296,
+    "updated": "2026-10-10T16:44:03.085464+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "STT": {
-    "market_cap": 48093409280,
-    "updated": "2026-10-09T17:27:44.675463+00:00",
-    "listing_year": 1980
+    "market_cap": 48061820928,
+    "updated": "2026-10-10T16:44:03.275747+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "STLD": {
-    "market_cap": 34423824384,
-    "updated": "2026-10-09T17:27:44.809402+00:00",
-    "listing_year": 1996
+    "market_cap": 34166552576,
+    "updated": "2026-10-10T16:44:03.282604+00:00",
+    "listing_year": 1996,
+    "listing_date": "1996-11-22"
   },
   "STE": {
-    "market_cap": 20912799744,
-    "updated": "2026-10-09T17:27:44.812779+00:00",
-    "listing_year": 1992
+    "market_cap": 20904024064,
+    "updated": "2026-10-10T16:44:03.327534+00:00",
+    "listing_year": 1992,
+    "listing_date": "1992-06-01"
   },
   "SYK": {
-    "market_cap": 106640973824,
-    "updated": "2026-10-09T17:27:44.912706+00:00",
-    "listing_year": 1980
+    "market_cap": 106376306688,
+    "updated": "2026-10-10T16:44:03.505264+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "SMCI": {
-    "market_cap": 27188510720,
-    "updated": "2026-10-09T17:27:45.068622+00:00",
-    "listing_year": 2007
+    "market_cap": 27497285632,
+    "updated": "2026-10-10T16:44:03.444809+00:00",
+    "listing_year": 2007,
+    "listing_date": "2007-03-29"
   },
   "SYF": {
-    "market_cap": 23703265280,
-    "updated": "2026-10-09T17:27:45.264420+00:00",
-    "listing_year": 2014
+    "market_cap": 23686998016,
+    "updated": "2026-10-10T16:44:03.523290+00:00",
+    "listing_year": 2014,
+    "listing_date": "2014-07-31"
   },
   "SNPS": {
-    "market_cap": 97150197760,
-    "updated": "2026-10-09T17:27:45.304855+00:00",
-    "listing_year": 1992
+    "market_cap": 97732771840,
+    "updated": "2026-10-10T16:44:03.637220+00:00",
+    "listing_year": 1992,
+    "listing_date": "1992-02-26"
   },
   "SYY": {
-    "market_cap": 38519320576,
-    "updated": "2026-10-09T17:27:45.324747+00:00",
-    "listing_year": 1973
+    "market_cap": 38438154240,
+    "updated": "2026-10-10T16:44:03.789233+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-05-08"
   },
   "TROW": {
-    "market_cap": 22400299008,
-    "updated": "2026-10-09T17:27:45.596772+00:00",
-    "listing_year": 1986
+    "market_cap": 22432296960,
+    "updated": "2026-10-10T16:44:03.984906+00:00",
+    "listing_year": 1986,
+    "listing_date": "1986-04-02"
   },
   "TTWO": {
-    "market_cap": 39894147072,
-    "updated": "2026-10-09T17:27:45.515821+00:00",
-    "listing_year": 1997
+    "market_cap": 39909105664,
+    "updated": "2026-10-10T16:44:03.951833+00:00",
+    "listing_year": 1997,
+    "listing_date": "1997-04-15"
   },
   "TPR": {
-    "market_cap": 23105812480,
-    "updated": "2026-10-09T17:27:45.631901+00:00",
-    "listing_year": 2000
+    "market_cap": 23066124288,
+    "updated": "2026-10-10T16:44:03.980751+00:00",
+    "listing_year": 2000,
+    "listing_date": "2000-10-06"
   },
   "TRGP": {
-    "market_cap": 61867634688,
-    "updated": "2026-10-09T17:27:45.792662+00:00",
-    "listing_year": 2010
+    "market_cap": 61477376000,
+    "updated": "2026-10-10T16:44:04.179557+00:00",
+    "listing_year": 2010,
+    "listing_date": "2010-12-07"
   },
   "TGT": {
-    "market_cap": 70393274368,
-    "updated": "2026-10-09T17:27:45.860547+00:00",
-    "listing_year": 1973
+    "market_cap": 69798150144,
+    "updated": "2026-10-10T16:44:04.143540+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "TEL": {
-    "market_cap": 62556565504,
-    "updated": "2026-10-09T17:27:45.924271+00:00",
-    "listing_year": 2007
+    "market_cap": 63197839360,
+    "updated": "2026-10-10T16:44:04.226011+00:00",
+    "listing_year": 2007,
+    "listing_date": "2007-06-14"
   },
   "TDY": {
-    "market_cap": 28427616256,
-    "updated": "2026-10-09T17:27:46.097353+00:00",
-    "listing_year": 1999
+    "market_cap": 28446619648,
+    "updated": "2026-10-10T16:44:04.409992+00:00",
+    "listing_year": 1999,
+    "listing_date": "1999-11-23"
   },
   "TER": {
-    "market_cap": 63407120384,
-    "updated": "2026-10-09T17:27:46.247940+00:00",
-    "listing_year": 1973
+    "market_cap": 62955294720,
+    "updated": "2026-10-10T16:44:04.346991+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "TPL": {
-    "market_cap": 24792604672,
-    "updated": "2026-10-09T17:27:46.246991+00:00",
-    "listing_year": 1980
+    "market_cap": 24898480128,
+    "updated": "2026-10-10T16:44:04.632010+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "TXT": {
-    "market_cap": 12696074240,
-    "updated": "2026-10-09T17:27:46.381890+00:00",
-    "listing_year": 1973
+    "market_cap": 12754549760,
+    "updated": "2026-10-10T16:44:04.584226+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "TJX": {
-    "market_cap": 152813895680,
-    "updated": "2026-10-09T17:27:46.494232+00:00",
-    "listing_year": 1987
+    "market_cap": 152632393728,
+    "updated": "2026-10-10T16:44:04.874089+00:00",
+    "listing_year": 1987,
+    "listing_date": "1987-06-26"
   },
   "TKO": {
-    "market_cap": 33846155264,
-    "updated": "2026-10-09T17:27:46.573485+00:00",
-    "listing_year": 1999
+    "market_cap": 33691899904,
+    "updated": "2026-10-10T16:44:04.827547+00:00",
+    "listing_year": 1999,
+    "listing_date": "1999-10-19"
   },
   "TSCO": {
-    "market_cap": 17551237120,
-    "updated": "2026-10-09T17:27:46.664872+00:00",
-    "listing_year": 1994
+    "market_cap": 17559052288,
+    "updated": "2026-10-10T16:44:05.016510+00:00",
+    "listing_year": 1994,
+    "listing_date": "1994-02-17"
   },
   "TT": {
-    "market_cap": 106216194048,
-    "updated": "2026-10-09T17:27:46.847021+00:00",
-    "listing_year": 1980
+    "market_cap": 104946663424,
+    "updated": "2026-10-10T16:44:05.085768+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "TDG": {
-    "market_cap": 60887646208,
-    "updated": "2026-10-09T17:27:46.856541+00:00",
-    "listing_year": 2006
+    "market_cap": 61245837312,
+    "updated": "2026-10-10T16:44:05.112308+00:00",
+    "listing_year": 2006,
+    "listing_date": "2006-03-15"
   },
   "TRV": {
-    "market_cap": 76966273024,
-    "updated": "2026-10-09T17:27:46.924616+00:00",
-    "listing_year": 1975
+    "market_cap": 76912041984,
+    "updated": "2026-10-10T16:44:05.168540+00:00",
+    "listing_year": 1975,
+    "listing_date": "1975-11-17"
   },
   "TRMB": {
-    "market_cap": 14010610688,
-    "updated": "2026-10-09T17:27:47.145181+00:00",
-    "listing_year": 1990
+    "market_cap": 14011777024,
+    "updated": "2026-10-10T16:44:05.273042+00:00",
+    "listing_year": 1990,
+    "listing_date": "1990-07-20"
   },
   "TFC": {
-    "market_cap": 56188698624,
-    "updated": "2026-10-09T17:27:47.184806+00:00",
-    "listing_year": 1980
+    "market_cap": 56329187328,
+    "updated": "2026-10-10T16:44:05.296012+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-18"
   },
   "TWLO": {
-    "market_cap": 44902322176,
-    "updated": "2026-10-09T17:27:47.389619+00:00",
-    "listing_year": 2016
+    "market_cap": 44455419904,
+    "updated": "2026-10-10T16:44:05.355826+00:00",
+    "listing_year": 2016,
+    "listing_date": "2016-06-23"
   },
   "TYL": {
-    "market_cap": 13502475264,
-    "updated": "2026-10-09T17:27:47.424501+00:00",
-    "listing_year": 1980
+    "market_cap": 13495820288,
+    "updated": "2026-10-10T16:44:05.431653+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "TSN": {
-    "market_cap": 18573359104,
-    "updated": "2026-10-09T17:27:47.529435+00:00",
-    "listing_year": 1980
+    "market_cap": 18796754944,
+    "updated": "2026-10-10T16:44:05.486322+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "UDR": {
-    "market_cap": 12521609216,
-    "updated": "2026-10-09T17:27:47.609198+00:00",
-    "listing_year": 1980
+    "market_cap": 12534466560,
+    "updated": "2026-10-10T16:44:05.655062+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "ULTA": {
-    "market_cap": 24363634688,
-    "updated": "2026-10-09T17:27:47.719446+00:00",
-    "listing_year": 2007
+    "market_cap": 24387579904,
+    "updated": "2026-10-10T16:44:05.763890+00:00",
+    "listing_year": 2007,
+    "listing_date": "2007-10-25"
   },
   "UAL": {
-    "market_cap": 34267930624,
-    "updated": "2026-10-09T17:27:47.821963+00:00",
-    "listing_year": 2006
+    "market_cap": 34878148608,
+    "updated": "2026-10-10T16:44:05.830130+00:00",
+    "listing_year": 2006,
+    "listing_date": "2006-02-06"
   },
   "URI": {
-    "market_cap": 65746743296,
-    "updated": "2026-10-09T17:27:47.893663+00:00",
-    "listing_year": 1997
+    "market_cap": 65751097344,
+    "updated": "2026-10-10T16:44:06.050810+00:00",
+    "listing_year": 1997,
+    "listing_date": "1997-12-18"
   },
   "UHS": {
-    "market_cap": 10448854016,
-    "updated": "2026-10-09T17:27:48.004604+00:00",
-    "listing_year": 1981
+    "market_cap": 10452391936,
+    "updated": "2026-10-10T16:44:06.141544+00:00",
+    "listing_year": 1981,
+    "listing_date": "1981-07-09"
   },
   "VLO": {
-    "market_cap": 127130050560,
-    "updated": "2026-10-09T17:27:48.070293+00:00",
-    "listing_year": 1982
+    "market_cap": 124888530944,
+    "updated": "2026-10-10T16:44:06.235057+00:00",
+    "listing_year": 1982,
+    "listing_date": "1982-01-04"
   },
   "VEEV": {
-    "market_cap": 47309766656,
-    "updated": "2026-10-09T17:27:48.189622+00:00",
-    "listing_year": 2013
+    "market_cap": 47946067968,
+    "updated": "2026-10-10T16:44:06.270142+00:00",
+    "listing_year": 2013,
+    "listing_date": "2013-10-16"
   },
   "VTR": {
-    "market_cap": 42497605632,
-    "updated": "2026-10-09T17:27:48.216612+00:00",
-    "listing_year": 1997
+    "market_cap": 42082119680,
+    "updated": "2026-10-10T16:44:06.339551+00:00",
+    "listing_year": 1997,
+    "listing_date": "1997-05-05"
   },
   "VLTO": {
-    "market_cap": 23691837440,
-    "updated": "2026-10-09T17:27:48.870220+00:00",
-    "listing_year": 2023
+    "market_cap": 23630888960,
+    "updated": "2026-10-10T16:44:06.418790+00:00",
+    "listing_year": 2023,
+    "listing_date": "2023-10-04"
   },
   "VRSN": {
-    "market_cap": 27585558528,
-    "updated": "2026-10-09T17:27:48.497427+00:00",
-    "listing_year": 1998
+    "market_cap": 27458095104,
+    "updated": "2026-10-10T16:44:06.434607+00:00",
+    "listing_year": 1998,
+    "listing_date": "1998-01-30"
   },
   "VRSK": {
-    "market_cap": 23039567872,
-    "updated": "2026-10-09T17:27:48.497899+00:00",
-    "listing_year": 2009
+    "market_cap": 23119613952,
+    "updated": "2026-10-10T16:44:06.611476+00:00",
+    "listing_year": 2009,
+    "listing_date": "2009-10-07"
   },
   "VRTX": {
-    "market_cap": 129281548288,
-    "updated": "2026-10-09T17:27:48.735957+00:00",
-    "listing_year": 1991
+    "market_cap": 129285349376,
+    "updated": "2026-10-10T16:44:06.648472+00:00",
+    "listing_year": 1991,
+    "listing_date": "1991-07-24"
   },
   "VRT": {
-    "market_cap": 94116126720,
-    "updated": "2026-10-09T17:27:48.778962+00:00",
-    "listing_year": 2018
+    "market_cap": 93467426816,
+    "updated": "2026-10-10T16:44:06.772464+00:00",
+    "listing_year": 2018,
+    "listing_date": "2018-08-02"
   },
   "VTRS": {
     "market_cap": 20261142528,
-    "updated": "2026-10-09T17:27:49.005431+00:00",
-    "listing_year": 1980
+    "updated": "2026-10-10T16:44:06.826906+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "VICI": {
-    "market_cap": 25159620608,
-    "updated": "2026-10-09T17:27:49.070833+00:00",
-    "listing_year": 2018
+    "market_cap": 25192652800,
+    "updated": "2026-10-10T16:44:06.895427+00:00",
+    "listing_year": 2018,
+    "listing_date": "2018-01-02"
   },
   "VST": {
-    "market_cap": 53668065280,
-    "updated": "2026-10-09T17:27:49.063185+00:00",
-    "listing_year": 2016
+    "market_cap": 54198370304,
+    "updated": "2026-10-10T16:44:07.011159+00:00",
+    "listing_year": 2016,
+    "listing_date": "2016-10-05"
   },
   "VMRK": {
-    "market_cap": 47157968896,
-    "updated": "2026-10-09T17:27:49.395441+00:00",
-    "listing_year": 1993
+    "market_cap": 47324332032,
+    "updated": "2026-10-10T16:44:07.100534+00:00",
+    "listing_year": 1993,
+    "listing_date": "1993-08-12"
   },
   "VMC": {
-    "market_cap": 31796031488,
-    "updated": "2026-10-09T17:27:49.394367+00:00",
-    "listing_year": 1973
+    "market_cap": 31692367872,
+    "updated": "2026-10-10T16:44:07.205370+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "VYLR": {
-    "market_cap": 51704487936,
-    "updated": "2026-10-09T17:27:49.396142+00:00",
-    "listing_year": 2026
+    "market_cap": 52049588224,
+    "updated": "2026-10-10T16:44:07.253105+00:00",
+    "listing_year": 2026,
+    "listing_date": "2026-10-01"
   },
   "WRB": {
-    "market_cap": 26798915584,
-    "updated": "2026-10-09T17:27:49.752257+00:00",
-    "listing_year": 1973
+    "market_cap": 26694971392,
+    "updated": "2026-10-10T16:44:07.292461+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-10-23"
   },
   "GWW": {
-    "market_cap": 60525654016,
-    "updated": "2026-10-09T17:27:49.653850+00:00",
-    "listing_year": 1973
+    "market_cap": 60750327808,
+    "updated": "2026-10-10T16:44:07.395155+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "WAB": {
-    "market_cap": 47990947840,
-    "updated": "2026-10-09T17:27:49.664364+00:00",
-    "listing_year": 1995
+    "market_cap": 48212221952,
+    "updated": "2026-10-10T16:44:07.452954+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-06-16"
   },
   "WM": {
-    "market_cap": 83128770560,
-    "updated": "2026-10-09T17:27:49.919498+00:00",
-    "listing_year": 1988
+    "market_cap": 83472523264,
+    "updated": "2026-10-10T16:44:07.650853+00:00",
+    "listing_year": 1988,
+    "listing_date": "1988-06-22"
   },
   "WAT": {
-    "market_cap": 42886602752,
-    "updated": "2026-10-09T17:27:49.919805+00:00",
-    "listing_year": 1995
+    "market_cap": 42590076928,
+    "updated": "2026-10-10T16:44:07.608664+00:00",
+    "listing_year": 1995,
+    "listing_date": "1995-11-17"
   },
   "WEC": {
-    "market_cap": 33810100224,
-    "updated": "2026-10-09T17:27:50.082072+00:00",
-    "listing_year": 1980
+    "market_cap": 33803614208,
+    "updated": "2026-10-10T16:44:07.861345+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "WELL": {
-    "market_cap": 163771613184,
-    "updated": "2026-10-09T17:27:50.195155+00:00",
-    "listing_year": 1980
+    "market_cap": 162467381248,
+    "updated": "2026-10-10T16:44:07.808356+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-19"
   },
   "WST": {
-    "market_cap": 26002436096,
-    "updated": "2026-10-09T17:27:50.143820+00:00",
-    "listing_year": 1980
+    "market_cap": 25757528064,
+    "updated": "2026-10-10T16:44:08.051975+00:00",
+    "listing_year": 1980,
+    "listing_date": "1980-03-17"
   },
   "WDC": {
-    "market_cap": 147795918848,
-    "updated": "2026-10-09T17:27:50.443833+00:00",
-    "listing_year": 1978
+    "market_cap": 148711145472,
+    "updated": "2026-10-10T16:44:07.970939+00:00",
+    "listing_year": 1978,
+    "listing_date": "1978-10-31"
   },
   "WY": {
-    "market_cap": 13618307072,
-    "updated": "2026-10-09T17:27:50.443102+00:00",
-    "listing_year": 1973
+    "market_cap": 13766057984,
+    "updated": "2026-10-10T16:44:08.120207+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-05-03"
   },
   "WSM": {
-    "market_cap": 28448380928,
-    "updated": "2026-10-09T17:27:50.444274+00:00",
-    "listing_year": 1983
+    "market_cap": 28476649472,
+    "updated": "2026-10-10T16:44:08.202614+00:00",
+    "listing_year": 1983,
+    "listing_date": "1983-07-07"
   },
   "WMB": {
-    "market_cap": 89107750912,
-    "updated": "2026-10-09T17:27:50.651089+00:00",
-    "listing_year": 1981
+    "market_cap": 88887582720,
+    "updated": "2026-10-10T16:44:08.326553+00:00",
+    "listing_year": 1981,
+    "listing_date": "1981-12-31"
   },
   "WTW": {
-    "market_cap": 27556960256,
-    "updated": "2026-10-09T17:27:50.683027+00:00",
-    "listing_year": 2001
+    "market_cap": 27514241024,
+    "updated": "2026-10-10T16:44:08.310388+00:00",
+    "listing_year": 2001,
+    "listing_date": "2001-06-12"
   },
   "WDAY": {
-    "market_cap": 45021208576,
-    "updated": "2026-10-09T17:27:50.682389+00:00",
-    "listing_year": 2012
+    "market_cap": 44968189952,
+    "updated": "2026-10-10T16:44:08.359386+00:00",
+    "listing_year": 2012,
+    "listing_date": "2012-10-12"
   },
   "WYNN": {
-    "market_cap": 7707595264,
-    "updated": "2026-10-09T17:27:50.977673+00:00",
-    "listing_year": 2002
+    "market_cap": 7738487808,
+    "updated": "2026-10-10T16:44:08.527451+00:00",
+    "listing_year": 2002,
+    "listing_date": "2002-10-25"
   },
   "XEL": {
-    "market_cap": 45882515456,
-    "updated": "2026-10-09T17:27:50.976753+00:00",
-    "listing_year": 1973
+    "market_cap": 46082396160,
+    "updated": "2026-10-10T16:44:08.492797+00:00",
+    "listing_year": 1973,
+    "listing_date": "1973-02-21"
   },
   "XYL": {
-    "market_cap": 23834335232,
-    "updated": "2026-10-09T17:27:50.978073+00:00",
-    "listing_year": 2011
+    "market_cap": 23981430784,
+    "updated": "2026-10-10T16:44:08.536705+00:00",
+    "listing_year": 2011,
+    "listing_date": "2011-10-13"
   },
   "YUM": {
-    "market_cap": 39591124992,
-    "updated": "2026-10-09T17:27:51.307884+00:00",
-    "listing_year": 1997
+    "market_cap": 39521538048,
+    "updated": "2026-10-10T16:44:08.678743+00:00",
+    "listing_year": 1997,
+    "listing_date": "1997-09-17"
   },
   "ZBRA": {
-    "market_cap": 18254344192,
-    "updated": "2026-10-09T17:27:51.262017+00:00",
-    "listing_year": 1991
+    "market_cap": 18317740032,
+    "updated": "2026-10-10T16:44:08.691929+00:00",
+    "listing_year": 1991,
+    "listing_date": "1991-08-15"
   },
   "ZBH": {
-    "market_cap": 16924155904,
-    "updated": "2026-10-09T17:27:51.215399+00:00",
-    "listing_year": 2001
+    "market_cap": 17002357760,
+    "updated": "2026-10-10T16:44:08.745778+00:00",
+    "listing_year": 2001,
+    "listing_date": "2001-07-25"
   },
   "ZTS": {
-    "market_cap": 30669457408,
-    "updated": "2026-10-09T17:27:51.603982+00:00",
-    "listing_year": 2013
+    "market_cap": 30913257472,
+    "updated": "2026-10-10T16:44:08.846514+00:00",
+    "listing_year": 2013,
+    "listing_date": "2013-02-01"
   }
 }
