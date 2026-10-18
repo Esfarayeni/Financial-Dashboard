@@ -77,6 +77,18 @@ def synchronize(mode: str) -> list[dict]:
                     else (lambda: fred.fetch_target_latest_completed(FRED_API_KEY))
                 )
                 results.append(_run_provider("fred_target", mode, target_fetcher))
+                for series_id, (symbol, _, source) in fred.MACRO_SERIES.items():
+                    stored = db.load_prices(symbol) if mode == "daily" else None
+                    # Re-read two years to capture routine revisions and any
+                    # missed releases; an empty database gets the full history.
+                    start = (
+                        (stored["market_date"].iloc[-1] - pd.DateOffset(years=2)).date().isoformat()
+                        if stored is not None and not stored.empty else None
+                    )
+                    results.append(_run_provider(
+                        source, mode,
+                        lambda series_id=series_id, start=start: fred.fetch_macro_history(FRED_API_KEY, series_id, start),
+                    ))
                 oil_stored = db.load_prices(fred.OIL_SYMBOL) if mode == "daily" else None
                 oil_start = (
                     (oil_stored["market_date"].iloc[-1].date() - timedelta(days=7)).isoformat()
@@ -107,6 +119,9 @@ def synchronize(mode: str) -> list[dict]:
                     ))
             else:
                 reason = "FRED_API_KEY is not configured"
+                for _, _, source in fred.MACRO_SERIES.values():
+                    db.record_skipped(source, mode, reason)
+                    results.append({"source": source, "status": "skipped", "rows": 0, "error": reason})
                 db.record_skipped(fred.SOURCE, mode, reason)
                 results.append({"source": fred.SOURCE, "status": "skipped", "rows": 0, "error": reason})
                 db.record_skipped("fred_cpi", mode, reason)

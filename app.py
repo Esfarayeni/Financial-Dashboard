@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+from html import escape
 
 import pandas as pd
 import plotly.graph_objects as go
@@ -268,13 +269,16 @@ INSTRUMENTS = {
     "10-Year Treasury Yield": {"symbol": "US_TREASURY_10Y", "accent": "#7b61ff", "decimals": 2},
     "30-Year Treasury Yield": {"symbol": "US_TREASURY_30Y", "accent": "#089981", "decimals": 2},
     "U.S. Inflation": {"symbol": "US_INFLATION", "accent": "#e76f51", "decimals": 2},
+    "U.S. Unemployment Rate": {"symbol": "US_UNEMPLOYMENT", "accent": "#246df0", "decimals": 1},
+    "U.S. House Price Index": {"symbol": "US_HOUSE_PRICES", "accent": "#089981", "decimals": 2},
     "Iran Inflation": {"symbol": "IRAN_INFLATION", "accent": "#c05a8b", "decimals": 2},
     "TEDPIX": {"symbol": "TEDPIX", "accent": "#089981", "decimals": 0},
 }
 IRAN_INSTRUMENTS = ("USD / Toman", "Iran Inflation", "TEDPIX")
 US_INSTRUMENTS = (
     "U.S. Inflation", "Fed Funds Target", "2-Year Treasury Yield", "10-Year Treasury Yield",
-    "30-Year Treasury Yield", "S&P 500", "Broad U.S. Dollar Index"
+    "30-Year Treasury Yield", "S&P 500", "Broad U.S. Dollar Index",
+    "U.S. Unemployment Rate", "U.S. House Price Index",
 )
 CRYPTO_INSTRUMENTS = ("Bitcoin", "Ethereum", "BNB")
 COMMODITY_INSTRUMENTS = ("Gold", "Silver", "Oil (Brent)", "Oil — Brent Futures", "Copper")
@@ -301,6 +305,11 @@ def stock_leaderboard() -> pd.DataFrame:
 @st.cache_data(ttl=900)
 def stock_daily_movers(period: str = "Daily") -> pd.DataFrame:
     return stocks.daily_movers(period=period)
+
+
+@st.cache_data(ttl=900)
+def read_company_profile(ticker: str) -> dict:
+    return stocks.company_profile(ticker)
 
 
 def render_stock_table(frame, columns, label):
@@ -370,13 +379,13 @@ def format_price(value: float, symbol: str, decimals: int) -> str:
         return f"{sign}${amount:,.{decimals}f} / bbl"
     if symbol == "COPPER/USD":
         return f"{sign}${amount:,.{decimals}f} / tonne"
-    if symbol == "US_DOLLAR_BROAD":
+    if symbol in {"US_DOLLAR_BROAD", "US_HOUSE_PRICES"}:
         return f"{sign}{amount:,.{decimals}f} pts"
     if symbol == "TEDPIX":
         return f"{sign}{amount:,.0f} pts"
     if symbol == "SP500":
         return f"{sign}{amount:,.{decimals}f} pts"
-    if symbol in {"US_INFLATION", "IRAN_INFLATION", "FED_FUNDS_TARGET"} or symbol.startswith("US_TREASURY_"):
+    if symbol in {"US_INFLATION", "IRAN_INFLATION", "FED_FUNDS_TARGET", "US_UNEMPLOYMENT"} or symbol.startswith("US_TREASURY_"):
         return f"{sign}{amount:,.{decimals}f}%"
     return f"{sign}${amount:,.{decimals}f}"
 
@@ -682,6 +691,7 @@ frame = read_prices(symbol)
 is_inflation = symbol in {"US_INFLATION", "IRAN_INFLATION"}
 is_treasury_yield = symbol.startswith("US_TREASURY_")
 is_fed_target = symbol == "FED_FUNDS_TARGET"
+is_macro_index = symbol in {"US_UNEMPLOYMENT", "US_HOUSE_PRICES"}
 is_cumulative_interest = (
     (is_treasury_yield and st.session_state["treasury_cumulative"])
     or (is_fed_target and st.session_state["fed_target_cumulative"])
@@ -690,7 +700,9 @@ is_policy_rate = (is_fed_target or is_treasury_yield) and not is_cumulative_inte
 
 if frame.empty:
     st.markdown("---")
-    if symbol == "BRENT/USD":
+    if is_macro_index:
+        st.info(f"No {selected_name} history is stored yet. Configure your FRED key and run the initial backfill.")
+    elif symbol == "BRENT/USD":
         st.info("No Brent oil history is stored yet. Configure your FRED key and run the initial backfill.")
     elif symbol == "TEDPIX":
         st.info(
@@ -809,6 +821,11 @@ elif is_cumulative_interest:
 elif is_treasury_yield:
     price_value = format_price(float(latest["close"]), symbol, instrument["decimals"])
     price_detail = f"{change:+.2f} percentage points · {latest['market_date']:%b %d, %Y}"
+elif is_macro_index:
+    price_value = format_price(float(latest["close"]), symbol, instrument["decimals"])
+    period_label = f"{latest['market_date']:%b %Y}" if symbol == "US_UNEMPLOYMENT" else f"Q{latest['market_date'].quarter} {latest['market_date'].year}"
+    change_label = f"{change:+.1f} percentage points" if symbol == "US_UNEMPLOYMENT" else f"{change_pct:+.2f}%"
+    price_detail = f"{change_label} from the prior {'month' if symbol == 'US_UNEMPLOYMENT' else 'quarter'} · {period_label}"
 elif symbol.startswith("STOCK:"):
     quote_frame = read_prices(symbol, adjusted=False)
     quote_latest = quote_frame.iloc[-1]
@@ -830,7 +847,7 @@ with quote_column:
         snapshot_identity = chart_identity_html(selected_name, ticker, stocks.logo_uri(ticker))
     st.markdown(
         f'<section class="market-snapshot"><div class="snapshot-head">{snapshot_identity}'
-        f'<span>{"Monthly average" if symbol == "COPPER/USD" else "Estimated growth" if is_cumulative_interest else "Daily yield" if is_treasury_yield else "Daily close"}</span></div>'
+        f'<span>{"Monthly rate" if symbol == "US_UNEMPLOYMENT" else "Quarterly index" if symbol == "US_HOUSE_PRICES" else "Monthly average" if symbol == "COPPER/USD" else "Estimated growth" if is_cumulative_interest else "Daily yield" if is_treasury_yield else "Daily close"}</span></div>'
         f'<div class="snapshot-price">{price_value}</div><div class="snapshot-detail">{price_detail}</div></section>',
         unsafe_allow_html=True,
     )
@@ -840,7 +857,12 @@ weekly_absolute, weekly_pct = period_change(frame, 7)
 monthly_absolute, monthly_pct = period_change(frame, 30)
 yearly_absolute, yearly_pct = period_change(frame, 365)
 
-if is_inflation:
+if is_macro_index:
+    metric_entries = [("Monthly change" if symbol == "US_UNEMPLOYMENT" else "Quarterly change", *period_change(frame, None))]
+    for years in (1, 5, 10):
+        result = calendar_year_change(frame, years)
+        metric_entries.append(("Yearly change" if years == 1 else f"{years}-year change", *(result or (None, None))))
+elif is_inflation:
     # Use the stored CPI history so the channel's rebasing start cannot change
     # the latest inflation rates. Consecutive monthly observations avoid
     # skipping a month when the preceding month has fewer than 31 days.
@@ -893,9 +915,10 @@ with metrics_column:
                 column.metric(
                     label,
                     f"{absolute * 100:+.0f} bp" if is_treasury_yield and not is_cumulative_interest
-                    else f"{percentage:+.2f}%",
-                    delta=None if is_treasury_yield or is_cumulative_interest else delta,
-                    help="Total percentage change over the period, not an annualized return."
+                    else f"{absolute:+.1f} pp" if symbol == "US_UNEMPLOYMENT" else f"{percentage:+.2f}%",
+                    delta=None if is_treasury_yield or is_cumulative_interest or symbol == "US_UNEMPLOYMENT" else delta,
+                    help="Change in percentage points, not percentage growth in unemployment."
+                    if symbol == "US_UNEMPLOYMENT" else "Total percentage change over the period, not an annualized return."
                     if label in {"5-year change", "10-year change"}
                     else "Illustrative compounded growth, not an investment return." if is_cumulative_interest
                     else "Yield change in basis points (100 bp = 1 percentage point)." if is_treasury_yield else None,
@@ -1028,7 +1051,8 @@ chart = build_chart(
     comparison_name if comparison_frame is not None else None,
     step_line=is_fed_target and not is_cumulative_interest,
     value_suffix=("×" if is_cumulative_interest or comparison_frame is not None else "%")
-    if is_treasury_yield or is_fed_target else "",
+    if is_treasury_yield or is_fed_target or symbol == "US_UNEMPLOYMENT"
+    else (" pts" if comparison_frame is None else "×") if symbol == "US_HOUSE_PRICES" else "",
     break_long_gaps=is_treasury_yield,
 )
 
@@ -1072,6 +1096,10 @@ freshness_state, freshness = freshness_status(latest["market_date"], latest["sou
 source_label = latest["source"].replace("_", " ").title()
 if symbol.startswith("STOCK:"):
     source_label = "Yahoo Finance · Split/dividend-adjusted daily close · Current S&P 500 constituent snapshot; not historical membership"
+elif symbol == "US_UNEMPLOYMENT":
+    source_label = "BLS via FRED · UNRATE · Monthly U-3 unemployment rate · Seasonally adjusted"
+elif symbol == "US_HOUSE_PRICES":
+    source_label = "FHFA via FRED · USSTHPI · Quarterly all-transactions house price index · 1980 Q1 = 100 · Not seasonally adjusted · Sales and appraisal data; not median house prices"
 elif symbol == "SP500":
     if "spx_csv" in set(frame["source"]):
         source_label += " · Daily history: local SPX CSV (1960–2016)"
@@ -1115,3 +1143,19 @@ st.markdown(
     f'<div class="source-line">Source: {source_label} &nbsp;·&nbsp; {freshness} &nbsp;·&nbsp; Informational data, not financial advice.</div>',
     unsafe_allow_html=True,
 )
+
+if symbol.startswith("STOCK:"):
+    profile = read_company_profile(symbol.removeprefix("STOCK:"))
+    with st.container(key="company_profile"):
+        st.subheader("About the company")
+        if profile["description"]:
+            st.markdown(f'<p style="max-width:80ch;line-height:1.65">{escape(profile["description"])}</p>', unsafe_allow_html=True)
+            with st.expander("Read full company and product profile"):
+                st.markdown(f'<p style="max-width:80ch;line-height:1.65">{escape(profile["full_description"])}</p>', unsafe_allow_html=True)
+            profile_date = pd.Timestamp(profile["updated"]) if profile["updated"] else None
+            if profile_date is not None and profile_date.tzinfo is not None:
+                profile_date = profile_date.tz_convert("America/New_York")
+            updated = f" · Updated {profile_date:%b %d, %Y}" if profile_date is not None else ""
+            st.caption(f"Company profile: {profile['source']}{updated}")
+        else:
+            st.caption("A company and product description is not available in the stored profile yet.")

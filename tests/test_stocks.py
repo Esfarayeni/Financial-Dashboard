@@ -119,6 +119,44 @@ def test_metadata_reads_yahoo_millisecond_first_trade_date(monkeypatch, tmp_path
     assert metadata[stocks.STOCKS[0]["ticker"]]["listing_year"] == 1980
 
 
+def test_metadata_saves_profile_and_preserves_it_when_response_omits_summary(monkeypatch, tmp_path):
+    monkeypatch.setattr(stocks, "STOCKS", [stocks.STOCKS[0]])
+    ticker = stocks.STOCKS[0]["ticker"]
+
+    class Metadata:
+        def get_info(self):
+            return {"marketCap": 1e9, "longBusinessSummary": "Makes devices.\n Offers products and services."}
+
+    monkeypatch.setattr(stocks.yf, "Ticker", lambda _: Metadata())
+    assert stocks.update_metadata(tmp_path)[0]["status"] == "success"
+    profile = stocks.company_profile(ticker, tmp_path)
+    assert profile["description"] == "Makes devices. Offers products and services."
+    assert profile["updated"]
+    monkeypatch.setattr(Metadata, "get_info", lambda self: {"marketCap": 2e9})
+    stocks.update_metadata(tmp_path)
+    assert stocks.company_profile(ticker, tmp_path) == profile
+
+
+def test_profile_is_local_and_keeps_full_product_details_without_truncation(tmp_path):
+    summary = "Company makes products. " * 100
+    (tmp_path / "metadata.json").write_text(json.dumps({"AAPL": {"business_summary": summary}}))
+    profile = stocks.company_profile("AAPL", tmp_path)
+    assert len(profile["description"]) < 700
+    assert profile["full_description"] == summary.strip()
+    assert stocks.company_profile("MSFT", tmp_path)["description"] == ""
+    assert stocks.company_profile("AAPL", tmp_path / "missing")["description"] == ""
+
+
+def test_summary_selects_business_and_products_not_history_or_a_cutoff_excerpt():
+    text = ("Example Inc. makes industrial equipment. It was founded in 1900. "
+            "It is headquartered in Boston. Its products include pumps; valves; motors; sensors. "
+            "It serves factories around the world.")
+    summary = stocks.summarize_company_profile(text)
+    assert summary == "Example Inc. makes industrial equipment. Its products include pumps; valves; motors."
+    assert not text.startswith(summary)
+    assert stocks.summarize_company_profile("") == ""
+
+
 def test_market_cap_view_counts_companies_once_and_excludes_missing_caps():
     ranking = pd.DataFrame({"Company ID": ["1", "1", "2", "3", "4"],
                             "Market cap (USD)": [100, 100, 50, None, 0]})

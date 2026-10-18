@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import base64
 import json
+import re
 import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
@@ -126,7 +127,13 @@ def update_metadata(directory: Path = STOCK_DIR, missing_only: bool = False) -> 
                 first_trade = info["firstTradeDateMilliseconds"] / 1000
             if cap is None:
                 raise ValueError("Missing market capitalization")
-            entry = {"market_cap": cap, "updated": datetime.now(ZoneInfo("UTC")).isoformat()}
+            entry = {**metadata.get(ticker, {}), "market_cap": cap,
+                     "updated": datetime.now(ZoneInfo("UTC")).isoformat()}
+            summary = info.get("longBusinessSummary")
+            if isinstance(summary, str) and summary.strip():
+                entry["business_summary"] = " ".join(summary.split())
+                entry["profile_updated"] = entry["updated"]
+                entry["profile_source"] = "Yahoo Finance"
             if first_trade:
                 listing_date = datetime.fromtimestamp(first_trade, ZoneInfo("UTC")).date()
                 entry["listing_year"] = listing_date.year
@@ -178,6 +185,51 @@ def update_logos(directory: Path = STOCK_DIR) -> list[dict]:
 def logo_uri(ticker: str, directory: Path = STOCK_DIR) -> str | None:
     path = directory / "logos" / f"{ticker}.png"
     return "data:image/png;base64," + base64.b64encode(path.read_bytes()).decode() if path.exists() else None
+
+
+def summarize_company_profile(text: str) -> str:
+    """Extract a business overview and a compact product sentence, without inventing facts."""
+    sentences = re.split(r"(?<=[.!?])\s+(?=[A-Z])", " ".join(text.split()))
+    if not sentences or not sentences[0]:
+        return ""
+
+    def compact(sentence):
+        # Long product catalogues use semicolons. Keep complete initial items,
+        # not an arbitrary character/word cutoff in the middle of an item.
+        parts = sentence.split(";")
+        kept = [parts[0]]
+        for part in parts[1:3]:
+            if len((";".join(kept) + part).split()) > 65:
+                break
+            kept.append(part)
+        result = ";".join(kept).strip()
+        return result if result.endswith((".", "!", "?")) else result + "."
+
+    overview = compact(sentences[0])
+    candidates = []
+    for index, sentence in enumerate(sentences[1:]):
+        if re.search(r"\b(founded|headquartered|formerly|incorporated)\b", sentence, re.I):
+            continue
+        score = 3 * bool(re.search(r"\b(offers|provides|manufactures|develops|sells|brands|products)\b", sentence, re.I))
+        score += bool(re.search(r"\b(products|services|platforms|solutions|brands)\b", sentence, re.I))
+        candidate = compact(sentence)
+        if score and len(candidate.split()) <= 75 and candidate != overview:
+            candidates.append((score, -index, candidate))
+    return overview + (" " + max(candidates)[2] if candidates else "")
+
+
+def company_profile(ticker: str, directory: Path = STOCK_DIR) -> dict:
+    """Read the full company/product profile locally, never from a live API."""
+    path = directory / "metadata.json"
+    metadata = json.loads(path.read_text()) if path.exists() else {}
+    entry = metadata.get(ticker, {})
+    summary = entry.get("business_summary")
+    if not isinstance(summary, str) or not summary.strip():
+        return {"description": "", "full_description": "", "updated": None, "source": None}
+    summary = " ".join(summary.split())
+    return {"description": summarize_company_profile(summary), "full_description": summary,
+            "updated": entry.get("profile_updated"),
+            "source": entry.get("profile_source", "Yahoo Finance")}
 
 
 def leaderboard(directory: Path = STOCK_DIR) -> pd.DataFrame:

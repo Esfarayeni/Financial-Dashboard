@@ -69,6 +69,22 @@ for long-horizon comparison rather than trading execution.
 - Copper uses World Bank monthly averages in USD per metric ton from 1960.
   Daily sync checks for a missing completed month before downloading the workbook.
 - Broad U.S. Dollar Index uses FRED `DTWEXBGS` (January 2006 = 100), not ICE DXY.
+- Stock charts show a brief extractive summary of the company's business and
+  products, with the unchanged full profile in an expander. Summaries select
+  business/product sentences and compact long semicolon lists, without live AI
+  calls or mid-word truncation. Profiles are saved in
+  `data/stocks/metadata.json` during metadata sync; chart rendering makes no
+  network calls. Missing profiles are labelled, and failed/empty updates preserve
+  previously stored descriptions.
+  Fiserv's missing Yahoo description is supplemented from its official company
+  and merchant-services pages, attributed separately in the chart view.
+- U.S. Unemployment Rate uses BLS `UNRATE` via FRED: monthly, seasonally adjusted,
+  U-3 unemployment in percent. Change cards show percentage-point differences.
+- U.S. House Price Index uses FHFA `USSTHPI` via FRED: quarterly all-transactions
+  index from 1975, not seasonally adjusted, 1980 Q1 = 100. It includes sales and
+  appraisal data, not median house prices. Change cards show quarterly, yearly,
+  5-year and 10-year changes. Both new series load full history initially;
+  daily sync requests the last two years to capture missed releases and revisions.
   Daily updates fetch recent dates with a seven-day overlap.
 - Fed Funds Target joins FRED `DFEDTAR` from September 1982 through December 15,
   2008 with `DFEDTARU` (range upper limit) from December 16, 2008 onward.

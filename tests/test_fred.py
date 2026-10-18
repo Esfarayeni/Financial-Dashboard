@@ -4,6 +4,28 @@ from financial_dashboard.providers import fred
 from financial_dashboard.providers.fred import CPI_SYMBOL, TARGET_SYMBOL, _extract_rows
 
 
+@pytest.mark.parametrize("series,symbol,unit,source", [
+    ("UNRATE", "US_UNEMPLOYMENT", "percent", "fred_unemployment"),
+    ("USSTHPI", "US_HOUSE_PRICES", "index_1980_q1_100", "fred_house_prices"),
+])
+def test_macro_history_uses_correct_series_and_revision_window(monkeypatch, series, symbol, unit, source):
+    calls = []
+    def download(key, series_id, start):
+        calls.append((series_id, start))
+        return {"observations": [{"date": "2020-01-01", "value": "."},
+                                 {"date": "2020-04-01", "value": "4.2"}]}
+    monkeypatch.setattr(fred, "_download", download)
+    rows = fred.fetch_macro_history("test-key", series, "2019-01-01")
+    assert calls == [(series, "2019-01-01")]
+    assert len(rows) == 1
+    assert (rows[0].symbol, rows[0].unit, rows[0].source) == (symbol, unit, source)
+
+
+def test_macro_rejects_unknown_series():
+    with pytest.raises(ValueError, match="Unsupported"):
+        fred.fetch_macro_history("test-key", "INVALID")
+
+
 def test_broad_dollar_index_provider(monkeypatch):
     calls = []
     def download(key, series, start):

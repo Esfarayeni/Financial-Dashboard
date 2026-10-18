@@ -23,6 +23,10 @@ OIL_SERIES = "DCOILBRENTEU"
 DOLLAR_SYMBOL = "US_DOLLAR_BROAD"
 DOLLAR_SERIES = "DTWEXBGS"
 TREASURY_SERIES = {"DGS2": "US_TREASURY_2Y", "DGS10": "US_TREASURY_10Y", "DGS30": "US_TREASURY_30Y"}
+MACRO_SERIES = {
+    "UNRATE": ("US_UNEMPLOYMENT", "percent", "fred_unemployment"),
+    "USSTHPI": ("US_HOUSE_PRICES", "index_1980_q1_100", "fred_house_prices"),
+}
 
 
 class FredError(RuntimeError):
@@ -35,6 +39,7 @@ def _extract_rows(
     *,
     symbol: str = SYMBOL,
     unit: str = "index_points",
+    source: str = SOURCE,
 ) -> list[Price]:
     if payload.get("error_message"):
         raise FredError(str(payload["error_message"]))
@@ -61,7 +66,7 @@ def _extract_rows(
                 close=close,
                 currency="USD",
                 unit=unit,
-                source=SOURCE,
+                source=source,
                 fetched_at=fetched_at,
             )
         )
@@ -143,6 +148,15 @@ def fetch_dollar_history(api_key: str, observation_start: str | None = None) -> 
         _download(api_key, DOLLAR_SERIES, observation_start),
         symbol=DOLLAR_SYMBOL, unit="index_jan_2006_100",
     )
+
+
+def fetch_macro_history(api_key: str, series_id: str, observation_start: str | None = None) -> list[Price]:
+    """Monthly unemployment or quarterly FHFA national house prices."""
+    if series_id not in MACRO_SERIES:
+        raise ValueError("Unsupported macro series")
+    symbol, unit, source = MACRO_SERIES[series_id]
+    return _extract_rows(_download(api_key, series_id, observation_start),
+                         symbol=symbol, unit=unit, source=source)
 
 
 def _download(
