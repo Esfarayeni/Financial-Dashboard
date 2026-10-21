@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 from html import escape
+import math
 
 import pandas as pd
 import plotly.graph_objects as go
@@ -11,16 +12,19 @@ from financial_dashboard import db
 from financial_dashboard.analytics import (
     annualized_logarithmic_regression_change,
     calendar_year_change,
+    chart_price_bounds,
     cumulative_interest_growth,
     downsample_for_chart,
+    historical_corridor_crossings,
     logarithmic_regression_channel,
     period_change,
     rebased_price_level,
+    regression_observation_weights,
 )
 from financial_dashboard.status import freshness_status
-from financial_dashboard import stocks
+from financial_dashboard import stocks, volume
 from financial_dashboard.stock_tables import table_html, movers_html, chart_identity_html
-from financial_dashboard.market_cap_map import map_html
+from financial_dashboard.market_cap_map import map_html, industry_bars_html, cap_label
 
 
 st.set_page_config(
@@ -42,6 +46,18 @@ if "treasury_cumulative" not in st.session_state:
     st.session_state["treasury_cumulative"] = True
 if "fed_target_cumulative" not in st.session_state:
     st.session_state["fed_target_cumulative"] = False
+query_half_life = st.query_params.get("half_life")
+HALF_LIVES = (1 / 12, 0.25, 0.5, 1, 2, 3, 5)
+HALF_LIFE_QUERY = {f"{years:g}": years for years in HALF_LIVES}
+st.session_state.setdefault("recent_emphasis", query_half_life in HALF_LIFE_QUERY)
+st.session_state.setdefault("regression_half_life", HALF_LIFE_QUERY.get(query_half_life, 1))
+if "decay" in st.query_params:
+    del st.query_params["decay"]
+for setting in ("regression_half_life", "backtest_half_life"):
+    allowed = (None, *HALF_LIVES) if setting == "backtest_half_life" else HALF_LIVES
+    if setting in st.session_state and st.session_state[setting] not in allowed:
+        st.session_state[setting] = 1
+st.session_state.setdefault("historical_crossings", False)
 
 light_mode = st.session_state["light_mode"]
 theme = {
@@ -298,8 +314,41 @@ def read_prices(symbol: str, adjusted: bool = True) -> pd.DataFrame:
 
 
 @st.cache_data(ttl=900)
-def stock_leaderboard() -> pd.DataFrame:
-    return stocks.leaderboard()
+def stock_leaderboard(half_life_years: float | None = None) -> pd.DataFrame:
+    return stocks.leaderboard(half_life_years=half_life_years)
+
+
+@st.cache_data(ttl=900, show_spinner=False)
+def read_trade_volume(symbol: str) -> pd.DataFrame:
+    stored = volume.load(symbol)
+    if symbol.startswith("STOCK:"):
+        prices = stocks.load_prices(symbol)
+        if "volume" in prices:
+            recent = prices[["market_date", "volume"]].dropna(subset=["volume"])
+            stored = pd.concat([stored, recent], ignore_index=True).drop_duplicates("market_date", keep="last")
+    if symbol == "SP500":
+        # Yahoo's zero entries in early index history mean no reported volume.
+        stored = stored[stored.volume > 0]
+    return stored
+
+
+def recent_emphasis_controls(disabled=False, horizontal=False):
+    toggle_area, half_life_area = (st.columns([3, 1], vertical_alignment="bottom")
+                                    if horizontal else (st.container(), st.container()))
+    with toggle_area:
+        st.toggle("Recent emphasis", value=st.session_state["recent_emphasis"], key="recent_emphasis", disabled=disabled,
+                  help="Exponentially weight the regression, corridor and deviations by calendar age. Drawdown and price changes stay unchanged.")
+    with half_life_area:
+        st.selectbox("Half-life", HALF_LIVES, index=HALF_LIVES.index(st.session_state["regression_half_life"]), key="regression_half_life",
+                     format_func=lambda years: f"{round(years * 12)} month{'s' if round(years * 12) != 1 else ''}" if years < 1 else f"{years:g} year{'s' if years != 1 else ''}",
+                     disabled=disabled or not st.session_state["recent_emphasis"],
+                     help="An observation one half-life old has half the weight of the latest observation. Shared with Charts and Market Watch.")
+    half_life = st.session_state["regression_half_life"] if st.session_state["recent_emphasis"] else None
+    if half_life is not None:
+        st.query_params["half_life"] = f"{half_life:g}"
+    elif "half_life" in st.query_params:
+        del st.query_params["half_life"]
+    return half_life if not disabled else None
 
 
 @st.cache_data(ttl=900)
@@ -307,13 +356,24 @@ def stock_daily_movers(period: str = "Daily") -> pd.DataFrame:
     return stocks.daily_movers(period=period)
 
 
+@st.cache_data(ttl=900, max_entries=12, show_spinner="Checking historical corridor crossings…")
+def read_historical_crossings(frame, start_date, end_date, half_life_years, coverage):
+    return historical_corridor_crossings(frame, start_date, end_date, half_life_years, coverage)
+
+
 @st.cache_data(ttl=900)
 def read_company_profile(ticker: str) -> dict:
     return stocks.company_profile(ticker)
 
 
+@st.cache_data(ttl=900)
+def read_company_market_cap(ticker: str) -> dict:
+    return stocks.company_market_cap(ticker)
+
+
 def render_stock_table(frame, columns, label):
-    st.markdown(table_html(frame, columns, label), unsafe_allow_html=True)
+    half_life = st.session_state["regression_half_life"] if st.session_state["recent_emphasis"] else None
+    st.markdown(table_html(frame, columns, label, half_life_years=half_life), unsafe_allow_html=True)
 
 
 def change_stock_page(page):
@@ -322,12 +382,13 @@ def change_stock_page(page):
 
 def render_stock_leaderboard(ranking):
     sort_column, sort_direction = st.columns([3, 1])
-    sortable = ["Trend/year (%)", "Market cap ($B)"]
+    sortable = ["Trend/year (%)", "Trend position", "Avg. trend deviation", "Avg. deviation from trend (%)", "Corridor width / price (%)", "Drawdown from ATH (%)", "Market cap ($B)"]
     if st.session_state.get("stock_table_sort") not in sortable:
         st.session_state["stock_table_sort"] = sortable[0]
     with sort_column:
         sort = st.selectbox("Sort by", sortable, key="stock_table_sort", format_func=lambda column: {
             "Trend/year (%)": "Annual growth trend",
+            "Drawdown from ATH (%)": "Drawdown from ATH",
         }.get(column, column))
     with sort_direction:
         order = st.selectbox("Order", ("Descending", "Ascending"), key="stock_table_order")
@@ -344,6 +405,11 @@ def render_stock_leaderboard(ranking):
     start = page * page_size
     render_stock_table(ranking.iloc[start:start + page_size], [
         ("Company", "Symbol", "symbol"), ("Trend/year (%)", "Annual growth trend", "percent"),
+        ("Trend position", "Trend position", "position"),
+        ("Avg. trend deviation", "Avg. trend deviation", "deviation"),
+        ("Avg. deviation from trend (%)", "Avg. deviation from trend (%)", "absolute_percent"),
+        ("Corridor width / price (%)", "Corridor width / price (%)", "absolute_percent"),
+        ("Drawdown from ATH (%)", "Drawdown from ATH", "percent"),
         ("Sector avg/year (%)", "Sector avg. growth trend", "percent"), ("Market cap ($B)", "Mkt cap", "money"),
         ("Listing year", "Listing year", "integer"), ("Sector", "Sector", "text"),
     ], "Stock trend leaderboard")
@@ -403,6 +469,12 @@ def build_chart(
     step_line: bool = False,
     value_suffix: str = "",
     break_long_gaps: bool = False,
+    fit_prices_only: bool = False,
+    crossing_signals: pd.DataFrame | None = None,
+    observation_weights: pd.DataFrame | None = None,
+    weights_training_end: pd.Timestamp | None = None,
+    trade_volume: pd.DataFrame | None = None,
+    volume_label: str = "Volume · shares",
 ) -> go.Figure:
     first_date = pd.Timestamp(frame["market_date"].iloc[0])
     last_date = pd.Timestamp(frame["market_date"].iloc[-1])
@@ -474,15 +546,27 @@ def build_chart(
                     hoverinfo="skip",
                 )
             )
+    if crossing_signals is not None:
+        # Only the two signal types need a legend in historical-crossings mode.
+        fig.update_traces(showlegend=False)
+        for direction, name, color in ((1, "Upper: upward cross", "#d83a46"), (-1, "Lower: downward cross", "#07986b")):
+            points = crossing_signals[crossing_signals["signal"] == direction]
+            fig.add_trace(go.Scatter(
+                x=points["market_date"], y=points["close"], mode="markers", name=name, showlegend=True,
+                marker={"color": color, "size": 10, "line": {"color": colors["chart_background"], "width": 1.5}},
+                customdata=points["training_end"].dt.strftime("%b %d, %Y").to_numpy().reshape(-1, 1),
+                hovertemplate=f"%{{x|%b %-d, %Y}}<br><b>%{{y:,.{decimals}f}}{value_suffix}</b><br>{name}<br>Trained through %{{customdata[0]}}<extra></extra>",
+            ))
     fig.update_layout(
         height=510,
         margin={"l": 16, "r": 88, "t": 20, "b": 54},
         paper_bgcolor=colors["chart_background"],
         plot_bgcolor=colors["chart_background"],
-        showlegend=comparison_frame is not None and not comparison_frame.empty,
+        showlegend=crossing_signals is not None or (comparison_frame is not None and not comparison_frame.empty),
         legend={"orientation": "h", "y": 1.05, "x": 0, "font": {"color": colors["muted"]}},
         hovermode="x unified",
         dragmode="zoom",
+        modebar={"bgcolor": colors["chart_background"], "color": colors["muted"], "activecolor": colors["text"]},
         font={"family": '"Source Sans", "Segoe UI", sans-serif', "color": colors["text"], "size": 14},
         xaxis={
             "showgrid": True,
@@ -513,6 +597,65 @@ def build_chart(
             "nticks": 8,
         },
     )
+    if fit_prices_only:
+        bounds = chart_price_bounds(frame, comparison_frame, logarithmic)
+        if bounds is not None:
+            fig.update_yaxes(
+                range=[math.log10(v) for v in bounds] if logarithmic else list(bounds),
+                autorange=False,
+                # Keep double-click/autoscale price-focused as well. Plotly's
+                # clip limits use data units, even when range uses log10 units.
+                autorangeoptions={"clipmin": bounds[0], "clipmax": bounds[1]},
+                dtick=None,
+            )
+    if observation_weights is not None:
+        training_label = pd.Timestamp(weights_training_end).strftime("%b %d, %Y")
+        fig.add_trace(go.Scatter(
+            x=observation_weights["market_date"], y=observation_weights["weight"],
+            yaxis="y2", mode="lines", name="Observation weight", showlegend=False,
+            line={"color": "#7084b8", "width": 1.8}, fill="tozeroy",
+            fillcolor="rgba(112,132,184,0.12)",
+            hovertemplate=f"%{{x|%b %-d, %Y}}<br>Weight: %{{y:.1%}}<br>Training through {training_label}<extra></extra>",
+        ))
+        # One shared x-axis keeps date limits, zoom and pan aligned across panes.
+        # Configure the fixed linear weight axis after price-only autoscaling,
+        # so logarithmic prices can never alter the weight scale.
+        fig.update_layout(
+            height=640,
+            yaxis={"domain": [0.25, 1]},
+            yaxis2={"domain": [0, 0.14], "anchor": "x", "side": "right",
+                    "type": "linear", "range": [0, 1.05], "fixedrange": True,
+                    "tickvals": [0, 0.5, 1], "tickformat": ".0%",
+                    "showgrid": True, "gridcolor": colors["grid"], "zeroline": False,
+                    "automargin": True},
+            xaxis={"anchor": "y2"},
+        )
+        fig.add_annotation(x=0, y=0.19, xref="paper", yref="paper",
+                           text="Observation weights", showarrow=False, xanchor="left",
+                           font={"size": 12, "color": colors["muted"]})
+    if trade_volume is not None and not trade_volume.empty:
+        fig.add_trace(go.Bar(
+            x=trade_volume.market_date, y=trade_volume.volume, yaxis="y3",
+            name=volume_label, showlegend=False, marker_color=trade_volume.color,
+            width=4 * 86400000,
+            marker_line_width=0, opacity=0.5, zorder=-1,
+            customdata=trade_volume[["period"]].to_numpy(),
+            hovertemplate="%{x|%b %-d, %Y}<br>%{customdata[0]} volume: %{y:,.0f}<extra></extra>",
+        ))
+        # Overlay a separate linear volume axis behind prices. Giving its
+        # maximum five times the largest bar reserves the bottom 20% for bars,
+        # without adding price padding or changing log/linear price bounds.
+        price_domain = list(fig.layout.yaxis.domain or [0, 1])
+        fig.update_layout(
+            yaxis3={"domain": price_domain, "overlaying": "y",
+                    "anchor": "x", "side": "right", "type": "linear",
+                    "range": [0, max(float(trade_volume.volume.max()), 1) * 5],
+                    "fixedrange": True, "showticklabels": False, "showgrid": False,
+                    "zeroline": False, "showline": False},
+        )
+        fig.add_annotation(x=0, y=price_domain[0] + 0.015, xref="paper", yref="paper",
+                           text=volume_label + " · weekly", showarrow=False, xanchor="left", yanchor="bottom",
+                           font={"size": 12, "color": colors["muted"]})
     return fig
 
 
@@ -613,30 +756,54 @@ if dashboard_page == "Market Watch":
     </style>""", unsafe_allow_html=True)
     names = MARKETS["Stocks"]
     st.subheader("Stocks")
-    full_ranking = stock_leaderboard()
-    ranking = full_ranking.copy()
-    ranking["Market cap ($B)"] = ranking["Market cap (USD)"] / 1e9
+    stored_tickers = {path.stem for path in stocks.STOCK_DIR.glob("*.parquet")}
+    stored_count = len(stocks.TICKERS & stored_tickers)
+    if stored_count < len(stocks.STOCKS):
+        st.caption(f"Price history stored for {stored_count:,} of {len(stocks.STOCKS):,} listings. Remaining histories are not yet imported or unavailable from the provider.")
     stock_view = st.radio("Stock view", ("Leaderboard", "Market cap"), horizontal=True)
     if stock_view == "Leaderboard":
-        main_column, movers_column = st.columns([3, 1.15], gap="large")
+        with st.container(key="stock_recent_emphasis"):
+            half_life_years = recent_emphasis_controls(horizontal=True)
     else:
-        main_column = st.container()
+        half_life_years = None
+    full_ranking = stock_leaderboard(half_life_years)
+    ranking = full_ranking.copy()
+    ranking["Market cap ($B)"] = ranking["Market cap (USD)"] / 1e9
+    main_column = st.container()
     with main_column:
         if stock_view == "Leaderboard":
             render_stock_leaderboard(ranking)
-        else:
-            caps = stocks.market_cap_data(full_ranking).head(50)
-            caps["Market cap ($B)"] = caps["Market cap (USD)"] / 1e9
-            st.subheader("Most valuable companies")
-            if caps.empty:
-                st.info("No stored market-cap data is available.")
+        elif st.radio("Market-cap representation", ("Size map", "Industry rankings"), horizontal=True,
+                      key="market_cap_representation") == "Industry rankings":
+            groups = stocks.industry_cap_groups(full_ranking)
+            industries = [name for name, _, _ in groups]
+            if not industries:
+                st.info("No stored market-cap data available yet.")
             else:
-                st.markdown(map_html(caps, dark=not light_mode), unsafe_allow_html=True)
+                industry = st.selectbox("Industry", industries,
+                                        index=industries.index("Auto Manufacturers") if "Auto Manufacturers" in industries else 0,
+                                        key="market_cap_selected_industry")
+                _, shown, total = groups[industries.index(industry)]
+                st.caption("Up to 10 largest companies in this industry, across all size categories. Bars use a linear scale within this figure. Select a company to open its chart.")
+                st.markdown(industry_bars_html(shown, industry, dark=not light_mode), unsafe_allow_html=True)
+                st.caption(f"Showing {len(shown)} of {total} companies with stored market caps")
+        else:
+            for cap_name, cap_range, group in stocks.market_cap_groups(full_ranking):
+                st.subheader(cap_name)
+                shown = group.head(50)
+                st.caption(f"{cap_range} · Showing {len(shown):,} of {len(group):,} companies with stored market-cap data")
+                if shown.empty:
+                    st.info("No stored market-cap data in this range. Companies with missing market caps remain unclassified.")
+                else:
+                    st.markdown(map_html(shown, dark=not light_mode, label=f"{cap_name} companies by market cap"), unsafe_allow_html=True)
             with st.container(key="cap_explanation"):
-                st.caption("Largest 50 companies in our S&P 500 dataset. Tile area = market cap; color = sector. Smaller companies are omitted, and share classes count once. These are not S&P index weights.")
+                st.caption("Each figure shows up to 50 largest companies in its size range, grouped by industry so similar businesses sit together. Tile area = market cap; color = sector. Industry names appear where space allows; hover over a company for its classification. Figures are scaled independently, so tile sizes cannot be compared across figures. Known share classes count once; unavailable industries are labeled, and missing or invalid market caps are excluded. These are not index weights.")
     if stock_view == "Leaderboard":
-        with movers_column:
-            for direction, heading in (("gainers", "Top gainers"), ("losers", "Top losers")):
+        mover_columns = st.columns(2, gap="large")
+        for mover_column, (direction, heading) in zip(
+            mover_columns, (("gainers", "Top gainers"), ("losers", "Top losers")), strict=True
+        ):
+            with mover_column:
                 with st.container(border=True, key=f"stock_{direction}_panel"):
                     st.subheader(heading)
                     period = st.radio(f"{heading} period", ("Daily", "Weekly", "Monthly", "Yearly"), horizontal=True,
@@ -648,8 +815,8 @@ if dashboard_page == "Market Watch":
                     details = ranking.copy()
                     details["Name"] = details.Company + " (" + details.Ticker + ")"
                     selected = selected.head(12).merge(details, on="Name", how="left")
-                    st.markdown(movers_html(selected, f"{heading} · {period}"), unsafe_allow_html=True)
-            st.caption("Closing-price changes. Calendar periods use the last close on or before the comparison date.")
+                    st.markdown(movers_html(selected, f"{heading} · {period}", half_life_years=half_life_years), unsafe_allow_html=True)
+        st.caption("Closing-price changes. Calendar periods use the last close on or before the comparison date.")
     st.stop()
 
 with st.container(key="market_tabs"):
@@ -700,7 +867,12 @@ is_policy_rate = (is_fed_target or is_treasury_yield) and not is_cumulative_inte
 
 if frame.empty:
     st.markdown("---")
-    if is_macro_index:
+    if symbol.startswith("STOCK:"):
+        st.selectbox("Chart", chart_options, key=chart_selector_key, on_change=reset_chart_range)
+        st.info(f"{selected_name} is in the catalog, but its price history is not stored yet. The bulk backfill may be incomplete or Yahoo may not provide this ticker's history.")
+        st.code(".venv/bin/python -m financial_dashboard.stocks --missing-only --limit 100", language="bash")
+        st.stop()
+    elif is_macro_index:
         st.info(f"No {selected_name} history is stored yet. Configure your FRED key and run the initial backfill.")
     elif symbol == "BRENT/USD":
         st.info("No Brent oil history is stored yet. Configure your FRED key and run the initial backfill.")
@@ -842,13 +1014,22 @@ with st.container(key="market_summary"):
     quote_column, metrics_column = st.columns([2.1, 5.4], vertical_alignment="center")
 with quote_column:
     snapshot_identity = f'<span class="snapshot-name">{selected_name}</span>'
+    market_cap_detail = ""
     if symbol.startswith("STOCK:"):
         ticker = symbol.removeprefix("STOCK:")
         snapshot_identity = chart_identity_html(selected_name, ticker, stocks.logo_uri(ticker))
+        capitalization = read_company_market_cap(ticker)
+        cap_value = capitalization["value"]
+        cap_date = pd.to_datetime(capitalization["updated"], utc=True, errors="coerce")
+        cap_as_of = f" · As of {cap_date.tz_convert('America/New_York'):%b %d, %Y}" if pd.notna(cap_date) else ""
+        cap_title = (f"Latest stored market cap · {capitalization['source']}{cap_as_of}"
+                     + (f" · ${cap_value:,.0f} USD" if cap_value is not None else ""))
+        market_cap_detail = (f'<div class="snapshot-detail" title="{escape(cap_title, quote=True)}">'
+                             f'Market cap: <strong>{cap_label(cap_value) if cap_value is not None else "Unavailable"}</strong></div>')
     st.markdown(
         f'<section class="market-snapshot"><div class="snapshot-head">{snapshot_identity}'
         f'<span>{"Monthly rate" if symbol == "US_UNEMPLOYMENT" else "Quarterly index" if symbol == "US_HOUSE_PRICES" else "Monthly average" if symbol == "COPPER/USD" else "Estimated growth" if is_cumulative_interest else "Daily yield" if is_treasury_yield else "Daily close"}</span></div>'
-        f'<div class="snapshot-price">{price_value}</div><div class="snapshot-detail">{price_detail}</div></section>',
+        f'<div class="snapshot-price">{price_value}</div><div class="snapshot-detail">{price_detail}</div>{market_cap_detail}</section>',
         unsafe_allow_html=True,
     )
 
@@ -950,7 +1131,32 @@ with st.container(key="chart_workspace"):
 logarithmic = st.session_state["logarithmic"]
 corridor_enabled = st.session_state["corridor_enabled"]
 corridor_95 = st.session_state["corridor_95"]
+backtest_available = corridor_enabled and not is_policy_rate and comparison_frame is None
+backtest_enabled = st.session_state["historical_crossings"] and backtest_available
+regression_frame = chart_primary_frame
+# Keep actual observation dates for monthly samples, so an end-date selection
+# never includes a later observation or a synthetic future month-end.
+if not backtest_enabled and symbol in {"SP500", "BTC/USD", "ETH/USD", "BNB/USD"} and selected_range == "All":
+    regression_frame = frame.groupby(frame["market_date"].dt.to_period("M"), sort=True).tail(1)
+corridor_end = frame["market_date"].iloc[-1].date()
 with details_column:
+    volume_supported = symbol == "SP500" or symbol.startswith("STOCK:")
+    show_volume = st.toggle("Volume", value=True, key="trade_volume_enabled",
+                            help="Weekly totals throughout the chart. The latest week may be partial. S&P 500 uses Yahoo's reported index volume, not ETF volume.") if volume_supported else False
+    st.toggle("Historical crossings", key="historical_crossings", disabled=not backtest_available,
+              help="Each close is checked against a corridor fitted only to earlier observations. Mark inside-to-outside exits only when price rises through the upper boundary or falls through the lower. Disabled for overlays and normal policy-rate charts.")
+    if backtest_enabled:
+        backtest_weights = (None, *HALF_LIVES)
+        st.selectbox("Backtest half-life", backtest_weights, index=backtest_weights.index(st.session_state.get("backtest_half_life", 1)), key="backtest_half_life",
+                     format_func=lambda years: "No recent emphasis" if years is None else f"{round(years * 12)} month{'s' if round(years * 12) != 1 else ''}" if years < 1 else f"{years:g} year{'s' if years != 1 else ''}",
+                     help="No recent emphasis: equally weight all earlier observations. Otherwise use exponential calendar-age weights with the chosen half-life. Both modes avoid look-ahead.")
+        # Keep the ordinary-mode settings without displaying a second, inactive
+        # half-life selector. Explicit assignments prevent widget-state cleanup.
+        for setting in ("recent_emphasis", "regression_half_life"):
+            st.session_state[setting] = st.session_state[setting]
+        half_life_years = None
+    else:
+        half_life_years = recent_emphasis_controls(disabled=is_policy_rate)
     if is_fed_target:
         st.toggle(
             "Cumulative growth", key="fed_target_cumulative",
@@ -982,6 +1188,23 @@ with details_column:
             min_value=corridor_min_start,
             max_value=corridor_max_start,
             key=corridor_key,
+        )
+    if corridor_enabled and not is_policy_rate:
+        eligible_dates = regression_frame.loc[regression_frame["market_date"] >= pd.Timestamp(corridor_start), "market_date"]
+        minimum_interval = 31 if backtest_enabled else 30
+        end_min = eligible_dates.iloc[minimum_interval - 1].date() if len(eligible_dates) > minimum_interval else corridor_start
+        end_max = frame["market_date"].iloc[-1].date()
+        end_key = f"corridor_end_{symbol}"
+        latest_key = f"corridor_end_latest_{symbol}"
+        if end_key not in st.session_state or st.session_state[end_key] == st.session_state.get(latest_key):
+            st.session_state[end_key] = end_max
+        if not end_min <= st.session_state[end_key] <= end_max:
+            st.session_state[end_key] = end_max
+        st.session_state[latest_key] = end_max
+        corridor_end = st.slider(
+            "Channel end", min_value=end_min, max_value=end_max, key=end_key,
+            disabled=len(eligible_dates) <= minimum_interval,
+            help="Fit the regression and corridor only through this date, with at least 30 observations. Price history stays visible; corridor lines stop here. Recent emphasis is anchored to the last observation in this interval.",
         )
     if comparison_start is not None:
         st.slider(
@@ -1015,29 +1238,61 @@ display_visible_comparison = (
 
 corridor = None
 annualized_regression_change = None
-regression_frame = chart_primary_frame
-# Long-range daily series should not give the most recent period thousands of
-# times more weight than their early history.  Fit their All-range trend from
-# monthly closes, then project that trend back onto the displayed dates.
-if symbol in {"SP500", "BTC/USD", "ETH/USD", "BNB/USD"} and selected_range == "All":
-    regression_frame = (
-        frame.set_index("market_date").resample("ME").last().dropna(subset=["close"]).reset_index()
-    )
-if corridor_enabled and not is_policy_rate:
+crossing_signals = None
+if backtest_enabled:
+    try:
+        backtest = read_historical_crossings(
+            chart_primary_frame[["market_date", "close"]], corridor_start, corridor_end,
+            st.session_state["backtest_half_life"], 0.95 if corridor_95 else 1.0,
+        )
+        visible_backtest = backtest[(backtest.market_date >= visible.market_date.iloc[0]) &
+                                    (backtest.market_date <= visible.market_date.iloc[-1])]
+        crossing_signals = visible_backtest[visible_backtest.signal != 0].copy()
+        # Preserve every highlighted close and its boundary, even in older,
+        # downsampled sections of the plotted price and prediction lines.
+        signal_dates = crossing_signals.market_date
+        display_visible = pd.concat([display_visible, visible[visible.market_date.isin(signal_dates)]]).drop_duplicates("market_date").sort_values("market_date")
+        corridor = pd.concat([downsample_for_chart(visible_backtest), crossing_signals]).drop_duplicates("market_date").sort_values("market_date")
+        annualized_regression_change = float(backtest.annual_growth.iloc[-1])
+    except ValueError as error:
+        st.warning(str(error))
+elif corridor_enabled and not is_policy_rate:
     try:
         corridor = logarithmic_regression_channel(
             regression_frame,
             corridor_start,
             coverage=0.95 if corridor_95 else 1.0,
             output_dates=display_visible["market_date"],
+            half_life_years=half_life_years,
+            end_date=corridor_end,
         )
         annualized_regression_change = annualized_logarithmic_regression_change(
-            regression_frame, corridor_start
+            regression_frame, corridor_start, half_life_years=half_life_years, end_date=corridor_end
         )
     except ValueError as error:
         st.warning(str(error))
 if comparison_error:
     st.warning(comparison_error)
+
+display_weights = None
+weights_training_end = None
+if corridor is not None:
+    weights_training_end = backtest.training_end.iloc[-1] if backtest_enabled else pd.Timestamp(corridor_end)
+    weight_history = chart_primary_frame if backtest_enabled else regression_frame
+    weight_half_life = st.session_state["backtest_half_life"] if backtest_enabled else half_life_years
+    weights_full = regression_observation_weights(weight_history, corridor_start,
+                                                  weights_training_end, weight_half_life)
+    # Use the actual last training observation even if Channel end is a weekend.
+    weights_training_end = weights_full.market_date.iloc[-1]
+    weights_visible = weights_full[(weights_full.market_date >= visible.market_date.iloc[0]) &
+                                   (weights_full.market_date <= visible.market_date.iloc[-1])]
+    display_weights = downsample_for_chart(weights_visible)
+
+display_volume = None
+if show_volume:
+    display_volume = volume.for_chart(chart_primary_frame, read_trade_volume(symbol))
+    display_volume = display_volume[(display_volume.market_date >= visible.market_date.iloc[0]) &
+                                    (display_volume.market_date <= visible.market_date.iloc[-1])]
 
 chart = build_chart(
     display_visible,
@@ -1054,6 +1309,12 @@ chart = build_chart(
     if is_treasury_yield or is_fed_target or symbol == "US_UNEMPLOYMENT"
     else (" pts" if comparison_frame is None else "×") if symbol == "US_HOUSE_PRICES" else "",
     break_long_gaps=is_treasury_yield,
+    fit_prices_only=selected_range != "All",
+    crossing_signals=crossing_signals,
+    observation_weights=display_weights,
+    weights_training_end=weights_training_end,
+    trade_volume=display_volume,
+    volume_label="Volume · Yahoo S&P 500" if symbol == "SP500" else "Volume · shares",
 )
 
 if annualized_regression_change is not None:
@@ -1062,7 +1323,7 @@ if annualized_regression_change is not None:
         st.metric(
             "Annual growth trend",
             f"{trend_sign}{annualized_regression_change:.2f}% / year",
-            help="Annualized percentage change implied by the logarithmic regression trend.",
+            help="In Historical crossings mode: the last prediction's prior-observation fit. Otherwise: the selected interval's fitted annualized logarithmic trend.",
         )
 with details_column:
     st.toggle(
@@ -1074,13 +1335,13 @@ with details_column:
     st.toggle(
         "Regression corridor",
         key="corridor_enabled",
-        help="Fit a log-price trend from the selected start date and enclose all daily closes.",
+        help="Fit a log-price trend from the selected start date, using Recent emphasis when enabled.",
         disabled=is_policy_rate,
     )
     st.toggle(
         "95% corridor",
         key="corridor_95",
-        help="Ignore the 5% most extreme logarithmic residuals for a tighter channel.",
+        help="Use the 95th percentile of absolute log residuals. With Recent emphasis, this is a weighted percentile, not 95% of observation count.",
         disabled=not corridor_enabled or is_policy_rate,
     )
 with chart_column:
@@ -1088,14 +1349,25 @@ with chart_column:
         chart,
         use_container_width=True,
         theme=None,
-        config={"displayModeBar": False, "scrollZoom": False, "responsive": True},
+        config={"displayModeBar": True, "displaylogo": False,
+                "modeBarButtons": [["zoom2d", "pan2d", "resetScale2d"]],
+                "scrollZoom": False, "responsive": True},
     )
-    st.caption("Drag to zoom · Double-click to reset")
+    st.caption("Drag to zoom · Choose Pan to move · Double-click to reset")
+    if show_volume:
+        st.caption("Volume: Yahoo Finance · Weekly totals throughout history (weeks ending Friday). The latest week may be partial; missing data is left blank."
+                   + (" S&P 500 is an index, not a traded security; this is Yahoo's reported index volume, not SPY ETF volume." if symbol == "SP500" else ""))
+        if display_volume.empty:
+            st.caption("No stored volume is available for this date range.")
+    if backtest_enabled and crossing_signals is not None:
+        half_life = st.session_state["backtest_half_life"]
+        weighting_label = "No recent emphasis (equal weights)" if half_life is None else (f"{round(half_life * 12)}-month" if half_life < 1 else f"{half_life:g}-year") + " half-life"
+        st.caption(f"Historical crossings · {weighting_label} · 30 prior observations to start · Red: upward upper exit · Green: downward lower exit · Flat/opposite price moves excluded. No repeated marks while outside. Signal study, not investment returns.")
 
 freshness_state, freshness = freshness_status(latest["market_date"], latest["source"])
 source_label = latest["source"].replace("_", " ").title()
 if symbol.startswith("STOCK:"):
-    source_label = "Yahoo Finance · Split/dividend-adjusted daily close · Current S&P 500 constituent snapshot; not historical membership"
+    source_label = "Yahoo Finance · Split/dividend-adjusted daily close · Nasdaq/NYSE listing directory plus retained S&P 500 snapshot; not historical membership"
 elif symbol == "US_UNEMPLOYMENT":
     source_label = "BLS via FRED · UNRATE · Monthly U-3 unemployment rate · Seasonally adjusted"
 elif symbol == "US_HOUSE_PRICES":
@@ -1157,5 +1429,7 @@ if symbol.startswith("STOCK:"):
                 profile_date = profile_date.tz_convert("America/New_York")
             updated = f" · Updated {profile_date:%b %d, %Y}" if profile_date is not None else ""
             st.caption(f"Company profile: {profile['source']}{updated}")
+            if profile.get("source_url"):
+                st.link_button("Company profile source", profile["source_url"])
         else:
             st.caption("A company and product description is not available in the stored profile yet.")

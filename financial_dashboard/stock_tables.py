@@ -14,12 +14,15 @@ def chart_identity_html(name: str, ticker: str, logo: str | None) -> str:
     return f'<span class="snapshot-name stock-chart-identity">{image}<span>{escape(name)}</span></span>'
 
 
-def movers_html(frame: pd.DataFrame, label: str) -> str:
+def movers_html(frame: pd.DataFrame, label: str, half_life_years: float | None = None) -> str:
     rows = []
     for rank, (_, row) in enumerate(frame.iterrows(), 1):
         name, ticker = str(row.Company), str(row.Ticker)
-        href = '?' + urlencode(dict(dashboard_view="Charts", dashboard_section="Stocks",
-                                     chart=f"{name} ({ticker})", selected_range="All", compare="None"))
+        params = dict(dashboard_view="Charts", dashboard_section="Stocks",
+                      chart=f"{name} ({ticker})", selected_range="All", compare="None")
+        if half_life_years is not None:
+            params["half_life"] = f"{half_life_years:g}"
+        href = '?' + urlencode(params)
         logo = row.get("Logo")
         image = (f'<img src="{escape(logo, quote=True)}" alt="" width="24" height="24">'
                  if isinstance(logo, str) and logo.startswith("data:image/png;base64,") else '<span class="mover-logo-placeholder"></span>')
@@ -31,18 +34,29 @@ def movers_html(frame: pd.DataFrame, label: str) -> str:
             if rows else '<p>No matching stocks for this period.</p>')
 
 
-def table_html(frame: pd.DataFrame, columns: list[tuple[str, str, str]], label: str) -> str:
-    headers = ''.join(f'<th scope="col" class="{"numeric" if kind in {"percent", "money", "integer"} else ""}">{escape(title)}</th>' for _, title, kind in columns)
+def table_html(frame: pd.DataFrame, columns: list[tuple[str, str, str]], label: str,
+               half_life_years: float | None = None) -> str:
+    position_help = 'Latest adjusted close vs full-history 95% log regression corridor: 0 = trend, +1 = upper, -1 = lower. Values outside ±1 are outside the corridor. Uses Recent emphasis when enabled. Not a z-score or a return.'
+    headers = ''.join(f'<th scope="col" class="{"numeric" if kind in {"percent", "money", "integer", "position", "deviation", "absolute_percent"} else ""}"'
+                      + (f' title="{escape(position_help, quote=True)}"' if kind == "position" else '')
+                      + (' title="Mean absolute Trend position across all stored adjusted closes, using one fixed full-history 95% log regression corridor. Uses Recent emphasis when enabled. Lower means historically closer to trend. Nonnegative, not a percentage or rolling fit."' if kind == "deviation" else '')
+                      + (' title="Mean absolute percentage distance of adjusted prices from the fixed full-history log regression trend: mean(abs(price/trend - 1)) × 100. Uses Recent emphasis when enabled; otherwise equally weighted observations; no corridor normalization. Lower means closer to trend, not lower daily-return volatility. History windows differ between companies."' if key == "Avg. deviation from trend (%)" else '')
+                      + (' title="Full 95% corridor width at the latest stored date divided by the latest adjusted close: (upper - lower) / price × 100. Uses a fixed full-history log regression and Recent emphasis when enabled; not half-width, an average over time, or annualized volatility."' if key == "Corridor width / price (%)" else '')
+                      + (' title="Latest adjusted close compared with its highest adjusted close in the stored history. 0% = at high; negative = below high. Not maximum historical drawdown or an intraday high."' if key == "Drawdown from ATH (%)" else '')
+                      + f'>{escape(title)}</th>' for key, title, kind in columns)
     rows = []
     for _, row in frame.iterrows():
         cells = []
         for key, _, kind in columns:
             value = row.get(key)
-            css = "numeric" if kind in {"percent", "money", "integer"} else ""
+            css = "numeric" if kind in {"percent", "money", "integer", "position", "deviation", "absolute_percent"} else ""
             if kind == "symbol":
                 name, ticker = str(row["Company"]), str(row["Ticker"])
-                href = '?' + urlencode(dict(dashboard_view="Charts", dashboard_section="Stocks",
-                                             chart=f"{name} ({ticker})", selected_range="All", compare="None"))
+                params = dict(dashboard_view="Charts", dashboard_section="Stocks",
+                              chart=f"{name} ({ticker})", selected_range="All", compare="None")
+                if half_life_years is not None:
+                    params["half_life"] = f"{half_life_years:g}"
+                href = '?' + urlencode(params)
                 logo = row.get("Logo")
                 image = (f'<img src="{escape(logo, quote=True)}" alt="" width="28" height="28">'
                          if isinstance(logo, str) and logo.startswith("data:image/png;base64,") else '<span class="logo-placeholder" aria-hidden="true"></span>')
@@ -53,6 +67,12 @@ def table_html(frame: pd.DataFrame, columns: list[tuple[str, str, str]], label: 
             elif kind == "percent":
                 css += " positive" if value > 0 else " negative" if value < 0 else ""
                 content = f'{value:+,.2f}%'
+            elif kind == "position":
+                content = f'{value:+.2f}' if abs(value) >= 0.005 else '0.00'
+            elif kind == "deviation":
+                content = f'{value:.2f}'
+            elif kind == "absolute_percent":
+                content = f'{value:,.2f}%'
             elif kind == "money":
                 content = f'${value:,.2f}' + ('B' if key == "Market cap ($B)" else '')
             elif kind == "integer":

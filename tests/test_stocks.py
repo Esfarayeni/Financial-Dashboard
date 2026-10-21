@@ -49,10 +49,79 @@ def test_stock_update_uses_overlap_and_refetches_revised_history(monkeypatch, tm
 
 
 def test_stock_catalog_has_unique_valid_symbols_and_share_classes():
-    tickers = [stock["ticker"] for stock in stocks.STOCKS]
+    tickers = [stock["ticker"] for stock in stocks.SP500_STOCKS]
     assert len(tickers) == len(set(tickers)) == 503
-    assert len({s["company_id"] for s in stocks.STOCKS}) == 500
+    assert len({s["company_id"] for s in stocks.SP500_STOCKS}) == 500
     assert {"GOOG", "GOOGL", "BRK-B"}.issubset(tickers)
+
+
+@pytest.mark.parametrize("value,expected", [(1.5e12, 1.5e12), ("2000", 2000),
+                                         (None, None), (-1, None), (0, None),
+                                         (float("inf"), None), (float("nan"), None), (True, None)])
+def test_company_market_cap_reads_local_valid_value_and_provenance(tmp_path, value, expected):
+    (tmp_path / "metadata.json").write_text(json.dumps({"AAPL": {
+        "market_cap": value, "market_cap_updated": "2026-10-19T12:00:00Z",
+        "market_cap_source": "Yahoo Finance equity screener"}}))
+    cap = stocks.company_market_cap("AAPL", tmp_path)
+    assert cap["value"] == expected
+    assert cap["updated"] == "2026-10-19T12:00:00Z"
+    assert cap["source"] == "Yahoo Finance equity screener"
+
+
+def test_company_market_cap_without_metadata_is_unavailable(tmp_path):
+    assert stocks.company_market_cap("UNKNOWN", tmp_path)["value"] is None
+
+
+def test_company_market_cap_uses_newer_quote_metadata_date(tmp_path):
+    (tmp_path / "metadata.json").write_text(json.dumps({"AAPL": {
+        "market_cap": 100, "market_cap_updated": "2026-10-19T12:00:00Z",
+        "market_cap_source": "Yahoo Finance equity screener", "updated": "2026-10-20T12:00:00Z"}}))
+    cap = stocks.company_market_cap("AAPL", tmp_path)
+    assert cap["updated"] == "2026-10-20T12:00:00Z"
+    assert cap["source"] == "Yahoo Finance"
+
+
+def test_expanded_catalog_preserves_originals_and_is_unique():
+    tickers = [stock["ticker"] for stock in stocks.ALL_STOCKS]
+    assert len(tickers) == len(set(tickers))
+    assert {stock["ticker"] for stock in stocks.SP500_STOCKS}.issubset(tickers)
+
+
+def test_stock_backfill_defers_remaining_after_rate_limit(monkeypatch, tmp_path):
+    calls = []
+    class YFRateLimitError(Exception):
+        pass
+    monkeypatch.setattr(stocks, "DATA_DIR", tmp_path)
+    monkeypatch.setattr(stocks, "STOCKS", stocks.STOCKS[:20])
+    def fail(ticker, *args):
+        calls.append(ticker)
+        raise YFRateLimitError("Too Many Requests")
+    monkeypatch.setattr(stocks, "update_stock", fail)
+    result = stocks.synchronize()
+    assert len(calls) <= 3
+    assert any(row["status"] == "failed" for row in result)
+    assert any(row["status"] == "skipped" for row in result)
+
+
+def test_metadata_stale_batch_skips_recent_entries(monkeypatch, tmp_path):
+    monkeypatch.setattr(stocks, "STOCKS", stocks.STOCKS[:1])
+    ticker = stocks.STOCKS[0]["ticker"]
+    (tmp_path / "metadata.json").write_text(json.dumps({ticker: {"market_cap": 10, "updated": pd.Timestamp.now(tz="UTC").isoformat()}}))
+    def unexpected(*args):
+        raise AssertionError("Fresh metadata must not fetch")
+    monkeypatch.setattr(stocks.yf, "Ticker", unexpected)
+    assert stocks.update_metadata(tmp_path, stale_days=7) == []
+
+
+@pytest.mark.parametrize("adjusted,expected", [([100, 120, 90], -25), ([100, 120, 120], 0)])
+def test_leaderboard_drawdown_uses_full_adjusted_close_history(monkeypatch, tmp_path, adjusted, expected):
+    monkeypatch.setattr(stocks, "STOCKS", stocks.STOCKS[:2])
+    ticker = stocks.STOCKS[0]["ticker"]
+    pd.DataFrame({"market_date": pd.date_range("2020-01-01", periods=3),
+                  "quote_close": [100, 400, 350], "adjusted_close": adjusted}).to_parquet(tmp_path / f"{ticker}.parquet", index=False)
+    ranking = stocks.leaderboard(tmp_path).set_index("Ticker")
+    assert ranking.loc[ticker, "Drawdown from ATH (%)"] == pytest.approx(expected)
+    assert pd.isna(ranking.loc[stocks.STOCKS[1]["ticker"], "Drawdown from ATH (%)"])
 
 
 def test_failed_stock_download_preserves_existing_snapshot(monkeypatch, tmp_path):
@@ -85,6 +154,12 @@ def test_leaderboard_ranks_annualized_trend_and_keeps_missing_data(monkeypatch, 
     assert ranking["Market cap (USD)"].iloc[0] == 1e9
     assert ranking["Listing year"].iloc[0] == 1980
     assert pd.isna(ranking.Rank.iloc[-1])
+    assert "Trend position" in ranking.columns
+    assert pd.isna(ranking["Trend position"].iloc[-1])
+    assert ranking["Avg. deviation from trend (%)"].iloc[0] == 0
+    assert pd.isna(ranking["Avg. deviation from trend (%)"].iloc[-1])
+    assert ranking["Corridor width / price (%)"].iloc[0] == 0
+    assert pd.isna(ranking["Corridor width / price (%)"].iloc[-1])
     known = ranking[ranking["Trend/year (%)"].notna() & ranking["Listing year"].notna()]
     expected = known.groupby("Sector")["Trend/year (%)"].mean()
     for _, row in known.iterrows():
@@ -125,16 +200,18 @@ def test_metadata_saves_profile_and_preserves_it_when_response_omits_summary(mon
 
     class Metadata:
         def get_info(self):
-            return {"marketCap": 1e9, "longBusinessSummary": "Makes devices.\n Offers products and services."}
+            return {"marketCap": 1e9, "industry": "Semiconductors", "longBusinessSummary": "Makes devices.\n Offers products and services."}
 
     monkeypatch.setattr(stocks.yf, "Ticker", lambda _: Metadata())
     assert stocks.update_metadata(tmp_path)[0]["status"] == "success"
     profile = stocks.company_profile(ticker, tmp_path)
     assert profile["description"] == "Makes devices. Offers products and services."
     assert profile["updated"]
+    assert json.loads((tmp_path / "metadata.json").read_text())[ticker]["industry"] == "Semiconductors"
     monkeypatch.setattr(Metadata, "get_info", lambda self: {"marketCap": 2e9})
     stocks.update_metadata(tmp_path)
     assert stocks.company_profile(ticker, tmp_path) == profile
+    assert json.loads((tmp_path / "metadata.json").read_text())[ticker]["industry"] == "Semiconductors"
 
 
 def test_profile_is_local_and_keeps_full_product_details_without_truncation(tmp_path):
@@ -163,6 +240,18 @@ def test_market_cap_view_counts_companies_once_and_excludes_missing_caps():
     caps = stocks.market_cap_data(ranking)
     assert caps["Company ID"].tolist() == ["1", "2"]
     assert caps["Market cap (USD)"].sum() == 150
+
+
+def test_market_cap_groups_have_disjoint_boundaries_and_exclude_invalid_values():
+    values = [200e9, 200e9-1, 10e9, 10e9-1, 2e9, 2e9-1, 250e6, 250e6-1, 1, 0, -1, None, float("inf"), "bad"]
+    ranking = pd.DataFrame({"Company ID": [str(i) for i in range(len(values))], "Market cap (USD)": values})
+    groups = stocks.market_cap_groups(ranking)
+    assert [name for name, _, _ in groups] == ["Mega-cap", "Large-cap", "Mid-cap", "Small-cap", "Micro-cap"]
+    assert [len(group) for _, _, group in groups] == [1, 2, 2, 2, 2]
+    ids = [company for _, _, group in groups for company in group["Company ID"]]
+    assert len(ids) == len(set(ids)) == 9
+    duplicated = pd.concat([ranking, ranking.iloc[[0]]], ignore_index=True)
+    assert sum(len(group) for _, _, group in stocks.market_cap_groups(duplicated)) == 9
 
 
 def test_logos_cached_locally_and_invalid_download_not_saved(monkeypatch, tmp_path):

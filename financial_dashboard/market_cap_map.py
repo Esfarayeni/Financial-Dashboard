@@ -1,4 +1,4 @@
-"""Logo-bearing, sector-grouped market-cap map; no remote assets or scripts."""
+"""Logo-bearing market-cap map, nested by sector and industry; local assets only."""
 from html import escape
 from urllib.parse import urlencode
 
@@ -46,42 +46,105 @@ def rectangles(values, x, y, width, height):
 
 
 def cap_label(value):
-    return f"${value / 1e12:,.2f}T" if value >= 1e12 else f"${value / 1e9:,.0f}B"
+    if value >= 1e12:
+        return f"${value / 1e12:,.2f}T"
+    if value >= 1e9:
+        return f"${value / 1e9:,.1f}B" if value < 10e9 else f"${value / 1e9:,.0f}B"
+    if value >= 1e6:
+        return f"${value / 1e6:,.1f}M"
+    if value >= 1e3:
+        return f"${value / 1e3:,.0f}K"
+    return f"${value:,.0f}"
 
 
-def map_html(caps: pd.DataFrame, dark=False):
+def industry_bars_html(caps: pd.DataFrame, industry: str, dark=False):
+    """Accessible linked ranking with linear bars, scaled within this industry."""
+    foreground = "#e1e7ef" if dark else "#142c35"
+    muted = "#b4c1d0" if dark else "#526174"
+    track = "#273344" if dark else "#edf1f5"
+    rows = []
+    maximum = caps["Market cap (USD)"].max() if not caps.empty else 1
+    for _, row in caps.iterrows():
+        name, ticker = str(row.Company), str(row.Ticker)
+        value = float(row["Market cap (USD)"])
+        link = '?' + urlencode(dict(dashboard_view="Charts", dashboard_section="Stocks",
+                                   chart=f"{name} ({ticker})", selected_range="All", compare="None"))
+        logo = row.get("Logo")
+        image = (f'<img src="{escape(logo, quote=True)}" alt="" loading="lazy">'
+                 if isinstance(logo, str) and logo.startswith("data:image/png;base64,") else '')
+        rows.append(f'<li><a href="{escape(link, quote=True)}" target="_self" '
+                    f'aria-label="{escape(name + ", " + cap_label(value) + ". Open chart", quote=True)}">'
+                    f'<span class="industry-company">{image}<span><strong>{escape(ticker)}</strong>'
+                    f'<span class="industry-name">{escape(name)}</span></span></span>'
+                    f'<span class="industry-track" aria-hidden="true"><span style="width:{value/maximum*100:.6f}%;background:{COLORS.get(row.Sector, "#aab2bf")}"></span></span>'
+                    f'<span class="industry-value" title="${value:,.0f}">{cap_label(value)}</span></a></li>')
+    return f'''<style>
+    .industry-ranking {{ margin:0 0 28px; color:{foreground}; }}
+    .industry-ranking figcaption {{ font-size:18px; font-weight:600; margin-bottom:12px; overflow-wrap:anywhere; }}
+    .industry-ranking ol {{ list-style:none; margin:0!important; padding:0!important; }}
+    .industry-ranking li {{ margin:0; border-bottom:1px solid {track}; }}
+    .industry-ranking a {{ display:grid; grid-template-columns:minmax(0,1.25fr) minmax(36px,1fr) 76px; gap:12px; align-items:center; padding:9px 0; color:inherit; text-decoration:none; font-variant-numeric:tabular-nums; }}
+    .industry-ranking a:hover {{ background:{track}; }}
+    .industry-ranking a:focus-visible {{ outline:2px solid {foreground}; outline-offset:2px; }}
+    .industry-company {{ display:flex; align-items:center; gap:8px; min-width:0; }}
+    .industry-company > span {{ min-width:0; }}
+    .industry-company img {{ width:24px; height:24px; object-fit:contain; flex-shrink:0; }}
+    .industry-company strong {{ display:block; font-size:13px; line-height:1.3; }}
+    .industry-name {{ display:block; color:{muted}; font-size:12px; line-height:1.35; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }}
+    .industry-track {{ display:block; height:14px; background:{track}; border-radius:3px; overflow:hidden; }}
+    .industry-track > span {{ display:block; height:100%; }}
+    .industry-value {{ text-align:right; font-size:13px; white-space:nowrap; }}
+    @media(max-width:600px) {{ .industry-ranking a {{ grid-template-columns:minmax(0,1.4fr) minmax(28px,1fr) 64px; gap:8px; }} }}
+    </style><figure class="industry-ranking"><figcaption>{escape(industry)}</figcaption><ol>{''.join(rows)}</ol></figure>'''
+
+
+def map_html(caps: pd.DataFrame, dark=False, label="Top 50 companies by market cap"):
     width, height = 1100, 780
     sectors = caps.groupby("Sector")["Market cap (USD)"].sum().sort_values(ascending=False)
     sector_boxes = rectangles(sectors.tolist(), 0, 0, width, height)
     tiles = []
+    headings = []
+    placements = []
     for sector, (x, y, w, h) in zip(sectors.index, sector_boxes):
         companies = caps[caps.Sector == sector].sort_values("Market cap (USD)", ascending=False)
         if h <= 6 or w <= 6:
             continue
-        boxes = rectangles(companies["Market cap (USD)"].tolist(), x + 3, y + 3, w - 6, h - 6)
-        for (_, row), (tx, ty, tw, th) in zip(companies.iterrows(), boxes):
-            name, ticker = str(row.Company), str(row.Ticker)
-            cap = cap_label(row["Market cap (USD)"])
-            link = '?' + urlencode(dict(dashboard_view="Charts", dashboard_section="Stocks", chart=f"{name} ({ticker})", selected_range="All", compare="None"))
-            large = tw >= 140 and th >= 110
-            logo = row.get("Logo")
-            logo_class = 'cap-logo cap-logo-navy' if ticker in {'V', 'ABBV', 'UNH'} else 'cap-logo'
-            image = (f'<span class="{logo_class}"><img src="{escape(logo, quote=True)}" alt="" loading="lazy"></span>'
-                     if isinstance(logo, str) and logo.startswith("data:image/png;base64,") else '')
-            size_class = ' cap-large' if large else ' cap-compact' if image else ''
-            tiles.append(
-                f'<a class="cap-tile{size_class}" href="{escape(link, quote=True)}" target="_self" '
-                f'aria-label="{escape(name + " (" + ticker + "), " + cap + ". Open chart", quote=True)}" title="{escape(name + " · " + ticker + " · " + cap, quote=True)}" '
-                f'style="left:{tx/width*100:.4f}%;top:{ty/height*100:.4f}%;width:{tw/width*100:.4f}%;height:{th/height*100:.4f}%;background:{COLORS[sector]}">'
-                f'<span class="cap-corner">{escape(cap)}</span><span class="cap-brand">{image}<span class="cap-name">{escape(name)}</span>'
-                f'<span class="cap-ticker">{escape(ticker)}</span></span></a>'
-            )
+        # Missing classifications stay explicitly separate; never infer from a company name.
+        companies = companies.assign(Industry=companies.get("Industry", pd.Series(index=companies.index, dtype=str)).fillna("Industry unavailable").replace("", "Industry unavailable"))
+        industries = companies.groupby("Industry")["Market cap (USD)"].sum().sort_values(ascending=False)
+        industry_boxes = rectangles(industries.tolist(), x + 3, y + 3, w - 6, h - 6)
+        for industry, (ix, iy, iw, ih) in zip(industries.index, industry_boxes):
+            members = companies[companies.Industry == industry]
+            header = 22 if iw >= 110 and ih >= 85 else 0
+            if header:
+                headings.append(f'<span class="cap-industry" title="{escape(industry, quote=True)}" '
+                                f'style="left:{ix/width*100:.4f}%;top:{iy/height*100:.4f}%;width:{iw/width*100:.4f}%">{escape(industry)}</span>')
+            boxes = rectangles(members["Market cap (USD)"].tolist(), ix, iy + header, iw, ih - header)
+            placements.extend((sector, industry, row, box) for (_, row), box in zip(members.iterrows(), boxes))
+    for sector, industry, row, (tx, ty, tw, th) in placements:
+        name, ticker = str(row.Company), str(row.Ticker)
+        cap = cap_label(row["Market cap (USD)"])
+        link = '?' + urlencode(dict(dashboard_view="Charts", dashboard_section="Stocks", chart=f"{name} ({ticker})", selected_range="All", compare="None"))
+        large = tw >= 140 and th >= 110
+        logo = row.get("Logo")
+        logo_class = 'cap-logo cap-logo-navy' if ticker in {'V', 'ABBV', 'UNH'} else 'cap-logo'
+        image = (f'<span class="{logo_class}"><img src="{escape(logo, quote=True)}" alt="" loading="lazy"></span>'
+                 if isinstance(logo, str) and logo.startswith("data:image/png;base64,") else '')
+        size_class = ' cap-large' if large else ' cap-compact' if image else ''
+        tiles.append(
+            f'<a class="cap-tile{size_class}" href="{escape(link, quote=True)}" target="_self" '
+            f'aria-label="{escape(name + " (" + ticker + "), " + cap + ", " + industry + ". Open chart", quote=True)}" title="{escape(name + " · " + ticker + " · " + cap + " · " + industry, quote=True)}" '
+            f'style="left:{tx/width*100:.4f}%;top:{ty/height*100:.4f}%;width:{tw/width*100:.4f}%;height:{th/height*100:.4f}%;background:{COLORS.get(sector, "#aab2bf")}">'
+            f'<span class="cap-corner">{escape(cap)}</span><span class="cap-brand">{image}<span class="cap-name">{escape(name)}</span>'
+            f'<span class="cap-ticker">{escape(ticker)}</span></span></a>'
+        )
     surface = '#182130' if dark else '#fbf9f2'
-    legend = ''.join(f'<li><span class="cap-swatch" style="background:{COLORS[sector]}" aria-hidden="true"></span>{escape(sector)}</li>'
+    legend = ''.join(f'<li><span class="cap-swatch" style="background:{COLORS.get(sector, "#aab2bf")}" aria-hidden="true"></span>{escape(sector)}</li>'
                      for sector in sectors.index)
     return f'''<style>
     .cap-map-scroll {{ overflow-x:auto; background:{surface}; padding:12px; border-radius:12px; margin-bottom:24px; }}
     .cap-map {{ position:relative; width:100%; min-width:900px; aspect-ratio:1100 / 780; font-variant-numeric:tabular-nums; color:#142c35; }}
+    .cap-industry {{ position:absolute; box-sizing:border-box; height:2.8205%; padding:2px 5px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-size:11px; line-height:1.2; font-weight:600; color:{'#dce3ed' if dark else '#394452'}; }}
     .cap-legend {{ display:flex; flex-wrap:wrap; gap:12px 20px; list-style:none; padding:0!important; margin:0 0 24px!important; font-size:13px; color:{'#dce3ed' if dark else '#394452'}; }}
     .cap-legend li {{ display:flex; align-items:center; gap:7px; margin:0; }}
     .cap-swatch {{ width:14px; height:14px; border-radius:3px; flex-shrink:0; }}
@@ -113,4 +176,4 @@ def map_html(caps: pd.DataFrame, dark=False):
       .cap-compact .cap-logo {{ width:min(35cqw,25cqh,24px); height:min(35cqw,25cqh,24px); }}
       .cap-compact .cap-corner {{ font-size:10px; left:4px; top:4px; }}
     }}
-    </style><div class="cap-map-scroll" role="region" aria-label="Top 50 companies by market cap; scroll horizontally on small screens" tabindex="0"><div class="cap-map">{''.join(tiles)}</div></div><ul class="cap-legend" aria-label="Sector color key">{legend}</ul>'''
+    </style><div class="cap-map-scroll" role="region" aria-label="{escape(label, quote=True)}; scroll horizontally on small screens" tabindex="0"><div class="cap-map">{''.join(headings)}{''.join(tiles)}</div></div><ul class="cap-legend" aria-label="Sector color key">{legend}</ul>'''

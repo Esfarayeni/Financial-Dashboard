@@ -1,0 +1,10010 @@
+{
+  "source": "Yahoo Finance equity screener",
+  "retrieved": "2026-10-19T14:06:53.829816+00:00",
+  "sort": "market cap descending",
+  "count": 2000,
+  "tickers": [
+    "NVDA",
+    "AAPL",
+    "GOOGL",
+    "GOOG",
+    "MSFT",
+    "AMZN",
+    "TSM",
+    "SPCX",
+    "META",
+    "AVGO",
+    "TSLA",
+    "BRK-B",
+    "BRK-A",
+    "LLY",
+    "SKHY",
+    "MU",
+    "WMT",
+    "JPM",
+    "AMD",
+    "V",
+    "XOM",
+    "ASML",
+    "JNJ",
+    "MA",
+    "ABBV",
+    "INTC",
+    "PLTR",
+    "CVX",
+    "COST",
+    "CSCO",
+    "KO",
+    "ORCL",
+    "PG",
+    "UNH",
+    "MRK",
+    "BAC",
+    "LRCX",
+    "AMAT",
+    "CAT",
+    "GE",
+    "HSBC",
+    "PM",
+    "HD",
+    "SHEL",
+    "DELL",
+    "NFLX",
+    "NVS",
+    "PANW",
+    "MS",
+    "RY",
+    "BABA",
+    "SAP",
+    "RTX",
+    "GS",
+    "AZN",
+    "TMO",
+    "TXN",
+    "WFC",
+    "ARM",
+    "GEV",
+    "MUFG",
+    "AMGN",
+    "CRWD",
+    "LIN",
+    "TM",
+    "ANET",
+    "SHOP",
+    "KLAC",
+    "IBM",
+    "MRVL",
+    "AXP",
+    "BHP",
+    "C",
+    "TTE",
+    "SNDK",
+    "APH",
+    "TD",
+    "CRM",
+    "GILD",
+    "ADI",
+    "SAN",
+    "DIS",
+    "QCOM",
+    "VZ",
+    "BLK",
+    "ABT",
+    "PEP",
+    "COP",
+    "MCD",
+    "UNP",
+    "DE",
+    "NVO",
+    "TMUS",
+    "PFE",
+    "WELL",
+    "SCCO",
+    "PBR",
+    "NEE",
+    "BUD",
+    "TJX",
+    "T",
+    "DHR",
+    "SCHW",
+    "SMFG",
+    "ETN",
+    "ISRG",
+    "STX",
+    "BA",
+    "NOW",
+    "RIO",
+    "SONY",
+    "UBS",
+    "UBER",
+    "ACN",
+    "UL",
+    "BBVA",
+    "IBKR",
+    "CB",
+    "MPC",
+    "WDC",
+    "VLO",
+    "BP",
+    "BX",
+    "VRTX",
+    "BTI",
+    "PGR",
+    "LMT",
+    "SPGI",
+    "FTNT",
+    "MO",
+    "NEM",
+    "COF",
+    "MFG",
+    "PH",
+    "BKNG",
+    "BMY",
+    "PLD",
+    "MDT",
+    "PSX",
+    "HDB",
+    "CVS",
+    "MCK",
+    "BMO",
+    "PDD",
+    "GLW",
+    "ADP",
+    "SYK",
+    "SNOW",
+    "BNS",
+    "CNQ",
+    "SBUX",
+    "EQNR",
+    "LOW",
+    "IBN",
+    "NET",
+    "SPOT",
+    "ENB",
+    "CME",
+    "ABNB",
+    "SO",
+    "MAR",
+    "CM",
+    "TT",
+    "GSK",
+    "FCX",
+    "HCA",
+    "BNY",
+    "EQIX",
+    "SNY",
+    "ADBE",
+    "AEM",
+    "CEG",
+    "ING",
+    "DUK",
+    "PWR",
+    "ELV",
+    "DDOG",
+    "SU",
+    "GD",
+    "MELI",
+    "MNST",
+    "USB",
+    "WM",
+    "EMR",
+    "MRNA",
+    "CDNS",
+    "ICE",
+    "CSX",
+    "MRSH",
+    "ASX",
+    "JCI",
+    "HOOD",
+    "APP",
+    "SNPS",
+    "HWM",
+    "WMB",
+    "PNC",
+    "AMT",
+    "INTU",
+    "E",
+    "MMM",
+    "CTAS",
+    "MCO",
+    "EOG",
+    "UPS",
+    "DASH",
+    "MDLZ",
+    "REGN",
+    "BN",
+    "NTES",
+    "SHW",
+    "TRV",
+    "VRT",
+    "ECL",
+    "KKR",
+    "NGG",
+    "EPD",
+    "CI",
+    "LYG",
+    "HLT",
+    "SPG",
+    "ITW",
+    "CMCSA",
+    "LITE",
+    "ROST",
+    "MSI",
+    "CP",
+    "KMI",
+    "HPE",
+    "CL",
+    "RCL",
+    "BCS",
+    "NSC",
+    "GM",
+    "MFC",
+    "SLB",
+    "NOC",
+    "CNI",
+    "CMI",
+    "BAM",
+    "ORLY",
+    "RSG",
+    "TGT",
+    "NU",
+    "FDX",
+    "RACE",
+    "AEP",
+    "NWG",
+    "RELX",
+    "HON",
+    "APD",
+    "BE",
+    "B",
+    "APO",
+    "DLR",
+    "COR",
+    "CVNA",
+    "URI",
+    "AJG",
+    "BSX",
+    "MET",
+    "TRP",
+    "TAK",
+    "TRGP",
+    "TDG",
+    "OXY",
+    "GWW",
+    "ALL",
+    "TEL",
+    "CVE",
+    "AON",
+    "MPWR",
+    "DB",
+    "LNG",
+    "AFL",
+    "WPM",
+    "MSTR",
+    "FAST",
+    "OKE",
+    "NUE",
+    "CAH",
+    "NXPI",
+    "NTRA",
+    "KEYS",
+    "PCAR",
+    "FANG",
+    "TFC",
+    "AME",
+    "VALE",
+    "DVN",
+    "PSA",
+    "CRH",
+    "D",
+    "SE",
+    "NKE",
+    "GRMN",
+    "BKR",
+    "SRE",
+    "EBAY",
+    "O",
+    "TEAM",
+    "HONA",
+    "TER",
+    "NDAQ",
+    "DEO",
+    "BDX",
+    "FIX",
+    "ARGX",
+    "NOK",
+    "VEEV",
+    "UMC",
+    "VST",
+    "ABEV",
+    "HUM",
+    "EW",
+    "AZO",
+    "ALAB",
+    "ETR",
+    "ADSK",
+    "DAL",
+    "F",
+    "CCEP",
+    "INFY",
+    "CIEN",
+    "A",
+    "WAB",
+    "TEVA",
+    "PYPL",
+    "MDLN",
+    "VYLR",
+    "MT",
+    "XEL",
+    "TRI",
+    "ROK",
+    "VMRK",
+    "KDP",
+    "AU",
+    "XYZ",
+    "WDAY",
+    "FNV",
+    "COHR",
+    "FITB",
+    "NBIS",
+    "LHX",
+    "STT",
+    "COIN",
+    "CARR",
+    "HLN",
+    "BBD",
+    "HMC",
+    "FERG",
+    "EXC",
+    "IDXX",
+    "SLF",
+    "IQV",
+    "FMX",
+    "VTR",
+    "HEI",
+    "WAT",
+    "AMP",
+    "P",
+    "AIG",
+    "KB",
+    "ONC",
+    "WCN",
+    "ED",
+    "MSCI",
+    "NTAP",
+    "STM",
+    "YUM",
+    "LYV",
+    "SYY",
+    "MCHP",
+    "ADM",
+    "IX",
+    "BBDO",
+    "PAYX",
+    "ILMN",
+    "PRU",
+    "ODFL",
+    "PCG",
+    "TWLO",
+    "CLS",
+    "RVMD",
+    "DHI",
+    "TTWO",
+    "EL",
+    "ROP",
+    "CBRE",
+    "VIK",
+    "CMG",
+    "KR",
+    "ARES",
+    "VOD",
+    "CHT",
+    "EC",
+    "HIG",
+    "JD",
+    "UI",
+    "KVUE",
+    "MLM",
+    "CCI",
+    "RBLX",
+    "RPRX",
+    "ESLT",
+    "WEC",
+    "CCJ",
+    "FER",
+    "PEG",
+    "KMB",
+    "CCL",
+    "BIIB",
+    "STLD",
+    "CNC",
+    "ACGL",
+    "EXPE",
+    "EQT",
+    "ZS",
+    "QSR",
+    "SKYD",
+    "HSY",
+    "CRWV",
+    "ERIC",
+    "NTR",
+    "RMD",
+    "GFI",
+    "OKTA",
+    "FLEX",
+    "IRM",
+    "VMC",
+    "TKO",
+    "RKLB",
+    "SHG",
+    "ZTS",
+    "MTD",
+    "HEI-A",
+    "DXCM",
+    "CRDO",
+    "EME",
+    "ALC",
+    "VG",
+    "GEHC",
+    "SUNB",
+    "UAL",
+    "ALNY",
+    "AXON",
+    "TECK",
+    "HBAN",
+    "MTB",
+    "BSP",
+    "BAP",
+    "EXR",
+    "IR",
+    "RKT",
+    "NTRS",
+    "JBL",
+    "CTSH",
+    "RJF",
+    "DG",
+    "TS",
+    "WSM",
+    "RDDT",
+    "PUK",
+    "WTW",
+    "AEE",
+    "PBA",
+    "CBRS",
+    "TDY",
+    "FTS",
+    "ON",
+    "KGC",
+    "ATO",
+    "ZM",
+    "KHC",
+    "MDB",
+    "VRSN",
+    "HAL",
+    "WRB",
+    "RYAAY",
+    "BIDU",
+    "HPQ",
+    "FTI",
+    "WST",
+    "OTIS",
+    "NMR",
+    "FOXA",
+    "SN",
+    "DTE",
+    "AWK",
+    "CFG",
+    "CNP",
+    "FE",
+    "DOV",
+    "CPAY",
+    "PPL",
+    "CINF",
+    "DGX",
+    "LH",
+    "CPNG",
+    "CASY",
+    "GFS",
+    "EXPD",
+    "ATI",
+    "VICI",
+    "FFIV",
+    "CPRT",
+    "ULTA",
+    "FISV",
+    "ECHO",
+    "PHG",
+    "TCOM",
+    "Q",
+    "AFRM",
+    "LPLA",
+    "CHD",
+    "ES",
+    "TW",
+    "VLTO",
+    "HUBB",
+    "VRSK",
+    "ROIV",
+    "LVS",
+    "IHG",
+    "DRI",
+    "XYL",
+    "FOX",
+    "SYF",
+    "TPL",
+    "FCNCA",
+    "PPG",
+    "TPR",
+    "GMAB",
+    "RF",
+    "DLTR",
+    "SYM",
+    "IFF",
+    "IOT",
+    "UTHR",
+    "PFG",
+    "ARXS",
+    "RBRK",
+    "NVT",
+    "BRO",
+    "INCY",
+    "MKL",
+    "ROKU",
+    "AER",
+    "FWONK",
+    "RL",
+    "DINO",
+    "TSEM",
+    "L",
+    "SBS",
+    "GPN",
+    "ENTG",
+    "BNTX",
+    "STZ",
+    "XPO",
+    "USFD",
+    "OMC",
+    "DOW",
+    "SW",
+    "EXE",
+    "THC",
+    "EIX",
+    "STE",
+    "SMCI",
+    "CMS",
+    "TROW",
+    "PHM",
+    "KEY",
+    "VTRS",
+    "JBHT",
+    "NRG",
+    "RS",
+    "INSM",
+    "PTC",
+    "GH",
+    "FWONA",
+    "LYB",
+    "PKG",
+    "CRCL",
+    "AMRZ",
+    "PR",
+    "MTSI",
+    "NI",
+    "AMCR",
+    "BG",
+    "YPF",
+    "RGLD",
+    "VIV",
+    "BEKE",
+    "SSNC",
+    "SNX",
+    "BR",
+    "BCH",
+    "BBY",
+    "SBAC",
+    "LUV",
+    "WWD",
+    "OVV",
+    "TSN",
+    "EVRG",
+    "WIT",
+    "CDW",
+    "SWKS",
+    "SNA",
+    "BCE",
+    "FIS",
+    "SOFI",
+    "CRS",
+    "EFX",
+    "FSLR",
+    "ESS",
+    "CNH",
+    "PAAS",
+    "GPC",
+    "CW",
+    "CF",
+    "TOST",
+    "NTNX",
+    "LEN",
+    "ZBH",
+    "LEN-B",
+    "IP",
+    "NDSN",
+    "U",
+    "DT",
+    "PS",
+    "RIVN",
+    "NWS",
+    "ZBRA",
+    "LNT",
+    "DD",
+    "GIS",
+    "MGA",
+    "PKX",
+    "RGA",
+    "KSPI",
+    "APG",
+    "FTV",
+    "AS",
+    "MEDP",
+    "IEX",
+    "EWBC",
+    "APA",
+    "RCI",
+    "RVTY",
+    "TSCO",
+    "SQM",
+    "WF",
+    "CLH",
+    "FTAI",
+    "BALL",
+    "WCC",
+    "TPG",
+    "HST",
+    "FDXF",
+    "TLN",
+    "ASTS",
+    "FICO",
+    "BURL",
+    "J",
+    "WMG",
+    "CHRW",
+    "HSAI",
+    "VNOM",
+    "NWSA",
+    "H",
+    "STLA",
+    "RBC",
+    "INVH",
+    "ROL",
+    "GFL",
+    "CDE",
+    "NVR",
+    "GIB",
+    "BEN",
+    "LDOS",
+    "CRBG",
+    "EXEL",
+    "MTZ",
+    "BSAC",
+    "KIM",
+    "LOGI",
+    "LAMR",
+    "XP",
+    "YUMC",
+    "W",
+    "ZTO",
+    "ASND",
+    "LSCC",
+    "EG",
+    "PFGC",
+    "JHX",
+    "CX",
+    "FUTU",
+    "MKSI",
+    "SUI",
+    "ULS",
+    "TYL",
+    "RBA",
+    "ARMK",
+    "HTHT",
+    "UNM",
+    "WPC",
+    "EQH",
+    "RNR",
+    "SGI",
+    "SOLV",
+    "SITM",
+    "GEN",
+    "OHI",
+    "EMA",
+    "CRL",
+    "MAS",
+    "PNFP",
+    "TME",
+    "DKS",
+    "LECO",
+    "CHTR",
+    "OWL",
+    "CHKP",
+    "JBS",
+    "COKE",
+    "HAS",
+    "WY",
+    "DOCU",
+    "HALO",
+    "PAG",
+    "GWRE",
+    "AIZ",
+    "JLL",
+    "TRU",
+    "SWK",
+    "TRMB",
+    "MAA",
+    "KEP",
+    "TIGO",
+    "NBIX",
+    "SJM",
+    "REG",
+    "JAZZ",
+    "NLY",
+    "GDDY",
+    "GME",
+    "CACI",
+    "BF-A",
+    "MLI",
+    "AGI",
+    "ARCC",
+    "BBIO",
+    "AVY",
+    "ALLE",
+    "DOC",
+    "FN",
+    "CSL",
+    "SMTC",
+    "BF-B",
+    "GGG",
+    "STRL",
+    "TU",
+    "EMBJ",
+    "FLUT",
+    "TXT",
+    "ICLR",
+    "BAX",
+    "BJ",
+    "MANH",
+    "BMNR",
+    "CG",
+    "GL",
+    "CNA",
+    "CSGP",
+    "IT",
+    "AKAM",
+    "AMH",
+    "RPM",
+    "PEN",
+    "SEIC",
+    "EHC",
+    "ERIE",
+    "IVZ",
+    "MKC-V",
+    "PINS",
+    "PNW",
+    "DTM",
+    "UDR",
+    "CCK",
+    "BWXT",
+    "SKM",
+    "MKC",
+    "IONQ",
+    "AFG",
+    "LII",
+    "NXT",
+    "TOL",
+    "INIO",
+    "FIVE",
+    "WSO",
+    "AIT",
+    "AEG",
+    "PAC",
+    "ELS",
+    "BTSG",
+    "CORT",
+    "SMMT",
+    "SNN",
+    "DVA",
+    "AR",
+    "WTS",
+    "CR",
+    "BWA",
+    "CART",
+    "ELAN",
+    "ONON",
+    "GRAB",
+    "DECK",
+    "WSO-B",
+    "HUBS",
+    "RML",
+    "FMS",
+    "FRO",
+    "MOG-A",
+    "MAIR",
+    "GLPI",
+    "TEM",
+    "FRHC",
+    "DOCN",
+    "AHR",
+    "WTRG",
+    "ALLY",
+    "GNRC",
+    "PAYC",
+    "TECH",
+    "FIG",
+    "MICC",
+    "ALB",
+    "CPT",
+    "MOG-B",
+    "HRL",
+    "LULU",
+    "CHYM",
+    "TXRH",
+    "UHAL",
+    "RGEN",
+    "ONTO",
+    "SCI",
+    "MOH",
+    "LI",
+    "AVTR",
+    "PSO",
+    "ARW",
+    "IREN",
+    "NYT",
+    "QXO",
+    "COO",
+    "AA",
+    "RDY",
+    "UHS",
+    "FHN",
+    "FROG",
+    "IESC",
+    "GSAT",
+    "SAIL",
+    "WSE",
+    "JKHY",
+    "BSY",
+    "AES",
+    "FDS",
+    "FNF",
+    "SUZ",
+    "AMKR",
+    "HII",
+    "BXP",
+    "BMRN",
+    "HMY",
+    "PAYP",
+    "HBM",
+    "KNX",
+    "RTO",
+    "EGP",
+    "SNAP",
+    "ELPC",
+    "MDGL",
+    "ALGN",
+    "RYAN",
+    "RRX",
+    "NVMI",
+    "TTMI",
+    "CLX",
+    "ENSG",
+    "TLK",
+    "HL",
+    "OSCR",
+    "GMED",
+    "PCVX",
+    "MTCH",
+    "IAG",
+    "FPS",
+    "SSL",
+    "AGNC",
+    "RRC",
+    "BPOP",
+    "DCI",
+    "SF",
+    "MUSA",
+    "PBF",
+    "JEF",
+    "AUR",
+    "AMG",
+    "BNT",
+    "UMBF",
+    "DPZ",
+    "AEIS",
+    "RMBS",
+    "UHAL-B",
+    "GGB",
+    "SSB",
+    "LFUS",
+    "GKOS",
+    "ESTC",
+    "PODD",
+    "BIO-B",
+    "AM",
+    "OGE",
+    "EVR",
+    "CIG-C",
+    "MSGS",
+    "WTFC",
+    "DAR",
+    "WMS",
+    "CFR",
+    "HSIC",
+    "SANM",
+    "ORI",
+    "SOLS",
+    "ENLT",
+    "GLXY",
+    "ONB",
+    "QGEN",
+    "DKNG",
+    "KRYS",
+    "TTC",
+    "FCFS",
+    "BIO",
+    "SM",
+    "KNTK",
+    "EDU",
+    "VICR",
+    "DRS",
+    "TFII",
+    "APTV",
+    "ZION",
+    "PCTY",
+    "YMM",
+    "FRT",
+    "LLYVK",
+    "EGO",
+    "ALSN",
+    "CGNX",
+    "R",
+    "TXG",
+    "IBRX",
+    "AYI",
+    "LTH",
+    "SIRI",
+    "JAN",
+    "TWST",
+    "HLI",
+    "FLS",
+    "SAIA",
+    "KT",
+    "XPEV",
+    "JXN",
+    "TTEK",
+    "BAH",
+    "GTLB",
+    "CUBE",
+    "TIMB",
+    "ESI",
+    "OC",
+    "LLYVA",
+    "CYTK",
+    "FORM",
+    "KYMR",
+    "RHP",
+    "CAI",
+    "PCOR",
+    "PRI",
+    "CTRE",
+    "CTVA",
+    "VMI",
+    "NIO",
+    "VOYA",
+    "VIAV",
+    "BRX",
+    "ALV",
+    "PNR",
+    "PTGX",
+    "CHRD",
+    "BRKR",
+    "EAT",
+    "VSAT",
+    "SPXC",
+    "HUT",
+    "REXR",
+    "IDCC",
+    "UGP",
+    "CHWY",
+    "KNSL",
+    "LINE",
+    "TGTX",
+    "ADC",
+    "UGI",
+    "AXSM",
+    "GAP",
+    "HNGE",
+    "NEU",
+    "MHK",
+    "PB",
+    "WAL",
+    "THG",
+    "COLB",
+    "WLK",
+    "ARWR",
+    "FR",
+    "MOD",
+    "IDA",
+    "AOS",
+    "ZETA",
+    "AAL",
+    "CBC",
+    "CBSH",
+    "VIST",
+    "ATR",
+    "AG",
+    "ETSY",
+    "OSK",
+    "LEVI",
+    "NTSK",
+    "ZWS",
+    "NNN",
+    "TKR",
+    "DBX",
+    "SYRE",
+    "CAE",
+    "WYNN",
+    "MORN",
+    "STN",
+    "CNM",
+    "ABVX",
+    "HQY",
+    "BVN",
+    "DY",
+    "KMX",
+    "LNC",
+    "NFG",
+    "APPF",
+    "CLF",
+    "S",
+    "BOKF",
+    "AVT",
+    "GIL",
+    "LW",
+    "PACS",
+    "URBN",
+    "ACM",
+    "DSGX",
+    "RAL",
+    "SLAB",
+    "KTOS",
+    "TAP",
+    "BROS",
+    "CWEN",
+    "BZ",
+    "SFD",
+    "MGM",
+    "AXS",
+    "TTAN",
+    "AUGO",
+    "SSD",
+    "ACA",
+    "SIMO",
+    "CELH",
+    "AGCO",
+    "IONS",
+    "KEX",
+    "SBSW",
+    "SOBO",
+    "LGN",
+    "EMN",
+    "MTDR",
+    "AXTA",
+    "PRMB",
+    "NE",
+    "VSXY",
+    "ZG",
+    "MATX",
+    "TBBB",
+    "AWI",
+    "MP",
+    "ALKS",
+    "PPC",
+    "STAG",
+    "MGY",
+    "VLY",
+    "SARO",
+    "ARE",
+    "TRNO",
+    "VFS",
+    "PRAX",
+    "COMP",
+    "SNEX",
+    "MSA",
+    "NCLH",
+    "MXL",
+    "HXL",
+    "FSS",
+    "Z",
+    "CAG",
+    "PDI",
+    "ELF",
+    "MAC",
+    "PATH",
+    "ANF",
+    "NOV",
+    "RUSHB",
+    "CHE",
+    "NAVN",
+    "CIG",
+    "GLBE",
+    "FAF",
+    "VFC",
+    "VCTR",
+    "NICE",
+    "TAL",
+    "AMRX",
+    "OR",
+    "CAVA",
+    "SEI",
+    "RIG",
+    "GTES",
+    "LNTH",
+    "AAOI",
+    "ESE",
+    "LAD",
+    "HIMS",
+    "TXNM",
+    "DUOL",
+    "SSRM",
+    "VNO",
+    "QLYS",
+    "LB",
+    "LYFT",
+    "ACI",
+    "OMF",
+    "RNG",
+    "EPAM",
+    "PAGP",
+    "UBSI",
+    "ACT",
+    "IOVA",
+    "CVI",
+    "SWX",
+    "HESM",
+    "TFPM",
+    "DOX",
+    "PLXS",
+    "CVLT",
+    "G",
+    "FLR",
+    "MBLY",
+    "OTEX",
+    "M",
+    "WEX",
+    "ENIC",
+    "VAL",
+    "INGR",
+    "INGM",
+    "POOL",
+    "KNSA",
+    "VIPS",
+    "AAON",
+    "ENS",
+    "GGAL",
+    "FNB",
+    "POWL",
+    "CAMT",
+    "MUR",
+    "IFS",
+    "WULF",
+    "SFM",
+    "EXLS",
+    "HR",
+    "ALGM",
+    "NPO",
+    "AVAV",
+    "RYTM",
+    "LGND",
+    "MBGL",
+    "OGC",
+    "HRB",
+    "ST",
+    "BLCO",
+    "LEA",
+    "CZR",
+    "CROX",
+    "CPB",
+    "GATX",
+    "HWC",
+    "BKH",
+    "FSV",
+    "APLD",
+    "BLTE",
+    "HOMB",
+    "MOS",
+    "ESNT",
+    "LSTR",
+    "BILI",
+    "BLDR",
+    "WPP",
+    "TEX",
+    "MKTX",
+    "PJT",
+    "FIGR",
+    "CHDN",
+    "LOAR",
+    "VEON",
+    "TTD",
+    "MTG",
+    "CAKE",
+    "SXT",
+    "GBCI",
+    "WH",
+    "RLI",
+    "CACC",
+    "JMKE",
+    "RYN",
+    "NXE",
+    "VRNS",
+    "SGHC",
+    "DLB",
+    "PEGA",
+    "KOD",
+    "SAIC",
+    "EPRT",
+    "ECG",
+    "CWST",
+    "IMVT",
+    "SNDR",
+    "OLLI",
+    "BIRK",
+    "TFX",
+    "LKQ",
+    "HLNE",
+    "NIQ",
+    "DOCS",
+    "OCTV",
+    "BXSL",
+    "BOX",
+    "RDNT",
+    "FTDR",
+    "GXO",
+    "ASB",
+    "INSW",
+    "CRUS",
+    "HAFN",
+    "JBTM",
+    "BCPC",
+    "BBUC",
+    "CRGY",
+    "AUB",
+    "HAE",
+    "MTN",
+    "LAUR",
+    "ORA",
+    "STEP",
+    "WFRD",
+    "GRAL",
+    "CGON",
+    "OUT",
+    "CPA",
+    "BGC",
+    "PECO",
+    "ACIW",
+    "ABCB",
+    "MMSI",
+    "HGTY",
+    "CNX",
+    "BEPC",
+    "AN",
+    "SIGI",
+    "PI",
+    "NJR",
+    "RUSHA",
+    "RIOT",
+    "CE",
+    "PSMT",
+    "MIRM",
+    "WAY",
+    "XMTR",
+    "EXP",
+    "AROC",
+    "POR",
+    "COGT",
+    "GRFS",
+    "WTM",
+    "MAAS",
+    "WFG",
+    "RELY",
+    "KVYO",
+    "MTRN",
+    "CMBT",
+    "GHC",
+    "STVN",
+    "SHC",
+    "NXST",
+    "BYD",
+    "OKLO",
+    "CLMT",
+    "VIRT",
+    "CNO",
+    "MEOH",
+    "PTCT",
+    "RRR",
+    "AX",
+    "KRG",
+    "MMED",
+    "OZK",
+    "NOVT",
+    "CHH",
+    "MAIN",
+    "OBDC",
+    "AGX",
+    "ADT",
+    "KLAR",
+    "LPX",
+    "SBRA",
+    "CON",
+    "SON",
+    "ORKA",
+    "IBP",
+    "PL",
+    "RGC",
+    "MWH",
+    "SRRK",
+    "MIDD",
+    "SR",
+    "EBC",
+    "GVA",
+    "CRC",
+    "CRSP",
+    "MANE",
+    "FBIN",
+    "MAT",
+    "LUMN",
+    "REYN",
+    "RITM",
+    "KGS",
+    "DK",
+    "NSIT",
+    "AMTM",
+    "ERAS",
+    "TVTX",
+    "RXO",
+    "OGS",
+    "BB",
+    "UNF",
+    "FND",
+    "ROAD",
+    "CSW",
+    "OPCH",
+    "IRDM",
+    "BLLN",
+    "SYNA",
+    "HCC",
+    "DAVE",
+    "TREX",
+    "GOLF",
+    "DPC",
+    "PSN",
+    "HASI",
+    "GLNG",
+    "BIPC",
+    "NWE",
+    "STWD",
+    "JOBY",
+    "CHEF",
+    "GDS",
+    "FLG",
+    "GEF",
+    "ATAT",
+    "KBR",
+    "SIG",
+    "MRCY",
+    "AKO-B",
+    "YOU",
+    "TFSL",
+    "CIGI",
+    "NNI",
+    "PIPR",
+    "CNK",
+    "RDN",
+    "GTX",
+    "MDA",
+    "OPLN",
+    "LFST",
+    "KRMN",
+    "CUZ",
+    "BWIN",
+    "CCC",
+    "CNR",
+    "VSEC",
+    "VNT",
+    "OMAB",
+    "DFTX",
+    "QBTS",
+    "PTEN",
+    "RSI",
+    "MYRG",
+    "FELE",
+    "ENVA",
+    "VSNT",
+    "GNTX",
+    "CORZ",
+    "OII",
+    "PRM",
+    "BLSH",
+    "CVSA",
+    "PAM",
+    "PARR",
+    "VSH",
+    "UFPI",
+    "FFIN",
+    "ITGR",
+    "SEZL",
+    "HTFL",
+    "ARX",
+    "LIVN",
+    "WHD",
+    "BCO",
+    "SFBS",
+    "CGAU",
+    "MMYT",
+    "DLO",
+    "FULT",
+    "TKC",
+    "GFF",
+    "KLIC",
+    "ALH",
+    "LOPE",
+    "HRI",
+    "SKT",
+    "TENB",
+    "GEF-B",
+    "EPR",
+    "SLGN",
+    "SKY",
+    "XE",
+    "BETA",
+    "FHI",
+    "CRK",
+    "FBP",
+    "BC",
+    "WK",
+    "DNTH",
+    "OTF",
+    "LBTYB",
+    "STNG",
+    "SITE",
+    "TPC",
+    "TAC",
+    "JOYY",
+    "BMA",
+    "FCN",
+    "UCB",
+    "BDC",
+    "BBWI",
+    "CAAP",
+    "SLM",
+    "EWTX",
+    "KFY",
+    "APLE",
+    "KRC",
+    "PRIM",
+    "AZZ",
+    "ESAB",
+    "ICUI",
+    "HHH",
+    "NP",
+    "TDW",
+    "CRVL",
+    "KTB",
+    "CVCO",
+    "CATY",
+    "VVV",
+    "ENPH",
+    "MC",
+    "MDU",
+    "AQN",
+    "PAY",
+    "TNL",
+    "TRMD",
+    "ACMR",
+    "PVH",
+    "TGS",
+    "SKE",
+    "AIR",
+    "COLD",
+    "PLNT",
+    "WSFS",
+    "BFH",
+    "TDS",
+    "RGTI",
+    "DOO",
+    "INDV",
+    "QTWO",
+    "BILL",
+    "JOE",
+    "DIOD",
+    "ABCL",
+    "ALK",
+    "CBT",
+    "AYA",
+    "MTH",
+    "CVBF",
+    "ADPT",
+    "AKO-A",
+    "CDP",
+    "TNGX",
+    "DHT",
+    "BNL",
+    "USAR",
+    "BWLP",
+    "BRC",
+    "ARQT",
+    "MNDY",
+    "MIR",
+    "CIFR",
+    "VAC",
+    "INDB",
+    "DNP",
+    "HP",
+    "SPHR",
+    "OTTR",
+    "BTE",
+    "MSGE",
+    "EQPT",
+    "PLMR",
+    "AXTI",
+    "IPAR",
+    "FSLY",
+    "RLAY",
+    "BMI",
+    "MRP",
+    "GEO",
+    "BANF",
+    "XXI",
+    "DORM",
+    "TLX",
+    "NVST",
+    "ITRI",
+    "BOOT",
+    "RNST",
+    "OLED",
+    "ATMU",
+    "ASO",
+    "OGN",
+    "FRSH",
+    "ARIS",
+    "AVNT",
+    "LXP",
+    "SLG",
+    "WING",
+    "IRTC",
+    "GPGI",
+    "CAR",
+    "LEGN",
+    "HG",
+    "WSBC",
+    "ECO",
+    "CNS",
+    "SKYW",
+    "ERO",
+    "VCYT",
+    "ZIM",
+    "IRT",
+    "MANU",
+    "ONDS",
+    "BATRA",
+    "LAZ",
+    "ZGN",
+    "SRAD",
+    "THO",
+    "CSTM",
+    "BFAM",
+    "POST",
+    "EXPO",
+    "NIC",
+    "CECO",
+    "ACLS",
+    "GNW",
+    "LRN",
+    "CDNA",
+    "CENX",
+    "LIF",
+    "INTA",
+    "NATL",
+    "MWA",
+    "TNK",
+    "LMND",
+    "COCO",
+    "HNI",
+    "BRZE",
+    "RHI",
+    "AMLX",
+    "SHOO",
+    "MGNI",
+    "FIBK",
+    "ACAD",
+    "XENE",
+    "CPK",
+    "FFBC",
+    "SXI",
+    "FA",
+    "VTMX",
+    "SBLK",
+    "AAMI",
+    "ASH",
+    "FIZZ",
+    "HIW",
+    "AWR",
+    "VKTX",
+    "TNET",
+    "BULL",
+    "TOWN",
+    "TARS",
+    "PK",
+    "NHI",
+    "IDYA",
+    "ATKR",
+    "SFNC",
+    "WT",
+    "ADX",
+    "CXT",
+    "MMS",
+    "FIGS",
+    "PLSE",
+    "CSQ",
+    "SLDE",
+    "SMG",
+    "MCHB",
+    "FRPT",
+    "LION",
+    "CBU",
+    "FSM",
+    "FOUR",
+    "BATRK",
+    "WOR",
+    "SBCF",
+    "YETI",
+    "GBDC",
+    "DAN",
+    "ACHR",
+    "MHO",
+    "VGNT",
+    "AGO",
+    "KAI",
+    "AGYS",
+    "LQDA",
+    "BELFB",
+    "NMIH",
+    "OSIS",
+    "WIX",
+    "ABG",
+    "PFSI",
+    "WRBY",
+    "AVA",
+    "COLM",
+    "AVPT",
+    "EFXT",
+    "NEA",
+    "USLM",
+    "PAGS",
+    "MIAX",
+    "SHAK",
+    "IPGP",
+    "SPSC",
+    "CURB",
+    "AEO",
+    "FHB",
+    "INTR",
+    "HTGC",
+    "CBZ",
+    "SDRL",
+    "PTRN",
+    "ABM",
+    "MNSO",
+    "APPN",
+    "TALO",
+    "PENG",
+    "CXW",
+    "BKU",
+    "PII",
+    "IRON",
+    "BTU",
+    "AAUC",
+    "CALM",
+    "GPOR",
+    "SPNT",
+    "MARA",
+    "NOG",
+    "EXTR",
+    "ARCB",
+    "KN",
+    "PRVA",
+    "PFS",
+    "WSC",
+    "PPLI",
+    "GPI",
+    "DNOW",
+    "AD",
+    "UNFI",
+    "CLBK",
+    "TR",
+    "KD",
+    "IHS",
+    "KYIV",
+    "MZTI",
+    "DNLI",
+    "TDC",
+    "KNF",
+    "CELC",
+    "NMRK",
+    "CWT",
+    "ALRM",
+    "ATRC",
+    "IMAX",
+    "DXPE",
+    "DYN",
+    "FLY",
+    "FSK",
+    "ELVN",
+    "SA",
+    "NTCT",
+    "IOND",
+    "HURN",
+    "ACHC",
+    "HOG",
+    "RCUS",
+    "COTY",
+    "MGRC",
+    "CLBT",
+    "AMBP",
+    "HWKN",
+    "FRVO",
+    "DRH",
+    "SII",
+    "VIA",
+    "BHF",
+    "AMBA",
+    "FUL",
+    "HGV",
+    "NRIX",
+    "SKWD",
+    "MGEE",
+    "LBRT",
+    "LFTO",
+    "AVAH",
+    "BANC",
+    "KWR",
+    "CARG",
+    "WDFC",
+    "AKR",
+    "DGII",
+    "AAP",
+    "ZLAB",
+    "MH",
+    "WLY",
+    "WLYB",
+    "VECO",
+    "LPL",
+    "CSQR",
+    "UE",
+    "BCC",
+    "WTTR",
+    "AMC",
+    "NBTB",
+    "ATRO",
+    "BOH",
+    "LBTYA",
+    "STNE",
+    "CENT",
+    "CWK",
+    "DX",
+    "ALM",
+    "GRBK",
+    "BBAR",
+    "TRMK",
+    "KBH",
+    "LBTYK",
+    "NEOG",
+    "BHE",
+    "DCO",
+    "ASST",
+    "KC",
+    "FBK",
+    "PURR",
+    "FG",
+    "CUBI",
+    "COHU",
+    "LIFE",
+    "GPK",
+    "RNW",
+    "GRDN",
+    "REZI",
+    "TTAM",
+    "HAYW",
+    "HCI",
+    "BKV",
+    "BELFA",
+    "POWI",
+    "FBNC",
+    "FRME",
+    "BANR",
+    "TMDX",
+    "CALY",
+    "PLUS",
+    "GDV",
+    "BEAM",
+    "QS",
+    "MBX",
+    "NAD",
+    "KSS",
+    "HCM",
+    "EXK",
+    "KALU",
+    "BUSE",
+    "ADMA",
+    "FIVN",
+    "GRND",
+    "EEFT",
+    "ROG",
+    "PAYO",
+    "OSW",
+    "NWL",
+    "IOSP",
+    "AMTD",
+    "BKD",
+    "NGVT",
+    "UCTT",
+    "BKE",
+    "KYN",
+    "SYBT",
+    "PBH",
+    "FCPT",
+    "PPTA",
+    "CLOV",
+    "SMR",
+    "BHC",
+    "PTY",
+    "NVG",
+    "CHA",
+    "AERO",
+    "KMT",
+    "BLKB",
+    "PBI",
+    "LTC",
+    "NAMS",
+    "ATHM",
+    "HTO",
+    "IVT",
+    "VC",
+    "PRGO",
+    "RUM",
+    "NTB",
+    "LPG",
+    "BBT",
+    "CNXN",
+    "DBD",
+    "RAMP",
+    "LEU",
+    "CALX",
+    "STUB",
+    "ADEA",
+    "PTON",
+    "PGEN",
+    "APAM",
+    "BGSI",
+    "ASAN",
+    "NVTS",
+    "UFPT",
+    "FLYW",
+    "CENTA",
+    "UPST",
+    "SUPN",
+    "VRDN",
+    "LIND",
+    "MD",
+    "HOS",
+    "PEB",
+    "ANDE",
+    "MBIN",
+    "CLSK",
+    "OFG",
+    "DAO",
+    "AUPH",
+    "AGM",
+    "DXC",
+    "STGW",
+    "HLIO",
+    "SHO",
+    "CHRN",
+    "HRMY",
+    "VVX",
+    "ADUS",
+    "NWBI",
+    "NZF",
+    "PONY",
+    "DRD",
+    "VERX",
+    "ECPG",
+    "NCNO",
+    "EFSC",
+    "IMOS",
+    "FTRE",
+    "BTDR",
+    "BVC",
+    "RH",
+    "PATK",
+    "NEO",
+    "WAFD",
+    "PRDO",
+    "CDLR",
+    "PHIN",
+    "PGNY",
+    "RDW",
+    "DV",
+    "HTH",
+    "SLS",
+    "TILE",
+    "PLGO",
+    "VCEL",
+    "SOUN",
+    "AMR",
+    "HIMX",
+    "CTOS",
+    "UAA",
+    "OUST",
+    "GCT",
+    "SRCE",
+    "UTZ",
+    "PRLB",
+    "NWN",
+    "FCF",
+    "AEHR",
+    "MCRI",
+    "OPEN",
+    "VERA",
+    "RVT",
+    "EZPW",
+    "EVT",
+    "BCRX",
+    "VET",
+    "AXGN",
+    "SONO",
+    "TRN",
+    "TBBK",
+    "UA",
+    "SAH",
+    "IDT",
+    "CTRI",
+    "WS",
+    "LCII",
+    "PRCH",
+    "PENN",
+    "INSP",
+    "AMPL",
+    "CHCO",
+    "BFLY",
+    "PHVS",
+    "LASR",
+    "IMNM",
+    "DRVN",
+    "PLBL",
+    "PLUG",
+    "NMZ",
+    "MTX",
+    "FRMI",
+    "ZD",
+    "INVX",
+    "WERN",
+    "SMA",
+    "AGIO",
+    "WGS",
+    "LKFT",
+    "CEPU",
+    "INFQ",
+    "STDN"
+  ],
+  "ranking": [
+    {
+      "ticker": "NVDA",
+      "market_cap": 5206334504960
+    },
+    {
+      "ticker": "AAPL",
+      "market_cap": 5036451561472
+    },
+    {
+      "ticker": "GOOGL",
+      "market_cap": 4204345950208
+    },
+    {
+      "ticker": "GOOG",
+      "market_cap": 4159054544896
+    },
+    {
+      "ticker": "MSFT",
+      "market_cap": 3945675096064
+    },
+    {
+      "ticker": "AMZN",
+      "market_cap": 2769116200960
+    },
+    {
+      "ticker": "TSM",
+      "market_cap": 2169813204992
+    },
+    {
+      "ticker": "SPCX",
+      "market_cap": 1953803403264
+    },
+    {
+      "ticker": "META",
+      "market_cap": 1771663261696
+    },
+    {
+      "ticker": "AVGO",
+      "market_cap": 1596659859456
+    },
+    {
+      "ticker": "TSLA",
+      "market_cap": 1426005426176
+    },
+    {
+      "ticker": "BRK-B",
+      "market_cap": 1138868355072
+    },
+    {
+      "ticker": "BRK-A",
+      "market_cap": 1138485100544
+    },
+    {
+      "ticker": "LLY",
+      "market_cap": 1119625936896
+    },
+    {
+      "ticker": "SKHY",
+      "market_cap": 1039655305216
+    },
+    {
+      "ticker": "MU",
+      "market_cap": 1027660972032
+    },
+    {
+      "ticker": "WMT",
+      "market_cap": 945738088448
+    },
+    {
+      "ticker": "JPM",
+      "market_cap": 897088290816
+    },
+    {
+      "ticker": "AMD",
+      "market_cap": 885283422208
+    },
+    {
+      "ticker": "V",
+      "market_cap": 756283211776
+    },
+    {
+      "ticker": "XOM",
+      "market_cap": 735045353472
+    },
+    {
+      "ticker": "ASML",
+      "market_cap": 640205783040
+    },
+    {
+      "ticker": "JNJ",
+      "market_cap": 611668393984
+    },
+    {
+      "ticker": "MA",
+      "market_cap": 540182773760
+    },
+    {
+      "ticker": "ABBV",
+      "market_cap": 505448562688
+    },
+    {
+      "ticker": "INTC",
+      "market_cap": 494805876736
+    },
+    {
+      "ticker": "PLTR",
+      "market_cap": 459296571392
+    },
+    {
+      "ticker": "CVX",
+      "market_cap": 442008076288
+    },
+    {
+      "ticker": "COST",
+      "market_cap": 439311794176
+    },
+    {
+      "ticker": "CSCO",
+      "market_cap": 422051184640
+    },
+    {
+      "ticker": "KO",
+      "market_cap": 403493027840
+    },
+    {
+      "ticker": "ORCL",
+      "market_cap": 392158314496
+    },
+    {
+      "ticker": "PG",
+      "market_cap": 367493218304
+    },
+    {
+      "ticker": "UNH",
+      "market_cap": 364154224640
+    },
+    {
+      "ticker": "MRK",
+      "market_cap": 361687384064
+    },
+    {
+      "ticker": "BAC",
+      "market_cap": 358168592384
+    },
+    {
+      "ticker": "LRCX",
+      "market_cap": 343835115520
+    },
+    {
+      "ticker": "AMAT",
+      "market_cap": 335413968896
+    },
+    {
+      "ticker": "CAT",
+      "market_cap": 331990990848
+    },
+    {
+      "ticker": "GE",
+      "market_cap": 323880321024
+    },
+    {
+      "ticker": "HSBC",
+      "market_cap": 319255937024
+    },
+    {
+      "ticker": "PM",
+      "market_cap": 315751694336
+    },
+    {
+      "ticker": "HD",
+      "market_cap": 306969116672
+    },
+    {
+      "ticker": "SHEL",
+      "market_cap": 300628049920
+    },
+    {
+      "ticker": "DELL",
+      "market_cap": 293707350016
+    },
+    {
+      "ticker": "NFLX",
+      "market_cap": 289060683776
+    },
+    {
+      "ticker": "NVS",
+      "market_cap": 285753475072
+    },
+    {
+      "ticker": "PANW",
+      "market_cap": 285481992192
+    },
+    {
+      "ticker": "MS",
+      "market_cap": 283817050112
+    },
+    {
+      "ticker": "RY",
+      "market_cap": 272012771328
+    },
+    {
+      "ticker": "BABA",
+      "market_cap": 271786147840
+    },
+    {
+      "ticker": "SAP",
+      "market_cap": 258830319616
+    },
+    {
+      "ticker": "RTX",
+      "market_cap": 258008072192
+    },
+    {
+      "ticker": "GS",
+      "market_cap": 256961675264
+    },
+    {
+      "ticker": "AZN",
+      "market_cap": 256729186304
+    },
+    {
+      "ticker": "TMO",
+      "market_cap": 253454368768
+    },
+    {
+      "ticker": "TXN",
+      "market_cap": 251681931264
+    },
+    {
+      "ticker": "WFC",
+      "market_cap": 249361137664
+    },
+    {
+      "ticker": "ARM",
+      "market_cap": 245650358272
+    },
+    {
+      "ticker": "GEV",
+      "market_cap": 245551562752
+    },
+    {
+      "ticker": "MUFG",
+      "market_cap": 244756611072
+    },
+    {
+      "ticker": "AMGN",
+      "market_cap": 234755932160
+    },
+    {
+      "ticker": "CRWD",
+      "market_cap": 233416196096
+    },
+    {
+      "ticker": "LIN",
+      "market_cap": 231306002432
+    },
+    {
+      "ticker": "TM",
+      "market_cap": 228824268800
+    },
+    {
+      "ticker": "ANET",
+      "market_cap": 227228532736
+    },
+    {
+      "ticker": "SHOP",
+      "market_cap": 222872190976
+    },
+    {
+      "ticker": "KLAC",
+      "market_cap": 222581899264
+    },
+    {
+      "ticker": "IBM",
+      "market_cap": 220275720192
+    },
+    {
+      "ticker": "MRVL",
+      "market_cap": 212444790784
+    },
+    {
+      "ticker": "AXP",
+      "market_cap": 210575114240
+    },
+    {
+      "ticker": "BHP",
+      "market_cap": 209557487616
+    },
+    {
+      "ticker": "C",
+      "market_cap": 207272476672
+    },
+    {
+      "ticker": "TTE",
+      "market_cap": 200110276608
+    },
+    {
+      "ticker": "SNDK",
+      "market_cap": 199111294976
+    },
+    {
+      "ticker": "APH",
+      "market_cap": 199052853248
+    },
+    {
+      "ticker": "TD",
+      "market_cap": 196059987968
+    },
+    {
+      "ticker": "CRM",
+      "market_cap": 195878125568
+    },
+    {
+      "ticker": "GILD",
+      "market_cap": 194710159360
+    },
+    {
+      "ticker": "ADI",
+      "market_cap": 191320981504
+    },
+    {
+      "ticker": "SAN",
+      "market_cap": 189679845376
+    },
+    {
+      "ticker": "DIS",
+      "market_cap": 189175808000
+    },
+    {
+      "ticker": "QCOM",
+      "market_cap": 187651424256
+    },
+    {
+      "ticker": "VZ",
+      "market_cap": 184513576960
+    },
+    {
+      "ticker": "BLK",
+      "market_cap": 182439641088
+    },
+    {
+      "ticker": "ABT",
+      "market_cap": 180851015680
+    },
+    {
+      "ticker": "PEP",
+      "market_cap": 180447363072
+    },
+    {
+      "ticker": "COP",
+      "market_cap": 175227076608
+    },
+    {
+      "ticker": "MCD",
+      "market_cap": 170888364032
+    },
+    {
+      "ticker": "UNP",
+      "market_cap": 170600677376
+    },
+    {
+      "ticker": "DE",
+      "market_cap": 170271145984
+    },
+    {
+      "ticker": "NVO",
+      "market_cap": 170257809408
+    },
+    {
+      "ticker": "TMUS",
+      "market_cap": 169299755008
+    },
+    {
+      "ticker": "PFE",
+      "market_cap": 168767340544
+    },
+    {
+      "ticker": "WELL",
+      "market_cap": 168606646272
+    },
+    {
+      "ticker": "SCCO",
+      "market_cap": 167809073152
+    },
+    {
+      "ticker": "PBR",
+      "market_cap": 167134642176
+    },
+    {
+      "ticker": "NEE",
+      "market_cap": 164145627136
+    },
+    {
+      "ticker": "BUD",
+      "market_cap": 162394062848
+    },
+    {
+      "ticker": "TJX",
+      "market_cap": 161822687232
+    },
+    {
+      "ticker": "T",
+      "market_cap": 159694848000
+    },
+    {
+      "ticker": "DHR",
+      "market_cap": 159050596352
+    },
+    {
+      "ticker": "SCHW",
+      "market_cap": 156401123328
+    },
+    {
+      "ticker": "SMFG",
+      "market_cap": 154140049408
+    },
+    {
+      "ticker": "ETN",
+      "market_cap": 152443109376
+    },
+    {
+      "ticker": "ISRG",
+      "market_cap": 151651663872
+    },
+    {
+      "ticker": "STX",
+      "market_cap": 150409101312
+    },
+    {
+      "ticker": "BA",
+      "market_cap": 149755363328
+    },
+    {
+      "ticker": "NOW",
+      "market_cap": 147862945792
+    },
+    {
+      "ticker": "RIO",
+      "market_cap": 145382965248
+    },
+    {
+      "ticker": "SONY",
+      "market_cap": 144793337856
+    },
+    {
+      "ticker": "UBS",
+      "market_cap": 144269279232
+    },
+    {
+      "ticker": "UBER",
+      "market_cap": 143408152576
+    },
+    {
+      "ticker": "ACN",
+      "market_cap": 141842055168
+    },
+    {
+      "ticker": "UL",
+      "market_cap": 140712230912
+    },
+    {
+      "ticker": "BBVA",
+      "market_cap": 139369562112
+    },
+    {
+      "ticker": "IBKR",
+      "market_cap": 138486120448
+    },
+    {
+      "ticker": "CB",
+      "market_cap": 137977479168
+    },
+    {
+      "ticker": "MPC",
+      "market_cap": 137455304704
+    },
+    {
+      "ticker": "WDC",
+      "market_cap": 130653798400
+    },
+    {
+      "ticker": "VLO",
+      "market_cap": 130344763392
+    },
+    {
+      "ticker": "BP",
+      "market_cap": 128328843264
+    },
+    {
+      "ticker": "BX",
+      "market_cap": 127914795008
+    },
+    {
+      "ticker": "VRTX",
+      "market_cap": 127556747264
+    },
+    {
+      "ticker": "BTI",
+      "market_cap": 127090130944
+    },
+    {
+      "ticker": "PGR",
+      "market_cap": 126950891520
+    },
+    {
+      "ticker": "LMT",
+      "market_cap": 126052499456
+    },
+    {
+      "ticker": "SPGI",
+      "market_cap": 125499301888
+    },
+    {
+      "ticker": "FTNT",
+      "market_cap": 124768010240
+    },
+    {
+      "ticker": "MO",
+      "market_cap": 124245647360
+    },
+    {
+      "ticker": "NEM",
+      "market_cap": 124188172288
+    },
+    {
+      "ticker": "COF",
+      "market_cap": 122696974336
+    },
+    {
+      "ticker": "MFG",
+      "market_cap": 122051944448
+    },
+    {
+      "ticker": "PH",
+      "market_cap": 121834684416
+    },
+    {
+      "ticker": "BKNG",
+      "market_cap": 121254027264
+    },
+    {
+      "ticker": "BMY",
+      "market_cap": 121153404928
+    },
+    {
+      "ticker": "PLD",
+      "market_cap": 120500445184
+    },
+    {
+      "ticker": "MDT",
+      "market_cap": 120334893056
+    },
+    {
+      "ticker": "PSX",
+      "market_cap": 119454580736
+    },
+    {
+      "ticker": "HDB",
+      "market_cap": 118747996160
+    },
+    {
+      "ticker": "CVS",
+      "market_cap": 117889097728
+    },
+    {
+      "ticker": "MCK",
+      "market_cap": 116998422528
+    },
+    {
+      "ticker": "BMO",
+      "market_cap": 115496525824
+    },
+    {
+      "ticker": "PDD",
+      "market_cap": 115487277056
+    },
+    {
+      "ticker": "GLW",
+      "market_cap": 115318366208
+    },
+    {
+      "ticker": "ADP",
+      "market_cap": 114126397440
+    },
+    {
+      "ticker": "SYK",
+      "market_cap": 113572143104
+    },
+    {
+      "ticker": "SNOW",
+      "market_cap": 111348965376
+    },
+    {
+      "ticker": "BNS",
+      "market_cap": 111035408384
+    },
+    {
+      "ticker": "CNQ",
+      "market_cap": 111032393728
+    },
+    {
+      "ticker": "SBUX",
+      "market_cap": 110819401728
+    },
+    {
+      "ticker": "EQNR",
+      "market_cap": 110107688960
+    },
+    {
+      "ticker": "LOW",
+      "market_cap": 109758996480
+    },
+    {
+      "ticker": "IBN",
+      "market_cap": 106489077760
+    },
+    {
+      "ticker": "NET",
+      "market_cap": 106206011392
+    },
+    {
+      "ticker": "SPOT",
+      "market_cap": 106109206528
+    },
+    {
+      "ticker": "ENB",
+      "market_cap": 105379717120
+    },
+    {
+      "ticker": "CME",
+      "market_cap": 105232670720
+    },
+    {
+      "ticker": "ABNB",
+      "market_cap": 104170979328
+    },
+    {
+      "ticker": "SO",
+      "market_cap": 103808753664
+    },
+    {
+      "ticker": "MAR",
+      "market_cap": 101957664768
+    },
+    {
+      "ticker": "CM",
+      "market_cap": 101716000768
+    },
+    {
+      "ticker": "TT",
+      "market_cap": 101380808704
+    },
+    {
+      "ticker": "GSK",
+      "market_cap": 99514597376
+    },
+    {
+      "ticker": "FCX",
+      "market_cap": 98912886784
+    },
+    {
+      "ticker": "HCA",
+      "market_cap": 98277613568
+    },
+    {
+      "ticker": "BNY",
+      "market_cap": 97012514816
+    },
+    {
+      "ticker": "EQIX",
+      "market_cap": 96334151680
+    },
+    {
+      "ticker": "SNY",
+      "market_cap": 95893422080
+    },
+    {
+      "ticker": "ADBE",
+      "market_cap": 95011504128
+    },
+    {
+      "ticker": "AEM",
+      "market_cap": 94819352576
+    },
+    {
+      "ticker": "CEG",
+      "market_cap": 94245765120
+    },
+    {
+      "ticker": "ING",
+      "market_cap": 93895516160
+    },
+    {
+      "ticker": "DUK",
+      "market_cap": 93821566976
+    },
+    {
+      "ticker": "PWR",
+      "market_cap": 93690241024
+    },
+    {
+      "ticker": "ELV",
+      "market_cap": 93350305792
+    },
+    {
+      "ticker": "DDOG",
+      "market_cap": 93038133248
+    },
+    {
+      "ticker": "SU",
+      "market_cap": 92761702400
+    },
+    {
+      "ticker": "GD",
+      "market_cap": 92568436736
+    },
+    {
+      "ticker": "MELI",
+      "market_cap": 92394921984
+    },
+    {
+      "ticker": "MNST",
+      "market_cap": 91213455360
+    },
+    {
+      "ticker": "USB",
+      "market_cap": 90997989376
+    },
+    {
+      "ticker": "WM",
+      "market_cap": 90451550208
+    },
+    {
+      "ticker": "EMR",
+      "market_cap": 89961979904
+    },
+    {
+      "ticker": "MRNA",
+      "market_cap": 89919897600
+    },
+    {
+      "ticker": "CDNS",
+      "market_cap": 89868992512
+    },
+    {
+      "ticker": "ICE",
+      "market_cap": 89761366016
+    },
+    {
+      "ticker": "CSX",
+      "market_cap": 89659785216
+    },
+    {
+      "ticker": "MRSH",
+      "market_cap": 89472344064
+    },
+    {
+      "ticker": "ASX",
+      "market_cap": 89381863424
+    },
+    {
+      "ticker": "JCI",
+      "market_cap": 88971304960
+    },
+    {
+      "ticker": "HOOD",
+      "market_cap": 88487682048
+    },
+    {
+      "ticker": "APP",
+      "market_cap": 88436080640
+    },
+    {
+      "ticker": "SNPS",
+      "market_cap": 87922884608
+    },
+    {
+      "ticker": "HWM",
+      "market_cap": 87336386560
+    },
+    {
+      "ticker": "WMB",
+      "market_cap": 87272996864
+    },
+    {
+      "ticker": "PNC",
+      "market_cap": 86654558208
+    },
+    {
+      "ticker": "AMT",
+      "market_cap": 85440765952
+    },
+    {
+      "ticker": "INTU",
+      "market_cap": 85363195904
+    },
+    {
+      "ticker": "E",
+      "market_cap": 84355489792
+    },
+    {
+      "ticker": "MMM",
+      "market_cap": 84122066944
+    },
+    {
+      "ticker": "CTAS",
+      "market_cap": 83933741056
+    },
+    {
+      "ticker": "MCO",
+      "market_cap": 83403096064
+    },
+    {
+      "ticker": "EOG",
+      "market_cap": 83059195904
+    },
+    {
+      "ticker": "UPS",
+      "market_cap": 82812952576
+    },
+    {
+      "ticker": "DASH",
+      "market_cap": 82070970368
+    },
+    {
+      "ticker": "MDLZ",
+      "market_cap": 81632665600
+    },
+    {
+      "ticker": "REGN",
+      "market_cap": 81436884992
+    },
+    {
+      "ticker": "BN",
+      "market_cap": 81090166784
+    },
+    {
+      "ticker": "NTES",
+      "market_cap": 80537559040
+    },
+    {
+      "ticker": "SHW",
+      "market_cap": 80391790592
+    },
+    {
+      "ticker": "TRV",
+      "market_cap": 80323289088
+    },
+    {
+      "ticker": "VRT",
+      "market_cap": 80035184640
+    },
+    {
+      "ticker": "ECL",
+      "market_cap": 79958130688
+    },
+    {
+      "ticker": "KKR",
+      "market_cap": 79798222848
+    },
+    {
+      "ticker": "NGG",
+      "market_cap": 79787098112
+    },
+    {
+      "ticker": "EPD",
+      "market_cap": 79684714496
+    },
+    {
+      "ticker": "CI",
+      "market_cap": 79377842176
+    },
+    {
+      "ticker": "LYG",
+      "market_cap": 77970366464
+    },
+    {
+      "ticker": "HLT",
+      "market_cap": 77285040128
+    },
+    {
+      "ticker": "SPG",
+      "market_cap": 77200236544
+    },
+    {
+      "ticker": "ITW",
+      "market_cap": 76931596288
+    },
+    {
+      "ticker": "CMCSA",
+      "market_cap": 76810240000
+    },
+    {
+      "ticker": "LITE",
+      "market_cap": 76037062656
+    },
+    {
+      "ticker": "ROST",
+      "market_cap": 76002664448
+    },
+    {
+      "ticker": "MSI",
+      "market_cap": 75993128960
+    },
+    {
+      "ticker": "CP",
+      "market_cap": 75978817536
+    },
+    {
+      "ticker": "KMI",
+      "market_cap": 75510857728
+    },
+    {
+      "ticker": "HPE",
+      "market_cap": 75400003584
+    },
+    {
+      "ticker": "CL",
+      "market_cap": 74412097536
+    },
+    {
+      "ticker": "RCL",
+      "market_cap": 74365050880
+    },
+    {
+      "ticker": "BCS",
+      "market_cap": 74339213312
+    },
+    {
+      "ticker": "NSC",
+      "market_cap": 73062858752
+    },
+    {
+      "ticker": "GM",
+      "market_cap": 72960098304
+    },
+    {
+      "ticker": "MFC",
+      "market_cap": 72822128640
+    },
+    {
+      "ticker": "SLB",
+      "market_cap": 72728059904
+    },
+    {
+      "ticker": "NOC",
+      "market_cap": 72665948160
+    },
+    {
+      "ticker": "CNI",
+      "market_cap": 72649064448
+    },
+    {
+      "ticker": "CMI",
+      "market_cap": 72402567168
+    },
+    {
+      "ticker": "BAM",
+      "market_cap": 72299593728
+    },
+    {
+      "ticker": "ORLY",
+      "market_cap": 72219975680
+    },
+    {
+      "ticker": "RSG",
+      "market_cap": 70658646016
+    },
+    {
+      "ticker": "TGT",
+      "market_cap": 70440976384
+    },
+    {
+      "ticker": "NU",
+      "market_cap": 69658533888
+    },
+    {
+      "ticker": "FDX",
+      "market_cap": 69517205504
+    },
+    {
+      "ticker": "RACE",
+      "market_cap": 69195284480
+    },
+    {
+      "ticker": "AEP",
+      "market_cap": 68749221888
+    },
+    {
+      "ticker": "NWG",
+      "market_cap": 68316672000
+    },
+    {
+      "ticker": "RELX",
+      "market_cap": 68026339328
+    },
+    {
+      "ticker": "HON",
+      "market_cap": 66791936000
+    },
+    {
+      "ticker": "APD",
+      "market_cap": 66712129536
+    },
+    {
+      "ticker": "BE",
+      "market_cap": 66545512448
+    },
+    {
+      "ticker": "B",
+      "market_cap": 66394976256
+    },
+    {
+      "ticker": "APO",
+      "market_cap": 65795366912
+    },
+    {
+      "ticker": "DLR",
+      "market_cap": 65517101056
+    },
+    {
+      "ticker": "COR",
+      "market_cap": 64995733504
+    },
+    {
+      "ticker": "CVNA",
+      "market_cap": 64853442560
+    },
+    {
+      "ticker": "URI",
+      "market_cap": 64776998912
+    },
+    {
+      "ticker": "AJG",
+      "market_cap": 64512053248
+    },
+    {
+      "ticker": "BSX",
+      "market_cap": 63940005888
+    },
+    {
+      "ticker": "MET",
+      "market_cap": 63846367232
+    },
+    {
+      "ticker": "TRP",
+      "market_cap": 63386308608
+    },
+    {
+      "ticker": "TAK",
+      "market_cap": 63108771840
+    },
+    {
+      "ticker": "TRGP",
+      "market_cap": 62806847488
+    },
+    {
+      "ticker": "TDG",
+      "market_cap": 62725312512
+    },
+    {
+      "ticker": "OXY",
+      "market_cap": 62682263552
+    },
+    {
+      "ticker": "GWW",
+      "market_cap": 62517084160
+    },
+    {
+      "ticker": "ALL",
+      "market_cap": 62208114688
+    },
+    {
+      "ticker": "TEL",
+      "market_cap": 61763305472
+    },
+    {
+      "ticker": "CVE",
+      "market_cap": 61616226304
+    },
+    {
+      "ticker": "AON",
+      "market_cap": 61594861568
+    },
+    {
+      "ticker": "MPWR",
+      "market_cap": 61088186368
+    },
+    {
+      "ticker": "DB",
+      "market_cap": 60334694400
+    },
+    {
+      "ticker": "LNG",
+      "market_cap": 59985780736
+    },
+    {
+      "ticker": "AFL",
+      "market_cap": 59880443904
+    },
+    {
+      "ticker": "WPM",
+      "market_cap": 59781079040
+    },
+    {
+      "ticker": "MSTR",
+      "market_cap": 58910973952
+    },
+    {
+      "ticker": "FAST",
+      "market_cap": 58711715840
+    },
+    {
+      "ticker": "OKE",
+      "market_cap": 58596536320
+    },
+    {
+      "ticker": "NUE",
+      "market_cap": 58548674560
+    },
+    {
+      "ticker": "CAH",
+      "market_cap": 58458894336
+    },
+    {
+      "ticker": "NXPI",
+      "market_cap": 57980108800
+    },
+    {
+      "ticker": "NTRA",
+      "market_cap": 57463074816
+    },
+    {
+      "ticker": "KEYS",
+      "market_cap": 57443987456
+    },
+    {
+      "ticker": "PCAR",
+      "market_cap": 57276403712
+    },
+    {
+      "ticker": "FANG",
+      "market_cap": 57115635712
+    },
+    {
+      "ticker": "TFC",
+      "market_cap": 57074380800
+    },
+    {
+      "ticker": "AME",
+      "market_cap": 56634404864
+    },
+    {
+      "ticker": "VALE",
+      "market_cap": 55793045504
+    },
+    {
+      "ticker": "DVN",
+      "market_cap": 55560998912
+    },
+    {
+      "ticker": "PSA",
+      "market_cap": 55486717952
+    },
+    {
+      "ticker": "CRH",
+      "market_cap": 55145431040
+    },
+    {
+      "ticker": "D",
+      "market_cap": 55106699264
+    },
+    {
+      "ticker": "SE",
+      "market_cap": 55028674560
+    },
+    {
+      "ticker": "NKE",
+      "market_cap": 54889590784
+    },
+    {
+      "ticker": "GRMN",
+      "market_cap": 54826049536
+    },
+    {
+      "ticker": "BKR",
+      "market_cap": 54671523840
+    },
+    {
+      "ticker": "SRE",
+      "market_cap": 54123331584
+    },
+    {
+      "ticker": "EBAY",
+      "market_cap": 53480099840
+    },
+    {
+      "ticker": "O",
+      "market_cap": 52751654912
+    },
+    {
+      "ticker": "TEAM",
+      "market_cap": 52611108864
+    },
+    {
+      "ticker": "HONA",
+      "market_cap": 52490543104
+    },
+    {
+      "ticker": "TER",
+      "market_cap": 52430434304
+    },
+    {
+      "ticker": "NDAQ",
+      "market_cap": 52320280576
+    },
+    {
+      "ticker": "DEO",
+      "market_cap": 52222578688
+    },
+    {
+      "ticker": "BDX",
+      "market_cap": 51867897856
+    },
+    {
+      "ticker": "FIX",
+      "market_cap": 51560394752
+    },
+    {
+      "ticker": "ARGX",
+      "market_cap": 51454640128
+    },
+    {
+      "ticker": "NOK",
+      "market_cap": 51283582976
+    },
+    {
+      "ticker": "VEEV",
+      "market_cap": 50894426112
+    },
+    {
+      "ticker": "UMC",
+      "market_cap": 50697371648
+    },
+    {
+      "ticker": "VST",
+      "market_cap": 50516451328
+    },
+    {
+      "ticker": "ABEV",
+      "market_cap": 50488995840
+    },
+    {
+      "ticker": "HUM",
+      "market_cap": 50419318784
+    },
+    {
+      "ticker": "EW",
+      "market_cap": 50308190208
+    },
+    {
+      "ticker": "AZO",
+      "market_cap": 50007076864
+    },
+    {
+      "ticker": "ALAB",
+      "market_cap": 49933352960
+    },
+    {
+      "ticker": "ETR",
+      "market_cap": 49836965888
+    },
+    {
+      "ticker": "ADSK",
+      "market_cap": 49742000128
+    },
+    {
+      "ticker": "DAL",
+      "market_cap": 49563828224
+    },
+    {
+      "ticker": "F",
+      "market_cap": 49443000320
+    },
+    {
+      "ticker": "CCEP",
+      "market_cap": 49337311232
+    },
+    {
+      "ticker": "INFY",
+      "market_cap": 49187373056
+    },
+    {
+      "ticker": "CIEN",
+      "market_cap": 48798441472
+    },
+    {
+      "ticker": "A",
+      "market_cap": 48585531392
+    },
+    {
+      "ticker": "WAB",
+      "market_cap": 48499372032
+    },
+    {
+      "ticker": "TEVA",
+      "market_cap": 48441962496
+    },
+    {
+      "ticker": "PYPL",
+      "market_cap": 48333537280
+    },
+    {
+      "ticker": "MDLN",
+      "market_cap": 47883968512
+    },
+    {
+      "ticker": "VYLR",
+      "market_cap": 47872311296
+    },
+    {
+      "ticker": "MT",
+      "market_cap": 47405740032
+    },
+    {
+      "ticker": "XEL",
+      "market_cap": 47378509824
+    },
+    {
+      "ticker": "TRI",
+      "market_cap": 47282892800
+    },
+    {
+      "ticker": "ROK",
+      "market_cap": 47181303808
+    },
+    {
+      "ticker": "VMRK",
+      "market_cap": 46995476480
+    },
+    {
+      "ticker": "KDP",
+      "market_cap": 46948495360
+    },
+    {
+      "ticker": "AU",
+      "market_cap": 46737883136
+    },
+    {
+      "ticker": "XYZ",
+      "market_cap": 46633709568
+    },
+    {
+      "ticker": "WDAY",
+      "market_cap": 46392500224
+    },
+    {
+      "ticker": "FNV",
+      "market_cap": 46347575296
+    },
+    {
+      "ticker": "COHR",
+      "market_cap": 46321164288
+    },
+    {
+      "ticker": "FITB",
+      "market_cap": 46206177280
+    },
+    {
+      "ticker": "NBIS",
+      "market_cap": 45592055808
+    },
+    {
+      "ticker": "LHX",
+      "market_cap": 45569511424
+    },
+    {
+      "ticker": "STT",
+      "market_cap": 45430177792
+    },
+    {
+      "ticker": "COIN",
+      "market_cap": 45295521792
+    },
+    {
+      "ticker": "CARR",
+      "market_cap": 45152407552
+    },
+    {
+      "ticker": "HLN",
+      "market_cap": 44658024448
+    },
+    {
+      "ticker": "BBD",
+      "market_cap": 44422868992
+    },
+    {
+      "ticker": "HMC",
+      "market_cap": 44218179584
+    },
+    {
+      "ticker": "FERG",
+      "market_cap": 44130435072
+    },
+    {
+      "ticker": "EXC",
+      "market_cap": 44120625152
+    },
+    {
+      "ticker": "IDXX",
+      "market_cap": 43760545792
+    },
+    {
+      "ticker": "SLF",
+      "market_cap": 43663466496
+    },
+    {
+      "ticker": "IQV",
+      "market_cap": 43653566464
+    },
+    {
+      "ticker": "FMX",
+      "market_cap": 43646406656
+    },
+    {
+      "ticker": "VTR",
+      "market_cap": 43603005440
+    },
+    {
+      "ticker": "HEI",
+      "market_cap": 42948849664
+    },
+    {
+      "ticker": "WAT",
+      "market_cap": 42754048000
+    },
+    {
+      "ticker": "AMP",
+      "market_cap": 42732077056
+    },
+    {
+      "ticker": "P",
+      "market_cap": 42566451200
+    },
+    {
+      "ticker": "AIG",
+      "market_cap": 42328203264
+    },
+    {
+      "ticker": "KB",
+      "market_cap": 42259132416
+    },
+    {
+      "ticker": "ONC",
+      "market_cap": 42074435584
+    },
+    {
+      "ticker": "WCN",
+      "market_cap": 41964265472
+    },
+    {
+      "ticker": "ED",
+      "market_cap": 41069469696
+    },
+    {
+      "ticker": "MSCI",
+      "market_cap": 40984625152
+    },
+    {
+      "ticker": "NTAP",
+      "market_cap": 40868904960
+    },
+    {
+      "ticker": "STM",
+      "market_cap": 40783273984
+    },
+    {
+      "ticker": "YUM",
+      "market_cap": 40678633472
+    },
+    {
+      "ticker": "LYV",
+      "market_cap": 40241426432
+    },
+    {
+      "ticker": "SYY",
+      "market_cap": 40081149952
+    },
+    {
+      "ticker": "MCHP",
+      "market_cap": 39927431168
+    },
+    {
+      "ticker": "ADM",
+      "market_cap": 39703830528
+    },
+    {
+      "ticker": "IX",
+      "market_cap": 39540101120
+    },
+    {
+      "ticker": "BBDO",
+      "market_cap": 39477682176
+    },
+    {
+      "ticker": "PAYX",
+      "market_cap": 39439077376
+    },
+    {
+      "ticker": "ILMN",
+      "market_cap": 39383822336
+    },
+    {
+      "ticker": "PRU",
+      "market_cap": 39252373504
+    },
+    {
+      "ticker": "ODFL",
+      "market_cap": 39166668800
+    },
+    {
+      "ticker": "PCG",
+      "market_cap": 39015759872
+    },
+    {
+      "ticker": "TWLO",
+      "market_cap": 38819209216
+    },
+    {
+      "ticker": "CLS",
+      "market_cap": 38668189696
+    },
+    {
+      "ticker": "RVMD",
+      "market_cap": 38369431552
+    },
+    {
+      "ticker": "DHI",
+      "market_cap": 38279917568
+    },
+    {
+      "ticker": "TTWO",
+      "market_cap": 38258069504
+    },
+    {
+      "ticker": "EL",
+      "market_cap": 38007660544
+    },
+    {
+      "ticker": "ROP",
+      "market_cap": 37870628864
+    },
+    {
+      "ticker": "CBRE",
+      "market_cap": 37740347392
+    },
+    {
+      "ticker": "VIK",
+      "market_cap": 37653827584
+    },
+    {
+      "ticker": "CMG",
+      "market_cap": 37431062528
+    },
+    {
+      "ticker": "KR",
+      "market_cap": 37366546432
+    },
+    {
+      "ticker": "ARES",
+      "market_cap": 37221941248
+    },
+    {
+      "ticker": "VOD",
+      "market_cap": 37102362624
+    },
+    {
+      "ticker": "CHT",
+      "market_cap": 36964233216
+    },
+    {
+      "ticker": "EC",
+      "market_cap": 36676091904
+    },
+    {
+      "ticker": "HIG",
+      "market_cap": 36470206464
+    },
+    {
+      "ticker": "JD",
+      "market_cap": 36314943488
+    },
+    {
+      "ticker": "UI",
+      "market_cap": 36073095168
+    },
+    {
+      "ticker": "KVUE",
+      "market_cap": 36062523392
+    },
+    {
+      "ticker": "MLM",
+      "market_cap": 35459977216
+    },
+    {
+      "ticker": "CCI",
+      "market_cap": 35449442304
+    },
+    {
+      "ticker": "RBLX",
+      "market_cap": 35422330880
+    },
+    {
+      "ticker": "RPRX",
+      "market_cap": 35216183296
+    },
+    {
+      "ticker": "ESLT",
+      "market_cap": 35187281920
+    },
+    {
+      "ticker": "WEC",
+      "market_cap": 35162406912
+    },
+    {
+      "ticker": "CCJ",
+      "market_cap": 35145334784
+    },
+    {
+      "ticker": "FER",
+      "market_cap": 35075469312
+    },
+    {
+      "ticker": "PEG",
+      "market_cap": 35004039168
+    },
+    {
+      "ticker": "KMB",
+      "market_cap": 34852618240
+    },
+    {
+      "ticker": "CCL",
+      "market_cap": 34791788544
+    },
+    {
+      "ticker": "BIIB",
+      "market_cap": 34728099840
+    },
+    {
+      "ticker": "STLD",
+      "market_cap": 34625200128
+    },
+    {
+      "ticker": "CNC",
+      "market_cap": 34453684224
+    },
+    {
+      "ticker": "ACGL",
+      "market_cap": 34418073600
+    },
+    {
+      "ticker": "EXPE",
+      "market_cap": 34347931648
+    },
+    {
+      "ticker": "EQT",
+      "market_cap": 34181324800
+    },
+    {
+      "ticker": "ZS",
+      "market_cap": 34142042112
+    },
+    {
+      "ticker": "QSR",
+      "market_cap": 34092617728
+    },
+    {
+      "ticker": "SKYD",
+      "market_cap": 34059913216
+    },
+    {
+      "ticker": "HSY",
+      "market_cap": 33955432448
+    },
+    {
+      "ticker": "CRWV",
+      "market_cap": 33853315072
+    },
+    {
+      "ticker": "ERIC",
+      "market_cap": 33851043840
+    },
+    {
+      "ticker": "NTR",
+      "market_cap": 33669558272
+    },
+    {
+      "ticker": "RMD",
+      "market_cap": 33573400576
+    },
+    {
+      "ticker": "GFI",
+      "market_cap": 33337346048
+    },
+    {
+      "ticker": "OKTA",
+      "market_cap": 33296394240
+    },
+    {
+      "ticker": "FLEX",
+      "market_cap": 33277302784
+    },
+    {
+      "ticker": "IRM",
+      "market_cap": 33244473344
+    },
+    {
+      "ticker": "VMC",
+      "market_cap": 33242130432
+    },
+    {
+      "ticker": "TKO",
+      "market_cap": 33114630144
+    },
+    {
+      "ticker": "RKLB",
+      "market_cap": 33095913472
+    },
+    {
+      "ticker": "SHG",
+      "market_cap": 33002881024
+    },
+    {
+      "ticker": "ZTS",
+      "market_cap": 32818219008
+    },
+    {
+      "ticker": "MTD",
+      "market_cap": 32557807616
+    },
+    {
+      "ticker": "HEI-A",
+      "market_cap": 32521660416
+    },
+    {
+      "ticker": "DXCM",
+      "market_cap": 32475666432
+    },
+    {
+      "ticker": "CRDO",
+      "market_cap": 32007272448
+    },
+    {
+      "ticker": "EME",
+      "market_cap": 31811618816
+    },
+    {
+      "ticker": "ALC",
+      "market_cap": 31783550976
+    },
+    {
+      "ticker": "VG",
+      "market_cap": 31463669760
+    },
+    {
+      "ticker": "GEHC",
+      "market_cap": 31405744128
+    },
+    {
+      "ticker": "SUNB",
+      "market_cap": 31392088064
+    },
+    {
+      "ticker": "UAL",
+      "market_cap": 31263909888
+    },
+    {
+      "ticker": "ALNY",
+      "market_cap": 31224358912
+    },
+    {
+      "ticker": "AXON",
+      "market_cap": 31103369216
+    },
+    {
+      "ticker": "TECK",
+      "market_cap": 30888175616
+    },
+    {
+      "ticker": "HBAN",
+      "market_cap": 30882039808
+    },
+    {
+      "ticker": "MTB",
+      "market_cap": 30773659648
+    },
+    {
+      "ticker": "BSP",
+      "market_cap": 30725558272
+    },
+    {
+      "ticker": "BAP",
+      "market_cap": 30637590528
+    },
+    {
+      "ticker": "EXR",
+      "market_cap": 30586062848
+    },
+    {
+      "ticker": "IR",
+      "market_cap": 30285295616
+    },
+    {
+      "ticker": "RKT",
+      "market_cap": 30256099328
+    },
+    {
+      "ticker": "NTRS",
+      "market_cap": 30247141376
+    },
+    {
+      "ticker": "JBL",
+      "market_cap": 29805115392
+    },
+    {
+      "ticker": "CTSH",
+      "market_cap": 29745086464
+    },
+    {
+      "ticker": "RJF",
+      "market_cap": 29690013696
+    },
+    {
+      "ticker": "DG",
+      "market_cap": 29631039488
+    },
+    {
+      "ticker": "TS",
+      "market_cap": 29587492864
+    },
+    {
+      "ticker": "WSM",
+      "market_cap": 29554327552
+    },
+    {
+      "ticker": "RDDT",
+      "market_cap": 29489573888
+    },
+    {
+      "ticker": "PUK",
+      "market_cap": 29380913152
+    },
+    {
+      "ticker": "WTW",
+      "market_cap": 29112565760
+    },
+    {
+      "ticker": "AEE",
+      "market_cap": 29087922176
+    },
+    {
+      "ticker": "PBA",
+      "market_cap": 28955623424
+    },
+    {
+      "ticker": "CBRS",
+      "market_cap": 28746436608
+    },
+    {
+      "ticker": "TDY",
+      "market_cap": 28685817856
+    },
+    {
+      "ticker": "FTS",
+      "market_cap": 28280868864
+    },
+    {
+      "ticker": "ON",
+      "market_cap": 28178880512
+    },
+    {
+      "ticker": "KGC",
+      "market_cap": 28102043648
+    },
+    {
+      "ticker": "ATO",
+      "market_cap": 28089278464
+    },
+    {
+      "ticker": "ZM",
+      "market_cap": 27976220672
+    },
+    {
+      "ticker": "KHC",
+      "market_cap": 27914291200
+    },
+    {
+      "ticker": "MDB",
+      "market_cap": 27637213184
+    },
+    {
+      "ticker": "VRSN",
+      "market_cap": 27632568320
+    },
+    {
+      "ticker": "HAL",
+      "market_cap": 27584946176
+    },
+    {
+      "ticker": "WRB",
+      "market_cap": 27543226368
+    },
+    {
+      "ticker": "RYAAY",
+      "market_cap": 27434430464
+    },
+    {
+      "ticker": "BIDU",
+      "market_cap": 27363246080
+    },
+    {
+      "ticker": "HPQ",
+      "market_cap": 27310739456
+    },
+    {
+      "ticker": "FTI",
+      "market_cap": 27147579392
+    },
+    {
+      "ticker": "WST",
+      "market_cap": 27052441600
+    },
+    {
+      "ticker": "OTIS",
+      "market_cap": 27035136000
+    },
+    {
+      "ticker": "NMR",
+      "market_cap": 26844006400
+    },
+    {
+      "ticker": "FOXA",
+      "market_cap": 26831093760
+    },
+    {
+      "ticker": "SN",
+      "market_cap": 26772119552
+    },
+    {
+      "ticker": "DTE",
+      "market_cap": 26637350912
+    },
+    {
+      "ticker": "AWK",
+      "market_cap": 26620741632
+    },
+    {
+      "ticker": "CFG",
+      "market_cap": 26563620864
+    },
+    {
+      "ticker": "CNP",
+      "market_cap": 26447620096
+    },
+    {
+      "ticker": "FE",
+      "market_cap": 26414913536
+    },
+    {
+      "ticker": "DOV",
+      "market_cap": 26325944320
+    },
+    {
+      "ticker": "CPAY",
+      "market_cap": 26251694080
+    },
+    {
+      "ticker": "PPL",
+      "market_cap": 26165983232
+    },
+    {
+      "ticker": "CINF",
+      "market_cap": 26159566848
+    },
+    {
+      "ticker": "DGX",
+      "market_cap": 25817982976
+    },
+    {
+      "ticker": "LH",
+      "market_cap": 25793449984
+    },
+    {
+      "ticker": "CPNG",
+      "market_cap": 25749354496
+    },
+    {
+      "ticker": "CASY",
+      "market_cap": 25738326016
+    },
+    {
+      "ticker": "GFS",
+      "market_cap": 25610598400
+    },
+    {
+      "ticker": "EXPD",
+      "market_cap": 25583454208
+    },
+    {
+      "ticker": "ATI",
+      "market_cap": 25497905152
+    },
+    {
+      "ticker": "VICI",
+      "market_cap": 25429385216
+    },
+    {
+      "ticker": "FFIV",
+      "market_cap": 25412581376
+    },
+    {
+      "ticker": "CPRT",
+      "market_cap": 25335138304
+    },
+    {
+      "ticker": "ULTA",
+      "market_cap": 25311995904
+    },
+    {
+      "ticker": "FISV",
+      "market_cap": 25165860864
+    },
+    {
+      "ticker": "ECHO",
+      "market_cap": 25106132992
+    },
+    {
+      "ticker": "PHG",
+      "market_cap": 24929286144
+    },
+    {
+      "ticker": "TCOM",
+      "market_cap": 24898545664
+    },
+    {
+      "ticker": "Q",
+      "market_cap": 24849205248
+    },
+    {
+      "ticker": "AFRM",
+      "market_cap": 24793714688
+    },
+    {
+      "ticker": "LPLA",
+      "market_cap": 24751063040
+    },
+    {
+      "ticker": "CHD",
+      "market_cap": 24749854720
+    },
+    {
+      "ticker": "ES",
+      "market_cap": 24724930560
+    },
+    {
+      "ticker": "TW",
+      "market_cap": 24602378240
+    },
+    {
+      "ticker": "VLTO",
+      "market_cap": 24503668736
+    },
+    {
+      "ticker": "HUBB",
+      "market_cap": 24480499712
+    },
+    {
+      "ticker": "VRSK",
+      "market_cap": 24444600320
+    },
+    {
+      "ticker": "ROIV",
+      "market_cap": 24428963840
+    },
+    {
+      "ticker": "LVS",
+      "market_cap": 24421574656
+    },
+    {
+      "ticker": "IHG",
+      "market_cap": 24406061056
+    },
+    {
+      "ticker": "DRI",
+      "market_cap": 24397074432
+    },
+    {
+      "ticker": "XYL",
+      "market_cap": 24182253568
+    },
+    {
+      "ticker": "FOX",
+      "market_cap": 23961604096
+    },
+    {
+      "ticker": "SYF",
+      "market_cap": 23931027456
+    },
+    {
+      "ticker": "TPL",
+      "market_cap": 23860410368
+    },
+    {
+      "ticker": "FCNCA",
+      "market_cap": 23840794624
+    },
+    {
+      "ticker": "PPG",
+      "market_cap": 23752755200
+    },
+    {
+      "ticker": "TPR",
+      "market_cap": 23461011456
+    },
+    {
+      "ticker": "GMAB",
+      "market_cap": 23446233088
+    },
+    {
+      "ticker": "RF",
+      "market_cap": 23445100544
+    },
+    {
+      "ticker": "DLTR",
+      "market_cap": 23379675136
+    },
+    {
+      "ticker": "SYM",
+      "market_cap": 23288082432
+    },
+    {
+      "ticker": "IFF",
+      "market_cap": 23244161024
+    },
+    {
+      "ticker": "IOT",
+      "market_cap": 23207534592
+    },
+    {
+      "ticker": "UTHR",
+      "market_cap": 23163762688
+    },
+    {
+      "ticker": "PFG",
+      "market_cap": 23099750400
+    },
+    {
+      "ticker": "ARXS",
+      "market_cap": 23087982592
+    },
+    {
+      "ticker": "RBRK",
+      "market_cap": 23085731840
+    },
+    {
+      "ticker": "NVT",
+      "market_cap": 23043713024
+    },
+    {
+      "ticker": "BRO",
+      "market_cap": 22987730944
+    },
+    {
+      "ticker": "INCY",
+      "market_cap": 22977816576
+    },
+    {
+      "ticker": "MKL",
+      "market_cap": 22925510656
+    },
+    {
+      "ticker": "ROKU",
+      "market_cap": 22909249536
+    },
+    {
+      "ticker": "AER",
+      "market_cap": 22841989120
+    },
+    {
+      "ticker": "FWONK",
+      "market_cap": 22809458688
+    },
+    {
+      "ticker": "RL",
+      "market_cap": 22789908480
+    },
+    {
+      "ticker": "DINO",
+      "market_cap": 22758111232
+    },
+    {
+      "ticker": "TSEM",
+      "market_cap": 22524299264
+    },
+    {
+      "ticker": "L",
+      "market_cap": 22497269760
+    },
+    {
+      "ticker": "SBS",
+      "market_cap": 22312781824
+    },
+    {
+      "ticker": "GPN",
+      "market_cap": 22276898816
+    },
+    {
+      "ticker": "ENTG",
+      "market_cap": 22269073408
+    },
+    {
+      "ticker": "BNTX",
+      "market_cap": 22123569152
+    },
+    {
+      "ticker": "STZ",
+      "market_cap": 22071070720
+    },
+    {
+      "ticker": "XPO",
+      "market_cap": 21902194688
+    },
+    {
+      "ticker": "USFD",
+      "market_cap": 21843994624
+    },
+    {
+      "ticker": "OMC",
+      "market_cap": 21835192320
+    },
+    {
+      "ticker": "DOW",
+      "market_cap": 21767737344
+    },
+    {
+      "ticker": "SW",
+      "market_cap": 21762455552
+    },
+    {
+      "ticker": "EXE",
+      "market_cap": 21754411008
+    },
+    {
+      "ticker": "THC",
+      "market_cap": 21576677376
+    },
+    {
+      "ticker": "EIX",
+      "market_cap": 21555355648
+    },
+    {
+      "ticker": "STE",
+      "market_cap": 21548498944
+    },
+    {
+      "ticker": "SMCI",
+      "market_cap": 21492623360
+    },
+    {
+      "ticker": "CMS",
+      "market_cap": 21414184960
+    },
+    {
+      "ticker": "TROW",
+      "market_cap": 21378514944
+    },
+    {
+      "ticker": "PHM",
+      "market_cap": 21275420672
+    },
+    {
+      "ticker": "KEY",
+      "market_cap": 21251866624
+    },
+    {
+      "ticker": "VTRS",
+      "market_cap": 21237444608
+    },
+    {
+      "ticker": "JBHT",
+      "market_cap": 21223837696
+    },
+    {
+      "ticker": "NRG",
+      "market_cap": 21092517888
+    },
+    {
+      "ticker": "RS",
+      "market_cap": 21058217984
+    },
+    {
+      "ticker": "INSM",
+      "market_cap": 21021403136
+    },
+    {
+      "ticker": "PTC",
+      "market_cap": 21021151232
+    },
+    {
+      "ticker": "GH",
+      "market_cap": 20954730496
+    },
+    {
+      "ticker": "FWONA",
+      "market_cap": 20912848896
+    },
+    {
+      "ticker": "LYB",
+      "market_cap": 20868251648
+    },
+    {
+      "ticker": "PKG",
+      "market_cap": 20866820096
+    },
+    {
+      "ticker": "CRCL",
+      "market_cap": 20848287744
+    },
+    {
+      "ticker": "AMRZ",
+      "market_cap": 20701134848
+    },
+    {
+      "ticker": "PR",
+      "market_cap": 20675094528
+    },
+    {
+      "ticker": "MTSI",
+      "market_cap": 20525451264
+    },
+    {
+      "ticker": "NI",
+      "market_cap": 20390895616
+    },
+    {
+      "ticker": "AMCR",
+      "market_cap": 20254332928
+    },
+    {
+      "ticker": "BG",
+      "market_cap": 20193640448
+    },
+    {
+      "ticker": "YPF",
+      "market_cap": 20149012480
+    },
+    {
+      "ticker": "RGLD",
+      "market_cap": 20015685632
+    },
+    {
+      "ticker": "VIV",
+      "market_cap": 19892647936
+    },
+    {
+      "ticker": "BEKE",
+      "market_cap": 19831734272
+    },
+    {
+      "ticker": "SSNC",
+      "market_cap": 19800186880
+    },
+    {
+      "ticker": "SNX",
+      "market_cap": 19741743104
+    },
+    {
+      "ticker": "BR",
+      "market_cap": 19728152576
+    },
+    {
+      "ticker": "BCH",
+      "market_cap": 19690754048
+    },
+    {
+      "ticker": "BBY",
+      "market_cap": 19540328448
+    },
+    {
+      "ticker": "SBAC",
+      "market_cap": 19461335040
+    },
+    {
+      "ticker": "LUV",
+      "market_cap": 19350630400
+    },
+    {
+      "ticker": "WWD",
+      "market_cap": 19345772544
+    },
+    {
+      "ticker": "OVV",
+      "market_cap": 19256893440
+    },
+    {
+      "ticker": "TSN",
+      "market_cap": 19171422208
+    },
+    {
+      "ticker": "EVRG",
+      "market_cap": 19056375808
+    },
+    {
+      "ticker": "WIT",
+      "market_cap": 18995398656
+    },
+    {
+      "ticker": "CDW",
+      "market_cap": 18992646144
+    },
+    {
+      "ticker": "SWKS",
+      "market_cap": 18953168896
+    },
+    {
+      "ticker": "SNA",
+      "market_cap": 18823499776
+    },
+    {
+      "ticker": "BCE",
+      "market_cap": 18645854208
+    },
+    {
+      "ticker": "FIS",
+      "market_cap": 18549942272
+    },
+    {
+      "ticker": "SOFI",
+      "market_cap": 18546950144
+    },
+    {
+      "ticker": "CRS",
+      "market_cap": 18546055168
+    },
+    {
+      "ticker": "EFX",
+      "market_cap": 18543814656
+    },
+    {
+      "ticker": "FSLR",
+      "market_cap": 18491789312
+    },
+    {
+      "ticker": "ESS",
+      "market_cap": 18442993664
+    },
+    {
+      "ticker": "CNH",
+      "market_cap": 18389295104
+    },
+    {
+      "ticker": "PAAS",
+      "market_cap": 18363430912
+    },
+    {
+      "ticker": "GPC",
+      "market_cap": 18327076864
+    },
+    {
+      "ticker": "CW",
+      "market_cap": 18304710656
+    },
+    {
+      "ticker": "CF",
+      "market_cap": 18254405632
+    },
+    {
+      "ticker": "TOST",
+      "market_cap": 18230120448
+    },
+    {
+      "ticker": "NTNX",
+      "market_cap": 18190434304
+    },
+    {
+      "ticker": "LEN",
+      "market_cap": 18180335616
+    },
+    {
+      "ticker": "ZBH",
+      "market_cap": 18053322752
+    },
+    {
+      "ticker": "LEN-B",
+      "market_cap": 18048301056
+    },
+    {
+      "ticker": "IP",
+      "market_cap": 17957713920
+    },
+    {
+      "ticker": "NDSN",
+      "market_cap": 17894258688
+    },
+    {
+      "ticker": "U",
+      "market_cap": 17830203392
+    },
+    {
+      "ticker": "DT",
+      "market_cap": 17784500224
+    },
+    {
+      "ticker": "PS",
+      "market_cap": 17697998848
+    },
+    {
+      "ticker": "RIVN",
+      "market_cap": 17653764096
+    },
+    {
+      "ticker": "NWS",
+      "market_cap": 17643411456
+    },
+    {
+      "ticker": "ZBRA",
+      "market_cap": 17594361856
+    },
+    {
+      "ticker": "LNT",
+      "market_cap": 17560055808
+    },
+    {
+      "ticker": "DD",
+      "market_cap": 17554911232
+    },
+    {
+      "ticker": "GIS",
+      "market_cap": 17541214208
+    },
+    {
+      "ticker": "MGA",
+      "market_cap": 17471719424
+    },
+    {
+      "ticker": "PKX",
+      "market_cap": 17450250240
+    },
+    {
+      "ticker": "RGA",
+      "market_cap": 17413996544
+    },
+    {
+      "ticker": "KSPI",
+      "market_cap": 17354240000
+    },
+    {
+      "ticker": "APG",
+      "market_cap": 17333948416
+    },
+    {
+      "ticker": "FTV",
+      "market_cap": 17329739776
+    },
+    {
+      "ticker": "AS",
+      "market_cap": 17309204480
+    },
+    {
+      "ticker": "MEDP",
+      "market_cap": 17280663552
+    },
+    {
+      "ticker": "IEX",
+      "market_cap": 17269622784
+    },
+    {
+      "ticker": "EWBC",
+      "market_cap": 17255274496
+    },
+    {
+      "ticker": "APA",
+      "market_cap": 17242550272
+    },
+    {
+      "ticker": "RCI",
+      "market_cap": 17184565248
+    },
+    {
+      "ticker": "RVTY",
+      "market_cap": 17156967424
+    },
+    {
+      "ticker": "TSCO",
+      "market_cap": 17090115584
+    },
+    {
+      "ticker": "SQM",
+      "market_cap": 17078285312
+    },
+    {
+      "ticker": "WF",
+      "market_cap": 17057876992
+    },
+    {
+      "ticker": "CLH",
+      "market_cap": 16884001792
+    },
+    {
+      "ticker": "FTAI",
+      "market_cap": 16804933632
+    },
+    {
+      "ticker": "BALL",
+      "market_cap": 16750428160
+    },
+    {
+      "ticker": "WCC",
+      "market_cap": 16722193408
+    },
+    {
+      "ticker": "TPG",
+      "market_cap": 16710424576
+    },
+    {
+      "ticker": "HST",
+      "market_cap": 16694277120
+    },
+    {
+      "ticker": "FDXF",
+      "market_cap": 16689960960
+    },
+    {
+      "ticker": "TLN",
+      "market_cap": 16656222208
+    },
+    {
+      "ticker": "ASTS",
+      "market_cap": 16638856192
+    },
+    {
+      "ticker": "FICO",
+      "market_cap": 16553938944
+    },
+    {
+      "ticker": "BURL",
+      "market_cap": 16528877568
+    },
+    {
+      "ticker": "J",
+      "market_cap": 16433391616
+    },
+    {
+      "ticker": "WMG",
+      "market_cap": 16399491072
+    },
+    {
+      "ticker": "CHRW",
+      "market_cap": 16256128000
+    },
+    {
+      "ticker": "HSAI",
+      "market_cap": 16254790656
+    },
+    {
+      "ticker": "VNOM",
+      "market_cap": 16233812992
+    },
+    {
+      "ticker": "NWSA",
+      "market_cap": 16118805504
+    },
+    {
+      "ticker": "H",
+      "market_cap": 15967472640
+    },
+    {
+      "ticker": "STLA",
+      "market_cap": 15898105856
+    },
+    {
+      "ticker": "RBC",
+      "market_cap": 15865079808
+    },
+    {
+      "ticker": "INVH",
+      "market_cap": 15825750016
+    },
+    {
+      "ticker": "ROL",
+      "market_cap": 15791192064
+    },
+    {
+      "ticker": "GFL",
+      "market_cap": 15745645568
+    },
+    {
+      "ticker": "CDE",
+      "market_cap": 15737684992
+    },
+    {
+      "ticker": "NVR",
+      "market_cap": 15680652288
+    },
+    {
+      "ticker": "GIB",
+      "market_cap": 15646617600
+    },
+    {
+      "ticker": "BEN",
+      "market_cap": 15628445696
+    },
+    {
+      "ticker": "LDOS",
+      "market_cap": 15602446336
+    },
+    {
+      "ticker": "CRBG",
+      "market_cap": 15428051968
+    },
+    {
+      "ticker": "EXEL",
+      "market_cap": 15416977408
+    },
+    {
+      "ticker": "MTZ",
+      "market_cap": 15328608256
+    },
+    {
+      "ticker": "BSAC",
+      "market_cap": 15315958784
+    },
+    {
+      "ticker": "KIM",
+      "market_cap": 15200087040
+    },
+    {
+      "ticker": "LOGI",
+      "market_cap": 15186554880
+    },
+    {
+      "ticker": "LAMR",
+      "market_cap": 15184723968
+    },
+    {
+      "ticker": "XP",
+      "market_cap": 15170008064
+    },
+    {
+      "ticker": "YUMC",
+      "market_cap": 15142045696
+    },
+    {
+      "ticker": "W",
+      "market_cap": 15061692416
+    },
+    {
+      "ticker": "ZTO",
+      "market_cap": 15034633216
+    },
+    {
+      "ticker": "ASND",
+      "market_cap": 15018364928
+    },
+    {
+      "ticker": "LSCC",
+      "market_cap": 14998396928
+    },
+    {
+      "ticker": "EG",
+      "market_cap": 14993351680
+    },
+    {
+      "ticker": "PFGC",
+      "market_cap": 14986284032
+    },
+    {
+      "ticker": "JHX",
+      "market_cap": 14919428096
+    },
+    {
+      "ticker": "CX",
+      "market_cap": 14811907072
+    },
+    {
+      "ticker": "FUTU",
+      "market_cap": 14811548672
+    },
+    {
+      "ticker": "MKSI",
+      "market_cap": 14805202944
+    },
+    {
+      "ticker": "SUI",
+      "market_cap": 14770630656
+    },
+    {
+      "ticker": "ULS",
+      "market_cap": 14742603776
+    },
+    {
+      "ticker": "TYL",
+      "market_cap": 14688355328
+    },
+    {
+      "ticker": "RBA",
+      "market_cap": 14666913792
+    },
+    {
+      "ticker": "ARMK",
+      "market_cap": 14650961920
+    },
+    {
+      "ticker": "HTHT",
+      "market_cap": 14637991936
+    },
+    {
+      "ticker": "UNM",
+      "market_cap": 14632297472
+    },
+    {
+      "ticker": "WPC",
+      "market_cap": 14614453248
+    },
+    {
+      "ticker": "EQH",
+      "market_cap": 14603880448
+    },
+    {
+      "ticker": "RNR",
+      "market_cap": 14546902016
+    },
+    {
+      "ticker": "SGI",
+      "market_cap": 14544208896
+    },
+    {
+      "ticker": "SOLV",
+      "market_cap": 14538809344
+    },
+    {
+      "ticker": "SITM",
+      "market_cap": 14464022528
+    },
+    {
+      "ticker": "GEN",
+      "market_cap": 14455875584
+    },
+    {
+      "ticker": "OHI",
+      "market_cap": 14451394560
+    },
+    {
+      "ticker": "EMA",
+      "market_cap": 14442193920
+    },
+    {
+      "ticker": "CRL",
+      "market_cap": 14395406336
+    },
+    {
+      "ticker": "MAS",
+      "market_cap": 14319751168
+    },
+    {
+      "ticker": "PNFP",
+      "market_cap": 14304322560
+    },
+    {
+      "ticker": "TME",
+      "market_cap": 14235998208
+    },
+    {
+      "ticker": "DKS",
+      "market_cap": 14234625024
+    },
+    {
+      "ticker": "LECO",
+      "market_cap": 14208560128
+    },
+    {
+      "ticker": "CHTR",
+      "market_cap": 14137438208
+    },
+    {
+      "ticker": "OWL",
+      "market_cap": 14127916032
+    },
+    {
+      "ticker": "CHKP",
+      "market_cap": 14119495680
+    },
+    {
+      "ticker": "JBS",
+      "market_cap": 14071769088
+    },
+    {
+      "ticker": "COKE",
+      "market_cap": 14044587008
+    },
+    {
+      "ticker": "HAS",
+      "market_cap": 14025461760
+    },
+    {
+      "ticker": "WY",
+      "market_cap": 14015431680
+    },
+    {
+      "ticker": "DOCU",
+      "market_cap": 14004600832
+    },
+    {
+      "ticker": "HALO",
+      "market_cap": 13999978496
+    },
+    {
+      "ticker": "PAG",
+      "market_cap": 13945152512
+    },
+    {
+      "ticker": "GWRE",
+      "market_cap": 13923995648
+    },
+    {
+      "ticker": "AIZ",
+      "market_cap": 13909302272
+    },
+    {
+      "ticker": "JLL",
+      "market_cap": 13883744256
+    },
+    {
+      "ticker": "TRU",
+      "market_cap": 13852680192
+    },
+    {
+      "ticker": "SWK",
+      "market_cap": 13824818176
+    },
+    {
+      "ticker": "TRMB",
+      "market_cap": 13816138752
+    },
+    {
+      "ticker": "MAA",
+      "market_cap": 13777792000
+    },
+    {
+      "ticker": "KEP",
+      "market_cap": 13763710976
+    },
+    {
+      "ticker": "TIGO",
+      "market_cap": 13755573248
+    },
+    {
+      "ticker": "NBIX",
+      "market_cap": 13743986688
+    },
+    {
+      "ticker": "SJM",
+      "market_cap": 13664821248
+    },
+    {
+      "ticker": "REG",
+      "market_cap": 13561987072
+    },
+    {
+      "ticker": "JAZZ",
+      "market_cap": 13535987712
+    },
+    {
+      "ticker": "NLY",
+      "market_cap": 13517868032
+    },
+    {
+      "ticker": "GDDY",
+      "market_cap": 13498113024
+    },
+    {
+      "ticker": "GME",
+      "market_cap": 13460086784
+    },
+    {
+      "ticker": "CACI",
+      "market_cap": 13413682176
+    },
+    {
+      "ticker": "BF-A",
+      "market_cap": 13394247680
+    },
+    {
+      "ticker": "MLI",
+      "market_cap": 13348296704
+    },
+    {
+      "ticker": "AGI",
+      "market_cap": 13311622144
+    },
+    {
+      "ticker": "ARCC",
+      "market_cap": 13258292224
+    },
+    {
+      "ticker": "BBIO",
+      "market_cap": 13244650496
+    },
+    {
+      "ticker": "AVY",
+      "market_cap": 13225410560
+    },
+    {
+      "ticker": "ALLE",
+      "market_cap": 13219393536
+    },
+    {
+      "ticker": "DOC",
+      "market_cap": 13197052928
+    },
+    {
+      "ticker": "FN",
+      "market_cap": 13185080320
+    },
+    {
+      "ticker": "CSL",
+      "market_cap": 13133661184
+    },
+    {
+      "ticker": "SMTC",
+      "market_cap": 13128582144
+    },
+    {
+      "ticker": "BF-B",
+      "market_cap": 13107458048
+    },
+    {
+      "ticker": "GGG",
+      "market_cap": 13093966848
+    },
+    {
+      "ticker": "STRL",
+      "market_cap": 13093678080
+    },
+    {
+      "ticker": "TU",
+      "market_cap": 13072658432
+    },
+    {
+      "ticker": "EMBJ",
+      "market_cap": 13040800768
+    },
+    {
+      "ticker": "FLUT",
+      "market_cap": 13031919616
+    },
+    {
+      "ticker": "TXT",
+      "market_cap": 13009089536
+    },
+    {
+      "ticker": "ICLR",
+      "market_cap": 13008584704
+    },
+    {
+      "ticker": "BAX",
+      "market_cap": 13002448896
+    },
+    {
+      "ticker": "BJ",
+      "market_cap": 12973150208
+    },
+    {
+      "ticker": "MANH",
+      "market_cap": 12962945024
+    },
+    {
+      "ticker": "BMNR",
+      "market_cap": 12951269376
+    },
+    {
+      "ticker": "CG",
+      "market_cap": 12931317760
+    },
+    {
+      "ticker": "GL",
+      "market_cap": 12926076928
+    },
+    {
+      "ticker": "CNA",
+      "market_cap": 12914428928
+    },
+    {
+      "ticker": "CSGP",
+      "market_cap": 12804244480
+    },
+    {
+      "ticker": "IT",
+      "market_cap": 12779773952
+    },
+    {
+      "ticker": "AKAM",
+      "market_cap": 12746226688
+    },
+    {
+      "ticker": "AMH",
+      "market_cap": 12673666048
+    },
+    {
+      "ticker": "RPM",
+      "market_cap": 12637950976
+    },
+    {
+      "ticker": "PEN",
+      "market_cap": 12631991296
+    },
+    {
+      "ticker": "SEIC",
+      "market_cap": 12629618688
+    },
+    {
+      "ticker": "EHC",
+      "market_cap": 12592117760
+    },
+    {
+      "ticker": "ERIE",
+      "market_cap": 12543163392
+    },
+    {
+      "ticker": "IVZ",
+      "market_cap": 12467953664
+    },
+    {
+      "ticker": "MKC-V",
+      "market_cap": 12463067136
+    },
+    {
+      "ticker": "PINS",
+      "market_cap": 12447559680
+    },
+    {
+      "ticker": "PNW",
+      "market_cap": 12445744128
+    },
+    {
+      "ticker": "DTM",
+      "market_cap": 12434643968
+    },
+    {
+      "ticker": "UDR",
+      "market_cap": 12416910336
+    },
+    {
+      "ticker": "CCK",
+      "market_cap": 12389997568
+    },
+    {
+      "ticker": "BWXT",
+      "market_cap": 12385459200
+    },
+    {
+      "ticker": "SKM",
+      "market_cap": 12376615936
+    },
+    {
+      "ticker": "MKC",
+      "market_cap": 12355440640
+    },
+    {
+      "ticker": "IONQ",
+      "market_cap": 12332369920
+    },
+    {
+      "ticker": "AFG",
+      "market_cap": 12331251712
+    },
+    {
+      "ticker": "LII",
+      "market_cap": 12214088704
+    },
+    {
+      "ticker": "NXT",
+      "market_cap": 12207627264
+    },
+    {
+      "ticker": "TOL",
+      "market_cap": 12200262656
+    },
+    {
+      "ticker": "INIO",
+      "market_cap": 12195000320
+    },
+    {
+      "ticker": "FIVE",
+      "market_cap": 12193368064
+    },
+    {
+      "ticker": "WSO",
+      "market_cap": 12175172608
+    },
+    {
+      "ticker": "AIT",
+      "market_cap": 12173428736
+    },
+    {
+      "ticker": "AEG",
+      "market_cap": 12158123008
+    },
+    {
+      "ticker": "PAC",
+      "market_cap": 12155626496
+    },
+    {
+      "ticker": "ELS",
+      "market_cap": 12143942656
+    },
+    {
+      "ticker": "BTSG",
+      "market_cap": 12089504768
+    },
+    {
+      "ticker": "CORT",
+      "market_cap": 12051890176
+    },
+    {
+      "ticker": "SMMT",
+      "market_cap": 12038121472
+    },
+    {
+      "ticker": "SNN",
+      "market_cap": 12032342016
+    },
+    {
+      "ticker": "DVA",
+      "market_cap": 11993762816
+    },
+    {
+      "ticker": "AR",
+      "market_cap": 11962451968
+    },
+    {
+      "ticker": "WTS",
+      "market_cap": 11929765888
+    },
+    {
+      "ticker": "CR",
+      "market_cap": 11868147712
+    },
+    {
+      "ticker": "BWA",
+      "market_cap": 11859491840
+    },
+    {
+      "ticker": "CART",
+      "market_cap": 11833444352
+    },
+    {
+      "ticker": "ELAN",
+      "market_cap": 11787010048
+    },
+    {
+      "ticker": "ONON",
+      "market_cap": 11766028288
+    },
+    {
+      "ticker": "GRAB",
+      "market_cap": 11762493440
+    },
+    {
+      "ticker": "DECK",
+      "market_cap": 11740237824
+    },
+    {
+      "ticker": "WSO-B",
+      "market_cap": 11723873280
+    },
+    {
+      "ticker": "HUBS",
+      "market_cap": 11701172224
+    },
+    {
+      "ticker": "RML",
+      "market_cap": 11686740992
+    },
+    {
+      "ticker": "FMS",
+      "market_cap": 11674231808
+    },
+    {
+      "ticker": "FRO",
+      "market_cap": 11669892096
+    },
+    {
+      "ticker": "MOG-A",
+      "market_cap": 11666708480
+    },
+    {
+      "ticker": "MAIR",
+      "market_cap": 11599827968
+    },
+    {
+      "ticker": "GLPI",
+      "market_cap": 11584707584
+    },
+    {
+      "ticker": "TEM",
+      "market_cap": 11582107648
+    },
+    {
+      "ticker": "FRHC",
+      "market_cap": 11574909952
+    },
+    {
+      "ticker": "DOCN",
+      "market_cap": 11540139008
+    },
+    {
+      "ticker": "AHR",
+      "market_cap": 11513605120
+    },
+    {
+      "ticker": "WTRG",
+      "market_cap": 11488555008
+    },
+    {
+      "ticker": "ALLY",
+      "market_cap": 11437907968
+    },
+    {
+      "ticker": "GNRC",
+      "market_cap": 11411447808
+    },
+    {
+      "ticker": "PAYC",
+      "market_cap": 11402331136
+    },
+    {
+      "ticker": "TECH",
+      "market_cap": 11370105856
+    },
+    {
+      "ticker": "FIG",
+      "market_cap": 11321128960
+    },
+    {
+      "ticker": "MICC",
+      "market_cap": 11319647232
+    },
+    {
+      "ticker": "ALB",
+      "market_cap": 11317865472
+    },
+    {
+      "ticker": "CPT",
+      "market_cap": 11316910080
+    },
+    {
+      "ticker": "MOG-B",
+      "market_cap": 11298372608
+    },
+    {
+      "ticker": "HRL",
+      "market_cap": 11218900992
+    },
+    {
+      "ticker": "LULU",
+      "market_cap": 11189948416
+    },
+    {
+      "ticker": "CHYM",
+      "market_cap": 11149332480
+    },
+    {
+      "ticker": "TXRH",
+      "market_cap": 11127450624
+    },
+    {
+      "ticker": "UHAL",
+      "market_cap": 11119711232
+    },
+    {
+      "ticker": "RGEN",
+      "market_cap": 11113670656
+    },
+    {
+      "ticker": "ONTO",
+      "market_cap": 11107956736
+    },
+    {
+      "ticker": "SCI",
+      "market_cap": 11050521600
+    },
+    {
+      "ticker": "MOH",
+      "market_cap": 11029860352
+    },
+    {
+      "ticker": "LI",
+      "market_cap": 11028542464
+    },
+    {
+      "ticker": "AVTR",
+      "market_cap": 11021267968
+    },
+    {
+      "ticker": "PSO",
+      "market_cap": 10990547968
+    },
+    {
+      "ticker": "ARW",
+      "market_cap": 10963756032
+    },
+    {
+      "ticker": "IREN",
+      "market_cap": 10941038592
+    },
+    {
+      "ticker": "NYT",
+      "market_cap": 10936639488
+    },
+    {
+      "ticker": "QXO",
+      "market_cap": 10914298880
+    },
+    {
+      "ticker": "COO",
+      "market_cap": 10893997056
+    },
+    {
+      "ticker": "AA",
+      "market_cap": 10875707392
+    },
+    {
+      "ticker": "RDY",
+      "market_cap": 10874667008
+    },
+    {
+      "ticker": "UHS",
+      "market_cap": 10808663040
+    },
+    {
+      "ticker": "FHN",
+      "market_cap": 10790274048
+    },
+    {
+      "ticker": "FROG",
+      "market_cap": 10790097920
+    },
+    {
+      "ticker": "IESC",
+      "market_cap": 10774213632
+    },
+    {
+      "ticker": "GSAT",
+      "market_cap": 10768013312
+    },
+    {
+      "ticker": "SAIL",
+      "market_cap": 10733137920
+    },
+    {
+      "ticker": "WSE",
+      "market_cap": 10706467840
+    },
+    {
+      "ticker": "JKHY",
+      "market_cap": 10701895680
+    },
+    {
+      "ticker": "BSY",
+      "market_cap": 10682004480
+    },
+    {
+      "ticker": "AES",
+      "market_cap": 10660842496
+    },
+    {
+      "ticker": "FDS",
+      "market_cap": 10628229120
+    },
+    {
+      "ticker": "FNF",
+      "market_cap": 10605684736
+    },
+    {
+      "ticker": "SUZ",
+      "market_cap": 10579106816
+    },
+    {
+      "ticker": "AMKR",
+      "market_cap": 10576621568
+    },
+    {
+      "ticker": "HII",
+      "market_cap": 10563979264
+    },
+    {
+      "ticker": "BXP",
+      "market_cap": 10554196992
+    },
+    {
+      "ticker": "BMRN",
+      "market_cap": 10542026752
+    },
+    {
+      "ticker": "HMY",
+      "market_cap": 10537298944
+    },
+    {
+      "ticker": "PAYP",
+      "market_cap": 10536346624
+    },
+    {
+      "ticker": "HBM",
+      "market_cap": 10526231552
+    },
+    {
+      "ticker": "KNX",
+      "market_cap": 10520547328
+    },
+    {
+      "ticker": "RTO",
+      "market_cap": 10517881856
+    },
+    {
+      "ticker": "EGP",
+      "market_cap": 10456759296
+    },
+    {
+      "ticker": "SNAP",
+      "market_cap": 10434690048
+    },
+    {
+      "ticker": "ELPC",
+      "market_cap": 10419620864
+    },
+    {
+      "ticker": "MDGL",
+      "market_cap": 10383687680
+    },
+    {
+      "ticker": "ALGN",
+      "market_cap": 10370753536
+    },
+    {
+      "ticker": "RYAN",
+      "market_cap": 10353266688
+    },
+    {
+      "ticker": "RRX",
+      "market_cap": 10348906496
+    },
+    {
+      "ticker": "NVMI",
+      "market_cap": 10346225664
+    },
+    {
+      "ticker": "TTMI",
+      "market_cap": 10333669376
+    },
+    {
+      "ticker": "CLX",
+      "market_cap": 10311189504
+    },
+    {
+      "ticker": "ENSG",
+      "market_cap": 10253045760
+    },
+    {
+      "ticker": "TLK",
+      "market_cap": 10242560000
+    },
+    {
+      "ticker": "HL",
+      "market_cap": 10234392576
+    },
+    {
+      "ticker": "OSCR",
+      "market_cap": 10228494336
+    },
+    {
+      "ticker": "GMED",
+      "market_cap": 10212633600
+    },
+    {
+      "ticker": "PCVX",
+      "market_cap": 10178387968
+    },
+    {
+      "ticker": "MTCH",
+      "market_cap": 10177419264
+    },
+    {
+      "ticker": "IAG",
+      "market_cap": 10166654976
+    },
+    {
+      "ticker": "FPS",
+      "market_cap": 10156476416
+    },
+    {
+      "ticker": "SSL",
+      "market_cap": 10134806528
+    },
+    {
+      "ticker": "AGNC",
+      "market_cap": 10129939456
+    },
+    {
+      "ticker": "RRC",
+      "market_cap": 10122015744
+    },
+    {
+      "ticker": "BPOP",
+      "market_cap": 10112080896
+    },
+    {
+      "ticker": "DCI",
+      "market_cap": 10107658240
+    },
+    {
+      "ticker": "SF",
+      "market_cap": 10091445248
+    },
+    {
+      "ticker": "MUSA",
+      "market_cap": 10089248768
+    },
+    {
+      "ticker": "PBF",
+      "market_cap": 10079187968
+    },
+    {
+      "ticker": "JEF",
+      "market_cap": 9983738880
+    },
+    {
+      "ticker": "AUR",
+      "market_cap": 9960451072
+    },
+    {
+      "ticker": "AMG",
+      "market_cap": 9956462592
+    },
+    {
+      "ticker": "BNT",
+      "market_cap": 9948801024
+    },
+    {
+      "ticker": "UMBF",
+      "market_cap": 9904644096
+    },
+    {
+      "ticker": "DPZ",
+      "market_cap": 9899904000
+    },
+    {
+      "ticker": "AEIS",
+      "market_cap": 9883447296
+    },
+    {
+      "ticker": "RMBS",
+      "market_cap": 9870005248
+    },
+    {
+      "ticker": "UHAL-B",
+      "market_cap": 9850952704
+    },
+    {
+      "ticker": "GGB",
+      "market_cap": 9838113792
+    },
+    {
+      "ticker": "SSB",
+      "market_cap": 9837096960
+    },
+    {
+      "ticker": "LFUS",
+      "market_cap": 9800107008
+    },
+    {
+      "ticker": "GKOS",
+      "market_cap": 9787794432
+    },
+    {
+      "ticker": "ESTC",
+      "market_cap": 9761039360
+    },
+    {
+      "ticker": "PODD",
+      "market_cap": 9744265216
+    },
+    {
+      "ticker": "BIO-B",
+      "market_cap": 9736707072
+    },
+    {
+      "ticker": "AM",
+      "market_cap": 9735563264
+    },
+    {
+      "ticker": "OGE",
+      "market_cap": 9721715712
+    },
+    {
+      "ticker": "EVR",
+      "market_cap": 9719433216
+    },
+    {
+      "ticker": "CIG-C",
+      "market_cap": 9697712128
+    },
+    {
+      "ticker": "MSGS",
+      "market_cap": 9694704640
+    },
+    {
+      "ticker": "WTFC",
+      "market_cap": 9674456064
+    },
+    {
+      "ticker": "DAR",
+      "market_cap": 9633867776
+    },
+    {
+      "ticker": "WMS",
+      "market_cap": 9615688704
+    },
+    {
+      "ticker": "CFR",
+      "market_cap": 9613795328
+    },
+    {
+      "ticker": "HSIC",
+      "market_cap": 9577158656
+    },
+    {
+      "ticker": "SANM",
+      "market_cap": 9558017024
+    },
+    {
+      "ticker": "ORI",
+      "market_cap": 9551086592
+    },
+    {
+      "ticker": "SOLS",
+      "market_cap": 9545139200
+    },
+    {
+      "ticker": "ENLT",
+      "market_cap": 9535877120
+    },
+    {
+      "ticker": "GLXY",
+      "market_cap": 9520099328
+    },
+    {
+      "ticker": "ONB",
+      "market_cap": 9518341120
+    },
+    {
+      "ticker": "QGEN",
+      "market_cap": 9512192000
+    },
+    {
+      "ticker": "DKNG",
+      "market_cap": 9507094528
+    },
+    {
+      "ticker": "KRYS",
+      "market_cap": 9486130176
+    },
+    {
+      "ticker": "TTC",
+      "market_cap": 9481484288
+    },
+    {
+      "ticker": "FCFS",
+      "market_cap": 9431627776
+    },
+    {
+      "ticker": "BIO",
+      "market_cap": 9384030208
+    },
+    {
+      "ticker": "SM",
+      "market_cap": 9372639232
+    },
+    {
+      "ticker": "KNTK",
+      "market_cap": 9370289152
+    },
+    {
+      "ticker": "EDU",
+      "market_cap": 9356035072
+    },
+    {
+      "ticker": "VICR",
+      "market_cap": 9331540992
+    },
+    {
+      "ticker": "DRS",
+      "market_cap": 9303838720
+    },
+    {
+      "ticker": "TFII",
+      "market_cap": 9270552576
+    },
+    {
+      "ticker": "APTV",
+      "market_cap": 9218920448
+    },
+    {
+      "ticker": "ZION",
+      "market_cap": 9217684480
+    },
+    {
+      "ticker": "PCTY",
+      "market_cap": 9204597760
+    },
+    {
+      "ticker": "YMM",
+      "market_cap": 9193410560
+    },
+    {
+      "ticker": "FRT",
+      "market_cap": 9190289408
+    },
+    {
+      "ticker": "LLYVK",
+      "market_cap": 9174775808
+    },
+    {
+      "ticker": "EGO",
+      "market_cap": 9170091008
+    },
+    {
+      "ticker": "ALSN",
+      "market_cap": 9163272192
+    },
+    {
+      "ticker": "CGNX",
+      "market_cap": 9163152384
+    },
+    {
+      "ticker": "R",
+      "market_cap": 9157232640
+    },
+    {
+      "ticker": "TXG",
+      "market_cap": 9141879808
+    },
+    {
+      "ticker": "IBRX",
+      "market_cap": 9135789056
+    },
+    {
+      "ticker": "AYI",
+      "market_cap": 9099658240
+    },
+    {
+      "ticker": "LTH",
+      "market_cap": 9050209280
+    },
+    {
+      "ticker": "SIRI",
+      "market_cap": 9009797120
+    },
+    {
+      "ticker": "JAN",
+      "market_cap": 8994267136
+    },
+    {
+      "ticker": "TWST",
+      "market_cap": 8985136128
+    },
+    {
+      "ticker": "HLI",
+      "market_cap": 8958749696
+    },
+    {
+      "ticker": "FLS",
+      "market_cap": 8932850688
+    },
+    {
+      "ticker": "SAIA",
+      "market_cap": 8929870848
+    },
+    {
+      "ticker": "KT",
+      "market_cap": 8889048064
+    },
+    {
+      "ticker": "XPEV",
+      "market_cap": 8866074624
+    },
+    {
+      "ticker": "JXN",
+      "market_cap": 8853840896
+    },
+    {
+      "ticker": "TTEK",
+      "market_cap": 8833532928
+    },
+    {
+      "ticker": "BAH",
+      "market_cap": 8775991296
+    },
+    {
+      "ticker": "GTLB",
+      "market_cap": 8770614272
+    },
+    {
+      "ticker": "CUBE",
+      "market_cap": 8758882304
+    },
+    {
+      "ticker": "TIMB",
+      "market_cap": 8748910592
+    },
+    {
+      "ticker": "ESI",
+      "market_cap": 8738756608
+    },
+    {
+      "ticker": "OC",
+      "market_cap": 8726183936
+    },
+    {
+      "ticker": "LLYVA",
+      "market_cap": 8725789696
+    },
+    {
+      "ticker": "CYTK",
+      "market_cap": 8723024896
+    },
+    {
+      "ticker": "FORM",
+      "market_cap": 8722960384
+    },
+    {
+      "ticker": "KYMR",
+      "market_cap": 8717659136
+    },
+    {
+      "ticker": "RHP",
+      "market_cap": 8715474944
+    },
+    {
+      "ticker": "CAI",
+      "market_cap": 8705152000
+    },
+    {
+      "ticker": "PCOR",
+      "market_cap": 8685007872
+    },
+    {
+      "ticker": "PRI",
+      "market_cap": 8676751360
+    },
+    {
+      "ticker": "CTRE",
+      "market_cap": 8591621120
+    },
+    {
+      "ticker": "CTVA",
+      "market_cap": 8586812928
+    },
+    {
+      "ticker": "VMI",
+      "market_cap": 8567689216
+    },
+    {
+      "ticker": "NIO",
+      "market_cap": 8500225024
+    },
+    {
+      "ticker": "VOYA",
+      "market_cap": 8457622528
+    },
+    {
+      "ticker": "VIAV",
+      "market_cap": 8451114496
+    },
+    {
+      "ticker": "BRX",
+      "market_cap": 8417507840
+    },
+    {
+      "ticker": "ALV",
+      "market_cap": 8396341248
+    },
+    {
+      "ticker": "PNR",
+      "market_cap": 8393363968
+    },
+    {
+      "ticker": "PTGX",
+      "market_cap": 8376164352
+    },
+    {
+      "ticker": "CHRD",
+      "market_cap": 8372056064
+    },
+    {
+      "ticker": "BRKR",
+      "market_cap": 8367572992
+    },
+    {
+      "ticker": "EAT",
+      "market_cap": 8354892800
+    },
+    {
+      "ticker": "VSAT",
+      "market_cap": 8335603712
+    },
+    {
+      "ticker": "SPXC",
+      "market_cap": 8322016256
+    },
+    {
+      "ticker": "HUT",
+      "market_cap": 8319398400
+    },
+    {
+      "ticker": "REXR",
+      "market_cap": 8317722112
+    },
+    {
+      "ticker": "IDCC",
+      "market_cap": 8301534720
+    },
+    {
+      "ticker": "UGP",
+      "market_cap": 8295852032
+    },
+    {
+      "ticker": "CHWY",
+      "market_cap": 8283721216
+    },
+    {
+      "ticker": "KNSL",
+      "market_cap": 8282918400
+    },
+    {
+      "ticker": "LINE",
+      "market_cap": 8275933184
+    },
+    {
+      "ticker": "TGTX",
+      "market_cap": 8252736000
+    },
+    {
+      "ticker": "ADC",
+      "market_cap": 8246944768
+    },
+    {
+      "ticker": "UGI",
+      "market_cap": 8215156736
+    },
+    {
+      "ticker": "AXSM",
+      "market_cap": 8187121664
+    },
+    {
+      "ticker": "GAP",
+      "market_cap": 8181082112
+    },
+    {
+      "ticker": "HNGE",
+      "market_cap": 8133997568
+    },
+    {
+      "ticker": "NEU",
+      "market_cap": 8118955520
+    },
+    {
+      "ticker": "MHK",
+      "market_cap": 8094030848
+    },
+    {
+      "ticker": "PB",
+      "market_cap": 8077080576
+    },
+    {
+      "ticker": "WAL",
+      "market_cap": 8068008448
+    },
+    {
+      "ticker": "THG",
+      "market_cap": 8064363008
+    },
+    {
+      "ticker": "COLB",
+      "market_cap": 8028766208
+    },
+    {
+      "ticker": "WLK",
+      "market_cap": 8006453760
+    },
+    {
+      "ticker": "ARWR",
+      "market_cap": 7992177664
+    },
+    {
+      "ticker": "FR",
+      "market_cap": 7966283264
+    },
+    {
+      "ticker": "MOD",
+      "market_cap": 7964187136
+    },
+    {
+      "ticker": "IDA",
+      "market_cap": 7958486528
+    },
+    {
+      "ticker": "AOS",
+      "market_cap": 7935701504
+    },
+    {
+      "ticker": "ZETA",
+      "market_cap": 7931377152
+    },
+    {
+      "ticker": "AAL",
+      "market_cap": 7927090176
+    },
+    {
+      "ticker": "CBC",
+      "market_cap": 7918040064
+    },
+    {
+      "ticker": "CBSH",
+      "market_cap": 7913870336
+    },
+    {
+      "ticker": "VIST",
+      "market_cap": 7909697536
+    },
+    {
+      "ticker": "ATR",
+      "market_cap": 7884696064
+    },
+    {
+      "ticker": "AG",
+      "market_cap": 7862174720
+    },
+    {
+      "ticker": "ETSY",
+      "market_cap": 7830836736
+    },
+    {
+      "ticker": "OSK",
+      "market_cap": 7822426112
+    },
+    {
+      "ticker": "LEVI",
+      "market_cap": 7818947584
+    },
+    {
+      "ticker": "NTSK",
+      "market_cap": 7812197888
+    },
+    {
+      "ticker": "ZWS",
+      "market_cap": 7807222784
+    },
+    {
+      "ticker": "NNN",
+      "market_cap": 7788760064
+    },
+    {
+      "ticker": "TKR",
+      "market_cap": 7788271616
+    },
+    {
+      "ticker": "DBX",
+      "market_cap": 7762701824
+    },
+    {
+      "ticker": "SYRE",
+      "market_cap": 7750912000
+    },
+    {
+      "ticker": "CAE",
+      "market_cap": 7745298432
+    },
+    {
+      "ticker": "WYNN",
+      "market_cap": 7738487808
+    },
+    {
+      "ticker": "MORN",
+      "market_cap": 7734173184
+    },
+    {
+      "ticker": "STN",
+      "market_cap": 7712305664
+    },
+    {
+      "ticker": "CNM",
+      "market_cap": 7706049536
+    },
+    {
+      "ticker": "ABVX",
+      "market_cap": 7699094528
+    },
+    {
+      "ticker": "HQY",
+      "market_cap": 7652818944
+    },
+    {
+      "ticker": "BVN",
+      "market_cap": 7647163392
+    },
+    {
+      "ticker": "DY",
+      "market_cap": 7641580032
+    },
+    {
+      "ticker": "KMX",
+      "market_cap": 7616650752
+    },
+    {
+      "ticker": "LNC",
+      "market_cap": 7611945472
+    },
+    {
+      "ticker": "NFG",
+      "market_cap": 7533274624
+    },
+    {
+      "ticker": "APPF",
+      "market_cap": 7527527424
+    },
+    {
+      "ticker": "CLF",
+      "market_cap": 7522570752
+    },
+    {
+      "ticker": "S",
+      "market_cap": 7521341440
+    },
+    {
+      "ticker": "BOKF",
+      "market_cap": 7504708096
+    },
+    {
+      "ticker": "AVT",
+      "market_cap": 7503336960
+    },
+    {
+      "ticker": "GIL",
+      "market_cap": 7503047168
+    },
+    {
+      "ticker": "LW",
+      "market_cap": 7478722560
+    },
+    {
+      "ticker": "PACS",
+      "market_cap": 7476608000
+    },
+    {
+      "ticker": "URBN",
+      "market_cap": 7472994304
+    },
+    {
+      "ticker": "ACM",
+      "market_cap": 7469540352
+    },
+    {
+      "ticker": "DSGX",
+      "market_cap": 7437591552
+    },
+    {
+      "ticker": "RAL",
+      "market_cap": 7423944192
+    },
+    {
+      "ticker": "SLAB",
+      "market_cap": 7385732608
+    },
+    {
+      "ticker": "KTOS",
+      "market_cap": 7354921472
+    },
+    {
+      "ticker": "TAP",
+      "market_cap": 7323910144
+    },
+    {
+      "ticker": "BROS",
+      "market_cap": 7315785216
+    },
+    {
+      "ticker": "CWEN",
+      "market_cap": 7284393984
+    },
+    {
+      "ticker": "BZ",
+      "market_cap": 7271345152
+    },
+    {
+      "ticker": "SFD",
+      "market_cap": 7257133568
+    },
+    {
+      "ticker": "MGM",
+      "market_cap": 7250824192
+    },
+    {
+      "ticker": "AXS",
+      "market_cap": 7247014912
+    },
+    {
+      "ticker": "TTAN",
+      "market_cap": 7245704192
+    },
+    {
+      "ticker": "AUGO",
+      "market_cap": 7244341760
+    },
+    {
+      "ticker": "SSD",
+      "market_cap": 7230517248
+    },
+    {
+      "ticker": "ACA",
+      "market_cap": 7229504512
+    },
+    {
+      "ticker": "SIMO",
+      "market_cap": 7228218368
+    },
+    {
+      "ticker": "CELH",
+      "market_cap": 7226680832
+    },
+    {
+      "ticker": "AGCO",
+      "market_cap": 7215019008
+    },
+    {
+      "ticker": "IONS",
+      "market_cap": 7209076224
+    },
+    {
+      "ticker": "KEX",
+      "market_cap": 7186343936
+    },
+    {
+      "ticker": "SBSW",
+      "market_cap": 7166574080
+    },
+    {
+      "ticker": "SOBO",
+      "market_cap": 7160830976
+    },
+    {
+      "ticker": "LGN",
+      "market_cap": 7152144896
+    },
+    {
+      "ticker": "EMN",
+      "market_cap": 7133981696
+    },
+    {
+      "ticker": "MTDR",
+      "market_cap": 7131336704
+    },
+    {
+      "ticker": "AXTA",
+      "market_cap": 7120445440
+    },
+    {
+      "ticker": "PRMB",
+      "market_cap": 7108574208
+    },
+    {
+      "ticker": "NE",
+      "market_cap": 7092105728
+    },
+    {
+      "ticker": "VSXY",
+      "market_cap": 7091821056
+    },
+    {
+      "ticker": "ZG",
+      "market_cap": 7072317440
+    },
+    {
+      "ticker": "MATX",
+      "market_cap": 7062897664
+    },
+    {
+      "ticker": "TBBB",
+      "market_cap": 7061964800
+    },
+    {
+      "ticker": "AWI",
+      "market_cap": 7057469440
+    },
+    {
+      "ticker": "MP",
+      "market_cap": 7051932672
+    },
+    {
+      "ticker": "ALKS",
+      "market_cap": 7034313728
+    },
+    {
+      "ticker": "PPC",
+      "market_cap": 6976579584
+    },
+    {
+      "ticker": "STAG",
+      "market_cap": 6974863872
+    },
+    {
+      "ticker": "MGY",
+      "market_cap": 6960773120
+    },
+    {
+      "ticker": "VLY",
+      "market_cap": 6957355520
+    },
+    {
+      "ticker": "SARO",
+      "market_cap": 6952616960
+    },
+    {
+      "ticker": "ARE",
+      "market_cap": 6914788352
+    },
+    {
+      "ticker": "TRNO",
+      "market_cap": 6914166272
+    },
+    {
+      "ticker": "VFS",
+      "market_cap": 6913329152
+    },
+    {
+      "ticker": "PRAX",
+      "market_cap": 6906567168
+    },
+    {
+      "ticker": "COMP",
+      "market_cap": 6897286656
+    },
+    {
+      "ticker": "SNEX",
+      "market_cap": 6887215616
+    },
+    {
+      "ticker": "MSA",
+      "market_cap": 6886031360
+    },
+    {
+      "ticker": "NCLH",
+      "market_cap": 6871746048
+    },
+    {
+      "ticker": "MXL",
+      "market_cap": 6865474560
+    },
+    {
+      "ticker": "HXL",
+      "market_cap": 6858291200
+    },
+    {
+      "ticker": "FSS",
+      "market_cap": 6853447168
+    },
+    {
+      "ticker": "Z",
+      "market_cap": 6844069376
+    },
+    {
+      "ticker": "CAG",
+      "market_cap": 6819823616
+    },
+    {
+      "ticker": "PDI",
+      "market_cap": 6771528704
+    },
+    {
+      "ticker": "ELF",
+      "market_cap": 6758480896
+    },
+    {
+      "ticker": "MAC",
+      "market_cap": 6750294528
+    },
+    {
+      "ticker": "PATH",
+      "market_cap": 6738540032
+    },
+    {
+      "ticker": "ANF",
+      "market_cap": 6728819200
+    },
+    {
+      "ticker": "NOV",
+      "market_cap": 6682182656
+    },
+    {
+      "ticker": "RUSHB",
+      "market_cap": 6681649152
+    },
+    {
+      "ticker": "CHE",
+      "market_cap": 6665810944
+    },
+    {
+      "ticker": "NAVN",
+      "market_cap": 6653488128
+    },
+    {
+      "ticker": "CIG",
+      "market_cap": 6651085824
+    },
+    {
+      "ticker": "GLBE",
+      "market_cap": 6636391424
+    },
+    {
+      "ticker": "FAF",
+      "market_cap": 6632415744
+    },
+    {
+      "ticker": "VFC",
+      "market_cap": 6630410752
+    },
+    {
+      "ticker": "VCTR",
+      "market_cap": 6622428160
+    },
+    {
+      "ticker": "NICE",
+      "market_cap": 6617673216
+    },
+    {
+      "ticker": "TAL",
+      "market_cap": 6614812672
+    },
+    {
+      "ticker": "AMRX",
+      "market_cap": 6614141440
+    },
+    {
+      "ticker": "OR",
+      "market_cap": 6609229312
+    },
+    {
+      "ticker": "CAVA",
+      "market_cap": 6580861440
+    },
+    {
+      "ticker": "SEI",
+      "market_cap": 6552788992
+    },
+    {
+      "ticker": "RIG",
+      "market_cap": 6544917504
+    },
+    {
+      "ticker": "GTES",
+      "market_cap": 6542691840
+    },
+    {
+      "ticker": "LNTH",
+      "market_cap": 6529334272
+    },
+    {
+      "ticker": "AAOI",
+      "market_cap": 6486840320
+    },
+    {
+      "ticker": "ESE",
+      "market_cap": 6468083712
+    },
+    {
+      "ticker": "LAD",
+      "market_cap": 6466663424
+    },
+    {
+      "ticker": "HIMS",
+      "market_cap": 6453448704
+    },
+    {
+      "ticker": "TXNM",
+      "market_cap": 6450065920
+    },
+    {
+      "ticker": "DUOL",
+      "market_cap": 6446157824
+    },
+    {
+      "ticker": "SSRM",
+      "market_cap": 6441495040
+    },
+    {
+      "ticker": "VNO",
+      "market_cap": 6435596800
+    },
+    {
+      "ticker": "QLYS",
+      "market_cap": 6422215680
+    },
+    {
+      "ticker": "LB",
+      "market_cap": 6409011712
+    },
+    {
+      "ticker": "LYFT",
+      "market_cap": 6389758976
+    },
+    {
+      "ticker": "ACI",
+      "market_cap": 6386886144
+    },
+    {
+      "ticker": "OMF",
+      "market_cap": 6382500864
+    },
+    {
+      "ticker": "RNG",
+      "market_cap": 6380705792
+    },
+    {
+      "ticker": "EPAM",
+      "market_cap": 6375634432
+    },
+    {
+      "ticker": "PAGP",
+      "market_cap": 6374892032
+    },
+    {
+      "ticker": "UBSI",
+      "market_cap": 6339550208
+    },
+    {
+      "ticker": "ACT",
+      "market_cap": 6335934464
+    },
+    {
+      "ticker": "IOVA",
+      "market_cap": 6334804992
+    },
+    {
+      "ticker": "CVI",
+      "market_cap": 6320861696
+    },
+    {
+      "ticker": "SWX",
+      "market_cap": 6319452160
+    },
+    {
+      "ticker": "HESM",
+      "market_cap": 6286378496
+    },
+    {
+      "ticker": "TFPM",
+      "market_cap": 6274851840
+    },
+    {
+      "ticker": "DOX",
+      "market_cap": 6274819584
+    },
+    {
+      "ticker": "PLXS",
+      "market_cap": 6259512320
+    },
+    {
+      "ticker": "CVLT",
+      "market_cap": 6247146496
+    },
+    {
+      "ticker": "G",
+      "market_cap": 6225861632
+    },
+    {
+      "ticker": "FLR",
+      "market_cap": 6223640576
+    },
+    {
+      "ticker": "MBLY",
+      "market_cap": 6219122176
+    },
+    {
+      "ticker": "OTEX",
+      "market_cap": 6203663360
+    },
+    {
+      "ticker": "M",
+      "market_cap": 6191192064
+    },
+    {
+      "ticker": "WEX",
+      "market_cap": 6187005440
+    },
+    {
+      "ticker": "ENIC",
+      "market_cap": 6183490048
+    },
+    {
+      "ticker": "VAL",
+      "market_cap": 6159650304
+    },
+    {
+      "ticker": "INGR",
+      "market_cap": 6153152512
+    },
+    {
+      "ticker": "INGM",
+      "market_cap": 6152336896
+    },
+    {
+      "ticker": "POOL",
+      "market_cap": 6150671360
+    },
+    {
+      "ticker": "KNSA",
+      "market_cap": 6132687360
+    },
+    {
+      "ticker": "VIPS",
+      "market_cap": 6114929664
+    },
+    {
+      "ticker": "AAON",
+      "market_cap": 6107341312
+    },
+    {
+      "ticker": "ENS",
+      "market_cap": 6104038912
+    },
+    {
+      "ticker": "GGAL",
+      "market_cap": 6076600320
+    },
+    {
+      "ticker": "FNB",
+      "market_cap": 6061026304
+    },
+    {
+      "ticker": "POWL",
+      "market_cap": 6051813376
+    },
+    {
+      "ticker": "CAMT",
+      "market_cap": 6047728640
+    },
+    {
+      "ticker": "MUR",
+      "market_cap": 6037167104
+    },
+    {
+      "ticker": "IFS",
+      "market_cap": 6029370880
+    },
+    {
+      "ticker": "WULF",
+      "market_cap": 6020056576
+    },
+    {
+      "ticker": "SFM",
+      "market_cap": 6014005760
+    },
+    {
+      "ticker": "EXLS",
+      "market_cap": 6012951552
+    },
+    {
+      "ticker": "HR",
+      "market_cap": 6003061760
+    },
+    {
+      "ticker": "ALGM",
+      "market_cap": 6000281600
+    },
+    {
+      "ticker": "NPO",
+      "market_cap": 5999449600
+    },
+    {
+      "ticker": "AVAV",
+      "market_cap": 5999130112
+    },
+    {
+      "ticker": "RYTM",
+      "market_cap": 5993573888
+    },
+    {
+      "ticker": "LGND",
+      "market_cap": 5971212800
+    },
+    {
+      "ticker": "MBGL",
+      "market_cap": 5912000000
+    },
+    {
+      "ticker": "OGC",
+      "market_cap": 5910430720
+    },
+    {
+      "ticker": "HRB",
+      "market_cap": 5901740032
+    },
+    {
+      "ticker": "ST",
+      "market_cap": 5900023808
+    },
+    {
+      "ticker": "BLCO",
+      "market_cap": 5893226496
+    },
+    {
+      "ticker": "LEA",
+      "market_cap": 5888883712
+    },
+    {
+      "ticker": "CZR",
+      "market_cap": 5875184640
+    },
+    {
+      "ticker": "CROX",
+      "market_cap": 5867997696
+    },
+    {
+      "ticker": "CPB",
+      "market_cap": 5867767296
+    },
+    {
+      "ticker": "GATX",
+      "market_cap": 5855696384
+    },
+    {
+      "ticker": "HWC",
+      "market_cap": 5853073920
+    },
+    {
+      "ticker": "BKH",
+      "market_cap": 5847472128
+    },
+    {
+      "ticker": "FSV",
+      "market_cap": 5838211584
+    },
+    {
+      "ticker": "APLD",
+      "market_cap": 5830326272
+    },
+    {
+      "ticker": "BLTE",
+      "market_cap": 5824963072
+    },
+    {
+      "ticker": "HOMB",
+      "market_cap": 5817443328
+    },
+    {
+      "ticker": "MOS",
+      "market_cap": 5814311936
+    },
+    {
+      "ticker": "ESNT",
+      "market_cap": 5810515456
+    },
+    {
+      "ticker": "LSTR",
+      "market_cap": 5804571136
+    },
+    {
+      "ticker": "BILI",
+      "market_cap": 5802037248
+    },
+    {
+      "ticker": "BLDR",
+      "market_cap": 5799449088
+    },
+    {
+      "ticker": "WPP",
+      "market_cap": 5799231488
+    },
+    {
+      "ticker": "TEX",
+      "market_cap": 5792723968
+    },
+    {
+      "ticker": "MKTX",
+      "market_cap": 5792402944
+    },
+    {
+      "ticker": "PJT",
+      "market_cap": 5783422464
+    },
+    {
+      "ticker": "FIGR",
+      "market_cap": 5767633408
+    },
+    {
+      "ticker": "CHDN",
+      "market_cap": 5757239808
+    },
+    {
+      "ticker": "LOAR",
+      "market_cap": 5753877504
+    },
+    {
+      "ticker": "VEON",
+      "market_cap": 5729250816
+    },
+    {
+      "ticker": "TTD",
+      "market_cap": 5716092928
+    },
+    {
+      "ticker": "MTG",
+      "market_cap": 5708623872
+    },
+    {
+      "ticker": "CAKE",
+      "market_cap": 5703563776
+    },
+    {
+      "ticker": "SXT",
+      "market_cap": 5686391808
+    },
+    {
+      "ticker": "GBCI",
+      "market_cap": 5663568896
+    },
+    {
+      "ticker": "WH",
+      "market_cap": 5651919360
+    },
+    {
+      "ticker": "RLI",
+      "market_cap": 5644955136
+    },
+    {
+      "ticker": "CACC",
+      "market_cap": 5636655104
+    },
+    {
+      "ticker": "JMKE",
+      "market_cap": 5636502528
+    },
+    {
+      "ticker": "RYN",
+      "market_cap": 5625890816
+    },
+    {
+      "ticker": "NXE",
+      "market_cap": 5622193664
+    },
+    {
+      "ticker": "VRNS",
+      "market_cap": 5597726208
+    },
+    {
+      "ticker": "SGHC",
+      "market_cap": 5583763968
+    },
+    {
+      "ticker": "DLB",
+      "market_cap": 5583596544
+    },
+    {
+      "ticker": "PEGA",
+      "market_cap": 5583191552
+    },
+    {
+      "ticker": "KOD",
+      "market_cap": 5582288896
+    },
+    {
+      "ticker": "SAIC",
+      "market_cap": 5568195584
+    },
+    {
+      "ticker": "EPRT",
+      "market_cap": 5567515648
+    },
+    {
+      "ticker": "ECG",
+      "market_cap": 5565577216
+    },
+    {
+      "ticker": "CWST",
+      "market_cap": 5555648512
+    },
+    {
+      "ticker": "IMVT",
+      "market_cap": 5537677312
+    },
+    {
+      "ticker": "SNDR",
+      "market_cap": 5534249472
+    },
+    {
+      "ticker": "OLLI",
+      "market_cap": 5519968768
+    },
+    {
+      "ticker": "BIRK",
+      "market_cap": 5510261248
+    },
+    {
+      "ticker": "TFX",
+      "market_cap": 5506504704
+    },
+    {
+      "ticker": "LKQ",
+      "market_cap": 5505325568
+    },
+    {
+      "ticker": "HLNE",
+      "market_cap": 5502511616
+    },
+    {
+      "ticker": "NIQ",
+      "market_cap": 5497977344
+    },
+    {
+      "ticker": "DOCS",
+      "market_cap": 5479281664
+    },
+    {
+      "ticker": "OCTV",
+      "market_cap": 5478815232
+    },
+    {
+      "ticker": "BXSL",
+      "market_cap": 5470136832
+    },
+    {
+      "ticker": "BOX",
+      "market_cap": 5466764800
+    },
+    {
+      "ticker": "RDNT",
+      "market_cap": 5454541312
+    },
+    {
+      "ticker": "FTDR",
+      "market_cap": 5454455808
+    },
+    {
+      "ticker": "GXO",
+      "market_cap": 5450384896
+    },
+    {
+      "ticker": "ASB",
+      "market_cap": 5446424576
+    },
+    {
+      "ticker": "INSW",
+      "market_cap": 5444481536
+    },
+    {
+      "ticker": "CRUS",
+      "market_cap": 5442766848
+    },
+    {
+      "ticker": "HAFN",
+      "market_cap": 5441641472
+    },
+    {
+      "ticker": "JBTM",
+      "market_cap": 5438246912
+    },
+    {
+      "ticker": "BCPC",
+      "market_cap": 5437593088
+    },
+    {
+      "ticker": "BBUC",
+      "market_cap": 5425723392
+    },
+    {
+      "ticker": "CRGY",
+      "market_cap": 5421094912
+    },
+    {
+      "ticker": "AUB",
+      "market_cap": 5414112768
+    },
+    {
+      "ticker": "HAE",
+      "market_cap": 5412102144
+    },
+    {
+      "ticker": "MTN",
+      "market_cap": 5402845696
+    },
+    {
+      "ticker": "LAUR",
+      "market_cap": 5397020160
+    },
+    {
+      "ticker": "ORA",
+      "market_cap": 5391436800
+    },
+    {
+      "ticker": "STEP",
+      "market_cap": 5382800384
+    },
+    {
+      "ticker": "WFRD",
+      "market_cap": 5376637440
+    },
+    {
+      "ticker": "GRAL",
+      "market_cap": 5375581184
+    },
+    {
+      "ticker": "CGON",
+      "market_cap": 5372049920
+    },
+    {
+      "ticker": "OUT",
+      "market_cap": 5362437632
+    },
+    {
+      "ticker": "CPA",
+      "market_cap": 5361120768
+    },
+    {
+      "ticker": "BGC",
+      "market_cap": 5358693376
+    },
+    {
+      "ticker": "PECO",
+      "market_cap": 5356580352
+    },
+    {
+      "ticker": "ACIW",
+      "market_cap": 5351636992
+    },
+    {
+      "ticker": "ABCB",
+      "market_cap": 5340394496
+    },
+    {
+      "ticker": "MMSI",
+      "market_cap": 5325273600
+    },
+    {
+      "ticker": "HGTY",
+      "market_cap": 5315843072
+    },
+    {
+      "ticker": "CNX",
+      "market_cap": 5309697024
+    },
+    {
+      "ticker": "BEPC",
+      "market_cap": 5294536192
+    },
+    {
+      "ticker": "AN",
+      "market_cap": 5294357504
+    },
+    {
+      "ticker": "SIGI",
+      "market_cap": 5291525120
+    },
+    {
+      "ticker": "PI",
+      "market_cap": 5288510464
+    },
+    {
+      "ticker": "NJR",
+      "market_cap": 5284450816
+    },
+    {
+      "ticker": "RUSHA",
+      "market_cap": 5274464256
+    },
+    {
+      "ticker": "RIOT",
+      "market_cap": 5270512128
+    },
+    {
+      "ticker": "CE",
+      "market_cap": 5270143488
+    },
+    {
+      "ticker": "PSMT",
+      "market_cap": 5268354048
+    },
+    {
+      "ticker": "MIRM",
+      "market_cap": 5249768448
+    },
+    {
+      "ticker": "WAY",
+      "market_cap": 5245277696
+    },
+    {
+      "ticker": "XMTR",
+      "market_cap": 5204120576
+    },
+    {
+      "ticker": "EXP",
+      "market_cap": 5194866176
+    },
+    {
+      "ticker": "AROC",
+      "market_cap": 5181243392
+    },
+    {
+      "ticker": "POR",
+      "market_cap": 5165331968
+    },
+    {
+      "ticker": "COGT",
+      "market_cap": 5162368000
+    },
+    {
+      "ticker": "GRFS",
+      "market_cap": 5158799872
+    },
+    {
+      "ticker": "WTM",
+      "market_cap": 5150567936
+    },
+    {
+      "ticker": "MAAS",
+      "market_cap": 5147445248
+    },
+    {
+      "ticker": "WFG",
+      "market_cap": 5140646400
+    },
+    {
+      "ticker": "RELY",
+      "market_cap": 5135455232
+    },
+    {
+      "ticker": "KVYO",
+      "market_cap": 5134145536
+    },
+    {
+      "ticker": "MTRN",
+      "market_cap": 5126137856
+    },
+    {
+      "ticker": "CMBT",
+      "market_cap": 5112791552
+    },
+    {
+      "ticker": "GHC",
+      "market_cap": 5107418112
+    },
+    {
+      "ticker": "STVN",
+      "market_cap": 5104728576
+    },
+    {
+      "ticker": "SHC",
+      "market_cap": 5096793600
+    },
+    {
+      "ticker": "NXST",
+      "market_cap": 5081212928
+    },
+    {
+      "ticker": "BYD",
+      "market_cap": 5072808448
+    },
+    {
+      "ticker": "OKLO",
+      "market_cap": 5070841344
+    },
+    {
+      "ticker": "CLMT",
+      "market_cap": 5069100032
+    },
+    {
+      "ticker": "VIRT",
+      "market_cap": 5068900352
+    },
+    {
+      "ticker": "CNO",
+      "market_cap": 5049353728
+    },
+    {
+      "ticker": "MEOH",
+      "market_cap": 5047244288
+    },
+    {
+      "ticker": "PTCT",
+      "market_cap": 5043536384
+    },
+    {
+      "ticker": "RRR",
+      "market_cap": 5040233472
+    },
+    {
+      "ticker": "AX",
+      "market_cap": 5027953152
+    },
+    {
+      "ticker": "KRG",
+      "market_cap": 5016029184
+    },
+    {
+      "ticker": "MMED",
+      "market_cap": 4991147520
+    },
+    {
+      "ticker": "OZK",
+      "market_cap": 4979747840
+    },
+    {
+      "ticker": "NOVT",
+      "market_cap": 4968119808
+    },
+    {
+      "ticker": "CHH",
+      "market_cap": 4960828416
+    },
+    {
+      "ticker": "MAIN",
+      "market_cap": 4944914432
+    },
+    {
+      "ticker": "OBDC",
+      "market_cap": 4938238464
+    },
+    {
+      "ticker": "AGX",
+      "market_cap": 4936890880
+    },
+    {
+      "ticker": "ADT",
+      "market_cap": 4931274752
+    },
+    {
+      "ticker": "KLAR",
+      "market_cap": 4922028032
+    },
+    {
+      "ticker": "LPX",
+      "market_cap": 4898135040
+    },
+    {
+      "ticker": "SBRA",
+      "market_cap": 4897221120
+    },
+    {
+      "ticker": "CON",
+      "market_cap": 4889030144
+    },
+    {
+      "ticker": "SON",
+      "market_cap": 4887885824
+    },
+    {
+      "ticker": "ORKA",
+      "market_cap": 4886276096
+    },
+    {
+      "ticker": "IBP",
+      "market_cap": 4881531392
+    },
+    {
+      "ticker": "PL",
+      "market_cap": 4881020928
+    },
+    {
+      "ticker": "RGC",
+      "market_cap": 4879502336
+    },
+    {
+      "ticker": "MWH",
+      "market_cap": 4874483712
+    },
+    {
+      "ticker": "SRRK",
+      "market_cap": 4873238016
+    },
+    {
+      "ticker": "MIDD",
+      "market_cap": 4869090304
+    },
+    {
+      "ticker": "SR",
+      "market_cap": 4866757632
+    },
+    {
+      "ticker": "EBC",
+      "market_cap": 4866153472
+    },
+    {
+      "ticker": "GVA",
+      "market_cap": 4864300544
+    },
+    {
+      "ticker": "CRC",
+      "market_cap": 4831358464
+    },
+    {
+      "ticker": "CRSP",
+      "market_cap": 4825930240
+    },
+    {
+      "ticker": "MANE",
+      "market_cap": 4811817984
+    },
+    {
+      "ticker": "FBIN",
+      "market_cap": 4811699712
+    },
+    {
+      "ticker": "MAT",
+      "market_cap": 4785475072
+    },
+    {
+      "ticker": "LUMN",
+      "market_cap": 4780749312
+    },
+    {
+      "ticker": "REYN",
+      "market_cap": 4776523264
+    },
+    {
+      "ticker": "RITM",
+      "market_cap": 4763211776
+    },
+    {
+      "ticker": "KGS",
+      "market_cap": 4760988672
+    },
+    {
+      "ticker": "DK",
+      "market_cap": 4743350272
+    },
+    {
+      "ticker": "NSIT",
+      "market_cap": 4742333952
+    },
+    {
+      "ticker": "AMTM",
+      "market_cap": 4740637184
+    },
+    {
+      "ticker": "ERAS",
+      "market_cap": 4732280320
+    },
+    {
+      "ticker": "TVTX",
+      "market_cap": 4730963456
+    },
+    {
+      "ticker": "RXO",
+      "market_cap": 4727783936
+    },
+    {
+      "ticker": "OGS",
+      "market_cap": 4727734272
+    },
+    {
+      "ticker": "BB",
+      "market_cap": 4716804096
+    },
+    {
+      "ticker": "UNF",
+      "market_cap": 4709389824
+    },
+    {
+      "ticker": "FND",
+      "market_cap": 4696207360
+    },
+    {
+      "ticker": "ROAD",
+      "market_cap": 4689144320
+    },
+    {
+      "ticker": "CSW",
+      "market_cap": 4675985920
+    },
+    {
+      "ticker": "OPCH",
+      "market_cap": 4675803136
+    },
+    {
+      "ticker": "IRDM",
+      "market_cap": 4672726528
+    },
+    {
+      "ticker": "BLLN",
+      "market_cap": 4670573568
+    },
+    {
+      "ticker": "SYNA",
+      "market_cap": 4668486144
+    },
+    {
+      "ticker": "HCC",
+      "market_cap": 4668232704
+    },
+    {
+      "ticker": "DAVE",
+      "market_cap": 4667622400
+    },
+    {
+      "ticker": "TREX",
+      "market_cap": 4660332544
+    },
+    {
+      "ticker": "GOLF",
+      "market_cap": 4659262464
+    },
+    {
+      "ticker": "DPC",
+      "market_cap": 4655086592
+    },
+    {
+      "ticker": "PSN",
+      "market_cap": 4652976640
+    },
+    {
+      "ticker": "HASI",
+      "market_cap": 4652832256
+    },
+    {
+      "ticker": "GLNG",
+      "market_cap": 4628057088
+    },
+    {
+      "ticker": "BIPC",
+      "market_cap": 4623541248
+    },
+    {
+      "ticker": "NWE",
+      "market_cap": 4608609792
+    },
+    {
+      "ticker": "STWD",
+      "market_cap": 4604698624
+    },
+    {
+      "ticker": "JOBY",
+      "market_cap": 4602879488
+    },
+    {
+      "ticker": "CHEF",
+      "market_cap": 4599350272
+    },
+    {
+      "ticker": "GDS",
+      "market_cap": 4594658816
+    },
+    {
+      "ticker": "FLG",
+      "market_cap": 4590926848
+    },
+    {
+      "ticker": "GEF",
+      "market_cap": 4580256256
+    },
+    {
+      "ticker": "ATAT",
+      "market_cap": 4579482112
+    },
+    {
+      "ticker": "KBR",
+      "market_cap": 4577520128
+    },
+    {
+      "ticker": "SIG",
+      "market_cap": 4575078912
+    },
+    {
+      "ticker": "MRCY",
+      "market_cap": 4572680704
+    },
+    {
+      "ticker": "AKO-B",
+      "market_cap": 4570358272
+    },
+    {
+      "ticker": "YOU",
+      "market_cap": 4564104704
+    },
+    {
+      "ticker": "TFSL",
+      "market_cap": 4562803712
+    },
+    {
+      "ticker": "CIGI",
+      "market_cap": 4547217920
+    },
+    {
+      "ticker": "NNI",
+      "market_cap": 4529319424
+    },
+    {
+      "ticker": "PIPR",
+      "market_cap": 4529258496
+    },
+    {
+      "ticker": "CNK",
+      "market_cap": 4528676352
+    },
+    {
+      "ticker": "RDN",
+      "market_cap": 4521397760
+    },
+    {
+      "ticker": "GTX",
+      "market_cap": 4520600064
+    },
+    {
+      "ticker": "MDA",
+      "market_cap": 4518585344
+    },
+    {
+      "ticker": "OPLN",
+      "market_cap": 4512923136
+    },
+    {
+      "ticker": "LFST",
+      "market_cap": 4502925824
+    },
+    {
+      "ticker": "KRMN",
+      "market_cap": 4499519488
+    },
+    {
+      "ticker": "CUZ",
+      "market_cap": 4493495296
+    },
+    {
+      "ticker": "BWIN",
+      "market_cap": 4491124736
+    },
+    {
+      "ticker": "CCC",
+      "market_cap": 4491084288
+    },
+    {
+      "ticker": "CNR",
+      "market_cap": 4490592256
+    },
+    {
+      "ticker": "VSEC",
+      "market_cap": 4464014336
+    },
+    {
+      "ticker": "VNT",
+      "market_cap": 4460248064
+    },
+    {
+      "ticker": "OMAB",
+      "market_cap": 4458326016
+    },
+    {
+      "ticker": "DFTX",
+      "market_cap": 4446202368
+    },
+    {
+      "ticker": "QBTS",
+      "market_cap": 4432140800
+    },
+    {
+      "ticker": "PTEN",
+      "market_cap": 4431692288
+    },
+    {
+      "ticker": "RSI",
+      "market_cap": 4423313920
+    },
+    {
+      "ticker": "MYRG",
+      "market_cap": 4418708992
+    },
+    {
+      "ticker": "FELE",
+      "market_cap": 4407440896
+    },
+    {
+      "ticker": "ENVA",
+      "market_cap": 4397923840
+    },
+    {
+      "ticker": "VSNT",
+      "market_cap": 4397774336
+    },
+    {
+      "ticker": "GNTX",
+      "market_cap": 4390640640
+    },
+    {
+      "ticker": "CORZ",
+      "market_cap": 4388867584
+    },
+    {
+      "ticker": "OII",
+      "market_cap": 4377562624
+    },
+    {
+      "ticker": "PRM",
+      "market_cap": 4373714432
+    },
+    {
+      "ticker": "BLSH",
+      "market_cap": 4362164736
+    },
+    {
+      "ticker": "CVSA",
+      "market_cap": 4354422784
+    },
+    {
+      "ticker": "PAM",
+      "market_cap": 4353698304
+    },
+    {
+      "ticker": "PARR",
+      "market_cap": 4332866560
+    },
+    {
+      "ticker": "VSH",
+      "market_cap": 4323758592
+    },
+    {
+      "ticker": "UFPI",
+      "market_cap": 4323281920
+    },
+    {
+      "ticker": "FFIN",
+      "market_cap": 4321324032
+    },
+    {
+      "ticker": "ITGR",
+      "market_cap": 4309638144
+    },
+    {
+      "ticker": "SEZL",
+      "market_cap": 4308397056
+    },
+    {
+      "ticker": "HTFL",
+      "market_cap": 4300726272
+    },
+    {
+      "ticker": "ARX",
+      "market_cap": 4297075200
+    },
+    {
+      "ticker": "LIVN",
+      "market_cap": 4291956992
+    },
+    {
+      "ticker": "WHD",
+      "market_cap": 4287543808
+    },
+    {
+      "ticker": "BCO",
+      "market_cap": 4285400832
+    },
+    {
+      "ticker": "SFBS",
+      "market_cap": 4284137984
+    },
+    {
+      "ticker": "CGAU",
+      "market_cap": 4277936896
+    },
+    {
+      "ticker": "MMYT",
+      "market_cap": 4262738688
+    },
+    {
+      "ticker": "DLO",
+      "market_cap": 4259545600
+    },
+    {
+      "ticker": "FULT",
+      "market_cap": 4257394432
+    },
+    {
+      "ticker": "TKC",
+      "market_cap": 4257121536
+    },
+    {
+      "ticker": "GFF",
+      "market_cap": 4246791168
+    },
+    {
+      "ticker": "KLIC",
+      "market_cap": 4242844928
+    },
+    {
+      "ticker": "ALH",
+      "market_cap": 4226256128
+    },
+    {
+      "ticker": "LOPE",
+      "market_cap": 4213543424
+    },
+    {
+      "ticker": "HRI",
+      "market_cap": 4204004096
+    },
+    {
+      "ticker": "SKT",
+      "market_cap": 4203092992
+    },
+    {
+      "ticker": "TENB",
+      "market_cap": 4201289728
+    },
+    {
+      "ticker": "GEF-B",
+      "market_cap": 4192741120
+    },
+    {
+      "ticker": "EPR",
+      "market_cap": 4190508032
+    },
+    {
+      "ticker": "SLGN",
+      "market_cap": 4188178432
+    },
+    {
+      "ticker": "SKY",
+      "market_cap": 4184998400
+    },
+    {
+      "ticker": "XE",
+      "market_cap": 4181507328
+    },
+    {
+      "ticker": "BETA",
+      "market_cap": 4164150528
+    },
+    {
+      "ticker": "FHI",
+      "market_cap": 4162310656
+    },
+    {
+      "ticker": "CRK",
+      "market_cap": 4157666816
+    },
+    {
+      "ticker": "FBP",
+      "market_cap": 4155630336
+    },
+    {
+      "ticker": "BC",
+      "market_cap": 4127596288
+    },
+    {
+      "ticker": "WK",
+      "market_cap": 4118239744
+    },
+    {
+      "ticker": "DNTH",
+      "market_cap": 4109498624
+    },
+    {
+      "ticker": "OTF",
+      "market_cap": 4107631872
+    },
+    {
+      "ticker": "LBTYB",
+      "market_cap": 4106694144
+    },
+    {
+      "ticker": "STNG",
+      "market_cap": 4106670848
+    },
+    {
+      "ticker": "SITE",
+      "market_cap": 4106007808
+    },
+    {
+      "ticker": "TPC",
+      "market_cap": 4095791616
+    },
+    {
+      "ticker": "TAC",
+      "market_cap": 4086596096
+    },
+    {
+      "ticker": "JOYY",
+      "market_cap": 4074105856
+    },
+    {
+      "ticker": "BMA",
+      "market_cap": 4070998016
+    },
+    {
+      "ticker": "FCN",
+      "market_cap": 4066771200
+    },
+    {
+      "ticker": "UCB",
+      "market_cap": 4064185600
+    },
+    {
+      "ticker": "BDC",
+      "market_cap": 4062959616
+    },
+    {
+      "ticker": "BBWI",
+      "market_cap": 4061136384
+    },
+    {
+      "ticker": "CAAP",
+      "market_cap": 4058962944
+    },
+    {
+      "ticker": "SLM",
+      "market_cap": 4055160064
+    },
+    {
+      "ticker": "EWTX",
+      "market_cap": 4054735104
+    },
+    {
+      "ticker": "KFY",
+      "market_cap": 4054218752
+    },
+    {
+      "ticker": "APLE",
+      "market_cap": 4042916352
+    },
+    {
+      "ticker": "KRC",
+      "market_cap": 4038849280
+    },
+    {
+      "ticker": "PRIM",
+      "market_cap": 4036024576
+    },
+    {
+      "ticker": "AZZ",
+      "market_cap": 4030507008
+    },
+    {
+      "ticker": "ESAB",
+      "market_cap": 4024857344
+    },
+    {
+      "ticker": "ICUI",
+      "market_cap": 4023382272
+    },
+    {
+      "ticker": "HHH",
+      "market_cap": 4023300352
+    },
+    {
+      "ticker": "NP",
+      "market_cap": 4022301696
+    },
+    {
+      "ticker": "TDW",
+      "market_cap": 4022293504
+    },
+    {
+      "ticker": "CRVL",
+      "market_cap": 4010763008
+    },
+    {
+      "ticker": "KTB",
+      "market_cap": 3998459136
+    },
+    {
+      "ticker": "CVCO",
+      "market_cap": 3995412992
+    },
+    {
+      "ticker": "CATY",
+      "market_cap": 3994156288
+    },
+    {
+      "ticker": "VVV",
+      "market_cap": 3993154560
+    },
+    {
+      "ticker": "ENPH",
+      "market_cap": 3991429120
+    },
+    {
+      "ticker": "MC",
+      "market_cap": 3989997056
+    },
+    {
+      "ticker": "MDU",
+      "market_cap": 3989277440
+    },
+    {
+      "ticker": "AQN",
+      "market_cap": 3976543232
+    },
+    {
+      "ticker": "PAY",
+      "market_cap": 3955764224
+    },
+    {
+      "ticker": "TNL",
+      "market_cap": 3950243072
+    },
+    {
+      "ticker": "TRMD",
+      "market_cap": 3945163264
+    },
+    {
+      "ticker": "ACMR",
+      "market_cap": 3937269248
+    },
+    {
+      "ticker": "PVH",
+      "market_cap": 3935095808
+    },
+    {
+      "ticker": "TGS",
+      "market_cap": 3932423680
+    },
+    {
+      "ticker": "SKE",
+      "market_cap": 3930119424
+    },
+    {
+      "ticker": "AIR",
+      "market_cap": 3926773504
+    },
+    {
+      "ticker": "COLD",
+      "market_cap": 3919762688
+    },
+    {
+      "ticker": "PLNT",
+      "market_cap": 3916853760
+    },
+    {
+      "ticker": "WSFS",
+      "market_cap": 3916022528
+    },
+    {
+      "ticker": "BFH",
+      "market_cap": 3910889216
+    },
+    {
+      "ticker": "TDS",
+      "market_cap": 3884014080
+    },
+    {
+      "ticker": "RGTI",
+      "market_cap": 3878392576
+    },
+    {
+      "ticker": "DOO",
+      "market_cap": 3874134016
+    },
+    {
+      "ticker": "INDV",
+      "market_cap": 3872627968
+    },
+    {
+      "ticker": "QTWO",
+      "market_cap": 3870979584
+    },
+    {
+      "ticker": "BILL",
+      "market_cap": 3870713088
+    },
+    {
+      "ticker": "JOE",
+      "market_cap": 3863300608
+    },
+    {
+      "ticker": "DIOD",
+      "market_cap": 3860053760
+    },
+    {
+      "ticker": "ABCL",
+      "market_cap": 3856163584
+    },
+    {
+      "ticker": "ALK",
+      "market_cap": 3849291776
+    },
+    {
+      "ticker": "CBT",
+      "market_cap": 3845735680
+    },
+    {
+      "ticker": "AYA",
+      "market_cap": 3842884864
+    },
+    {
+      "ticker": "MTH",
+      "market_cap": 3838102272
+    },
+    {
+      "ticker": "CVBF",
+      "market_cap": 3836743936
+    },
+    {
+      "ticker": "ADPT",
+      "market_cap": 3835088128
+    },
+    {
+      "ticker": "AKO-A",
+      "market_cap": 3832033280
+    },
+    {
+      "ticker": "CDP",
+      "market_cap": 3824025344
+    },
+    {
+      "ticker": "TNGX",
+      "market_cap": 3822396928
+    },
+    {
+      "ticker": "DHT",
+      "market_cap": 3819670784
+    },
+    {
+      "ticker": "BNL",
+      "market_cap": 3811913984
+    },
+    {
+      "ticker": "USAR",
+      "market_cap": 3810777856
+    },
+    {
+      "ticker": "BWLP",
+      "market_cap": 3804474112
+    },
+    {
+      "ticker": "BRC",
+      "market_cap": 3803995392
+    },
+    {
+      "ticker": "ARQT",
+      "market_cap": 3800296448
+    },
+    {
+      "ticker": "MNDY",
+      "market_cap": 3794102272
+    },
+    {
+      "ticker": "MIR",
+      "market_cap": 3787938560
+    },
+    {
+      "ticker": "CIFR",
+      "market_cap": 3787155200
+    },
+    {
+      "ticker": "VAC",
+      "market_cap": 3774026496
+    },
+    {
+      "ticker": "INDB",
+      "market_cap": 3769633024
+    },
+    {
+      "ticker": "DNP",
+      "market_cap": 3767192064
+    },
+    {
+      "ticker": "HP",
+      "market_cap": 3765199616
+    },
+    {
+      "ticker": "SPHR",
+      "market_cap": 3763027712
+    },
+    {
+      "ticker": "OTTR",
+      "market_cap": 3761698048
+    },
+    {
+      "ticker": "BTE",
+      "market_cap": 3741419008
+    },
+    {
+      "ticker": "MSGE",
+      "market_cap": 3728834816
+    },
+    {
+      "ticker": "EQPT",
+      "market_cap": 3710691072
+    },
+    {
+      "ticker": "PLMR",
+      "market_cap": 3706036480
+    },
+    {
+      "ticker": "AXTI",
+      "market_cap": 3694722816
+    },
+    {
+      "ticker": "IPAR",
+      "market_cap": 3694173696
+    },
+    {
+      "ticker": "FSLY",
+      "market_cap": 3679033344
+    },
+    {
+      "ticker": "RLAY",
+      "market_cap": 3668430848
+    },
+    {
+      "ticker": "BMI",
+      "market_cap": 3664952064
+    },
+    {
+      "ticker": "MRP",
+      "market_cap": 3658865920
+    },
+    {
+      "ticker": "GEO",
+      "market_cap": 3652443392
+    },
+    {
+      "ticker": "BANF",
+      "market_cap": 3648823552
+    },
+    {
+      "ticker": "XXI",
+      "market_cap": 3645024768
+    },
+    {
+      "ticker": "DORM",
+      "market_cap": 3642978816
+    },
+    {
+      "ticker": "TLX",
+      "market_cap": 3642487552
+    },
+    {
+      "ticker": "NVST",
+      "market_cap": 3641203456
+    },
+    {
+      "ticker": "ITRI",
+      "market_cap": 3634493184
+    },
+    {
+      "ticker": "BOOT",
+      "market_cap": 3633878272
+    },
+    {
+      "ticker": "RNST",
+      "market_cap": 3632870400
+    },
+    {
+      "ticker": "OLED",
+      "market_cap": 3623565824
+    },
+    {
+      "ticker": "ATMU",
+      "market_cap": 3618761472
+    },
+    {
+      "ticker": "ASO",
+      "market_cap": 3610986240
+    },
+    {
+      "ticker": "OGN",
+      "market_cap": 3608280064
+    },
+    {
+      "ticker": "FRSH",
+      "market_cap": 3604620288
+    },
+    {
+      "ticker": "ARIS",
+      "market_cap": 3602215680
+    },
+    {
+      "ticker": "AVNT",
+      "market_cap": 3599075328
+    },
+    {
+      "ticker": "LXP",
+      "market_cap": 3599040256
+    },
+    {
+      "ticker": "SLG",
+      "market_cap": 3593182976
+    },
+    {
+      "ticker": "WING",
+      "market_cap": 3589886208
+    },
+    {
+      "ticker": "IRTC",
+      "market_cap": 3586045184
+    },
+    {
+      "ticker": "GPGI",
+      "market_cap": 3585940224
+    },
+    {
+      "ticker": "CAR",
+      "market_cap": 3571786752
+    },
+    {
+      "ticker": "LEGN",
+      "market_cap": 3570807552
+    },
+    {
+      "ticker": "HG",
+      "market_cap": 3568854528
+    },
+    {
+      "ticker": "WSBC",
+      "market_cap": 3559067648
+    },
+    {
+      "ticker": "ECO",
+      "market_cap": 3547987968
+    },
+    {
+      "ticker": "CNS",
+      "market_cap": 3546028800
+    },
+    {
+      "ticker": "SKYW",
+      "market_cap": 3541531392
+    },
+    {
+      "ticker": "ERO",
+      "market_cap": 3531165440
+    },
+    {
+      "ticker": "VCYT",
+      "market_cap": 3530760704
+    },
+    {
+      "ticker": "ZIM",
+      "market_cap": 3529418240
+    },
+    {
+      "ticker": "IRT",
+      "market_cap": 3527410176
+    },
+    {
+      "ticker": "MANU",
+      "market_cap": 3520549376
+    },
+    {
+      "ticker": "ONDS",
+      "market_cap": 3516293120
+    },
+    {
+      "ticker": "BATRA",
+      "market_cap": 3506133760
+    },
+    {
+      "ticker": "LAZ",
+      "market_cap": 3503348224
+    },
+    {
+      "ticker": "ZGN",
+      "market_cap": 3460606208
+    },
+    {
+      "ticker": "SRAD",
+      "market_cap": 3447836672
+    },
+    {
+      "ticker": "THO",
+      "market_cap": 3440097280
+    },
+    {
+      "ticker": "CSTM",
+      "market_cap": 3439016192
+    },
+    {
+      "ticker": "BFAM",
+      "market_cap": 3436614144
+    },
+    {
+      "ticker": "POST",
+      "market_cap": 3432147456
+    },
+    {
+      "ticker": "EXPO",
+      "market_cap": 3426646272
+    },
+    {
+      "ticker": "NIC",
+      "market_cap": 3421104384
+    },
+    {
+      "ticker": "CECO",
+      "market_cap": 3415792640
+    },
+    {
+      "ticker": "ACLS",
+      "market_cap": 3412404480
+    },
+    {
+      "ticker": "GNW",
+      "market_cap": 3411994880
+    },
+    {
+      "ticker": "LRN",
+      "market_cap": 3408114944
+    },
+    {
+      "ticker": "CDNA",
+      "market_cap": 3404112128
+    },
+    {
+      "ticker": "CENX",
+      "market_cap": 3398934784
+    },
+    {
+      "ticker": "LIF",
+      "market_cap": 3395694336
+    },
+    {
+      "ticker": "INTA",
+      "market_cap": 3395278080
+    },
+    {
+      "ticker": "NATL",
+      "market_cap": 3392608256
+    },
+    {
+      "ticker": "MWA",
+      "market_cap": 3384804864
+    },
+    {
+      "ticker": "TNK",
+      "market_cap": 3383045120
+    },
+    {
+      "ticker": "LMND",
+      "market_cap": 3379910144
+    },
+    {
+      "ticker": "COCO",
+      "market_cap": 3378687744
+    },
+    {
+      "ticker": "HNI",
+      "market_cap": 3375942912
+    },
+    {
+      "ticker": "BRZE",
+      "market_cap": 3351592448
+    },
+    {
+      "ticker": "RHI",
+      "market_cap": 3347743744
+    },
+    {
+      "ticker": "AMLX",
+      "market_cap": 3343667456
+    },
+    {
+      "ticker": "SHOO",
+      "market_cap": 3334680320
+    },
+    {
+      "ticker": "MGNI",
+      "market_cap": 3318117888
+    },
+    {
+      "ticker": "FIBK",
+      "market_cap": 3315647488
+    },
+    {
+      "ticker": "ACAD",
+      "market_cap": 3315158272
+    },
+    {
+      "ticker": "XENE",
+      "market_cap": 3313395456
+    },
+    {
+      "ticker": "CPK",
+      "market_cap": 3302051072
+    },
+    {
+      "ticker": "FFBC",
+      "market_cap": 3300138240
+    },
+    {
+      "ticker": "SXI",
+      "market_cap": 3297941760
+    },
+    {
+      "ticker": "FA",
+      "market_cap": 3291659776
+    },
+    {
+      "ticker": "VTMX",
+      "market_cap": 3290747648
+    },
+    {
+      "ticker": "SBLK",
+      "market_cap": 3282498816
+    },
+    {
+      "ticker": "AAMI",
+      "market_cap": 3271923456
+    },
+    {
+      "ticker": "ASH",
+      "market_cap": 3262319360
+    },
+    {
+      "ticker": "FIZZ",
+      "market_cap": 3256876544
+    },
+    {
+      "ticker": "HIW",
+      "market_cap": 3256257024
+    },
+    {
+      "ticker": "AWR",
+      "market_cap": 3256066560
+    },
+    {
+      "ticker": "VKTX",
+      "market_cap": 3247164672
+    },
+    {
+      "ticker": "TNET",
+      "market_cap": 3225037056
+    },
+    {
+      "ticker": "BULL",
+      "market_cap": 3224654848
+    },
+    {
+      "ticker": "TOWN",
+      "market_cap": 3224281856
+    },
+    {
+      "ticker": "TARS",
+      "market_cap": 3223713280
+    },
+    {
+      "ticker": "PK",
+      "market_cap": 3221413376
+    },
+    {
+      "ticker": "NHI",
+      "market_cap": 3213295616
+    },
+    {
+      "ticker": "IDYA",
+      "market_cap": 3211652608
+    },
+    {
+      "ticker": "ATKR",
+      "market_cap": 3207090176
+    },
+    {
+      "ticker": "SFNC",
+      "market_cap": 3205315840
+    },
+    {
+      "ticker": "WT",
+      "market_cap": 3202966016
+    },
+    {
+      "ticker": "ADX",
+      "market_cap": 3195011328
+    },
+    {
+      "ticker": "CXT",
+      "market_cap": 3194260736
+    },
+    {
+      "ticker": "MMS",
+      "market_cap": 3191729152
+    },
+    {
+      "ticker": "FIGS",
+      "market_cap": 3191553792
+    },
+    {
+      "ticker": "PLSE",
+      "market_cap": 3190616832
+    },
+    {
+      "ticker": "CSQ",
+      "market_cap": 3188950272
+    },
+    {
+      "ticker": "SLDE",
+      "market_cap": 3179614976
+    },
+    {
+      "ticker": "SMG",
+      "market_cap": 3179409152
+    },
+    {
+      "ticker": "MCHB",
+      "market_cap": 3177470464
+    },
+    {
+      "ticker": "FRPT",
+      "market_cap": 3163182336
+    },
+    {
+      "ticker": "LION",
+      "market_cap": 3161571584
+    },
+    {
+      "ticker": "CBU",
+      "market_cap": 3155375872
+    },
+    {
+      "ticker": "FSM",
+      "market_cap": 3151945984
+    },
+    {
+      "ticker": "FOUR",
+      "market_cap": 3146560768
+    },
+    {
+      "ticker": "BATRK",
+      "market_cap": 3141018624
+    },
+    {
+      "ticker": "WOR",
+      "market_cap": 3137843712
+    },
+    {
+      "ticker": "SBCF",
+      "market_cap": 3132217344
+    },
+    {
+      "ticker": "YETI",
+      "market_cap": 3124285696
+    },
+    {
+      "ticker": "GBDC",
+      "market_cap": 3114520832
+    },
+    {
+      "ticker": "DAN",
+      "market_cap": 3114344960
+    },
+    {
+      "ticker": "ACHR",
+      "market_cap": 3107058176
+    },
+    {
+      "ticker": "MHO",
+      "market_cap": 3106778880
+    },
+    {
+      "ticker": "VGNT",
+      "market_cap": 3097980416
+    },
+    {
+      "ticker": "AGO",
+      "market_cap": 3095036672
+    },
+    {
+      "ticker": "KAI",
+      "market_cap": 3094342912
+    },
+    {
+      "ticker": "AGYS",
+      "market_cap": 3089379840
+    },
+    {
+      "ticker": "LQDA",
+      "market_cap": 3088056576
+    },
+    {
+      "ticker": "BELFB",
+      "market_cap": 3085420288
+    },
+    {
+      "ticker": "NMIH",
+      "market_cap": 3080171008
+    },
+    {
+      "ticker": "OSIS",
+      "market_cap": 3079350528
+    },
+    {
+      "ticker": "WIX",
+      "market_cap": 3077613056
+    },
+    {
+      "ticker": "ABG",
+      "market_cap": 3071034368
+    },
+    {
+      "ticker": "PFSI",
+      "market_cap": 3068519424
+    },
+    {
+      "ticker": "WRBY",
+      "market_cap": 3063007744
+    },
+    {
+      "ticker": "AVA",
+      "market_cap": 3062841088
+    },
+    {
+      "ticker": "COLM",
+      "market_cap": 3061352960
+    },
+    {
+      "ticker": "AVPT",
+      "market_cap": 3059236096
+    },
+    {
+      "ticker": "EFXT",
+      "market_cap": 3055014144
+    },
+    {
+      "ticker": "NEA",
+      "market_cap": 3052998400
+    },
+    {
+      "ticker": "USLM",
+      "market_cap": 3052155136
+    },
+    {
+      "ticker": "PAGS",
+      "market_cap": 3044510208
+    },
+    {
+      "ticker": "MIAX",
+      "market_cap": 3043907584
+    },
+    {
+      "ticker": "SHAK",
+      "market_cap": 3043905280
+    },
+    {
+      "ticker": "IPGP",
+      "market_cap": 3042495488
+    },
+    {
+      "ticker": "SPSC",
+      "market_cap": 3034814976
+    },
+    {
+      "ticker": "CURB",
+      "market_cap": 3032402432
+    },
+    {
+      "ticker": "AEO",
+      "market_cap": 3027212288
+    },
+    {
+      "ticker": "FHB",
+      "market_cap": 3024998400
+    },
+    {
+      "ticker": "INTR",
+      "market_cap": 3024367360
+    },
+    {
+      "ticker": "HTGC",
+      "market_cap": 3016147712
+    },
+    {
+      "ticker": "CBZ",
+      "market_cap": 3012386560
+    },
+    {
+      "ticker": "SDRL",
+      "market_cap": 3004803584
+    },
+    {
+      "ticker": "PTRN",
+      "market_cap": 3003366656
+    },
+    {
+      "ticker": "ABM",
+      "market_cap": 3001360384
+    },
+    {
+      "ticker": "MNSO",
+      "market_cap": 2992609280
+    },
+    {
+      "ticker": "APPN",
+      "market_cap": 2991168512
+    },
+    {
+      "ticker": "TALO",
+      "market_cap": 2982003456
+    },
+    {
+      "ticker": "PENG",
+      "market_cap": 2962852864
+    },
+    {
+      "ticker": "CXW",
+      "market_cap": 2960376576
+    },
+    {
+      "ticker": "BKU",
+      "market_cap": 2955426048
+    },
+    {
+      "ticker": "PII",
+      "market_cap": 2947887104
+    },
+    {
+      "ticker": "IRON",
+      "market_cap": 2946074880
+    },
+    {
+      "ticker": "BTU",
+      "market_cap": 2941446912
+    },
+    {
+      "ticker": "AAUC",
+      "market_cap": 2933272832
+    },
+    {
+      "ticker": "CALM",
+      "market_cap": 2931557888
+    },
+    {
+      "ticker": "GPOR",
+      "market_cap": 2926768384
+    },
+    {
+      "ticker": "SPNT",
+      "market_cap": 2924454144
+    },
+    {
+      "ticker": "MARA",
+      "market_cap": 2924285696
+    },
+    {
+      "ticker": "NOG",
+      "market_cap": 2920511488
+    },
+    {
+      "ticker": "EXTR",
+      "market_cap": 2914363648
+    },
+    {
+      "ticker": "ARCB",
+      "market_cap": 2911710976
+    },
+    {
+      "ticker": "KN",
+      "market_cap": 2899253504
+    },
+    {
+      "ticker": "PRVA",
+      "market_cap": 2898289152
+    },
+    {
+      "ticker": "PFS",
+      "market_cap": 2894077952
+    },
+    {
+      "ticker": "WSC",
+      "market_cap": 2889995776
+    },
+    {
+      "ticker": "PPLI",
+      "market_cap": 2888455936
+    },
+    {
+      "ticker": "GPI",
+      "market_cap": 2876892416
+    },
+    {
+      "ticker": "DNOW",
+      "market_cap": 2872687872
+    },
+    {
+      "ticker": "AD",
+      "market_cap": 2872398336
+    },
+    {
+      "ticker": "UNFI",
+      "market_cap": 2868077312
+    },
+    {
+      "ticker": "CLBK",
+      "market_cap": 2863916800
+    },
+    {
+      "ticker": "TR",
+      "market_cap": 2856947712
+    },
+    {
+      "ticker": "KD",
+      "market_cap": 2855597312
+    },
+    {
+      "ticker": "IHS",
+      "market_cap": 2855595776
+    },
+    {
+      "ticker": "KYIV",
+      "market_cap": 2842177536
+    },
+    {
+      "ticker": "MZTI",
+      "market_cap": 2840174336
+    },
+    {
+      "ticker": "DNLI",
+      "market_cap": 2835693056
+    },
+    {
+      "ticker": "TDC",
+      "market_cap": 2835569920
+    },
+    {
+      "ticker": "KNF",
+      "market_cap": 2830224128
+    },
+    {
+      "ticker": "CELC",
+      "market_cap": 2828264192
+    },
+    {
+      "ticker": "NMRK",
+      "market_cap": 2826700032
+    },
+    {
+      "ticker": "CWT",
+      "market_cap": 2826356224
+    },
+    {
+      "ticker": "ALRM",
+      "market_cap": 2826124288
+    },
+    {
+      "ticker": "ATRC",
+      "market_cap": 2825114112
+    },
+    {
+      "ticker": "IMAX",
+      "market_cap": 2813400320
+    },
+    {
+      "ticker": "DXPE",
+      "market_cap": 2811707136
+    },
+    {
+      "ticker": "DYN",
+      "market_cap": 2806798848
+    },
+    {
+      "ticker": "FLY",
+      "market_cap": 2802353664
+    },
+    {
+      "ticker": "FSK",
+      "market_cap": 2800708864
+    },
+    {
+      "ticker": "ELVN",
+      "market_cap": 2796012288
+    },
+    {
+      "ticker": "SA",
+      "market_cap": 2794943232
+    },
+    {
+      "ticker": "NTCT",
+      "market_cap": 2794868992
+    },
+    {
+      "ticker": "IOND",
+      "market_cap": 2789762816
+    },
+    {
+      "ticker": "HURN",
+      "market_cap": 2788558336
+    },
+    {
+      "ticker": "ACHC",
+      "market_cap": 2788353280
+    },
+    {
+      "ticker": "HOG",
+      "market_cap": 2773011968
+    },
+    {
+      "ticker": "RCUS",
+      "market_cap": 2767638272
+    },
+    {
+      "ticker": "COTY",
+      "market_cap": 2765355520
+    },
+    {
+      "ticker": "MGRC",
+      "market_cap": 2760710656
+    },
+    {
+      "ticker": "CLBT",
+      "market_cap": 2758468096
+    },
+    {
+      "ticker": "AMBP",
+      "market_cap": 2758414336
+    },
+    {
+      "ticker": "HWKN",
+      "market_cap": 2758020096
+    },
+    {
+      "ticker": "FRVO",
+      "market_cap": 2757509632
+    },
+    {
+      "ticker": "DRH",
+      "market_cap": 2757348864
+    },
+    {
+      "ticker": "SII",
+      "market_cap": 2751595264
+    },
+    {
+      "ticker": "VIA",
+      "market_cap": 2751365376
+    },
+    {
+      "ticker": "BHF",
+      "market_cap": 2736975360
+    },
+    {
+      "ticker": "AMBA",
+      "market_cap": 2736740352
+    },
+    {
+      "ticker": "FUL",
+      "market_cap": 2733491200
+    },
+    {
+      "ticker": "HGV",
+      "market_cap": 2732003840
+    },
+    {
+      "ticker": "NRIX",
+      "market_cap": 2727421696
+    },
+    {
+      "ticker": "SKWD",
+      "market_cap": 2723946752
+    },
+    {
+      "ticker": "MGEE",
+      "market_cap": 2722845184
+    },
+    {
+      "ticker": "LBRT",
+      "market_cap": 2717137152
+    },
+    {
+      "ticker": "LFTO",
+      "market_cap": 2716077824
+    },
+    {
+      "ticker": "AVAH",
+      "market_cap": 2715536128
+    },
+    {
+      "ticker": "BANC",
+      "market_cap": 2713869056
+    },
+    {
+      "ticker": "KWR",
+      "market_cap": 2708492288
+    },
+    {
+      "ticker": "CARG",
+      "market_cap": 2703994624
+    },
+    {
+      "ticker": "WDFC",
+      "market_cap": 2695023104
+    },
+    {
+      "ticker": "AKR",
+      "market_cap": 2694308608
+    },
+    {
+      "ticker": "DGII",
+      "market_cap": 2686347776
+    },
+    {
+      "ticker": "AAP",
+      "market_cap": 2684780032
+    },
+    {
+      "ticker": "ZLAB",
+      "market_cap": 2679794944
+    },
+    {
+      "ticker": "MH",
+      "market_cap": 2679279872
+    },
+    {
+      "ticker": "WLY",
+      "market_cap": 2673577216
+    },
+    {
+      "ticker": "WLYB",
+      "market_cap": 2662310144
+    },
+    {
+      "ticker": "VECO",
+      "market_cap": 2658923520
+    },
+    {
+      "ticker": "LPL",
+      "market_cap": 2655000064
+    },
+    {
+      "ticker": "CSQR",
+      "market_cap": 2654479360
+    },
+    {
+      "ticker": "UE",
+      "market_cap": 2651854336
+    },
+    {
+      "ticker": "BCC",
+      "market_cap": 2648602624
+    },
+    {
+      "ticker": "WTTR",
+      "market_cap": 2647711232
+    },
+    {
+      "ticker": "AMC",
+      "market_cap": 2642109696
+    },
+    {
+      "ticker": "NBTB",
+      "market_cap": 2634375168
+    },
+    {
+      "ticker": "ATRO",
+      "market_cap": 2633660160
+    },
+    {
+      "ticker": "BOH",
+      "market_cap": 2627199232
+    },
+    {
+      "ticker": "LBTYA",
+      "market_cap": 2624668672
+    },
+    {
+      "ticker": "STNE",
+      "market_cap": 2624178432
+    },
+    {
+      "ticker": "CENT",
+      "market_cap": 2617309440
+    },
+    {
+      "ticker": "CWK",
+      "market_cap": 2612363520
+    },
+    {
+      "ticker": "DX",
+      "market_cap": 2611013632
+    },
+    {
+      "ticker": "ALM",
+      "market_cap": 2607865856
+    },
+    {
+      "ticker": "GRBK",
+      "market_cap": 2606018048
+    },
+    {
+      "ticker": "BBAR",
+      "market_cap": 2605855744
+    },
+    {
+      "ticker": "TRMK",
+      "market_cap": 2602105856
+    },
+    {
+      "ticker": "KBH",
+      "market_cap": 2600341248
+    },
+    {
+      "ticker": "LBTYK",
+      "market_cap": 2592265472
+    },
+    {
+      "ticker": "NEOG",
+      "market_cap": 2578194432
+    },
+    {
+      "ticker": "BHE",
+      "market_cap": 2577075712
+    },
+    {
+      "ticker": "DCO",
+      "market_cap": 2573002240
+    },
+    {
+      "ticker": "ASST",
+      "market_cap": 2572934656
+    },
+    {
+      "ticker": "KC",
+      "market_cap": 2562604544
+    },
+    {
+      "ticker": "FBK",
+      "market_cap": 2534466560
+    },
+    {
+      "ticker": "PURR",
+      "market_cap": 2533659904
+    },
+    {
+      "ticker": "FG",
+      "market_cap": 2528358912
+    },
+    {
+      "ticker": "CUBI",
+      "market_cap": 2519426816
+    },
+    {
+      "ticker": "COHU",
+      "market_cap": 2518404608
+    },
+    {
+      "ticker": "LIFE",
+      "market_cap": 2514555648
+    },
+    {
+      "ticker": "GPK",
+      "market_cap": 2513647616
+    },
+    {
+      "ticker": "RNW",
+      "market_cap": 2510003712
+    },
+    {
+      "ticker": "GRDN",
+      "market_cap": 2508988672
+    },
+    {
+      "ticker": "REZI",
+      "market_cap": 2503963136
+    },
+    {
+      "ticker": "TTAM",
+      "market_cap": 2494571264
+    },
+    {
+      "ticker": "HAYW",
+      "market_cap": 2491344384
+    },
+    {
+      "ticker": "HCI",
+      "market_cap": 2490883072
+    },
+    {
+      "ticker": "BKV",
+      "market_cap": 2490804992
+    },
+    {
+      "ticker": "BELFA",
+      "market_cap": 2488928000
+    },
+    {
+      "ticker": "POWI",
+      "market_cap": 2483568128
+    },
+    {
+      "ticker": "FBNC",
+      "market_cap": 2482504960
+    },
+    {
+      "ticker": "FRME",
+      "market_cap": 2475632128
+    },
+    {
+      "ticker": "BANR",
+      "market_cap": 2469867008
+    },
+    {
+      "ticker": "TMDX",
+      "market_cap": 2469043712
+    },
+    {
+      "ticker": "CALY",
+      "market_cap": 2467908096
+    },
+    {
+      "ticker": "PLUS",
+      "market_cap": 2465022720
+    },
+    {
+      "ticker": "GDV",
+      "market_cap": 2458266112
+    },
+    {
+      "ticker": "BEAM",
+      "market_cap": 2457213696
+    },
+    {
+      "ticker": "QS",
+      "market_cap": 2450265600
+    },
+    {
+      "ticker": "MBX",
+      "market_cap": 2448459264
+    },
+    {
+      "ticker": "NAD",
+      "market_cap": 2443810560
+    },
+    {
+      "ticker": "KSS",
+      "market_cap": 2442128896
+    },
+    {
+      "ticker": "HCM",
+      "market_cap": 2440350976
+    },
+    {
+      "ticker": "EXK",
+      "market_cap": 2438749696
+    },
+    {
+      "ticker": "KALU",
+      "market_cap": 2428820992
+    },
+    {
+      "ticker": "BUSE",
+      "market_cap": 2428175616
+    },
+    {
+      "ticker": "ADMA",
+      "market_cap": 2427993856
+    },
+    {
+      "ticker": "FIVN",
+      "market_cap": 2421042432
+    },
+    {
+      "ticker": "GRND",
+      "market_cap": 2418713856
+    },
+    {
+      "ticker": "EEFT",
+      "market_cap": 2413280000
+    },
+    {
+      "ticker": "ROG",
+      "market_cap": 2412850944
+    },
+    {
+      "ticker": "PAYO",
+      "market_cap": 2410991616
+    },
+    {
+      "ticker": "OSW",
+      "market_cap": 2410086912
+    },
+    {
+      "ticker": "NWL",
+      "market_cap": 2408464640
+    },
+    {
+      "ticker": "IOSP",
+      "market_cap": 2407684864
+    },
+    {
+      "ticker": "AMTD",
+      "market_cap": 2396747520
+    },
+    {
+      "ticker": "BKD",
+      "market_cap": 2395336960
+    },
+    {
+      "ticker": "NGVT",
+      "market_cap": 2394422272
+    },
+    {
+      "ticker": "UCTT",
+      "market_cap": 2391985408
+    },
+    {
+      "ticker": "BKE",
+      "market_cap": 2389661696
+    },
+    {
+      "ticker": "KYN",
+      "market_cap": 2387163136
+    },
+    {
+      "ticker": "SYBT",
+      "market_cap": 2385607680
+    },
+    {
+      "ticker": "PBH",
+      "market_cap": 2381280256
+    },
+    {
+      "ticker": "FCPT",
+      "market_cap": 2378421248
+    },
+    {
+      "ticker": "PPTA",
+      "market_cap": 2374943744
+    },
+    {
+      "ticker": "CLOV",
+      "market_cap": 2374268416
+    },
+    {
+      "ticker": "SMR",
+      "market_cap": 2369999616
+    },
+    {
+      "ticker": "BHC",
+      "market_cap": 2369230336
+    },
+    {
+      "ticker": "PTY",
+      "market_cap": 2368610560
+    },
+    {
+      "ticker": "NVG",
+      "market_cap": 2358928384
+    },
+    {
+      "ticker": "CHA",
+      "market_cap": 2357834752
+    },
+    {
+      "ticker": "AERO",
+      "market_cap": 2356339968
+    },
+    {
+      "ticker": "KMT",
+      "market_cap": 2355868672
+    },
+    {
+      "ticker": "BLKB",
+      "market_cap": 2353022464
+    },
+    {
+      "ticker": "PBI",
+      "market_cap": 2346984448
+    },
+    {
+      "ticker": "LTC",
+      "market_cap": 2342196736
+    },
+    {
+      "ticker": "NAMS",
+      "market_cap": 2338079488
+    },
+    {
+      "ticker": "ATHM",
+      "market_cap": 2335666176
+    },
+    {
+      "ticker": "HTO",
+      "market_cap": 2335609600
+    },
+    {
+      "ticker": "IVT",
+      "market_cap": 2328435968
+    },
+    {
+      "ticker": "VC",
+      "market_cap": 2319565824
+    },
+    {
+      "ticker": "PRGO",
+      "market_cap": 2316276480
+    },
+    {
+      "ticker": "RUM",
+      "market_cap": 2310110208
+    },
+    {
+      "ticker": "NTB",
+      "market_cap": 2309459712
+    },
+    {
+      "ticker": "LPG",
+      "market_cap": 2298285568
+    },
+    {
+      "ticker": "BBT",
+      "market_cap": 2298237184
+    },
+    {
+      "ticker": "CNXN",
+      "market_cap": 2282533888
+    },
+    {
+      "ticker": "DBD",
+      "market_cap": 2282059264
+    },
+    {
+      "ticker": "RAMP",
+      "market_cap": 2279811840
+    },
+    {
+      "ticker": "LEU",
+      "market_cap": 2279498752
+    },
+    {
+      "ticker": "CALX",
+      "market_cap": 2279296512
+    },
+    {
+      "ticker": "STUB",
+      "market_cap": 2279166720
+    },
+    {
+      "ticker": "ADEA",
+      "market_cap": 2277285120
+    },
+    {
+      "ticker": "PTON",
+      "market_cap": 2275550208
+    },
+    {
+      "ticker": "PGEN",
+      "market_cap": 2275313920
+    },
+    {
+      "ticker": "APAM",
+      "market_cap": 2274725632
+    },
+    {
+      "ticker": "BGSI",
+      "market_cap": 2274133504
+    },
+    {
+      "ticker": "ASAN",
+      "market_cap": 2270238720
+    },
+    {
+      "ticker": "NVTS",
+      "market_cap": 2265958656
+    },
+    {
+      "ticker": "UFPT",
+      "market_cap": 2258052608
+    },
+    {
+      "ticker": "FLYW",
+      "market_cap": 2254623232
+    },
+    {
+      "ticker": "CENTA",
+      "market_cap": 2252707840
+    },
+    {
+      "ticker": "UPST",
+      "market_cap": 2244038912
+    },
+    {
+      "ticker": "SUPN",
+      "market_cap": 2234642688
+    },
+    {
+      "ticker": "VRDN",
+      "market_cap": 2231857920
+    },
+    {
+      "ticker": "LIND",
+      "market_cap": 2231069440
+    },
+    {
+      "ticker": "MD",
+      "market_cap": 2227152128
+    },
+    {
+      "ticker": "HOS",
+      "market_cap": 2225234944
+    },
+    {
+      "ticker": "PEB",
+      "market_cap": 2224694272
+    },
+    {
+      "ticker": "ANDE",
+      "market_cap": 2222342144
+    },
+    {
+      "ticker": "MBIN",
+      "market_cap": 2217431040
+    },
+    {
+      "ticker": "CLSK",
+      "market_cap": 2215047168
+    },
+    {
+      "ticker": "OFG",
+      "market_cap": 2212387328
+    },
+    {
+      "ticker": "DAO",
+      "market_cap": 2210026496
+    },
+    {
+      "ticker": "AUPH",
+      "market_cap": 2209979904
+    },
+    {
+      "ticker": "AGM",
+      "market_cap": 2204504064
+    },
+    {
+      "ticker": "DXC",
+      "market_cap": 2204146944
+    },
+    {
+      "ticker": "STGW",
+      "market_cap": 2199056640
+    },
+    {
+      "ticker": "HLIO",
+      "market_cap": 2198627072
+    },
+    {
+      "ticker": "SHO",
+      "market_cap": 2195068160
+    },
+    {
+      "ticker": "CHRN",
+      "market_cap": 2189965056
+    },
+    {
+      "ticker": "HRMY",
+      "market_cap": 2189397248
+    },
+    {
+      "ticker": "VVX",
+      "market_cap": 2182577152
+    },
+    {
+      "ticker": "ADUS",
+      "market_cap": 2182092032
+    },
+    {
+      "ticker": "NWBI",
+      "market_cap": 2179112192
+    },
+    {
+      "ticker": "NZF",
+      "market_cap": 2173021952
+    },
+    {
+      "ticker": "PONY",
+      "market_cap": 2171568896
+    },
+    {
+      "ticker": "DRD",
+      "market_cap": 2166678784
+    },
+    {
+      "ticker": "VERX",
+      "market_cap": 2160743424
+    },
+    {
+      "ticker": "ECPG",
+      "market_cap": 2150205440
+    },
+    {
+      "ticker": "NCNO",
+      "market_cap": 2149087744
+    },
+    {
+      "ticker": "EFSC",
+      "market_cap": 2147121280
+    },
+    {
+      "ticker": "IMOS",
+      "market_cap": 2146407936
+    },
+    {
+      "ticker": "FTRE",
+      "market_cap": 2145456000
+    },
+    {
+      "ticker": "BTDR",
+      "market_cap": 2143003008
+    },
+    {
+      "ticker": "BVC",
+      "market_cap": 2137800064
+    },
+    {
+      "ticker": "RH",
+      "market_cap": 2136607104
+    },
+    {
+      "ticker": "PATK",
+      "market_cap": 2134258560
+    },
+    {
+      "ticker": "NEO",
+      "market_cap": 2128208512
+    },
+    {
+      "ticker": "WAFD",
+      "market_cap": 2128201216
+    },
+    {
+      "ticker": "PRDO",
+      "market_cap": 2120110720
+    },
+    {
+      "ticker": "CDLR",
+      "market_cap": 2113683584
+    },
+    {
+      "ticker": "PHIN",
+      "market_cap": 2109987456
+    },
+    {
+      "ticker": "PGNY",
+      "market_cap": 2109603456
+    },
+    {
+      "ticker": "RDW",
+      "market_cap": 2106187776
+    },
+    {
+      "ticker": "DV",
+      "market_cap": 2106120064
+    },
+    {
+      "ticker": "HTH",
+      "market_cap": 2102984320
+    },
+    {
+      "ticker": "SLS",
+      "market_cap": 2100235264
+    },
+    {
+      "ticker": "TILE",
+      "market_cap": 2093243648
+    },
+    {
+      "ticker": "PLGO",
+      "market_cap": 2087235840
+    },
+    {
+      "ticker": "VCEL",
+      "market_cap": 2085133440
+    },
+    {
+      "ticker": "SOUN",
+      "market_cap": 2085106688
+    },
+    {
+      "ticker": "AMR",
+      "market_cap": 2082152832
+    },
+    {
+      "ticker": "HIMX",
+      "market_cap": 2072179968
+    },
+    {
+      "ticker": "CTOS",
+      "market_cap": 2070300416
+    },
+    {
+      "ticker": "UAA",
+      "market_cap": 2068261760
+    },
+    {
+      "ticker": "OUST",
+      "market_cap": 2067460736
+    },
+    {
+      "ticker": "GCT",
+      "market_cap": 2067265536
+    },
+    {
+      "ticker": "SRCE",
+      "market_cap": 2063692032
+    },
+    {
+      "ticker": "UTZ",
+      "market_cap": 2061538816
+    },
+    {
+      "ticker": "PRLB",
+      "market_cap": 2051541888
+    },
+    {
+      "ticker": "NWN",
+      "market_cap": 2051218048
+    },
+    {
+      "ticker": "FCF",
+      "market_cap": 2048403712
+    },
+    {
+      "ticker": "AEHR",
+      "market_cap": 2041221632
+    },
+    {
+      "ticker": "MCRI",
+      "market_cap": 2039761920
+    },
+    {
+      "ticker": "OPEN",
+      "market_cap": 2039291136
+    },
+    {
+      "ticker": "VERA",
+      "market_cap": 2037951232
+    },
+    {
+      "ticker": "RVT",
+      "market_cap": 2037678976
+    },
+    {
+      "ticker": "EZPW",
+      "market_cap": 2035311872
+    },
+    {
+      "ticker": "EVT",
+      "market_cap": 2033079936
+    },
+    {
+      "ticker": "BCRX",
+      "market_cap": 2026393344
+    },
+    {
+      "ticker": "VET",
+      "market_cap": 2026128000
+    },
+    {
+      "ticker": "AXGN",
+      "market_cap": 2025340672
+    },
+    {
+      "ticker": "SONO",
+      "market_cap": 2022235392
+    },
+    {
+      "ticker": "TRN",
+      "market_cap": 2020019840
+    },
+    {
+      "ticker": "TBBK",
+      "market_cap": 2014619648
+    },
+    {
+      "ticker": "UA",
+      "market_cap": 2010273024
+    },
+    {
+      "ticker": "SAH",
+      "market_cap": 2009594880
+    },
+    {
+      "ticker": "IDT",
+      "market_cap": 2009077120
+    },
+    {
+      "ticker": "CTRI",
+      "market_cap": 2000583040
+    },
+    {
+      "ticker": "WS",
+      "market_cap": 1999852160
+    },
+    {
+      "ticker": "LCII",
+      "market_cap": 1993497472
+    },
+    {
+      "ticker": "PRCH",
+      "market_cap": 1991194880
+    },
+    {
+      "ticker": "PENN",
+      "market_cap": 1989674496
+    },
+    {
+      "ticker": "INSP",
+      "market_cap": 1987588352
+    },
+    {
+      "ticker": "AMPL",
+      "market_cap": 1985310208
+    },
+    {
+      "ticker": "CHCO",
+      "market_cap": 1984001920
+    },
+    {
+      "ticker": "BFLY",
+      "market_cap": 1983691520
+    },
+    {
+      "ticker": "PHVS",
+      "market_cap": 1983277184
+    },
+    {
+      "ticker": "LASR",
+      "market_cap": 1981081344
+    },
+    {
+      "ticker": "IMNM",
+      "market_cap": 1971832064
+    },
+    {
+      "ticker": "DRVN",
+      "market_cap": 1971508736
+    },
+    {
+      "ticker": "PLBL",
+      "market_cap": 1971164544
+    },
+    {
+      "ticker": "PLUG",
+      "market_cap": 1970045312
+    },
+    {
+      "ticker": "NMZ",
+      "market_cap": 1967384064
+    },
+    {
+      "ticker": "MTX",
+      "market_cap": 1966403840
+    },
+    {
+      "ticker": "FRMI",
+      "market_cap": 1965460992
+    },
+    {
+      "ticker": "ZD",
+      "market_cap": 1957456768
+    },
+    {
+      "ticker": "INVX",
+      "market_cap": 1956104960
+    },
+    {
+      "ticker": "WERN",
+      "market_cap": 1952856320
+    },
+    {
+      "ticker": "SMA",
+      "market_cap": 1952153984
+    },
+    {
+      "ticker": "AGIO",
+      "market_cap": 1948669312
+    },
+    {
+      "ticker": "WGS",
+      "market_cap": 1946815360
+    },
+    {
+      "ticker": "LKFT",
+      "market_cap": 1940965632
+    },
+    {
+      "ticker": "CEPU",
+      "market_cap": 1939683200
+    },
+    {
+      "ticker": "INFQ",
+      "market_cap": 1938070784
+    },
+    {
+      "ticker": "STDN",
+      "market_cap": 1937722880
+    }
+  ]
+}

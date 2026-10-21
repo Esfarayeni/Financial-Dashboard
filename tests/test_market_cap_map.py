@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from financial_dashboard.market_cap_map import rectangles, map_html
+from financial_dashboard.market_cap_map import rectangles, map_html, cap_label
 
 
 def test_squarified_map_preserves_area_and_bounds():
@@ -61,3 +61,37 @@ def test_small_tiles_include_logos_and_keep_missing_logo_fallback():
     assert html.count('<img') == 149
     assert 'C0' in html
     assert '@container (max-height:64px)' in html
+
+
+@pytest.mark.parametrize("value,expected", [(2e12, "$2.00T"), (25e9, "$25B"), (2.5e9, "$2.5B"),
+                                         (250e6, "$250.0M"), (12.5e6, "$12.5M"), (250e3, "$250K")])
+def test_small_company_caps_are_not_rounded_to_zero_billions(value, expected):
+    assert cap_label(value) == expected
+
+
+def test_map_has_category_specific_accessible_label():
+    frame = pd.DataFrame([{"Company": "Example", "Ticker": "EX", "Sector": "Unknown", "Market cap (USD)": 1e8}])
+    html = map_html(frame, label="Micro-cap companies by market cap")
+    assert 'aria-label="Micro-cap companies by market cap;' in html
+    assert '$100.0M' in html
+
+
+def test_map_clusters_same_industry_before_next_industry_and_escapes_labels():
+    frame = pd.DataFrame([
+        {"Company": ticker, "Ticker": ticker, "Sector": "Consumer Discretionary",
+         "Industry": industry, "Market cap (USD)": cap}
+        for ticker, industry, cap in [("A", "Auto Manufacturers", 90),
+                                      ("B", "Internet & Retail", 80),
+                                      ("C", "Auto Manufacturers", 70)]
+    ])
+    html = map_html(frame)
+    assert html.index('A (A)') < html.index('C (C)') < html.index('B (B)')
+    assert 'class="cap-industry"' in html
+    assert 'Internet &amp; Retail' in html
+    assert html.count('class="cap-tile') == 3
+
+
+def test_map_missing_industry_is_explicit_not_inferred():
+    frame = pd.DataFrame([{"Company": "Example", "Ticker": "EX", "Sector": "Unknown",
+                           "Industry": None, "Market cap (USD)": 1e8}])
+    assert 'Industry unavailable' in map_html(frame)

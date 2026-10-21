@@ -39,7 +39,7 @@ jobs:
     needs: schedule-check
     if: needs.schedule-check.outputs.run == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
         with:
@@ -71,6 +71,9 @@ jobs:
           git add -- data/market.db
           if [ -d data/stocks ]; then
             git add -- data/stocks
+          fi
+          if [ -d data/volumes ]; then
+            git add -- data/volumes
           fi
           if git diff --cached --quiet; then
             echo "No database changes to publish."
