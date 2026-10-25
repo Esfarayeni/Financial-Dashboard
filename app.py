@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 from html import escape
 import math
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 import plotly.graph_objects as go
@@ -22,7 +23,7 @@ from financial_dashboard.analytics import (
     regression_observation_weights,
 )
 from financial_dashboard.status import freshness_status
-from financial_dashboard import stocks, volume
+from financial_dashboard import stocks, volume, leaderboard_cache
 from financial_dashboard.stock_tables import table_html, movers_html, chart_identity_html
 from financial_dashboard.market_cap_map import map_html, industry_bars_html, cap_label
 
@@ -47,7 +48,7 @@ if "treasury_cumulative" not in st.session_state:
 if "fed_target_cumulative" not in st.session_state:
     st.session_state["fed_target_cumulative"] = False
 query_half_life = st.query_params.get("half_life")
-HALF_LIVES = (1 / 12, 0.25, 0.5, 1, 2, 3, 5)
+HALF_LIVES = leaderboard_cache.HALF_LIVES[1:]
 HALF_LIFE_QUERY = {f"{years:g}": years for years in HALF_LIVES}
 st.session_state.setdefault("recent_emphasis", query_half_life in HALF_LIFE_QUERY)
 st.session_state.setdefault("regression_half_life", HALF_LIFE_QUERY.get(query_half_life, 1))
@@ -313,9 +314,15 @@ def read_prices(symbol: str, adjusted: bool = True) -> pd.DataFrame:
     return db.load_prices(symbol)
 
 
-@st.cache_data(ttl=900)
-def stock_leaderboard(half_life_years: float | None = None) -> pd.DataFrame:
-    return stocks.leaderboard(half_life_years=half_life_years)
+@st.cache_data(max_entries=16, show_spinner="Loading stock rankings…")
+def stock_leaderboard(half_life_years, data_signature, eligibility_date) -> pd.DataFrame:
+    # Data contents and calendar eligibility are explicit cache keys, not a TTL.
+    return leaderboard_cache.load(half_life_years)
+
+
+@st.cache_data(max_entries=4, show_spinner=False)
+def stock_market_cap_overview(metadata_version) -> pd.DataFrame:
+    return stocks.market_cap_overview()
 
 
 @st.cache_data(ttl=900, show_spinner=False)
@@ -373,7 +380,7 @@ def read_company_market_cap(ticker: str) -> dict:
 
 def render_stock_table(frame, columns, label):
     half_life = st.session_state["regression_half_life"] if st.session_state["recent_emphasis"] else None
-    st.markdown(table_html(frame, columns, label, half_life_years=half_life), unsafe_allow_html=True)
+    st.markdown(table_html(stocks.with_logos(frame), columns, label, half_life_years=half_life), unsafe_allow_html=True)
 
 
 def change_stock_page(page):
@@ -766,7 +773,14 @@ if dashboard_page == "Market Watch":
             half_life_years = recent_emphasis_controls(horizontal=True)
     else:
         half_life_years = None
-    full_ranking = stock_leaderboard(half_life_years)
+    if stock_view == "Leaderboard":
+        full_ranking = stock_leaderboard(
+            half_life_years, leaderboard_cache.input_signature(),
+            datetime.now(ZoneInfo("America/New_York")).date().isoformat(),
+        )
+    else:
+        metadata_path = stocks.STOCK_DIR / "metadata.json"
+        full_ranking = stock_market_cap_overview(metadata_path.stat().st_mtime_ns if metadata_path.exists() else None)
     ranking = full_ranking.copy()
     ranking["Market cap ($B)"] = ranking["Market cap (USD)"] / 1e9
     main_column = st.container()
@@ -785,7 +799,7 @@ if dashboard_page == "Market Watch":
                                         key="market_cap_selected_industry")
                 _, shown, total = groups[industries.index(industry)]
                 st.caption("Up to 10 largest companies in this industry, across all size categories. Bars use a linear scale within this figure. Select a company to open its chart.")
-                st.markdown(industry_bars_html(shown, industry, dark=not light_mode), unsafe_allow_html=True)
+                st.markdown(industry_bars_html(stocks.with_logos(shown), industry, dark=not light_mode), unsafe_allow_html=True)
                 st.caption(f"Showing {len(shown)} of {total} companies with stored market caps")
         else:
             for cap_name, cap_range, group in stocks.market_cap_groups(full_ranking):
@@ -795,7 +809,7 @@ if dashboard_page == "Market Watch":
                 if shown.empty:
                     st.info("No stored market-cap data in this range. Companies with missing market caps remain unclassified.")
                 else:
-                    st.markdown(map_html(shown, dark=not light_mode, label=f"{cap_name} companies by market cap"), unsafe_allow_html=True)
+                    st.markdown(map_html(stocks.with_logos(shown), dark=not light_mode, label=f"{cap_name} companies by market cap"), unsafe_allow_html=True)
             with st.container(key="cap_explanation"):
                 st.caption("Each figure shows up to 50 largest companies in its size range, grouped by industry so similar businesses sit together. Tile area = market cap; color = sector. Industry names appear where space allows; hover over a company for its classification. Figures are scaled independently, so tile sizes cannot be compared across figures. Known share classes count once; unavailable industries are labeled, and missing or invalid market caps are excluded. These are not index weights.")
     if stock_view == "Leaderboard":
@@ -814,7 +828,7 @@ if dashboard_page == "Market Watch":
                                 else movers[movers.Change < 0].sort_values(["Change", "Name"]))
                     details = ranking.copy()
                     details["Name"] = details.Company + " (" + details.Ticker + ")"
-                    selected = selected.head(12).merge(details, on="Name", how="left")
+                    selected = stocks.with_logos(selected.head(12).merge(details, on="Name", how="left"))
                     st.markdown(movers_html(selected, f"{heading} · {period}", half_life_years=half_life_years), unsafe_allow_html=True)
         st.caption("Closing-price changes. Calendar periods use the last close on or before the comparison date.")
     st.stop()

@@ -11,3 +11,5 @@ data/*.lock
 data/*.log
 !data/market.db
 .sites-runtime/
+data/stocks/leaderboards/*.lock
+data/stocks/leaderboards/*.tmp

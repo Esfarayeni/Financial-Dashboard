@@ -156,6 +156,27 @@ Run `python -m financial_dashboard.industries` to save Yahoo's current industry
 memberships in bulk, then fetch individual profiles only for missing labels.
 The importer checkpoints completed groups and stops on provider failures;
 rendering remains local. Regular metadata updates also preserve industry labels.
+
+### Leaderboard performance
+
+Leaderboard metrics are saved in `data/stocks/leaderboards/` for equal weighting
+and each supported half-life (1/3/6 months, 1/2/3/5 years). The daily sync prepares
+all eight variants after updating prices and metadata, and the existing workflow
+publishes them with the stock snapshots. To prepare them manually, run
+`python -m financial_dashboard.leaderboard_cache`.
+
+Stored results include a content fingerprint of the selected stock histories,
+metadata, stock catalog and calculation code. App restarts or Git checkout mtimes
+don't invalidate identical inputs; changed data/code does. A missing/outdated
+variant is calculated once and atomically saved, with a file lock preventing
+duplicate simultaneous builds. Sector eligibility is refreshed by calendar date.
+The app's memory cache uses data-version keys rather than a 15-minute expiry.
+
+One regression fit supplies annual growth and deviation metrics for each stock.
+Logo bytes are attached only after pagination/filtering chooses displayed rows.
+Market-cap views read company metadata only, with no price-history or regression
+work. All calculations still use full stored history; no approximation or extra
+market-data request is introduced by these optimizations.
 Stock chart headers also display the latest stored company market cap in USD,
 with the source and retrieval date available on hover. It is not a historical
 market cap for the chart's selected date range. Missing caps display Unavailable.

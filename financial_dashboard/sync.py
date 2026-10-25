@@ -8,7 +8,7 @@ from datetime import timedelta
 import pandas as pd
 from filelock import FileLock, Timeout
 
-from . import db, stocks, volume
+from . import db, stocks, volume, leaderboard_cache
 from .config import ALPHAVANTAGE_API_KEY, FRED_API_KEY, LOCK_PATH
 from .providers import (
     alphavantage,
@@ -193,6 +193,11 @@ def synchronize(mode: str) -> list[dict]:
             # A large universe needs fresh prices daily, but company profiles
             # can rotate in bounded weekly-refresh batches.
             results.extend(stocks.update_metadata(limit=500, stale_days=7))
+            try:
+                results.append({"source": "stock_leaderboards", "status": "success",
+                                "rows": leaderboard_cache.precompute()})
+            except Exception as error:
+                results.append({"source": "stock_leaderboards", "status": "failed", "rows": 0, "error": str(error)})
     except Timeout:
         return [{"source": "all", "status": "failed", "rows": 0, "error": "A sync is already running"}]
 

@@ -367,6 +367,19 @@ def logarithmic_regression_deviation_stats(
     if not 0 < coverage <= 1:
         raise ValueError("Coverage must be greater than 0 and at most 1")
     selected, fitted_log, _ = _fit_logarithmic_regression(frame, start_date, half_life_years=half_life_years)
+    return _deviation_stats_from_fit(selected, fitted_log, coverage, half_life_years)
+
+
+def logarithmic_regression_metrics(frame, start_date, coverage=0.95, half_life_years=None):
+    """Annual growth and all four deviation metrics from a single identical fit."""
+    if not 0 < coverage <= 1:
+        raise ValueError("Coverage must be greater than 0 and at most 1")
+    selected, fitted_log, slope = _fit_logarithmic_regression(frame, start_date, half_life_years=half_life_years)
+    return (math.expm1(slope * 365.25) * 100,
+            *_deviation_stats_from_fit(selected, fitted_log, coverage, half_life_years))
+
+
+def _deviation_stats_from_fit(selected, fitted_log, coverage, half_life_years):
     weights = _recency_weights(selected["market_date"], half_life_years)
     residuals = selected["close"].map(math.log) - fitted_log
     # exp(log(price/trend)) - 1 = (price - trend) / trend.

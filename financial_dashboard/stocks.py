@@ -19,7 +19,7 @@ from filelock import FileLock
 
 from .config import DATA_DIR
 from . import listings
-from .analytics import annualized_logarithmic_regression_change, logarithmic_regression_deviation_stats
+from .analytics import logarithmic_regression_metrics
 
 CATALOG = json.loads(Path(__file__).with_name("sp500.json").read_text())
 SP500_STOCKS = CATALOG["constituents"]
@@ -338,9 +338,40 @@ def company_profile(ticker: str, directory: Path = STOCK_DIR) -> dict:
             "source_url": entry.get("profile_source_url")}
 
 
-def leaderboard(directory: Path = STOCK_DIR, half_life_years: float | None = None) -> pd.DataFrame:
+def _company_rows(directory):
     path = directory / "metadata.json"
     metadata = json.loads(path.read_text()) if path.exists() else {}
+    rows = {}
+    for stock in STOCKS:
+        ticker = stock["ticker"]
+        entry = metadata.get(ticker, {})
+        rows[ticker] = {"Logo": None, "Company": stock["name"], "Company ID": stock.get("company_id", ticker), "Ticker": ticker,
+                        "Market cap (USD)": entry.get("market_cap"), "Listing year": entry.get("listing_year"),
+                        "Listing date": entry.get("listing_date"), "Industry": entry.get("industry") or "Industry unavailable",
+                        "Sector": stock["sector"] if stock["sector"] != "Unknown" else entry.get("sector", {
+                            "Technology": "Information Technology", "Healthcare": "Health Care",
+                            "Financial Services": "Financials", "Basic Materials": "Materials",
+                            "Consumer Cyclical": "Consumer Discretionary", "Consumer Defensive": "Consumer Staples",
+                        }.get(entry.get("industry_sector"), entry.get("industry_sector", "Unknown"))),
+                        "Exchange": stock.get("exchange", "Unknown"),
+                        "Cap updated": entry.get("market_cap_updated", entry.get("updated"))}
+    return rows
+
+
+def market_cap_overview(directory: Path = STOCK_DIR) -> pd.DataFrame:
+    """Company metadata only: no history reads, regression, or logo loading."""
+    return pd.DataFrame(_company_rows(directory).values())
+
+
+def with_logos(frame: pd.DataFrame, directory: Path = STOCK_DIR) -> pd.DataFrame:
+    """Attach local image data only after pagination/filtering selects visible rows."""
+    result = frame.copy()
+    result["Logo"] = result["Ticker"].map(lambda ticker: logo_uri(ticker, directory))
+    return result
+
+
+def leaderboard(directory: Path = STOCK_DIR, half_life_years: float | None = None) -> pd.DataFrame:
+    metadata_rows = _company_rows(directory)
     rows = []
     for stock in STOCKS:
         ticker = stock["ticker"]
@@ -356,28 +387,18 @@ def leaderboard(directory: Path = STOCK_DIR, half_life_years: float | None = Non
             drawdown = (float(frame["close"].iloc[-1]) / peak - 1) * 100
         if len(frame) >= 30:
             try:
-                trend = annualized_logarithmic_regression_change(frame, frame.market_date.iloc[0].date(), half_life_years=half_life_years)
-                position, average_deviation, percent_deviation, corridor_width = logarithmic_regression_deviation_stats(frame, frame.market_date.iloc[0].date(), half_life_years=half_life_years)
+                trend, position, average_deviation, percent_deviation, corridor_width = logarithmic_regression_metrics(
+                    frame, frame.market_date.iloc[0].date(), half_life_years=half_life_years)
             except ValueError:
                 pass
-        entry = metadata.get(ticker, {})
-        rows.append({"Logo": logo_uri(ticker, directory), "Company": stock["name"], "Company ID": stock.get("company_id", ticker), "Ticker": ticker, "Trend/year (%)": trend,
+        rows.append({**metadata_rows[ticker], "Trend/year (%)": trend,
                      "Trend position": position,
                      "Avg. trend deviation": average_deviation,
                      "Avg. deviation from trend (%)": percent_deviation,
                      "Corridor width / price (%)": corridor_width,
                      "Drawdown from ATH (%)": drawdown,
-                     "Market cap (USD)": entry.get("market_cap"), "Listing year": entry.get("listing_year"),
-                     "Listing date": entry.get("listing_date"),
-                     "Industry": entry.get("industry") or "Industry unavailable",
-                     "Sector": stock["sector"] if stock["sector"] != "Unknown" else entry.get("sector", {
-                         "Technology": "Information Technology", "Healthcare": "Health Care",
-                         "Financial Services": "Financials", "Basic Materials": "Materials",
-                         "Consumer Cyclical": "Consumer Discretionary", "Consumer Defensive": "Consumer Staples",
-                     }.get(entry.get("industry_sector"), entry.get("industry_sector", "Unknown"))), "Exchange": stock.get("exchange", "Unknown"),
                      "History from": None if frame.empty else frame.market_date.iloc[0].date(),
-                     "Price date": None if frame.empty else frame.market_date.iloc[-1].date(),
-                     "Cap updated": entry.get("market_cap_updated", entry.get("updated"))})
+                     "Price date": None if frame.empty else frame.market_date.iloc[-1].date()})
     result = pd.DataFrame(rows).sort_values("Trend/year (%)", ascending=False, na_position="last").reset_index(drop=True)
     sector_average = sector_leaderboard(result).set_index("Sector")["Average trend/year (%)"]
     result["Sector avg/year (%)"] = result["Sector"].map(sector_average)
