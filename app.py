@@ -23,7 +23,7 @@ from financial_dashboard.analytics import (
     regression_observation_weights,
 )
 from financial_dashboard.status import freshness_status
-from financial_dashboard import stocks, volume, leaderboard_cache
+from financial_dashboard import stocks, volume, leaderboard_cache, movers_cache
 from financial_dashboard.stock_tables import table_html, movers_html, chart_identity_html
 from financial_dashboard.market_cap_map import map_html, industry_bars_html, cap_label
 
@@ -358,9 +358,9 @@ def recent_emphasis_controls(disabled=False, horizontal=False):
     return half_life if not disabled else None
 
 
-@st.cache_data(ttl=900)
-def stock_daily_movers(period: str = "Daily") -> pd.DataFrame:
-    return stocks.daily_movers(period=period)
+@st.cache_data(max_entries=8, show_spinner="Loading stock movers…")
+def stock_daily_movers(period: str, data_signature: str) -> pd.DataFrame:
+    return movers_cache.load(period)
 
 
 @st.cache_data(ttl=900, max_entries=12, show_spinner="Checking historical corridor crossings…")
@@ -813,6 +813,7 @@ if dashboard_page == "Market Watch":
             with st.container(key="cap_explanation"):
                 st.caption("Each figure shows up to 50 largest companies in its size range, grouped by industry so similar businesses sit together. Tile area = market cap; color = sector. Industry names appear where space allows; hover over a company for its classification. Figures are scaled independently, so tile sizes cannot be compared across figures. Known share classes count once; unavailable industries are labeled, and missing or invalid market caps are excluded. These are not index weights.")
     if stock_view == "Leaderboard":
+        movers_signature = movers_cache.input_signature()
         mover_columns = st.columns(2, gap="large")
         for mover_column, (direction, heading) in zip(
             mover_columns, (("gainers", "Top gainers"), ("losers", "Top losers")), strict=True
@@ -822,7 +823,7 @@ if dashboard_page == "Market Watch":
                     st.subheader(heading)
                     period = st.radio(f"{heading} period", ("Daily", "Weekly", "Monthly", "Yearly"), horizontal=True,
                                       label_visibility="collapsed", key=f"stock_{direction}_period")
-                    movers = stock_daily_movers(period)
+                    movers = stock_daily_movers(period, movers_signature)
                     movers = movers[movers.Name.isin(names)]
                     selected = (movers[movers.Change > 0] if direction == "gainers"
                                 else movers[movers.Change < 0].sort_values(["Change", "Name"]))

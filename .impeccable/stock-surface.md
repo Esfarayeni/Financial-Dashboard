@@ -49,6 +49,12 @@ table rows/movers/tiles receive logo data. Market-cap browsing bypasses price
 history and regression entirely. Missing snapshots have an honest loading label
 and a locked, atomic one-time rebuild; no spinner-only concealment of the work.
 
+Mover-panel performance: preserve both independent period selectors and the
+existing 12-row logo lists. Daily/Weekly/Monthly/Yearly results are precomputed
+by daily sync into four data-versioned snapshots. The panels share the same
+period result and memory cache, with no 15-minute expiry or history scans on a
+valid cache hit. Empty rankings and stale-session exclusion keep existing behavior.
+
 FIRST VIEWPORT: Stocks heading and search above the left Leaderboard/Sectors/Market cap switch and right mover sidebar. Sort controls lead the logo-bearing table; its footer shows rows-per-page and range navigation. There is no checkbox or History from column. Alternatives are equal-weight sector rankings and a treemap. Each gainers/losers heading has its own Daily, Weekly, Monthly and Yearly selector showing a compact 12-stock list.
 
 FORM: Precisely specified local extension; no concept seed. Company identifiers deduplicate share classes in sector averages and the size map. Metadata and imagery are local; unavailable logos are omitted.

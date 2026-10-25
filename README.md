@@ -172,6 +172,14 @@ variant is calculated once and atomically saved, with a file lock preventing
 duplicate simultaneous builds. Sector eligibility is refreshed by calendar date.
 The app's memory cache uses data-version keys rather than a 15-minute expiry.
 
+Top gainers and losers use the same approach: four separate saved rankings for
+Daily, Weekly, Monthly and Yearly periods, refreshed by the daily sync. The panels
+share each period's file and load it without scanning stock histories. Run
+`python -m financial_dashboard.movers_cache` to prepare all four manually. Missing
+or invalidated snapshots are rebuilt once under a lock; changed prices, catalog,
+metadata or calculation code invalidate them. Session filtering, calendar-period
+comparisons and quote-price change calculations remain unchanged.
+
 One regression fit supplies annual growth and deviation metrics for each stock.
 Logo bytes are attached only after pagination/filtering chooses displayed rows.
 Market-cap views read company metadata only, with no price-history or regression

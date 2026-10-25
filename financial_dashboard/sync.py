@@ -8,7 +8,7 @@ from datetime import timedelta
 import pandas as pd
 from filelock import FileLock, Timeout
 
-from . import db, stocks, volume, leaderboard_cache
+from . import db, stocks, volume, leaderboard_cache, movers_cache
 from .config import ALPHAVANTAGE_API_KEY, FRED_API_KEY, LOCK_PATH
 from .providers import (
     alphavantage,
@@ -198,6 +198,11 @@ def synchronize(mode: str) -> list[dict]:
                                 "rows": leaderboard_cache.precompute()})
             except Exception as error:
                 results.append({"source": "stock_leaderboards", "status": "failed", "rows": 0, "error": str(error)})
+            try:
+                results.append({"source": "stock_movers", "status": "success",
+                                "rows": movers_cache.precompute()})
+            except Exception as error:
+                results.append({"source": "stock_movers", "status": "failed", "rows": 0, "error": str(error)})
     except Timeout:
         return [{"source": "all", "status": "failed", "rows": 0, "error": "A sync is already running"}]
 
