@@ -23,7 +23,7 @@ from financial_dashboard.analytics import (
     regression_observation_weights,
 )
 from financial_dashboard.status import freshness_status
-from financial_dashboard import stocks, volume, leaderboard_cache, movers_cache
+from financial_dashboard import stocks, volume, leaderboard_cache, movers_cache, crypto
 from financial_dashboard.stock_tables import table_html, movers_html, chart_identity_html
 from financial_dashboard.market_cap_map import map_html, industry_bars_html, cap_label
 
@@ -297,7 +297,8 @@ US_INSTRUMENTS = (
     "30-Year Treasury Yield", "S&P 500", "Broad U.S. Dollar Index",
     "U.S. Unemployment Rate", "U.S. House Price Index",
 )
-CRYPTO_INSTRUMENTS = ("Bitcoin", "Ethereum", "BNB")
+INSTRUMENTS.update({name: spec for name, spec in crypto.instruments().items() if name not in INSTRUMENTS})
+CRYPTO_INSTRUMENTS = tuple(crypto.instruments())
 COMMODITY_INSTRUMENTS = ("Gold", "Silver", "Oil (Brent)", "Oil — Brent Futures", "Copper")
 INSTRUMENTS.update(stocks.INSTRUMENTS)
 STOCK_INSTRUMENTS = tuple(stocks.INSTRUMENTS)
@@ -762,12 +763,13 @@ if dashboard_page == "Market Watch":
     }}
     </style>""", unsafe_allow_html=True)
     names = MARKETS["Stocks"]
-    st.subheader("Stocks")
+    market_watch_heading = st.empty()
+    market_watch_heading.subheader("Stocks")
     stored_tickers = {path.stem for path in stocks.STOCK_DIR.glob("*.parquet")}
     stored_count = len(stocks.TICKERS & stored_tickers)
     if stored_count < len(stocks.STOCKS):
         st.caption(f"Price history stored for {stored_count:,} of {len(stocks.STOCKS):,} listings. Remaining histories are not yet imported or unavailable from the provider.")
-    stock_view = st.radio("Stock view", ("Leaderboard", "Market cap"), horizontal=True)
+    stock_view = st.radio("View", ("Leaderboard", "Market cap"), horizontal=True)
     if stock_view == "Leaderboard":
         with st.container(key="stock_recent_emphasis"):
             half_life_years = recent_emphasis_controls(horizontal=True)
@@ -787,6 +789,16 @@ if dashboard_page == "Market Watch":
     with main_column:
         if stock_view == "Leaderboard":
             render_stock_leaderboard(ranking)
+        elif st.radio("Market-cap assets", ("Stocks", "Crypto"), horizontal=True,
+                      key="market_cap_assets") == "Crypto":
+            market_watch_heading.subheader("Crypto")
+            caps = crypto.market_caps()
+            if caps.empty:
+                st.info("No saved crypto ranking yet. Run the crypto data sync to import it.")
+            else:
+                st.markdown(map_html(caps, dark=not light_mode, label="Top 30 crypto assets by circulating market cap"), unsafe_allow_html=True)
+                cap_time = datetime.fromisoformat(crypto.load_catalog()["fetched_at"]).astimezone(ZoneInfo("America/New_York"))
+                st.caption(f"Top {len(caps)} crypto assets · Tile area = circulating market cap in USD. Stablecoins are included. Select a coin to open its chart. Ranking snapshot: {cap_time:%b %d, %Y, %I:%M %p %Z} · Source: CoinGecko. Price histories may have different coverage.")
         elif st.radio("Market-cap representation", ("Size map", "Industry rankings"), horizontal=True,
                       key="market_cap_representation") == "Industry rankings":
             groups = stocks.industry_cap_groups(full_ranking)
@@ -909,6 +921,9 @@ if frame.empty:
         st.info("No Treasury yield history is stored yet. Add your FRED key and run the initial backfill.")
     elif symbol == "IRAN_INFLATION":
         st.info("No Iran inflation history is stored yet. Run the initial backfill to import SCI monthly CPI data.")
+    elif symbol.startswith("CRYPTO:"):
+        st.selectbox("Chart", chart_options, key=chart_selector_key, on_change=reset_chart_range)
+        st.info(f"No saved history for {selected_name} yet. Run the crypto sync to retry its provider; other charts remain available.")
     elif symbol in {"XAU/USD", "XAG/USD", "BTC/USD", "ETH/USD", "BNB/USD"}:
         st.info(
             f"No {selected_name} history is stored yet. Add your free Alpha Vantage key to .env, then run the initial backfill."
@@ -1028,7 +1043,7 @@ else:
 with st.container(key="market_summary"):
     quote_column, metrics_column = st.columns([2.1, 5.4], vertical_alignment="center")
 with quote_column:
-    snapshot_identity = f'<span class="snapshot-name">{selected_name}</span>'
+    snapshot_identity = f'<span class="snapshot-name">{escape(selected_name)}</span>'
     market_cap_detail = ""
     if symbol.startswith("STOCK:"):
         ticker = symbol.removeprefix("STOCK:")
@@ -1043,7 +1058,7 @@ with quote_column:
                              f'Market cap: <strong>{cap_label(cap_value) if cap_value is not None else "Unavailable"}</strong></div>')
     st.markdown(
         f'<section class="market-snapshot"><div class="snapshot-head">{snapshot_identity}'
-        f'<span>{"Monthly rate" if symbol == "US_UNEMPLOYMENT" else "Quarterly index" if symbol == "US_HOUSE_PRICES" else "Monthly average" if symbol == "COPPER/USD" else "Estimated growth" if is_cumulative_interest else "Daily yield" if is_treasury_yield else "Daily close"}</span></div>'
+        f'<span>{"Daily observation" if latest["source"] == "coingecko_crypto_chart" else "Monthly rate" if symbol == "US_UNEMPLOYMENT" else "Quarterly index" if symbol == "US_HOUSE_PRICES" else "Monthly average" if symbol == "COPPER/USD" else "Estimated growth" if is_cumulative_interest else "Daily yield" if is_treasury_yield else "Daily close"}</span></div>'
         f'<div class="snapshot-price">{price_value}</div><div class="snapshot-detail">{price_detail}</div>{market_cap_detail}</section>',
         unsafe_allow_html=True,
     )
@@ -1381,7 +1396,9 @@ with chart_column:
 
 freshness_state, freshness = freshness_status(latest["market_date"], latest["source"])
 source_label = latest["source"].replace("_", " ").title()
-if symbol.startswith("STOCK:"):
+if latest["source"] == "coingecko_crypto_chart":
+    source_label = "CoinGecko · Aggregated daily USD observations, not exchange closing candles · Free history limited to the available past year"
+elif symbol.startswith("STOCK:"):
     source_label = "Yahoo Finance · Split/dividend-adjusted daily close · Nasdaq/NYSE listing directory plus retained S&P 500 snapshot; not historical membership"
 elif symbol == "US_UNEMPLOYMENT":
     source_label = "BLS via FRED · UNRATE · Monthly U-3 unemployment rate · Seasonally adjusted"

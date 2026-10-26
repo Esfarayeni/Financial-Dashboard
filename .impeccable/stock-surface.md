@@ -70,3 +70,33 @@ Disposition: ship; no material findings in the supplied desktop and mobile leade
 Documentation checked against `app.py`, `financial_dashboard/stocks.py`, and README: full-history adjusted-price trends, equal-weight company sector means, share-class deduplication, company-cap area, capped trend colors, hidden Price date/Cap updated columns, and local logo provenance are documented. The supplied captures verify the visible leaderboard and treemap at both sizes; interaction and data verification belong to the implementation checks.
 
 For this ordinary extension, this task-local note completes documentation. No `DESIGN.md`, `PRODUCT.md`, or design sidecar existed, so there is no existing global-document drift to refresh; their absence does not authorize creating a new visual world or normative tokens. This narrows the earlier FINISH template's global-document requirement to the preserved incumbent scope.
+
+## Crypto extension
+
+Market Watch → Market cap adds a native Stocks/Crypto selector. Crypto reuses the
+existing area-map component, dotted dashboard background, white controls and chart
+surface. Its saved CoinGecko snapshot contains the top 30 assets by circulating
+USD market cap, including stablecoins and tokenized assets when ranked. Tile area
+represents circulating cap; same-tab tile links open the corresponding Crypto
+chart. The caption identifies the ranking source and snapshot time, and the map
+retains horizontal scrolling on narrow screens.
+
+All 30 saved histories were verified in the implementation handoff. Existing
+BTC/ETH/BNB archive history is retained; Yahoo daily history is preferred for other
+supported assets, with CoinGecko aggregated daily observations as fallback, limited
+to the available past year. Chart source labels disclose that fallback and its
+coverage. Daily sync refreshes the catalog and histories; viewing the map or charts
+uses saved data. README documents sources and the crypto initialization command.
+
+Logo provenance: 26 cached PNGs from the CoinGecko-supplied image URLs on
+`coin-images.coingecko.com` or `assets.coingecko.com`; unavailable or unsupported
+logos retain text identity. No generated imagery or new visual tokens were added.
+
+Finish-review disposition: ship; the reviewer reported no material findings in
+`/private/tmp/crypto-market-cap.png`, `/private/tmp/crypto-market-cap-mobile.png`,
+`/private/tmp/crypto-chart.png`, and `/private/tmp/crypto-chart-mobile.png`. The
+automated detector was unavailable because its engine was missing; this verdict
+records the supplied visual review, not a successful detector run. Documentation
+was checked against `app.py`, `financial_dashboard/crypto.py`,
+`financial_dashboard/market_cap_map.py`, and README. This narrow extension updates
+the surface brief only and does not create global design documents.

@@ -294,7 +294,8 @@ daily job. No GitHub push is performed by a local backfill.
 | DataBourse | TEDPIX | Daily | Third-party public chart, not the official exchange API. |
 | World Bank Pink Sheet | Gold, silver | Monthly long history | Monthly averages/fixings. |
 | Alpha Vantage | Gold, silver | Daily | Free key and rate limits required. |
-| Yahoo Finance | Bitcoin, Ethereum, BNB, Brent futures (`BZ=F`) | Daily | Free, no key; daily history via `yfinance`; futures are separate from spot. |
+| Yahoo Finance | Crypto assets with supported tickers, Brent futures (`BZ=F`) | Daily | Free, no key; daily history via `yfinance`; futures are separate from spot. |
+| CoinGecko | Top-30 crypto circulating market caps; fallback crypto observations | Daily sync snapshot | Free public endpoint, rate limited. Stablecoins and tokenized assets are included if ranked in the top 30. Fallback history is limited to the available past year, and is not exchange closing candles. |
 | Blockchain.com Charts API | Bitcoin before Yahoo coverage | Daily | Free market-price index; earliest values are sparse/indicative. |
 | Gemini CSV archive | Ethereum before Yahoo coverage | Daily | Free, one-time historical extension. |
 | Binance public API | BNB before Yahoo coverage | Daily | Free BNB/USDT candles; USDT is used as a USD proxy. |
@@ -329,6 +330,25 @@ the long daily history for Bitcoin, Ethereum, and BNB:
 .venv/bin/python -m financial_dashboard.sync --backfill
 .venv/bin/streamlit run app.py
 ```
+
+The Crypto selector uses a locally saved top-30 CoinGecko circulating-market-cap
+ranking, refreshed by the existing daily sync. Market Watch → Market cap → Crypto
+shows a clickable area map of that same snapshot. No ranking or price requests
+run while viewing it. Existing BTC/ETH/BNB archive history is retained. Other
+coins use Yahoo's available daily history or, when unsupported, CoinGecko daily
+observations (up to the past year). Sources and coverage can differ between coins.
+To initialize or refresh just crypto without syncing the stock universe:
+
+```bash
+.venv/bin/python -m financial_dashboard.crypto --backfill
+# Subsequent updates download recent dates, not the entire history:
+.venv/bin/python -m financial_dashboard.crypto
+```
+
+CoinGecko rate limits defer remaining imports rather than aggressively retrying.
+The previous ranking and successful histories remain available on source failures.
+Coin logos are cached from the CoinGecko-supplied image URLs; missing/unsupported
+images fall back to the coin's name and ticker.
 
 ## Streamlit Community Cloud
 

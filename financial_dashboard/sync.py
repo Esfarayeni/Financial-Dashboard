@@ -8,7 +8,7 @@ from datetime import timedelta
 import pandas as pd
 from filelock import FileLock, Timeout
 
-from . import db, stocks, volume, leaderboard_cache, movers_cache
+from . import db, stocks, volume, leaderboard_cache, movers_cache, crypto
 from .config import ALPHAVANTAGE_API_KEY, FRED_API_KEY, LOCK_PATH
 from .providers import (
     alphavantage,
@@ -184,6 +184,8 @@ def synchronize(mode: str) -> list[dict]:
                     lambda: yahoo.fetch_all(latest_only=mode == "daily"),
                 )
             )
+            # The Yahoo provider above already updates BTC, ETH and BNB.
+            results.extend(crypto.sync(backfill=mode == "backfill", include_legacy=False))
             results.extend(stocks.synchronize(backfill=mode == "backfill"))
             try:
                 results.append({"source": "yahoo_sp500_volume", "status": "success",

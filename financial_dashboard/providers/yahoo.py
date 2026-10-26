@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import math
 
 import pandas as pd
 import yfinance as yf
@@ -21,13 +22,13 @@ class YahooFinanceError(RuntimeError):
     pass
 
 
-def _rows(frame: pd.DataFrame, ticker: str) -> list[Price]:
-    if ticker not in ASSETS:
+def _rows(frame: pd.DataFrame, ticker: str, asset: tuple[str, str] | None = None) -> list[Price]:
+    if asset is None and ticker not in ASSETS:
         raise ValueError(f"Unsupported Yahoo Finance ticker: {ticker}")
     if frame.empty or "Close" not in frame:
         raise YahooFinanceError(f"Yahoo Finance returned no close prices for {ticker}")
 
-    symbol, unit = ASSETS[ticker]
+    symbol, unit = asset if asset is not None else ASSETS[ticker]
     fetched_at = datetime.now(timezone.utc)
     today_utc = fetched_at.date()
     prices: list[Price] = []
@@ -36,7 +37,7 @@ def _rows(frame: pd.DataFrame, ticker: str) -> list[Price]:
             continue
         market_date = pd.Timestamp(timestamp).date()
         close = float(raw_close)
-        if market_date >= today_utc or close <= 0:
+        if market_date >= today_utc or not math.isfinite(close) or close <= 0:
             continue
         prices.append(
             Price(

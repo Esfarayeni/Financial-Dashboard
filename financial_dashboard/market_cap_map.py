@@ -10,6 +10,7 @@ COLORS = {
     "Consumer Discretionary": "#f2b274", "Consumer Staples": "#e4c775",
     "Health Care": "#94c0ad", "Industrials": "#a3bfc5",
     "Materials": "#c4a88c", "Real Estate": "#b8a8cf", "Utilities": "#a8bd93",
+    "Crypto assets": "#91b8d4",
 }
 
 
@@ -124,7 +125,7 @@ def map_html(caps: pd.DataFrame, dark=False, label="Top 50 companies by market c
     for sector, industry, row, (tx, ty, tw, th) in placements:
         name, ticker = str(row.Company), str(row.Ticker)
         cap = cap_label(row["Market cap (USD)"])
-        link = '?' + urlencode(dict(dashboard_view="Charts", dashboard_section="Stocks", chart=f"{name} ({ticker})", selected_range="All", compare="None"))
+        link = '?' + urlencode(dict(dashboard_view="Charts", dashboard_section=row.get("Section", "Stocks"), chart=row.get("Chart name", f"{name} ({ticker})"), selected_range="All", compare="None"))
         large = tw >= 140 and th >= 110
         logo = row.get("Logo")
         logo_class = 'cap-logo cap-logo-navy' if ticker in {'V', 'ABBV', 'UNH'} else 'cap-logo'
