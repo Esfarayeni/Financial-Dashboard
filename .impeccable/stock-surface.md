@@ -100,3 +100,46 @@ records the supplied visual review, not a successful detector run. Documentation
 was checked against `app.py`, `financial_dashboard/crypto.py`,
 `financial_dashboard/market_cap_map.py`, and README. This narrow extension updates
 the surface brief only and does not create global design documents.
+
+## USD/Toman historical extension
+
+The user-supplied USD2Rials CSV extends the existing USD/Toman chart strictly
+before Bonbast begins on October 9, 2012. The import adds 3,173 observations
+from March 20, 1982 through October 8, 2012: four annual averages, 192 monthly
+averages, 2,725 later BourseView observations, and 252 TGJU high/low midpoints.
+The first point represents Persian year 1360's average at period end. All 5,121
+Bonbast rows remain unchanged. Rials are divided by ten; Persian dates are
+canonical, annual/monthly averages use period ends, and no daily interpolation
+is created. The retained CSV, SHA-256 and import audit preserve provenance;
+BourseView/TGJU are supplied source labels and early primary methodology remains
+unverified.
+
+Historical source groups reuse the chart's existing accent with dotted lines.
+The source caption distinguishes these observations from Bonbast closes and
+discloses mixed-frequency regression. The existing regression is retained; it
+is not a frequency-balanced long-run estimate. Period-end labels are not
+verified publication dates for backtests. Daily sync continues to update
+Bonbast only. This extension preserves the incumbent dashboard and adds no
+visual tokens or imagery.
+
+Finish-review disposition: ship; the supplied review found no material fixes in
+`/private/tmp/usd-toman-history.png` and
+`/private/tmp/usd-toman-history-mobile.png`. The source caption was verified in
+the DOM and code but falls below the captured viewport. The automated detector
+was unavailable because its engine was absent; no detector pass is claimed.
+The implementation handoff reports 278 passing tests. Documentation was checked
+against `app.py` source grouping and source caption,
+`financial_dashboard/usd_history.py`, and README's USD/Toman historical extension
+section. This scoped note preserves the earlier brief's historical wording;
+no global design-document refresh or GitHub push is authorized by this task.
+
+USD/Toman frequency-balancing follow-up: the fit, residual percentile and
+deviation means now combine represented calendar-duration base weights with
+optional recency decay. Persian annual/monthly periods use their exact day
+counts; daily observations cover a day or a preceding quote gap of at most
+seven days. Long outages receive only a day. Historical predictions use prior
+observations only. The weights plot normalizes combined weights to a 100% maximum.
+Other instruments have no base-weight column and retain their calculations.
+The source note and README describe the new method; existing layout and styling
+are unchanged. The previously documented unbalanced fit is superseded by this
+follow-up. No new visual-system decisions or assets are introduced.

@@ -153,6 +153,20 @@ def _recency_weights(dates: pd.Series, half_life_years: float | None) -> pd.Seri
     return 2.0 ** (-age_years / half_life_years)
 
 
+def _regression_columns(frame: pd.DataFrame) -> list[str]:
+    return ["market_date", "close"] + (["regression_weight"] if "regression_weight" in frame else [])
+
+
+def _fit_weights(selected: pd.DataFrame, half_life_years: float | None) -> pd.Series:
+    weights = _recency_weights(selected.market_date, half_life_years)
+    if "regression_weight" in selected:
+        base = pd.to_numeric(selected.regression_weight, errors="coerce")
+        if not np.isfinite(base).all() or (base <= 0).any():
+            raise ValueError("Regression base weights must be positive and finite")
+        weights = weights * base
+    return weights
+
+
 def _residual_envelope(residuals: pd.Series, coverage: float, weights: pd.Series | None) -> float:
     if coverage == 1:
         return float(residuals.abs().max())
@@ -169,14 +183,14 @@ def regression_observation_weights(
     frame: pd.DataFrame, start_date: date | pd.Timestamp,
     end_date: date | pd.Timestamp | None = None, half_life_years: float | None = None,
 ) -> pd.DataFrame:
-    """Relative weights for one selected training fit; newest observation is 1.
+    """Relative combined weights for one fit; largest weight is 1.
 
     These are not normalized to sum to one. For a historical prediction pass its
     training_end, not its evaluation date, to avoid displaying a future weight.
     """
     selected, _, _ = _fit_logarithmic_regression(frame, start_date, half_life_years=half_life_years, end_date=end_date)
-    return pd.DataFrame({"market_date": selected.market_date,
-                         "weight": _recency_weights(selected.market_date, half_life_years)})
+    weights = _fit_weights(selected, half_life_years)
+    return pd.DataFrame({"market_date": selected.market_date, "weight": weights / weights.max()})
 
 
 def historical_corridor_crossings(
@@ -192,7 +206,8 @@ def historical_corridor_crossings(
     the upper boundary or falling through the lower. Consecutive outside
     observations do not repeat a signal, even if an initial exit was filtered.
     On the first prediction, the prior close's fitted position initializes state.
-    None for half-life uses equal weights and an ordinary residual percentile.
+    None for half-life disables recency decay. Optional regression_weight values
+    still apply to the fit and residual percentile, using only prior rows.
     No trades, execution assumptions, or returns are simulated.
     """
     if not 0 < coverage <= 1:
@@ -202,13 +217,14 @@ def historical_corridor_crossings(
     start = pd.Timestamp(start_date)
     if end_date is not None and pd.Timestamp(end_date) < start:
         raise ValueError("Channel end must be on or after Channel start")
-    selected = frame.loc[frame.market_date >= start, ["market_date", "close"]].copy()
+    selected = frame.loc[frame.market_date >= start, _regression_columns(frame)].copy()
     if end_date is not None:
         selected = selected[selected.market_date <= pd.Timestamp(end_date)]
     selected = selected[np.isfinite(selected.close) & (selected.close > 0)].sort_values("market_date").reset_index(drop=True)
     if selected.market_date.duplicated().any():
         raise ValueError("Backtest requires one close per observation date")
     _recency_weights(selected.market_date, half_life_years)
+    base_weights = _fit_weights(selected, None).to_numpy(dtype=float)
     if len(selected) <= minimum_observations:
         raise ValueError("Historical crossings need at least 31 observations: 30 for training and one to test")
     x = (selected.market_date - selected.market_date.iloc[0]).dt.total_seconds().to_numpy() / 86400
@@ -218,6 +234,7 @@ def historical_corridor_crossings(
     for i in range(minimum_observations, len(selected)):
         # NumPy avoids constructing thousands of pandas fits for long daily series.
         weights = np.ones(i) if half_life_years is None else np.exp2((x[:i] - x[i - 1]) / (365.25 * half_life_years))
+        weights = weights * base_weights[:i]
         total = weights.sum()
         x_mean = float(np.sum(weights * x[:i]) / total)
         y_mean = float(np.sum(weights * y[:i]) / total)
@@ -228,7 +245,7 @@ def historical_corridor_crossings(
         slope = float(np.sum(weights * centered_x * (y[:i] - y_mean)) / denominator)
         intercept = y_mean - slope * x_mean
         residuals = y[:i] - (intercept + slope * x[:i])
-        if half_life_years is None:
+        if half_life_years is None and "regression_weight" not in selected:
             width = float(np.quantile(np.abs(residuals), coverage))
         elif coverage == 1:
             width = float(np.abs(residuals).max())
@@ -267,7 +284,7 @@ def _fit_logarithmic_regression(
 ) -> tuple[pd.DataFrame, pd.Series, float]:
     """Return selected data, fitted log prices, and the daily slope."""
     start = pd.Timestamp(start_date)
-    selected = frame.loc[frame["market_date"] >= start, ["market_date", "close"]].copy()
+    selected = frame.loc[frame["market_date"] >= start, _regression_columns(frame)].copy()
     if end_date is not None:
         end = pd.Timestamp(end_date)
         if end < start:
@@ -279,7 +296,7 @@ def _fit_logarithmic_regression(
 
     elapsed_days = (selected["market_date"] - selected["market_date"].iloc[0]).dt.days.astype(float)
     log_prices = selected["close"].map(math.log)
-    weights = _recency_weights(selected["market_date"], half_life_years)
+    weights = _fit_weights(selected, half_life_years)
     x_mean = float((elapsed_days * weights).sum() / weights.sum())
     y_mean = float((log_prices * weights).sum() / weights.sum())
     x_centered = elapsed_days - x_mean
@@ -313,7 +330,7 @@ def logarithmic_regression_channel(
         frame, start_date, minimum_observations, half_life_years, end_date
     )
     log_prices = selected["close"].map(math.log)
-    weights = None if half_life_years is None else _recency_weights(selected["market_date"], half_life_years)
+    weights = None if half_life_years is None and "regression_weight" not in selected else _fit_weights(selected, half_life_years)
     envelope = _residual_envelope(log_prices - fitted_log, coverage, weights)
 
     dates = selected["market_date"] if output_dates is None else pd.to_datetime(output_dates)
@@ -361,8 +378,9 @@ def logarithmic_regression_deviation_stats(
     statistic is mean(abs(price/trend - 1)) * 100, independent of corridor width.
     The fourth is the full corridor width at the latest date divided by its price,
     expressed as a percentage.
-    By default each observation has equal weight. A half-life applies exponential
-    calendar-age weights consistently to the fit, corridor and historical means.
+    By default each observation has equal weight. Optional regression_weight
+    values provide frequency balancing; a half-life multiplies them by
+    calendar-age decay consistently for the fit, corridor and historical means.
     """
     if not 0 < coverage <= 1:
         raise ValueError("Coverage must be greater than 0 and at most 1")
@@ -380,13 +398,13 @@ def logarithmic_regression_metrics(frame, start_date, coverage=0.95, half_life_y
 
 
 def _deviation_stats_from_fit(selected, fitted_log, coverage, half_life_years):
-    weights = _recency_weights(selected["market_date"], half_life_years)
+    weights = _fit_weights(selected, half_life_years)
     residuals = selected["close"].map(math.log) - fitted_log
     # exp(log(price/trend)) - 1 = (price - trend) / trend.
     percent_deviation = float((residuals.map(math.expm1).abs() * weights).sum() / weights.sum()) * 100
     if percent_deviation <= 1e-10:
         percent_deviation = 0.0
-    width = _residual_envelope(residuals, coverage, None if half_life_years is None else weights)
+    width = _residual_envelope(residuals, coverage, None if half_life_years is None and "regression_weight" not in selected else weights)
     if width <= 1e-12:
         return None, None, percent_deviation, 0.0
     latest_residual = float(residuals.iloc[-1])
@@ -411,10 +429,12 @@ def logarithmic_regression_r_squared(
     """Return goodness-of-fit for the log-price regression, from 0 to 1."""
     selected, fitted_log, _ = _fit_logarithmic_regression(frame, start_date, minimum_observations)
     actual_log = selected["close"].map(math.log)
-    total = float(((actual_log - actual_log.mean()) ** 2).sum())
+    weights = _fit_weights(selected, None)
+    mean = float((actual_log * weights).sum() / weights.sum())
+    total = float((((actual_log - mean) ** 2) * weights).sum())
     if total == 0:
         return 1.0
-    residual = float(((actual_log - fitted_log) ** 2).sum())
+    residual = float((((actual_log - fitted_log) ** 2) * weights).sum())
     return max(0.0, 1 - residual / total)
 
 

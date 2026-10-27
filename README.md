@@ -315,6 +315,40 @@ flowchart LR
 
 ## Setup
 
+### USD/Toman historical extension
+
+`data/usd_irt_history/USD2Rials.csv` is a user-supplied historical archive with
+BourseView/TGJU source labels, retained alongside its SHA-256 and import audit.
+Only observations strictly before the first stored Bonbast date are imported.
+Rials are divided by 10, Persian dates are canonical, and identical duplicate
+dates are removed. Repeated BourseView values in Persian years 1360–1363 are
+collapsed to annual observations and 1364–1379 to monthly observations, dated at
+the end of their Persian period. No daily interpolation is created. Later rows
+retain their observation dates. TGJU values are high/low midpoints, not Bonbast
+closes; early primary methodology remains unverified. The chart draws the
+extension dotted. USD/Toman regression is frequency-balanced by represented
+calendar duration: exact Persian annual/monthly period lengths and one day per
+daily quote, extending over preceding quote gaps of at most seven days (weekends
+and holidays). Longer outages receive only one day. These base weights are
+multiplied by optional recent-emphasis decay for the fit, 95% corridor, deviation
+metrics and historical fits. The full corridor still includes every observation.
+The weights plot normalizes the combined weights so its largest weight is 100%.
+Channel dates select whole dated observations, including their period weight;
+no observations are interpolated. Historical average timestamps are period
+labels, not verified publication dates for trading backtests.
+Bonbast always supersedes the extension from its first observation onward.
+
+To reproduce the one-time import from the retained file:
+
+```bash
+.venv/bin/python -m financial_dashboard.usd_history
+```
+
+Daily synchronization continues to update Bonbast only; it does not re-download
+this static CSV or overwrite the historical extension.
+
+### Local setup
+
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install -r requirements-dev.txt

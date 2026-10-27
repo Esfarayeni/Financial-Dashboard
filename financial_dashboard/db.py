@@ -145,6 +145,15 @@ def load_prices(symbol: str, path: Path = DB_PATH) -> pd.DataFrame:
             CROSS JOIN spx_csv_coverage AS spx_csv
             CROSS JOIN yahoo_start AS yahoo
             WHERE p.symbol = ?
+              -- Imported legacy USD history only fills the pre-Bonbast gap,
+              -- even if an earlier Bonbast backfill is added later.
+              AND NOT (
+                  p.symbol = 'USD/IRT' AND p.source LIKE 'usd2rials_%'
+                  AND EXISTS (
+                      SELECT 1 FROM prices b WHERE b.symbol = p.symbol
+                      AND b.source LIKE 'bonbast%' AND b.market_date <= p.market_date
+                  )
+              )
               -- Do not interleave monthly averages with the existing daily
               -- Alpha Vantage series. The Pink Sheet fills only the earlier gap.
               AND NOT (

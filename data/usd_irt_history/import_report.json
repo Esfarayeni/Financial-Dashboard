@@ -1,0 +1,20 @@
+{
+  "input_rows": 13109,
+  "duplicate_rows": 1,
+  "gregorian_mismatches": 103,
+  "excluded_at_or_after_bonbast": 4039,
+  "bonbast_start": "2012-10-09",
+  "imported_observations": 3173,
+  "first_observation": "1982-03-20",
+  "last_observation": "2012-10-08",
+  "observations_by_source": {
+    "usd2rials_bourseview_annual_average": 4,
+    "usd2rials_bourseview_monthly_average": 192,
+    "usd2rials_bourseview_observation": 2725,
+    "usd2rials_tgju_midpoint": 252
+  },
+  "original_sha256": "cfdc3234e2695358f7a853681eddabaf18644a3c7e10bdc1e3b36fa5adaf8096",
+  "date_policy": "Persian date canonical; annual/monthly values at Persian period end",
+  "units": "Original IRR divided by 10 to Toman; no interpolation",
+  "provenance": "User-supplied USD2Rials.csv; source labels BourseView/TGJU. Early primary methodology unverified."
+}

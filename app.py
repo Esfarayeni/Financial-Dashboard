@@ -23,7 +23,7 @@ from financial_dashboard.analytics import (
     regression_observation_weights,
 )
 from financial_dashboard.status import freshness_status
-from financial_dashboard import stocks, volume, leaderboard_cache, movers_cache, crypto
+from financial_dashboard import stocks, volume, leaderboard_cache, movers_cache, crypto, usd_history
 from financial_dashboard.stock_tables import table_html, movers_html, chart_identity_html
 from financial_dashboard.market_cap_map import map_html, industry_bars_html, cap_label
 
@@ -312,7 +312,8 @@ MARKETS = {"U.S.": US_INSTRUMENTS, "Iran": IRAN_INSTRUMENTS,
 def read_prices(symbol: str, adjusted: bool = True) -> pd.DataFrame:
     if symbol.startswith("STOCK:"):
         return stocks.load_prices(symbol, adjusted=adjusted)
-    return db.load_prices(symbol)
+    frame = db.load_prices(symbol)
+    return usd_history.with_regression_weights(frame) if symbol == "USD/IRT" and not frame.empty else frame
 
 
 @st.cache_data(max_entries=16, show_spinner="Loading stock rankings…")
@@ -496,15 +497,15 @@ def build_chart(
     # Historical crypto archives and Yahoo Finance are one continuous price
     # series.  Rendering every provider as its own trace creates an artificial
     # visual break at a provider handoff, even when consecutive closes agree.
-    # The Shiller portion of the S&P 500 is the one intentional exception: it
-    # is lower-frequency data and remains visibly dotted.
+    # Lower-frequency/qualified historical extensions remain visibly dotted.
     source_groups = (
         list(frame.groupby("source", sort=False))
-        if "source" in frame.columns and "shiller_monthly" in set(frame["source"])
+        if "source" in frame.columns and any(s == "shiller_monthly" or str(s).startswith("usd2rials_") for s in frame["source"])
         else [("combined", frame)]
     )
     for source, source_frame in source_groups:
-        is_long_term = source == "shiller_monthly"
+        is_usd_history = str(source).startswith("usd2rials_")
+        is_long_term = source == "shiller_monthly" or is_usd_history
         dates, values = [], []
         previous_date = None
         for market_date, close in zip(source_frame["market_date"], source_frame["close"], strict=True):
@@ -517,7 +518,7 @@ def build_chart(
         fig.add_trace(
             go.Scatter(
                 x=dates, y=values, mode="lines", connectgaps=False,
-                name="US equities long-term (monthly)" if is_long_term else title,
+                name=("USD/Toman historical · " + source.removeprefix("usd2rials_").replace("_", " ")) if is_usd_history else "US equities long-term (monthly)" if is_long_term else title,
                 line={
                     "color": accent,
                     "width": 2,
@@ -1272,7 +1273,7 @@ crossing_signals = None
 if backtest_enabled:
     try:
         backtest = read_historical_crossings(
-            chart_primary_frame[["market_date", "close"]], corridor_start, corridor_end,
+            chart_primary_frame, corridor_start, corridor_end,
             st.session_state["backtest_half_life"], 0.95 if corridor_95 else 1.0,
         )
         visible_backtest = backtest[(backtest.market_date >= visible.market_date.iloc[0]) &
@@ -1396,7 +1397,9 @@ with chart_column:
 
 freshness_state, freshness = freshness_status(latest["market_date"], latest["source"])
 source_label = latest["source"].replace("_", " ").title()
-if latest["source"] == "coingecko_crypto_chart":
+if symbol == "USD/IRT" and any(str(s).startswith("usd2rials_") for s in frame["source"]):
+    source_label = "Bonbast · Before Oct 9, 2012: user-supplied USD2Rials CSV (BourseView/TGJU labels), dotted. Early annual/monthly averages are dated at period end; later historical observations include high/low midpoints, not Bonbast closes. Early provenance unverified. Regression is weighted by represented calendar duration; recent emphasis adds time decay."
+elif latest["source"] == "coingecko_crypto_chart":
     source_label = "CoinGecko · Aggregated daily USD observations, not exchange closing candles · Free history limited to the available past year"
 elif symbol.startswith("STOCK:"):
     source_label = "Yahoo Finance · Split/dividend-adjusted daily close · Nasdaq/NYSE listing directory plus retained S&P 500 snapshot; not historical membership"
