@@ -17,6 +17,8 @@ from .providers import (
     crypto_archive,
     databourse,
     fred,
+    housing,
+    tindex,
     sci,
     shiller,
     worldbank,
@@ -57,6 +59,12 @@ def synchronize(mode: str) -> list[dict]:
 
             sci_fetcher = sci.fetch_history if mode == "backfill" else sci.fetch_latest_completed
             results.append(_run_provider(sci.SOURCE, mode, sci_fetcher))
+
+            # Fixed, bundled historical archive; no daily network request.
+            if mode == "backfill" or db.load_prices(housing.SYMBOL).empty:
+                results.append(_run_provider(housing.SOURCE, mode, housing.fetch_history))
+            tindex_fetcher = tindex.fetch_history if mode == "backfill" else tindex.fetch_latest_completed
+            results.append(_run_provider(tindex.SOURCE, mode, tindex_fetcher))
 
             if FRED_API_KEY:
                 sp500_fetcher = (

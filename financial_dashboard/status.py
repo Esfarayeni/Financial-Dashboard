@@ -17,6 +17,8 @@ SOURCE_CADENCE_DAYS = {
     "fred_unemployment": 70,
     "fred_house_prices": 220,
     "sci": 45,
+    "cbi_tehran_housing_archive": 60,
+    "tindex_tehran_asking": 14,
     "alpha_vantage": 4,
     "coingecko": 3,
     "world_bank_pink_sheet": 45,
@@ -27,6 +29,8 @@ SOURCE_CADENCE_DAYS = {
 
 def expected_cadence(source: str) -> str:
     """Return the human-readable expected publication cadence for a source."""
+    if source == "tindex_tehran_asking":
+        return "weekly / irregular"
     if source == "fred_house_prices":
         return "quarterly"
     return "monthly" if SOURCE_CADENCE_DAYS.get(source, 4) > 10 else "daily"

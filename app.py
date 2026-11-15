@@ -289,9 +289,11 @@ INSTRUMENTS = {
     "U.S. Unemployment Rate": {"symbol": "US_UNEMPLOYMENT", "accent": "#246df0", "decimals": 1},
     "U.S. House Price Index": {"symbol": "US_HOUSE_PRICES", "accent": "#089981", "decimals": 2},
     "Iran Inflation": {"symbol": "IRAN_INFLATION", "accent": "#c05a8b", "decimals": 2},
+    "Tehran Housing — Transaction Price": {"symbol": "TEHRAN_HOUSING", "accent": "#089981", "decimals": 0},
+    "Tehran Housing — Asking Prices": {"symbol": "TEHRAN_HOUSING_ASKING", "accent": "#7b61ff", "decimals": 0},
     "TEDPIX": {"symbol": "TEDPIX", "accent": "#089981", "decimals": 0},
 }
-IRAN_INSTRUMENTS = ("USD / Toman", "Iran Inflation", "TEDPIX")
+IRAN_INSTRUMENTS = ("USD / Toman", "Iran Inflation", "TEDPIX", "Tehran Housing — Transaction Price", "Tehran Housing — Asking Prices")
 US_INSTRUMENTS = (
     "U.S. Inflation", "Fed Funds Target", "2-Year Treasury Yield", "10-Year Treasury Yield",
     "30-Year Treasury Yield", "S&P 500", "Broad U.S. Dollar Index",
@@ -450,6 +452,8 @@ def format_price(value: float, symbol: str, decimals: int) -> str:
     amount = abs(value)
     if symbol == "USD/IRT":
         return f"{sign}{amount:,.0f} T"
+    if symbol in {"TEHRAN_HOUSING", "TEHRAN_HOUSING_ASKING"}:
+        return f"{sign}{amount:,.0f} T / m²"
     if symbol in {"BRENT/USD", "BRENT_FUTURES/USD"}:
         return f"{sign}${amount:,.{decimals}f} / bbl"
     if symbol == "COPPER/USD":
@@ -509,7 +513,8 @@ def build_chart(
         dates, values = [], []
         previous_date = None
         for market_date, close in zip(source_frame["market_date"], source_frame["close"], strict=True):
-            if break_long_gaps and previous_date is not None and (market_date - previous_date).days > 120:
+            gap_limit = 40 if title == "Tehran Housing — Transaction Price" else 120
+            if break_long_gaps and previous_date is not None and (market_date - previous_date).days > gap_limit:
                 dates.append(market_date)
                 values.append(None)
             dates.append(market_date)
@@ -874,7 +879,11 @@ if query.get("chart") in chart_options and chart_selector_key not in st.session_
 if st.session_state.get(chart_selector_key) not in chart_options:
     st.session_state[chart_selector_key] = chart_options[0]
 selected_name = st.session_state[chart_selector_key]
-comparison_options = ("None",) + tuple(name for name in chart_options if name != selected_name)
+# Fed Funds Target is a shared benchmark across every market section.
+comparison_options = ("None",) + tuple(
+    name for name in dict.fromkeys((*chart_options, "Fed Funds Target"))
+    if name != selected_name
+)
 if query.get("compare") in comparison_options and "comparison_chart" not in st.session_state:
     st.session_state["comparison_chart"] = query["compare"]
 if st.session_state.get("comparison_chart") not in comparison_options:
@@ -1059,7 +1068,7 @@ with quote_column:
                              f'Market cap: <strong>{cap_label(cap_value) if cap_value is not None else "Unavailable"}</strong></div>')
     st.markdown(
         f'<section class="market-snapshot"><div class="snapshot-head">{snapshot_identity}'
-        f'<span>{"Daily observation" if latest["source"] == "coingecko_crypto_chart" else "Monthly rate" if symbol == "US_UNEMPLOYMENT" else "Quarterly index" if symbol == "US_HOUSE_PRICES" else "Monthly average" if symbol == "COPPER/USD" else "Estimated growth" if is_cumulative_interest else "Daily yield" if is_treasury_yield else "Daily close"}</span></div>'
+        f'<span>{"Daily observation" if latest["source"] == "coingecko_crypto_chart" else "Monthly rate" if symbol == "US_UNEMPLOYMENT" else "Quarterly index" if symbol == "US_HOUSE_PRICES" else "Asking-price observation" if symbol == "TEHRAN_HOUSING_ASKING" else "Monthly transaction average" if symbol == "TEHRAN_HOUSING" else "Monthly average" if symbol == "COPPER/USD" else "Estimated growth" if is_cumulative_interest else "Daily yield" if is_treasury_yield else "Daily close"}</span></div>'
         f'<div class="snapshot-price">{price_value}</div><div class="snapshot-detail">{price_detail}</div>{market_cap_detail}</section>',
         unsafe_allow_html=True,
     )
@@ -1083,11 +1092,13 @@ elif is_inflation:
     annual_days = (latest_cpi_date - (latest_cpi_date - pd.DateOffset(years=1))).days
     _, yearly_pct = period_change(comparison_primary_frame, annual_days)
     metric_entries = [("Monthly change", None, monthly_pct), ("Yearly change", None, yearly_pct)]
-elif symbol == "COPPER/USD":
+elif symbol in {"COPPER/USD", "TEHRAN_HOUSING"}:
     metric_entries = []
     for label, months in (("Monthly change", 1), ("Quarterly change", 3), ("Yearly change", 12), ("5-year change", 60)):
         target = frame["market_date"].iloc[-1].to_period("M") - months
         prior = frame[frame["market_date"].dt.to_period("M") <= target]
+        if symbol == "TEHRAN_HOUSING":
+            prior = prior[prior["market_date"].dt.to_period("M") == target]
         if prior.empty:
             metric_entries.append((label, None, None))
         else:
@@ -1103,6 +1114,9 @@ else:
     ))
     if is_cumulative_interest:
         metric_entries = [(label, None, percentage) for label, _, percentage in metric_entries]
+    if symbol == "TEHRAN_HOUSING_ASKING":
+        metric_entries[0] = ("Previous observation", *period_change(frame, None))
+        metric_entries[3] = ("Yearly change", *(calendar_year_change(frame, 1) or (None, None)))
 if is_inflation:
     for years in (5, 10):
         result = calendar_year_change(comparison_primary_frame, years)
@@ -1160,7 +1174,8 @@ st.query_params.update(
 with st.container(key="chart_workspace"):
     chart_column, details_column = st.columns([5.7, 1.8], vertical_alignment="top")
 logarithmic = st.session_state["logarithmic"]
-corridor_enabled = st.session_state["corridor_enabled"]
+corridor_available = len(frame) >= 30
+corridor_enabled = st.session_state["corridor_enabled"] and corridor_available
 corridor_95 = st.session_state["corridor_95"]
 backtest_available = corridor_enabled and not is_policy_rate and comparison_frame is None
 backtest_enabled = st.session_state["historical_crossings"] and backtest_available
@@ -1338,8 +1353,9 @@ chart = build_chart(
     step_line=is_fed_target and not is_cumulative_interest,
     value_suffix=("×" if is_cumulative_interest or comparison_frame is not None else "%")
     if is_treasury_yield or is_fed_target or symbol == "US_UNEMPLOYMENT"
-    else (" pts" if comparison_frame is None else "×") if symbol == "US_HOUSE_PRICES" else "",
-    break_long_gaps=is_treasury_yield,
+    else (" pts" if comparison_frame is None else "×") if symbol == "US_HOUSE_PRICES"
+    else (" T/m²" if comparison_frame is None else "×") if symbol in {"TEHRAN_HOUSING", "TEHRAN_HOUSING_ASKING"} else "",
+    break_long_gaps=is_treasury_yield or symbol == "TEHRAN_HOUSING",
     fit_prices_only=selected_range != "All",
     crossing_signals=crossing_signals,
     observation_weights=display_weights,
@@ -1366,8 +1382,8 @@ with details_column:
     st.toggle(
         "Regression corridor",
         key="corridor_enabled",
-        help="Fit a log-price trend from the selected start date, using Recent emphasis when enabled.",
-        disabled=is_policy_rate,
+        help="Fit a log-price trend from the selected start date, using Recent emphasis when enabled. At least 30 observations are required.",
+        disabled=is_policy_rate or not corridor_available,
     )
     st.toggle(
         "95% corridor",
@@ -1375,6 +1391,8 @@ with details_column:
         help="Use the 95th percentile of absolute log residuals. With Recent emphasis, this is a weighted percentile, not 95% of observation count.",
         disabled=not corridor_enabled or is_policy_rate,
     )
+    if not corridor_available:
+        st.caption("Regression corridor needs at least 30 observations; this series currently has " + str(len(frame)) + ".")
 with chart_column:
     st.plotly_chart(
         chart,
@@ -1397,6 +1415,10 @@ with chart_column:
 
 freshness_state, freshness = freshness_status(latest["market_date"], latest["source"])
 source_label = latest["source"].replace("_", " ").title()
+if symbol == "TEHRAN_HOUSING":
+    source_label = "CBI-reported Tehran transaction prices · Source-linked secondary archive (91 monthly observations, 2016–August 2024; 10 months missing) · Toman/m², Tehran only · Monthly averages dated at Persian month end, not publication dates · Historical series; no live updates · Not a quality-adjusted national housing index"
+elif symbol == "TEHRAN_HOUSING_ASKING":
+    source_label = 'Tindex · Tehran advertised asking-price average · Toman/m² · Irregular dated observations from the history table, not completed sales · Headline refresh dates are not observation dates · <a href="https://tindex.app/indicators/housing/average-housing-price-in-tehranm/" target="_blank">Source and history</a>'
 if symbol == "USD/IRT" and any(str(s).startswith("usd2rials_") for s in frame["source"]):
     source_label = "Bonbast · Before Oct 9, 2012: user-supplied USD2Rials CSV (BourseView/TGJU labels), dotted. Early annual/monthly averages are dated at period end; later historical observations include high/low midpoints, not Bonbast closes. Early provenance unverified. Regression is weighted by represented calendar duration; recent emphasis adds time decay."
 elif latest["source"] == "coingecko_crypto_chart":
